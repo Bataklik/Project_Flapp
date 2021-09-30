@@ -23,7 +23,7 @@
   <Class Name="Flapp_BLL.Bestuurder">
     <Position X="4.25" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAABAAEAAAAAgAAAAAgAAAAAI=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEABEAEAAAAAgAAAAAgAABAAI=</HashCode>
       <FileName>Bestuurder.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
