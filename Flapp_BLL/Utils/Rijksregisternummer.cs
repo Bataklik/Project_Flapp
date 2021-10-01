@@ -1,4 +1,5 @@
 ﻿using Flapp_BLL.Exceptions;
+using System;
 using System.Linq;
 
 namespace Flapp_BLL.Utils
@@ -16,6 +17,13 @@ namespace Flapp_BLL.Utils
         public string ToonNummer()
         {
             return _nummer;
+        }
+
+        public Rijksregisternummer VeranderNummer(string r)
+        {
+            if (r.Count(e => char.IsDigit(e)) != 11) { throw new RijksregisternummerException("Het identificatienummer bevat 11 cijfers"); }
+            _nummer = r;
+            return this;
         }
     }
 }
