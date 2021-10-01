@@ -14,7 +14,14 @@ namespace Flapp_BLL.Utils
         {
             //Rijksregisternummer
             if (r.Count(e => char.IsDigit(e)) != 11) { throw new RijksregisternummerException("Het identificatienummer bevat 11 cijfers"); }
+            
             _nummer = r;
+            
+        }
+
+        public Rijksregisternummer(DateTime dt) {
+            if (rijksregisterControle(dt)) { throw new RijksregisternummerException("De geboortedatum komt niet overeen met het rijksregisternummer"); }
+            _datum = datumToString(dt);
         }
 
         public string datumToString(DateTime geboorteDatum) {
@@ -22,9 +29,32 @@ namespace Flapp_BLL.Utils
             return _datum;
         }
 
-        public void rijksregisterControle(DateTime geboorteDatum) {
+
+
+        public bool rijksregisterControle(DateTime geboorteDatum) {
             _datum = datumToString(geboorteDatum);
-            if (_datum == _nummer) ; // NIET JUIST IK FIX DIT LATER WEL 
+
+            string dagGeboorte = _datum[0].ToString();
+            dagGeboorte += _datum[1].ToString();
+
+            string maandGeboorte = _datum[3].ToString();
+            maandGeboorte += _datum[4].ToString();
+
+            string jaarGeboorte = _datum[6].ToString();
+            jaarGeboorte += _datum[7].ToString();
+
+            string jaarRijksregister = _nummer[0].ToString();
+            jaarRijksregister += _nummer[1];
+
+            string maandRijksregister = _nummer[3].ToString();
+            maandRijksregister += _nummer[4];
+
+            string dagRijksregister = _nummer[6].ToString();
+            dagRijksregister += _nummer[7];
+
+            if (dagGeboorte == dagRijksregister && maandGeboorte == maandRijksregister && jaarGeboorte == jaarRijksregister)
+                return true;
+            else return false;
         }
         
 
