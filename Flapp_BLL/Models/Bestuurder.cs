@@ -20,9 +20,13 @@ namespace Flapp_BLL.Models
         {
             Naam = naam;
             Voornaam = voornaam;
-            Geboortedatum = geboortedatum;
+            zetUTC(geboortedatum);
             Rijksregisternummer = rijksregisternummer;
             Rijbewijs = rijbewijs;
+        }
+        public void zetUTC(DateTime dateTime)
+        {
+            Geboortedatum = dateTime.ToUniversalTime();
         }
 
         public string Naam

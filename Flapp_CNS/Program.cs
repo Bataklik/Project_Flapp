@@ -1,4 +1,5 @@
 ﻿using Flapp_BLL.Utils;
+using Flapp_BLL.Models;
 using System;
 
 namespace Flapp_CNS
@@ -7,10 +8,10 @@ namespace Flapp_CNS
     {
         static void Main(string[] args)
         {
-            Rijksregisternummer r = new Rijksregisternummer("90.02.01-999-02");
-            Console.WriteLine(r.ToonNummer());
-            r.VeranderNummer("90.02.01-888-02");
-            Console.WriteLine(r.ToonNummer());
+            Rijksregisternummer r = new Rijksregisternummer("99.08.06-289.17");
+            Bestuurder b = new Bestuurder("Declerck", "Tibo", DateTime.Now, r, RijbewijsType.B);
+            string datum = b.Geboortedatum.ToString();
+            Console.WriteLine(datum);
         }
     }
 }
