@@ -10,8 +10,10 @@ namespace Flapp_CNS
         {
             Rijksregisternummer r = new Rijksregisternummer("99.08.06-289.17");
             Bestuurder b = new Bestuurder("Declerck", "Tibo", DateTime.Now, r, RijbewijsType.B);
-            string datum = b.Geboortedatum.ToString();
-            Console.WriteLine(datum);
+            DateTime dt = b.Geboortedatum;
+            string datumString = r.datumToString(dt);
+            Console.WriteLine(datumString);
+            Console.WriteLine(r.ToonNummer());
         }
     }
 }
