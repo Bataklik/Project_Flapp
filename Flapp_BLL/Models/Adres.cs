@@ -58,5 +58,19 @@ namespace Flapp_BLL.Models
             Stad = stad;
             Postcode = postcode;
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Adres adres &&
+                   _straat == adres._straat &&
+                   _huisnummer == adres._huisnummer &&
+                   _stad == adres._stad &&
+                   _postcode == adres._postcode;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(_straat, _huisnummer, _stad, _postcode);
+        }
     }
 }
