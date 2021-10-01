@@ -25,5 +25,18 @@ namespace Flapp_BLL.Utils
             _nummer = r;
             return this;
         }
+
+        #region Override
+        public override bool Equals(object obj)
+        {
+            return obj is Rijksregisternummer rijksregisternummer &&
+                   _nummer == rijksregisternummer._nummer;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(_nummer);
+        }
+        #endregion
     }
 }
