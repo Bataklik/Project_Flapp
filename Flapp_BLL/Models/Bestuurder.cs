@@ -1,6 +1,7 @@
 ﻿using Flapp_BLL.Exceptions;
 using Flapp_BLL.Utils;
 using System;
+using System.Collections.Generic;
 
 namespace Flapp_BLL.Models
 {
@@ -17,11 +18,11 @@ namespace Flapp_BLL.Models
 
         public Bestuurder(string naam, string voornaam, DateTime geboortedatum, Rijksregisternummer rijksregisternummer, RijbewijsType rijbewijs)
         {
-            _naam = naam;
-            _voornaam = voornaam;
-            _geboortedatum = geboortedatum;
-            _rijksregisternummer = rijksregisternummer;
-            _rijbewijs = rijbewijs;
+            Naam = naam;
+            Voornaam = voornaam;
+            Geboortedatum = geboortedatum;
+            Rijksregisternummer = rijksregisternummer;
+            Rijbewijs = rijbewijs;
         }
 
         public string Naam
@@ -47,6 +48,7 @@ namespace Flapp_BLL.Models
         public Adres Adres
         {
             get => _adres;
+            set => _adres = value;
         }
 
         public DateTime Geboortedatum
@@ -55,18 +57,48 @@ namespace Flapp_BLL.Models
             set => _geboortedatum = value;
         }
 
-        public Rijksregisternummer Rijksregisternummer { get => _rijksregisternummer; }
+        public Rijksregisternummer Rijksregisternummer
+        {
+            get => _rijksregisternummer;
+            private set => _rijksregisternummer = value;
+        }
 
-        public RijbewijsType Rijbewijs { get => _rijbewijs; set => _rijbewijs = value;; }
+        public RijbewijsType Rijbewijs
+        {
+            get => _rijbewijs;
+            set => _rijbewijs = value;
+        }
 
         public Voertuig Voertuig
         {
             get => _voertuig;
+            private set => _voertuig = value;
         }
 
         public Tankkaart Tankkaart
         {
             get => _tankkaart;
+            private set => _tankkaart = value;
         }
+
+        #region Overrides
+        public override bool Equals(object obj)
+        {
+            return obj is Bestuurder bestuurder &&
+                   _naam == bestuurder._naam &&
+                   _voornaam == bestuurder._voornaam &&
+                   EqualityComparer<Adres>.Default.Equals(_adres, bestuurder._adres) &&
+                   _geboortedatum == bestuurder._geboortedatum &&
+                   EqualityComparer<Rijksregisternummer>.Default.Equals(_rijksregisternummer, bestuurder._rijksregisternummer) &&
+                   _rijbewijs == bestuurder._rijbewijs &&
+                   EqualityComparer<Voertuig>.Default.Equals(_voertuig, bestuurder._voertuig) &&
+                   EqualityComparer<Tankkaart>.Default.Equals(_tankkaart, bestuurder._tankkaart);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(_naam, _voornaam, _adres, _geboortedatum, _rijksregisternummer, _rijbewijs, _voertuig, _tankkaart);
+        }
+        #endregion
     }
 }
