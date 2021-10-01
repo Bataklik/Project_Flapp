@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Runtime.Serialization;
 
-namespace Flapp_BLL.Models
+namespace Flapp_BLL.Exceptions
 {
     internal class AdresException : Exception
     {
