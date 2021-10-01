@@ -7,7 +7,10 @@ namespace Flapp_CNS
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(new Rijksregisternummer("90.02.01-999-02").ToonNummer());
+            Rijksregisternummer r = new Rijksregisternummer("90.02.01-999-02");
+            Console.WriteLine(r.ToonNummer());
+            r.VeranderNummer("90.02.01-888-02");
+            Console.WriteLine(r.ToonNummer());
         }
     }
 }
