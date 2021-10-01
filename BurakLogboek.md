@@ -9,5 +9,5 @@
 | 2u   | Project uitleg                                             |
 | 2u   | Groepje samenstellen & rollen, Github & C# project starten |
 | 3u   | Nieuwe klassen & mappen in project gemaakt                 |
-| \_   | \_                                                         |
+| 3u   | Bestuurder en Tankaart Update & andere klassen             |
 | \_   | \_                                                         |
