@@ -10,6 +10,7 @@ namespace Flapp_BLL.Utils
 
         public Rijksregisternummer(string r)
         {
+            //Rijksregisternummer
             if (r.Count(e => char.IsDigit(e)) != 11) { throw new RijksregisternummerException("Het identificatienummer bevat 11 cijfers"); }
             _nummer = r;
         }
