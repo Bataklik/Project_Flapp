@@ -14,18 +14,22 @@ namespace Flapp_BLL.Models
         private Bestuurder _bestuurder;
         private bool _geblokkeerd;
 
+        #region Constructors
         public Tankkaart(int kaartnummer, DateTime geldigheidsdatum)
         {
             Kaartnummer = kaartnummer;
             Geldigheidsdatum = geldigheidsdatum;
             _geblokkeerd = false;
         }
+        #endregion
 
+        #region Props
         public int Kaartnummer
         {
             get => _kaartnummer;
             set => _kaartnummer = value;
         }
+
         public DateTime Geldigheidsdatum
         {
             get => _geldigheidsdatum;
@@ -35,11 +39,13 @@ namespace Flapp_BLL.Models
                 _geldigheidsdatum = value;
             }
         }
+
         public int Pincode
         {
             get => _pincode;
             private set => _pincode = value;
         }
+
         public Brandstof Brandstoftype
         {
             get => _brandstoftype;
@@ -49,6 +55,7 @@ namespace Flapp_BLL.Models
                 _brandstoftype = value;
             }
         }
+
         public Bestuurder Bestuurder
         {
             get => Bestuurder;
@@ -59,18 +66,18 @@ namespace Flapp_BLL.Models
             }
         }
 
-
         public bool Geblokkeerd
         {
             get => _geblokkeerd;
         }
+        #endregion
 
-
-
+        #region Methods
         public void VeranderBlokeerStatus(bool status)
         {
             _geblokkeerd = status;
         }
+        #endregion
 
         #region Overrides
         public override bool Equals(object obj)

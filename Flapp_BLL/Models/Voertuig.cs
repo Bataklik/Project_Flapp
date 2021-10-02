@@ -11,5 +11,21 @@
         private string _kleur;
         private int _aantaldeuren;
         private Bestuurder _bestuurder;
+
+        #region Constructors
+
+        #endregion
+
+        #region Props
+
+        #endregion
+
+        #region Methods
+
+        #endregion
+
+        #region Overrides
+
+        #endregion
     }
 }

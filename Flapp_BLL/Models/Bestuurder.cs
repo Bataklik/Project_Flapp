@@ -16,19 +16,18 @@ namespace Flapp_BLL.Models
         private Voertuig _voertuig;
         private Tankkaart _tankkaart;
 
+        #region Constructors
         public Bestuurder(string naam, string voornaam, DateTime geboortedatum, Rijksregisternummer rijksregisternummer, RijbewijsType rijbewijs)
         {
             Naam = naam;
             Voornaam = voornaam;
-            zetUTC(geboortedatum);
+            Geboortedatum = geboortedatum;
             Rijksregisternummer = rijksregisternummer;
             Rijbewijs = rijbewijs;
         }
-        public void zetUTC(DateTime dateTime)
-        {
-            Geboortedatum = dateTime.ToUniversalTime();
-        }
+        #endregion
 
+        #region Props
         public string Naam
         {
             get => _naam;
@@ -58,7 +57,10 @@ namespace Flapp_BLL.Models
         public DateTime Geboortedatum
         {
             get => _geboortedatum;
-            set => _geboortedatum = value;
+            set
+            {
+                _geboortedatum = value.ToUniversalTime();
+            }
         }
 
         public Rijksregisternummer Rijksregisternummer
@@ -84,6 +86,11 @@ namespace Flapp_BLL.Models
             get => _tankkaart;
             private set => _tankkaart = value;
         }
+        #endregion
+
+        #region Methods
+
+        #endregion
 
         #region Overrides
         public override bool Equals(object obj)
