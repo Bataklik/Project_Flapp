@@ -29,8 +29,6 @@ namespace Flapp_BLL.Utils
             return _datum;
         }
 
-
-
         public bool rijksregisterControle(DateTime geboorteDatum) {
             _datum = datumToString(geboorteDatum);
 
@@ -53,10 +51,10 @@ namespace Flapp_BLL.Utils
             dagRijksregister += _nummer[7];
 
             if (dagGeboorte == dagRijksregister && maandGeboorte == maandRijksregister && jaarGeboorte == jaarRijksregister)
-                return true;
-            else return false;
+               return true;
+            else 
+               return false;
         }
-        
 
         public string ToonNummer()
         {
