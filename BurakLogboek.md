@@ -10,4 +10,5 @@
 | 2u   | Groepje samenstellen & rollen, Github & C# project starten |
 | 3u   | Nieuwe klassen & mappen in project gemaakt                 |
 | 3u   | Bestuurder en Tankaart Update & andere klassen             |
+| 2u   | Refactoring model klassen en enkele aanpassingen           |
 | \_   | \_                                                         |
