@@ -9,7 +9,7 @@ namespace Flapp_CNS
         static void Main(string[] args)
         {
             Rijksregisternummer r1 = new Rijksregisternummer("21.10.02-289.65");
-            Rijksregisternummer r2 = new Rijksregisternummer("99.05.12-273.26");
+            Rijksregisternummer r2 = new Rijksregisternummer("99%05.12-273.26");
 
             Bestuurder b1 = new Bestuurder("Declerck", "Tibo", DateTime.Now, r1, RijbewijsType.B);
             Bestuurder b2 = new Bestuurder("Balci", "Burak", DateTime.Parse("12/05/1999"), r2, RijbewijsType.B);

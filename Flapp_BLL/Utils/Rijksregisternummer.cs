@@ -29,9 +29,15 @@ namespace Flapp_BLL.Utils
         {
             if (r.Count(e => char.IsDigit(e)) != 11) { throw new RijksregisternummerException("Het identificatienummer bevat 11 cijfers"); }
             if (r.Count(e => e == '.') != 3) { throw new RijksregisternummerException("Het Rijksregisternummer is ongeldig!"); }
+            if (r.Count(e => e == '-') != 1) { throw new RijksregisternummerException("Het Rijksregisternummer is ongeldig!"); }
+            return true;
+        }
+
+        private bool ControleEersteDeelRijksregisternummer() {
             return true;
         }
         #region Code
+
         //public Rijksregisternummer(DateTime dt)
         //{
         //    /* Rijksregisternummer kun je niet zomaar uitrekenen,
