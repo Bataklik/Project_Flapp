@@ -13,44 +13,7 @@ namespace Flapp_BLL.Utils
         private string _stad;
         private int _postcode;
 
-        public string Straat
-        {
-            get => _straat;
-            private set
-            {
-                if (string.IsNullOrEmpty(value)) { throw new StraatException("Straatnaam mag niet leeg zijn!"); }
-                _straat = value;
-            }
-        }
-
-        public int Huisnummer
-        {
-            get => _huisnummer;
-            private set
-            {
-                _huisnummer = value;
-            }
-        }
-
-        public string Stad
-        {
-            get => _stad;
-            private set
-            {
-                if (string.IsNullOrEmpty(value)) { throw new StadException("Stadnaam mag niet leeg zijn!"); }
-                _stad = value;
-            }
-        }
-
-        public int Postcode
-        {
-            get => _postcode; private set
-            {
-                if (value < 1000 || value > 9999) { throw new PostcodeException("Postcodes zijn groter dan 1000 en kleiner dan 9999"); }
-                _postcode = value;
-            }
-        }
-
+        #region Construtors
         public Adres(string straat, int huisnummer, string stad, int postcode)
         {
             Straat = straat;
@@ -58,6 +21,36 @@ namespace Flapp_BLL.Utils
             Stad = stad;
             Postcode = postcode;
         }
+        #endregion
+
+        #region Props
+        public string Straat {
+            get => _straat;
+            private set {
+                if (string.IsNullOrEmpty(value)) { throw new StraatException("Straatnaam mag niet leeg zijn!"); }
+                _straat = value;
+            }
+        }
+        public int Huisnummer {
+            get => _huisnummer;
+            private set {
+                _huisnummer = value;
+            }
+        }
+        public string Stad {
+            get => _stad;
+            private set {
+                if (string.IsNullOrEmpty(value)) { throw new StadException("Stadnaam mag niet leeg zijn!"); }
+                _stad = value;
+            }
+        }
+        public int Postcode {
+            get => _postcode; private set {
+                if (value < 1000 || value > 9999) { throw new PostcodeException("Postcodes zijn groter dan 1000 en kleiner dan 9999"); }
+                _postcode = value;
+            }
+        }
+        #endregion
 
         #region Overrides
         public override bool Equals(object obj)
@@ -72,6 +65,10 @@ namespace Flapp_BLL.Utils
         public override int GetHashCode()
         {
             return HashCode.Combine(_straat, _huisnummer, _stad, _postcode);
+        }
+
+        public override string ToString() {
+            return $"[Adres] {Straat}, {Huisnummer}, {Stad}, {Postcode}";
         }
         #endregion
     }

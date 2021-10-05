@@ -28,5 +28,9 @@ namespace Flapp_BLL.Utils
             return HashCode.Combine(_naam);
         }
         #endregion
+
+        public override string ToString() {
+            return $"[Brandstof] {Naam}";
+        }
     }
 }

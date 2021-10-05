@@ -81,7 +81,9 @@ namespace Flapp_BLL.Models
         #endregion
 
         #region Overrides
-        
+        public override string ToString() {
+            return $"[Voertuig] {Merk}, {Model}, {Chassisnummer}, {Nummerplaat}, {_brandstoftype}, {TypeWagen}, {Kleur}, {AantalDeuren}";
+        }
         #endregion
     }
 }
