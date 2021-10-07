@@ -94,6 +94,9 @@ namespace Flapp_BLL.Models
         {
             return HashCode.Combine(_kaartnummer, _geldigheidsdatum, _pincode, _brandstoftype, _bestuurder, _geblokkeerd);
         }
+        public override string ToString() {
+            return $"[Tankkaart] {Kaartnummer}, {Geldigheidsdatum}";
+        }
         #endregion
     }
 }

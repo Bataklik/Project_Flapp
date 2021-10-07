@@ -25,6 +25,17 @@ namespace Flapp_BLL.Models
             Rijksregisternummer = rijksregisternummer;
             Rijbewijs = rijbewijs;
         }
+
+        public Bestuurder(string naam, string voornaam, Adres adres, DateTime geboortedatum, Rijksregisternummer rijksregisternummer, RijbewijsType rijbewijs, Voertuig voertuig, Tankkaart tankkaart){
+            Naam = naam;
+            Voornaam = voornaam;
+            Geboortedatum = geboortedatum;
+            Rijksregisternummer = rijksregisternummer;
+            Rijbewijs = rijbewijs;
+            Adres = adres;
+            Voertuig = voertuig;
+            Tankkaart = tankkaart;
+        }
         #endregion
 
         #region Props
@@ -109,6 +120,10 @@ namespace Flapp_BLL.Models
         public override int GetHashCode()
         {
             return HashCode.Combine(_naam, _voornaam, _adres, _geboortedatum, _rijksregisternummer, _rijbewijs, _voertuig, _tankkaart);
+        }
+
+        public override string ToString() {
+            return $"[Bestuurder] {_naam}, {_voornaam}, {_adres}, {_geboortedatum}, {_rijksregisternummer}, {_rijbewijs}, {_voertuig}, {_tankkaart}";
         }
         #endregion
     }
