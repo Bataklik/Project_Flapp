@@ -8,70 +8,163 @@ namespace Flapp_BLL.Models
     
     public class Voertuig
     {
-        private string _merk;
-        private string _model;
-        private string _chassisnummer;
-        private string _nummerplaat;
-        private Brandstof _brandstoftype;
-        private string _typewagen;
-        private string _kleur;
-        private int _aantaldeuren;
-        private Bestuurder _bestuurder;
-
+        public int _VoertuigID { get; private set; }
+        public string _Merk { get; private set; }
+        public string _Model { get; private set; }
+        public string _ChassisNummer { get; private set; }
+        public string _Nummerplaat { get; private set; }
+        public string _Brandstoftype { get; private set; }
+        public string _VoertuigType { get; private set; }
+        public string _Kleur { get; private set; }
+        public int _Aantaldeuren { get; private set; }
+        public Bestuurder _Bestuurder { get; private set; }
         #region Constructors
-        public Voertuig(string merk, string model, string chassisnummer, string nummerplaat, Brandstof brandstoftype, string typewagen, string kleur, int aantaldeuren)
+        public Voertuig(int voertuigID, string merk, string model, string chassisNummer, string nummerPlaat, string brandstofType, string voertuigType, string kleur, int deuren, Bestuurder bestuurder)
         {
-            Merk = merk;
-            Model = model;
-            Chassisnummer = chassisnummer;
-            Nummerplaat = nummerplaat;
-            _brandstoftype = brandstoftype;
-            TypeWagen = typewagen;
-            Kleur = kleur;
-            AantalDeuren = aantaldeuren;
+            ZetVoeruigId(voertuigID);
+            ZetMerk(merk);
+            ZetModel(model);
+            ZetChassisNummer(chassisNummer);
+            ZetNummerplaat(nummerPlaat);
+            ZetBrandstofType(brandstofType);
+            ZetVoertuigType(voertuigType);
+            ZetKleur(kleur);
+            ZetAantalDeuren(deuren);
+            ZetBestuurder(bestuurder);
         }
         #endregion
 
         #region Props        
-        public string Merk
+        public void ZetVoeruigId(int id)
         {
-            get => _merk;
-            set => _merk = value;
-        }        public string Model
-        {
-            get => _model;
-            set => _model = value;
-        }
-        public string Chassisnummer
-        {
-            get => _chassisnummer;
-            set => _chassisnummer = value;            
-        }
-        public string Nummerplaat
-        {
-            get => _nummerplaat;
-            set => _nummerplaat = value;            
-        }
-        public string TypeWagen
-        {
-            get => _typewagen;
-            set => _typewagen = value;
-        }
-        public string Kleur
-        {
-            get => _kleur;
-            set => _kleur = value;
-        }
-        public int AantalDeuren
-        {
-            get => _aantaldeuren;
-            set
+            if (id > 0)
             {
-                if (value < 0)
-                    throw new AantalDeurenException("Aantal deuren moet groter zijn dan 0!");
-                if (value > 6)
-                    throw new AantalDeurenException("Aantal deuren moet kleiner zijn dan 6!");
-                _aantaldeuren = value;
+                _VoertuigID= id;
+            }
+            else
+            {
+                throw new VoertuigException("Voertuig - ID kleiner dan 0");
+            }
+        }
+        public void ZetMerk(string merk)
+        {
+            if (!string.IsNullOrWhiteSpace(merk))
+            {
+                _Merk = merk;
+            }
+            else
+            {
+                throw new VoertuigException("Voertuig - Merk mag niet leeg zijn");
+            }
+        }
+        public void ZetModel(string model)
+        {
+            if (!string.IsNullOrWhiteSpace(model))
+            {
+                _Model = model;
+            }
+            else
+            {
+                throw new VoertuigException("Voertuig - Model mag niet leeg zijn");
+            }
+        }
+        public void ZetChassisNummer(string nummer)
+        {
+            if (!string.IsNullOrWhiteSpace(nummer))
+            {
+                if (nummer.Length == 3 + 6 + 8)
+                {
+                    _ChassisNummer = nummer;
+                }
+                else
+                {
+                    throw new VoertuigException("Voertuig - Chassisnummer moet 17 karakters lang zijn");
+                }
+
+            }
+            else
+            {
+                throw new VoertuigException("Voertuig - Chassisnummer mag niet leeg zijn");
+            }
+        }
+        public void ZetNummerplaat(string nummerplaat)
+        {
+            if (!string.IsNullOrWhiteSpace(nummerplaat))
+            {
+                _Nummerplaat = nummerplaat;
+            }
+            else
+            {
+                throw new VoertuigException("Voertuig - Nummerplaat mag niet leeg zijn");
+            }
+        }
+        public void ZetBrandstofType(string brandstof)
+        {
+            if (!string.IsNullOrWhiteSpace(brandstof))
+            {
+                _Brandstoftype = brandstof;
+            }
+            else
+            {
+                throw new VoertuigException("Voertuig - Brandstoftype mag niet leeg zijn");
+            }
+        }
+        public void ZetVoertuigType(string voertuigType)
+        {
+            if (!string.IsNullOrWhiteSpace(voertuigType))
+            {
+                _VoertuigType = voertuigType;
+            }
+            else
+            {
+                throw new VoertuigException("Voertuig - Voertuigtype mag niet leeg zijn");
+            }
+        }
+        public void ZetKleur(string kleur)
+        {
+            if (!string.IsNullOrWhiteSpace(kleur))
+            {
+                _Kleur = kleur;
+            }
+            else
+            {
+                throw new VoertuigException("Voertuig - Kleur mag niet leeg zijn");
+            }
+        }
+        public void ZetAantalDeuren(int deuren)
+        {
+            if (deuren > 0 && deuren <= 7)
+            {
+                _Aantaldeuren = deuren;
+            }
+            else
+            {
+                throw new VoertuigException("Voertuig - Aantal deuren moet tussen 0 en 7 zijn");
+            }
+        }
+        public void ZetBestuurder(Bestuurder bestuurder)
+        {
+            if (_Bestuurder != null) // heeft vehicle al een driver?
+            {
+                if (_Bestuurder != bestuurder)
+                {
+                    _Bestuurder = bestuurder;
+                }
+                else
+                {
+                    throw new VoertuigException("");
+                }
+            }
+            else
+            {
+                if (bestuurder != null) // is driver niet null
+                {
+                    _Bestuurder = bestuurder;
+                }
+                else
+                {
+                    throw new VoertuigException("Voertuig - Bestuurder mag niet leeg zijn");
+                }
             }
         }
         #endregion
@@ -81,7 +174,7 @@ namespace Flapp_BLL.Models
         #endregion
 
         #region Overrides
-        
+
         #endregion
     }
 }
