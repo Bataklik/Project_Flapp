@@ -9,7 +9,7 @@ namespace Flapp_BLL.Models
     {
         private int _kaartnummer; //!
         private DateTime _geldigheidsdatum; //!
-        private int _pincode;
+        private string _pincode;
         private Brandstof _brandstoftype;
         private Bestuurder _bestuurder;
         private bool _geblokkeerd;
