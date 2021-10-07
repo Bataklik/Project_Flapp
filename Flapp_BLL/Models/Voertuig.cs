@@ -13,13 +13,14 @@ namespace Flapp_BLL.Models
         public string _Model { get; private set; }
         public string _ChassisNummer { get; private set; }
         public string _Nummerplaat { get; private set; }
-        public string _Brandstoftype { get; private set; }
+        public Brandstof _Brandstoftype { get; private set; }
         public string _VoertuigType { get; private set; }
         public string _Kleur { get; private set; }
         public int _Aantaldeuren { get; private set; }
         public Bestuurder _Bestuurder { get; private set; }
+
         #region Constructors
-        public Voertuig(int voertuigID, string merk, string model, string chassisNummer, string nummerPlaat, string brandstofType, string voertuigType, string kleur, int deuren, Bestuurder bestuurder)
+        public Voertuig(int voertuigID, string merk, string model, string chassisNummer, string nummerPlaat, Brandstof brandstofType, string voertuigType, string kleur, int deuren, Bestuurder bestuurder)
         {
             ZetVoeruigId(voertuigID);
             ZetMerk(merk);
@@ -98,16 +99,11 @@ namespace Flapp_BLL.Models
                 throw new VoertuigException("Voertuig - Nummerplaat mag niet leeg zijn");
             }
         }
-        public void ZetBrandstofType(string brandstof)
+        public void ZetBrandstofType(Brandstof brandstof)
         {
-            if (!string.IsNullOrWhiteSpace(brandstof))
-            {
-                _Brandstoftype = brandstof;
-            }
-            else
-            {
-                throw new VoertuigException("Voertuig - Brandstoftype mag niet leeg zijn");
-            }
+            
+             _Brandstoftype = brandstof;
+            
         }
         public void ZetVoertuigType(string voertuigType)
         {
@@ -174,7 +170,10 @@ namespace Flapp_BLL.Models
         #endregion
 
         #region Overrides
-
+        public override string ToString()
+        {
+            return $"[Voertuig] {_VoertuigType}, {_Merk}, {_Model}, {_ChassisNummer}, {_Nummerplaat}, {_Brandstoftype}, {_VoertuigType}, {_Kleur}, {_Aantaldeuren}, {_Bestuurder}";
+        }
         #endregion
     }
 }
