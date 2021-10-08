@@ -1,28 +1,14 @@
 ﻿using Flapp_BLL.Exceptions;
 using Flapp_BLL.Utils;
-using System;
-using System.Collections.Generic;
 
-namespace Flapp_BLL.Models    
+namespace Flapp_BLL.Models
 {
-    
     public class Voertuig
     {
-        public int _VoertuigID { get; private set; }
-        public string _Merk { get; private set; }
-        public string _Model { get; private set; }
-        public string _ChassisNummer { get; private set; }
-        public string _Nummerplaat { get; private set; }
-        public Brandstof _Brandstoftype { get; private set; }
-        public string _VoertuigType { get; private set; }
-        public string _Kleur { get; private set; }
-        public int _Aantaldeuren { get; private set; }
-        public Bestuurder _Bestuurder { get; private set; }
-
         #region Constructors
         public Voertuig(int voertuigID, string merk, string model, string chassisNummer, string nummerPlaat, Brandstof brandstofType, string voertuigType, string kleur, int deuren, Bestuurder bestuurder)
         {
-            ZetVoeruigId(voertuigID);
+            ZetVoeruigID(voertuigID);
             ZetMerk(merk);
             ZetModel(model);
             ZetChassisNummer(chassisNummer);
@@ -36,11 +22,24 @@ namespace Flapp_BLL.Models
         #endregion
 
         #region Props        
-        public void ZetVoeruigId(int id)
+        public int VoertuigID { get; private set; }
+        public string Merk { get; private set; }
+        public string Model { get; private set; }
+        public string ChassisNummer { get; private set; }
+        public string Nummerplaat { get; private set; }
+        public Brandstof Brandstoftype { get; private set; }
+        public string VoertuigType { get; private set; }
+        public string Kleur { get; private set; }
+        public int Aantaldeuren { get; private set; }
+        public Bestuurder Bestuurder { get; private set; }
+        #endregion
+
+        #region ZetMethods
+        public void ZetVoeruigID(int id)
         {
             if (id > 0)
             {
-                _VoertuigID= id;
+                VoertuigID = id;
             }
             else
             {
@@ -51,7 +50,7 @@ namespace Flapp_BLL.Models
         {
             if (!string.IsNullOrWhiteSpace(merk))
             {
-                _Merk = merk;
+                Merk = merk;
             }
             else
             {
@@ -62,7 +61,7 @@ namespace Flapp_BLL.Models
         {
             if (!string.IsNullOrWhiteSpace(model))
             {
-                _Model = model;
+                Model = model;
             }
             else
             {
@@ -75,7 +74,7 @@ namespace Flapp_BLL.Models
             {
                 if (nummer.Length == 3 + 6 + 8)
                 {
-                    _ChassisNummer = nummer;
+                    ChassisNummer = nummer;
                 }
                 else
                 {
@@ -92,7 +91,7 @@ namespace Flapp_BLL.Models
         {
             if (!string.IsNullOrWhiteSpace(nummerplaat))
             {
-                _Nummerplaat = nummerplaat;
+                Nummerplaat = nummerplaat;
             }
             else
             {
@@ -101,15 +100,15 @@ namespace Flapp_BLL.Models
         }
         public void ZetBrandstofType(Brandstof brandstof)
         {
-            
-             _Brandstoftype = brandstof;
-            
+
+            Brandstoftype = brandstof;
+
         }
         public void ZetVoertuigType(string voertuigType)
         {
             if (!string.IsNullOrWhiteSpace(voertuigType))
             {
-                _VoertuigType = voertuigType;
+                VoertuigType = voertuigType;
             }
             else
             {
@@ -120,7 +119,7 @@ namespace Flapp_BLL.Models
         {
             if (!string.IsNullOrWhiteSpace(kleur))
             {
-                _Kleur = kleur;
+                Kleur = kleur;
             }
             else
             {
@@ -131,7 +130,7 @@ namespace Flapp_BLL.Models
         {
             if (deuren > 0 && deuren <= 7)
             {
-                _Aantaldeuren = deuren;
+                Aantaldeuren = deuren;
             }
             else
             {
@@ -140,11 +139,11 @@ namespace Flapp_BLL.Models
         }
         public void ZetBestuurder(Bestuurder bestuurder)
         {
-            if (_Bestuurder != null) // heeft vehicle al een driver?
+            if (Bestuurder != null) // heeft vehicle al een driver?
             {
-                if (_Bestuurder != bestuurder)
+                if (Bestuurder != bestuurder)
                 {
-                    _Bestuurder = bestuurder;
+                    Bestuurder = bestuurder;
                 }
                 else
                 {
@@ -155,7 +154,7 @@ namespace Flapp_BLL.Models
             {
                 if (bestuurder != null) // is driver niet null
                 {
-                    _Bestuurder = bestuurder;
+                    Bestuurder = bestuurder;
                 }
                 else
                 {
@@ -172,7 +171,7 @@ namespace Flapp_BLL.Models
         #region Overrides
         public override string ToString()
         {
-            return $"[Voertuig] {_VoertuigType}, {_Merk}, {_Model}, {_ChassisNummer}, {_Nummerplaat}, {_Brandstoftype}, {_VoertuigType}, {_Kleur}, {_Aantaldeuren}, {_Bestuurder}";
+            return $"[Voertuig] {VoertuigType}, {Merk}, {Model}, {ChassisNummer}, {Nummerplaat}, {Brandstoftype}, {VoertuigType}, {Kleur}, {Aantaldeuren}, {Bestuurder}";
         }
         #endregion
     }
