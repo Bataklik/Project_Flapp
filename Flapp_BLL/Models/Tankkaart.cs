@@ -7,96 +7,76 @@ namespace Flapp_BLL.Models
 {
     public class Tankkaart
     {
-        private int _kaartnummer; //!
-        private DateTime _geldigheidsdatum; //!
-        private int _pincode;
-        private Brandstof _brandstoftype;
-        private Bestuurder _bestuurder;
-        private bool _geblokkeerd;
-
         #region Constructors
         public Tankkaart(int kaartnummer, DateTime geldigheidsdatum)
         {
-            Kaartnummer = kaartnummer;
-            Geldigheidsdatum = geldigheidsdatum;
-            _geblokkeerd = false;
+            ZetKaartnummer(kaartnummer);
+            ZetGeldigheidsdatum(geldigheidsdatum);
+            ZetGeblokkeerd(false);
         }
         #endregion
 
         #region Props
-        public int Kaartnummer
-        {
-            get => _kaartnummer;
-            set => _kaartnummer = value;
-        }
+        public int Kaartnummer { get; private set; }
+        public DateTime Geldigheidsdatum { get; private set; }
+        public string Pincode { get; private set; }
+        public Brandstof Brandstoftype { get; private set; }
+        public Bestuurder Bestuurder { get; private set; }
+        public bool Geblokkeerd { get; private set; }
+        #endregion
 
-        public DateTime Geldigheidsdatum
+        #region ZetMethods
+        public void ZetKaartnummer(int kn)
         {
-            get => _geldigheidsdatum;
-            set
-            {
-                if (value < DateTime.Now) { throw new GeldigeheidsdatumException("Geledigheidsdatum is al verlopen!"); }
-                _geldigheidsdatum = value;
-            }
+            if (kn < 1) { throw new TankkaartException("Tankkaart kaartnummer is kleiner dan 1!"); }
+            Kaartnummer = kn;
         }
-
-        public int Pincode
+        public void ZetGeldigheidsdatum(DateTime gd)
         {
-            get => _pincode;
-            private set => _pincode = value;
+            if (gd < DateTime.Now) { throw new TankkaartException("Tankkaart Geldigheidsdatum mag niet kleiner zijn dan vandaag!"); }
+            Geldigheidsdatum = gd;
         }
-
-        public Brandstof Brandstoftype
+        public void ZetGeblokkeerd(bool b)
         {
-            get => _brandstoftype;
-            private set
-            {
-                if (value == null) { throw new BrandstofException("Brandstof mag niet null zijn"); }
-                _brandstoftype = value;
-            }
+            Geblokkeerd = b;
         }
-
-        public Bestuurder Bestuurder
+        public void ZetBrandstofType(Brandstof b)
         {
-            get => Bestuurder;
-            private set
-            {
-                if (value == null) { throw new BestuurderException("Bestuurder bestaat niet!"); }
-                _bestuurder = value;
-            }
+            if (b == null) { throw new BrandstofException("Tankkaart brandstof mag niet null zijn"); }
+            Brandstoftype = b;
         }
-
-        public bool Geblokkeerd
+        public void ZetPincode(string p)
         {
-            get => _geblokkeerd;
+            Pincode = p;
+        }
+        public void ZetBestuurder(Bestuurder b)
+        {
+            if (b == null) { throw new BestuurderException("Tankkaart bestuurder bestaat niet!"); }
+            Bestuurder = b;
         }
         #endregion
 
         #region Methods
-        public void VeranderBlokeerStatus(bool status)
-        {
-            _geblokkeerd = status;
-        }
+
         #endregion
 
         #region Overrides
-        public override bool Equals(object obj)
-        {
-            return obj is Tankkaart tankkaart &&
-                   _kaartnummer == tankkaart._kaartnummer &&
-                   _geldigheidsdatum == tankkaart._geldigheidsdatum &&
-                   _pincode == tankkaart._pincode &&
-                   EqualityComparer<Brandstof>.Default.Equals(_brandstoftype, tankkaart._brandstoftype) &&
-                   EqualityComparer<Bestuurder>.Default.Equals(_bestuurder, tankkaart._bestuurder) &&
-                   _geblokkeerd == tankkaart._geblokkeerd;
-        }
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(_kaartnummer, _geldigheidsdatum, _pincode, _brandstoftype, _bestuurder, _geblokkeerd);
-        }
         public override string ToString()
         {
             return $"[Tankkaart] {Kaartnummer}, {Geldigheidsdatum}";
+        }
+        public override bool Equals(object obj)
+        {
+            return obj is Tankkaart tankkaart &&
+                   Kaartnummer == tankkaart.Kaartnummer &&
+                   Geldigheidsdatum == tankkaart.Geldigheidsdatum &&
+                   EqualityComparer<Bestuurder>.Default.Equals(Bestuurder, tankkaart.Bestuurder) &&
+                   Geblokkeerd == tankkaart.Geblokkeerd;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Kaartnummer, Geldigheidsdatum, Bestuurder, Geblokkeerd);
         }
         #endregion
     }
