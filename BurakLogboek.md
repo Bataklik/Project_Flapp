@@ -11,5 +11,10 @@
 | 3u   | Nieuwe klassen & mappen in project gemaakt                 |
 | 3u   | Bestuurder en Tankaart Update & andere klassen             |
 | 2u   | Refactoring model klassen en enkele aanpassingen           |
-| 2u   | Refactor bestuurder classe                                 |
-| \_   | \_                                                         |
+| 1u   | Refactor bestuurder classe                                 |
+| 2u   | Refactor Voertuig & Tankkaart classe                       |
+| 0u   | ------------------------------------                       |
+| 0u   | ------------------------------------                       |
+| 0u   | ------------------------------------                       |
+| 0u   | ------------------------------------                       |
+
