@@ -7,7 +7,6 @@ namespace Flapp_BLL.Models
 {
     public class Bestuurder
     {
-
         #region Constructors
         public Bestuurder(string naam, string voornaam, DateTime geboortedatum, Rijksregisternummer rijksregisternummer, RijbewijsType rijbewijs)
         {
@@ -29,6 +28,17 @@ namespace Flapp_BLL.Models
             ZetVoertuig(voertuig);
             ZetTankkaart(tankkaart);
         }
+        #endregion
+
+        #region Props
+        public string Naam { get; private set; }
+        public string Voornaam { get; private set; }
+        public Adres Adres { get; private set; }
+        public DateTime Geboortedatum { get; private set; }
+        public Rijksregisternummer Rijksregisternummer { get; private set; }
+        public RijbewijsType RijbewijsType { get; private set; }
+        public Voertuig Voertuig { get; private set; }
+        public Tankkaart Tankkaart { get; private set; }
         #endregion
 
         #region ZetMethods
@@ -69,17 +79,6 @@ namespace Flapp_BLL.Models
         {
             Tankkaart = tk ?? throw new BestuurderException("Bestuurder tankkaart is null!");
         }
-        #endregion
-
-        #region Props
-        public string Naam { get; private set; }
-        public string Voornaam { get; private set; }
-        public Adres Adres { get; private set; }
-        public DateTime Geboortedatum { get; private set; }
-        public Rijksregisternummer Rijksregisternummer { get; private set; }
-        public RijbewijsType RijbewijsType { get; private set; }
-        public Voertuig Voertuig { get; private set; }
-        public Tankkaart Tankkaart { get; private set; }
         #endregion
 
         #region Methods
