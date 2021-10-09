@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.31313.79
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flapp_BLL", "Flapp_BLL\Flapp_BLL.csproj", "{062CC4AD-95B6-4AF1-A793-14CA35B278C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flapp_CNS", "Flapp_CNS\Flapp_CNS.csproj", "{F2D61F44-A16B-4BF7-AD50-7547D0E38003}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flapp_CNS", "Flapp_CNS\Flapp_CNS.csproj", "{F2D61F44-A16B-4BF7-AD50-7547D0E38003}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flapp_TESTS", "Flapp_Tests\Flapp_TESTS.csproj", "{2BDC6B0B-09E5-47EF-A2BD-3B5EE1CFB983}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{F2D61F44-A16B-4BF7-AD50-7547D0E38003}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2D61F44-A16B-4BF7-AD50-7547D0E38003}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2D61F44-A16B-4BF7-AD50-7547D0E38003}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BDC6B0B-09E5-47EF-A2BD-3B5EE1CFB983}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BDC6B0B-09E5-47EF-A2BD-3B5EE1CFB983}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BDC6B0B-09E5-47EF-A2BD-3B5EE1CFB983}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BDC6B0B-09E5-47EF-A2BD-3B5EE1CFB983}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
