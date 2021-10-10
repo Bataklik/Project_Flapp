@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Flapp_BLL.Utils
+namespace Flapp_BLL.Models
 {
     public enum RijbewijsType
     {

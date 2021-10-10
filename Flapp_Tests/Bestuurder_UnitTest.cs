@@ -3,7 +3,7 @@ using Flapp_BLL.Utils;
 using System;
 using Xunit;
 
-namespace Flapp_Tests
+namespace Flapp_TESTS
 {
     public class Bestuurder_UnitTest
     {
@@ -11,7 +11,7 @@ namespace Flapp_Tests
         [Fact]
         public void Test_ctor1_Valid()
         {
-            Bestuurder b = new("Balci", "Burak", "M", DateTime.Parse("12/05/1999"), new("99.05.12-273.26"), RijbewijsType.B);
+            Bestuurder b = new("Balci", "Burak", "M", DateTime.Parse("12/05/1999"), "99.05.12-273.26", RijbewijsType.B);
 
             Assert.Equal("Balci", b.Naam);
             Assert.Equal("Burak", b.Voornaam);

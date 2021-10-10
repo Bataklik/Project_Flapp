@@ -2,7 +2,7 @@
 using Flapp_BLL.Exceptions;
 using System;
 
-namespace Flapp_BLL.Utils
+namespace Flapp_BLL.Models
 {
     public class Brandstof
     {
