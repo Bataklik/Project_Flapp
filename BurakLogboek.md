@@ -13,7 +13,7 @@
 | 2u   | Refactoring model klassen en enkele aanpassingen           |
 | 1u   | Refactor bestuurder classe                                 |
 | 2u   | Refactor Voertuig & Tankkaart classe                       |
-| 0u   | ------------------------------------                       |
+| 2u   | xUnit project & 1 bestuurder ctor test aangemaakt          |
 | 0u   | ------------------------------------                       |
 | 0u   | ------------------------------------                       |
 | 0u   | ------------------------------------                       |
