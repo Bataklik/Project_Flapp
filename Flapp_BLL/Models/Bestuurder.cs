@@ -8,15 +8,18 @@ namespace Flapp_BLL.Models
     public class Bestuurder
     {
         #region Props
-        public string Naam { get; private set; }
-        public string Voornaam { get; private set; }
-        public string Geslacht { get; private set; }
+        /* Gegevens die hieronder met ! zijn aangeduid,
+        * zijn dingen die verplicht in te vullen zijn bij het aanmaken en/of het editeren */
+        public string Naam { get; private set; } // !
+        public string Voornaam { get; private set; } // ! 
+        public DateTime Geboortedatum { get; private set; } // !
+        public string Rijksregisternummer { get; private set; } // !
+        public RijbewijsType RijbewijsType { get; private set; } // !
+
         public Adres Adres { get; private set; }
-        public DateTime Geboortedatum { get; private set; }
-        public string Rijksregisternummer { get; private set; }
-        public RijbewijsType RijbewijsType { get; private set; }
         public Voertuig Voertuig { get; private set; }
         public Tankkaart Tankkaart { get; private set; }
+        public string Geslacht { get; private set; }
         #endregion
 
         #region Constructors
@@ -55,7 +58,8 @@ namespace Flapp_BLL.Models
             if (string.IsNullOrWhiteSpace(n)) { throw new BestuurderException("Naam mag niet leeg zijn!"); }
             Voornaam = n;
         }
-        public void ZetGeslacht(string g) {
+        public void ZetGeslacht(string g)
+        {
             g = g.ToUpper();
             if (g != "M" && g != "V") { throw new BestuurderException("Geslacht moet M of V zijn"); }
             this.Geslacht = g;

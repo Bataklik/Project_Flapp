@@ -8,8 +8,11 @@ namespace Flapp_BLL.Models
     public class Tankkaart
     {
         #region Props
-        public int Kaartnummer { get; private set; }
-        public DateTime Geldigheidsdatum { get; private set; }
+        /* Gegevens die hieronder met ! zijn aangeduid,
+        * zijn dingen die verplicht in te vullen zijn bij het aanmaken en/of het editeren */
+        public int Kaartnummer { get; private set; } // !
+        public DateTime Geldigheidsdatum { get; private set; } // !
+
         public string Pincode { get; private set; }
         public Brandstof Brandstoftype { get; private set; }
         public Bestuurder Bestuurder { get; private set; }
@@ -17,7 +20,8 @@ namespace Flapp_BLL.Models
         #endregion
 
         #region Constructors
-        public Tankkaart(int kaartnummer, DateTime geldigheidsdatum) {
+        public Tankkaart(int kaartnummer, DateTime geldigheidsdatum)
+        {
             ZetKaartnummer(kaartnummer);
             ZetGeldigheidsdatum(geldigheidsdatum);
             ZetGeblokkeerd(false);
