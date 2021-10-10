@@ -5,14 +5,17 @@ namespace Flapp_BLL.Models
 {
     public class Voertuig
     {
-        #region Props        
+        #region Props       
+        /* Gegevens die hieronder met ! zijn aangeduid,
+         * zijn dingen die verplicht in te vullen zijn bij het aanmaken en/of het editeren */
         public int VoertuigID { get; private set; }
-        public string Merk { get; private set; }
-        public string Model { get; private set; }
-        public string ChassisNummer { get; private set; }
-        public string Nummerplaat { get; private set; }
-        public Brandstof Brandstoftype { get; private set; }
-        public string VoertuigType { get; private set; }
+        public string Merk { get; private set; } // !
+        public string Model { get; private set; } // !
+        public string ChassisNummer { get; private set; } // ! 
+        public string Nummerplaat { get; private set; } // !
+        public Brandstof Brandstoftype { get; private set; } // !
+        public string VoertuigType { get; private set; } // !
+
         public string Kleur { get; private set; }
         public int Aantaldeuren { get; private set; }
         public Bestuurder Bestuurder { get; private set; }
@@ -32,6 +35,19 @@ namespace Flapp_BLL.Models
             ZetAantalDeuren(deuren);
             //ZetBestuurder(bestuurder);
         }
+
+        // !
+        public Voertuig(string merk, string model, string chassisNummer, string nummerplaat, Brandstof brandstoftype, string voertuigType)
+        {
+            ZetMerk(merk);
+            ZetModel(model);
+            ZetChassisNummer(chassisNummer);
+            ZetNummerplaat(nummerplaat);
+            ZetBrandstofType(brandstoftype);
+            ZetVoertuigType(voertuigType);
+        }
+
+
         #endregion
 
         #region ZetMethods
@@ -94,68 +110,30 @@ namespace Flapp_BLL.Models
         }
         public void ZetBrandstofType(Brandstof brandstof)
         {
-
+            if (brandstof == null) { throw new VoertuigException("Voertuig - brandstof is null!"); }
             Brandstoftype = brandstof;
-
         }
         public void ZetVoertuigType(string voertuigType)
         {
-            if (!string.IsNullOrWhiteSpace(voertuigType))
-            {
-                VoertuigType = voertuigType;
-            }
-            else
-            {
-                throw new VoertuigException("Voertuig - Voertuigtype mag niet leeg zijn");
-            }
+            if (string.IsNullOrWhiteSpace(voertuigType)) { throw new VoertuigException("Voertuig - Voertuigtype mag niet leeg zijn"); }
+            VoertuigType = voertuigType;
         }
         public void ZetKleur(string kleur)
         {
-            if (!string.IsNullOrWhiteSpace(kleur))
-            {
-                Kleur = kleur;
-            }
-            else
-            {
-                throw new VoertuigException("Voertuig - Kleur mag niet leeg zijn");
-            }
+            if (string.IsNullOrWhiteSpace(kleur)) { throw new VoertuigException("Voertuig - Kleur mag niet leeg zijn"); }
+            Kleur = kleur;
         }
         public void ZetAantalDeuren(int deuren)
         {
-            if (deuren > 0 && deuren <= 7)
-            {
-                Aantaldeuren = deuren;
-            }
-            else
-            {
-                throw new VoertuigException("Voertuig - Aantal deuren moet tussen 0 en 7 zijn");
-            }
+            if (deuren < 0 && deuren > 7) { throw new VoertuigException("Voertuig - Aantal deuren moet tussen 0 en 7 zijn!"); }
+            Aantaldeuren = deuren;
         }
-        //public void ZetBestuurder(Bestuurder bestuurder)
-        //{
-        //    if (Bestuurder != null) // heeft vehicle al een driver?
-        //    {
-        //        if (Bestuurder != bestuurder)
-        //        {
-        //            Bestuurder = bestuurder;
-        //        }
-        //        else
-        //        {
-        //            throw new VoertuigException("");
-        //        }
-        //    }
-        //    else
-        //    {
-        //        if (bestuurder != null) // is driver niet null
-        //        {
-        //            Bestuurder = bestuurder;
-        //        }
-        //        else
-        //        {
-        //            throw new VoertuigException("Voertuig - Bestuurder mag niet leeg zijn");
-        //        }
-        //    }
-        //}
+        public void ZetBestuurder(Bestuurder bestuurder)
+        {
+            if (bestuurder == null) { throw new VoertuigException("Voertuig - Bestuurder dat u wilt zetten is null!"); }
+            if (Bestuurder == bestuurder) { throw new VoertuigException("Voertuig - Het is dezelfde bestuurder!"); }
+            Bestuurder = bestuurder;
+        }
         #endregion
 
         #region Methods
