@@ -7,8 +7,19 @@ namespace Flapp_BLL.Models
 {
     public class Bestuurder
     {
+        #region Props
+        public string Naam { get; private set; }
+        public string Voornaam { get; private set; }
+        public Adres Adres { get; private set; }
+        public DateTime Geboortedatum { get; private set; }
+        public string Rijksregisternummer { get; private set; }
+        public RijbewijsType RijbewijsType { get; private set; }
+        public Voertuig Voertuig { get; private set; }
+        public Tankkaart Tankkaart { get; private set; }
+        #endregion
+
         #region Constructors
-        public Bestuurder(string naam, string voornaam, DateTime geboortedatum, Rijksregisternummer rijksregisternummer, RijbewijsType rijbewijs)
+        public Bestuurder(string naam, string voornaam, DateTime geboortedatum, string rijksregisternummer, RijbewijsType rijbewijs)
         {
             ZetNaam(naam);
             ZetVoornaam(voornaam);
@@ -17,7 +28,7 @@ namespace Flapp_BLL.Models
             ZetRijbijsType(rijbewijs);
         }
 
-        public Bestuurder(string naam, string voornaam, Adres adres, DateTime geboortedatum, Rijksregisternummer rijksregisternummer, RijbewijsType rijbewijs, Voertuig voertuig, Tankkaart tankkaart)
+        public Bestuurder(string naam, string voornaam, Adres adres, DateTime geboortedatum, string rijksregisternummer, RijbewijsType rijbewijs, Voertuig voertuig, Tankkaart tankkaart)
         {
             ZetNaam(naam);
             ZetVoornaam(voornaam);
@@ -28,17 +39,6 @@ namespace Flapp_BLL.Models
             ZetVoertuig(voertuig);
             ZetTankkaart(tankkaart);
         }
-        #endregion
-
-        #region Props
-        public string Naam { get; private set; }
-        public string Voornaam { get; private set; }
-        public Adres Adres { get; private set; }
-        public DateTime Geboortedatum { get; private set; }
-        public Rijksregisternummer Rijksregisternummer { get; private set; }
-        public RijbewijsType RijbewijsType { get; private set; }
-        public Voertuig Voertuig { get; private set; }
-        public Tankkaart Tankkaart { get; private set; }
         #endregion
 
         #region ZetMethods
@@ -61,10 +61,12 @@ namespace Flapp_BLL.Models
         {
             Geboortedatum = d;
         }
-        public void ZetRijksregisternummer(Rijksregisternummer r)
+        public void ZetRijksregisternummer(string r)
         {
+            RijksregisternummerChecker rc = new RijksregisternummerChecker(r, this.Geboortedatum);
             if (r == null) { throw new BestuurderException("Bestuuder rijksregisternummer is null!"); }
-            Rijksregisternummer = r;
+            if (rc.ControleRijksgisternummer(r, this.Geboortedatum))
+                this.Rijksregisternummer = r;
         }
         public void ZetRijbijsType(RijbewijsType rt)
         {
@@ -93,7 +95,7 @@ namespace Flapp_BLL.Models
                    Voornaam == bestuurder.Voornaam &&
                    EqualityComparer<Adres>.Default.Equals(Adres, bestuurder.Adres) &&
                    Geboortedatum == bestuurder.Geboortedatum &&
-                   EqualityComparer<Rijksregisternummer>.Default.Equals(Rijksregisternummer, bestuurder.Rijksregisternummer) &&
+                   Rijksregisternummer == bestuurder.Rijksregisternummer &&
                    RijbewijsType == bestuurder.RijbewijsType &&
                    EqualityComparer<Voertuig>.Default.Equals(Voertuig, bestuurder.Voertuig) &&
                    EqualityComparer<Tankkaart>.Default.Equals(Tankkaart, bestuurder.Tankkaart);
