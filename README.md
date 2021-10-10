@@ -4,7 +4,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-    <img src="FLAPP.png" alt="Logo" width="100" height="100" style="bor">
+    <img src="FLAPP.png" alt="Logo" width="100" height="100" style="border-radius: 25px;">
 
   <h3 align="center">Fleet Management App</h3>
 
@@ -19,9 +19,16 @@
     <a href="./TiboLogboek.md">Tibo Declerck</a>
   </p>
 </div>
-<!-- **_Logboeken tabel_**
-| Naam |Logboek |
-|---|---|
-|Burak Balci|[Logboek](BurakLogboek.md) |
-|Raf Troch|[Logboek](RafLogboek.md) |
-|Tibo Declerck|[Logboek](TiboLogboek.md) | -->
+
+<!-- Feedback -->
+<!-- [ ] Empty [x] Full -->
+
+## Feedback: Les 2
+
+- [ ] Deadline -> 12 weken
+- [ ] RijksregisternummerChecker
+- [ ] ChasisnummerChecker
+- [ ] NummerplaatChecker
+- [ ] Github Commits
+- [ ] Exceptions opkuisen
+- [ ] Adres, Brandstof, RijbewijsType -> _Models_
