@@ -11,10 +11,17 @@ namespace Flapp_BLL.Models
         #endregion
 
         #region Constructors
-        public Brandstof(string naam)
+        public Brandstof(string brandstofnaam)
         {
-            if (string.IsNullOrWhiteSpace(naam)) { throw new BrandstofException("Brandstof naam mag niet leeg zijn!"); }
-            Naam = naam;
+            ZetBrandstofNaam(brandstofnaam);
+        }
+        #endregion
+
+        #region ZetMethods
+        public void ZetBrandstofNaam(string brandstofnaam)
+        {
+            if (string.IsNullOrWhiteSpace(brandstofnaam)) { throw new BrandstofException("Brandstof naam mag niet leeg zijn!"); }
+            Naam = brandstofnaam;
         }
         #endregion
 
