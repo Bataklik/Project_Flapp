@@ -4,7 +4,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-    <img src="FLAPP.png" alt="Logo" width="100" height="100" style="border-radius:50%;">
+    <img src="FLAPP.png" alt="Logo" width="150" height="150" style="border-radius:50%;">
 
   <h3 align="center">Fleet Management App</h3>
 
