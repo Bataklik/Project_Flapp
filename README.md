@@ -26,9 +26,9 @@
 ## Feedback: Les 2
 
 - [ ] Deadline -> 12 weken
-- [ ] RijksregisternummerChecker
+- [x] RijksregisternummerChecker
 - [ ] ChasisnummerChecker
 - [ ] NummerplaatChecker
-- [ ] Github Commits
+- [x] Github Commits
 - [ ] Exceptions opkuisen
-- [ ] Adres, Brandstof, RijbewijsType -> _Models_
+- [x] Adres, Brandstof, RijbewijsType -> _Models_
