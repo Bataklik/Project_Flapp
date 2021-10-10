@@ -26,8 +26,8 @@ namespace Flapp_Tests
             Tankkaart tk = new Tankkaart(1, DateTime.Now.AddDays(4));
             Adres a = new Adres("Straat", 1, "Stad", 9000);
             Rijksregisternummer rn = new Rijksregisternummer("99.05.12-273.26");
-            Voertuig v = new Voertuig(1, "MERRY", "THICC", "idkidkidkidkidkidkidkidkidkidkidkidkidkididkidkidkidkidkkidkidkidkidkididkidkidkidkid", "111-222", new Brandstof("Benzine"), "Auto", "Geel", 4, null);
-
+            Voertuig v = new Voertuig(1, "MERRY", "THICC", "WPOZZZ94ZCN400001", "111-222", new Brandstof("Benzine"), "Auto", "Geel", 4, null);
+            // Ik denk dat er een link fout zit tussen voertuig & bestuurder. (Niet zeker)
             Bestuurder b = new Bestuurder("Balci", "Burak", a, DateTime.Parse("12/05/1999"), rn, RijbewijsType.B, v, tk);
 
             Assert.Equal("Balci", b.Naam);
