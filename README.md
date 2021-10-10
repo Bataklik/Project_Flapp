@@ -19,9 +19,16 @@
     <a href="./TiboLogboek.md">Tibo Declerck</a>
   </p>
 </div>
-<!-- **_Logboeken tabel_**
-| Naam |Logboek |
-|---|---|
-|Burak Balci|[Logboek](BurakLogboek.md) |
-|Raf Troch|[Logboek](RafLogboek.md) |
-|Tibo Declerck|[Logboek](TiboLogboek.md) | -->
+
+<!-- Feedback -->
+<!-- [ ] Empty [x] Full -->
+
+## Feedback: Les 2
+
+- Deadline -> 12 weken [ ]
+- RijksregisternummerChecker [ ]
+- ChasisnummerChecker [ ]
+- NummerplaatChecker [ ]
+- Github Commits [ ]
+- Exceptions opkuisen [ ]
+- Adres, Brandstof, RijbewijsType -> _Models_ [ ]
