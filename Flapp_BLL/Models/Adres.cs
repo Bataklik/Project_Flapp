@@ -18,7 +18,7 @@ namespace Flapp_BLL.Utils
         #region ZetMethods
         public void ZetStraat(string value)
         {
-            if (string.IsNullOrEmpty(value)) { throw new StraatException("Straatnaam mag niet leeg zijn!"); }
+            if (string.IsNullOrEmpty(value)) { throw new AdresException("Straatnaam mag niet leeg zijn!"); }
             Straat = value;
         }
         public void ZetHuisnummer(int value)
@@ -27,12 +27,12 @@ namespace Flapp_BLL.Utils
         }
         public void ZetStad(string value)
         {
-            if (string.IsNullOrEmpty(value)) { throw new StadException("Stadnaam mag niet leeg zijn!"); }
+            if (string.IsNullOrEmpty(value)) { throw new AdresException("Stadnaam mag niet leeg zijn!"); }
             Stad = value;
         }
         public void ZetPostcode(int value)
         {
-            if (value < 1000 || value > 9999) { throw new PostcodeException("Postcodes zijn groter dan 1000 en kleiner dan 9999"); }
+            if (value < 1000 || value > 9999) { throw new AdresException("Postcodes zijn groter dan 1000 en kleiner dan 9999"); }
             Postcode = value;
         }
         #endregion

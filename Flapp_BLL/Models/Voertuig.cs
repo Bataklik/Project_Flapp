@@ -5,22 +5,6 @@ namespace Flapp_BLL.Models
 {
     public class Voertuig
     {
-        #region Constructors
-        public Voertuig(int voertuigID, string merk, string model, string chassisNummer, string nummerPlaat, Brandstof brandstofType, string voertuigType, string kleur, int deuren, Bestuurder bestuurder)
-        {
-            ZetVoeruigID(voertuigID);
-            ZetMerk(merk);
-            ZetModel(model);
-            ZetChassisNummer(chassisNummer);
-            ZetNummerplaat(nummerPlaat);
-            ZetBrandstofType(brandstofType);
-            ZetVoertuigType(voertuigType);
-            ZetKleur(kleur);
-            ZetAantalDeuren(deuren);
-            ZetBestuurder(bestuurder);
-        }
-        #endregion
-
         #region Props        
         public int VoertuigID { get; private set; }
         public string Merk { get; private set; }
@@ -32,6 +16,22 @@ namespace Flapp_BLL.Models
         public string Kleur { get; private set; }
         public int Aantaldeuren { get; private set; }
         public Bestuurder Bestuurder { get; private set; }
+        #endregion
+
+        #region Constructors
+        public Voertuig(int voertuigID, string merk, string model, string chassisNummer, string nummerPlaat, Brandstof brandstofType, string voertuigType, string kleur, int deuren)
+        {
+            ZetVoeruigID(voertuigID);
+            ZetMerk(merk);
+            ZetModel(model);
+            ZetChassisNummer(chassisNummer);
+            ZetNummerplaat(nummerPlaat);
+            ZetBrandstofType(brandstofType);
+            ZetVoertuigType(voertuigType);
+            ZetKleur(kleur);
+            ZetAantalDeuren(deuren);
+            //ZetBestuurder(bestuurder);
+        }
         #endregion
 
         #region ZetMethods
@@ -131,31 +131,31 @@ namespace Flapp_BLL.Models
                 throw new VoertuigException("Voertuig - Aantal deuren moet tussen 0 en 7 zijn");
             }
         }
-        public void ZetBestuurder(Bestuurder bestuurder)
-        {
-            if (Bestuurder != null) // heeft vehicle al een driver?
-            {
-                if (Bestuurder != bestuurder)
-                {
-                    Bestuurder = bestuurder;
-                }
-                else
-                {
-                    throw new VoertuigException("");
-                }
-            }
-            else
-            {
-                if (bestuurder != null) // is driver niet null
-                {
-                    Bestuurder = bestuurder;
-                }
-                else
-                {
-                    throw new VoertuigException("Voertuig - Bestuurder mag niet leeg zijn");
-                }
-            }
-        }
+        //public void ZetBestuurder(Bestuurder bestuurder)
+        //{
+        //    if (Bestuurder != null) // heeft vehicle al een driver?
+        //    {
+        //        if (Bestuurder != bestuurder)
+        //        {
+        //            Bestuurder = bestuurder;
+        //        }
+        //        else
+        //        {
+        //            throw new VoertuigException("");
+        //        }
+        //    }
+        //    else
+        //    {
+        //        if (bestuurder != null) // is driver niet null
+        //        {
+        //            Bestuurder = bestuurder;
+        //        }
+        //        else
+        //        {
+        //            throw new VoertuigException("Voertuig - Bestuurder mag niet leeg zijn");
+        //        }
+        //    }
+        //}
         #endregion
 
         #region Methods

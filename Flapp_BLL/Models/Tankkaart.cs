@@ -7,15 +7,6 @@ namespace Flapp_BLL.Models
 {
     public class Tankkaart
     {
-        #region Constructors
-        public Tankkaart(int kaartnummer, DateTime geldigheidsdatum)
-        {
-            ZetKaartnummer(kaartnummer);
-            ZetGeldigheidsdatum(geldigheidsdatum);
-            ZetGeblokkeerd(false);
-        }
-        #endregion
-
         #region Props
         public int Kaartnummer { get; private set; }
         public DateTime Geldigheidsdatum { get; private set; }
@@ -23,6 +14,14 @@ namespace Flapp_BLL.Models
         public Brandstof Brandstoftype { get; private set; }
         public Bestuurder Bestuurder { get; private set; }
         public bool Geblokkeerd { get; private set; }
+        #endregion
+
+        #region Constructors
+        public Tankkaart(int kaartnummer, DateTime geldigheidsdatum) {
+            ZetKaartnummer(kaartnummer);
+            ZetGeldigheidsdatum(geldigheidsdatum);
+            ZetGeblokkeerd(false);
+        }
         #endregion
 
         #region ZetMethods
