@@ -6,31 +6,34 @@ namespace Flapp_BLL.Utils
 {
     public class Brandstof
     {
-        private string _naam;
+        #region Props
+        public string Naam { get; private set; }
+        #endregion
 
-        public string Naam { get; }
-
+        #region Constructors
         public Brandstof(string naam)
         {
-            if (string.IsNullOrEmpty(naam)) { throw new BrandstofException("Brandstof naam mag niet leeg zijn"); }
-            _naam = naam;
+            if (string.IsNullOrWhiteSpace(naam)) { throw new BrandstofException("Brandstof naam mag niet leeg zijn!"); }
+            Naam = naam;
         }
+        #endregion
 
         #region Overrides
+        public override string ToString()
+        {
+            return $"[Brandstof] {Naam}";
+        }
         public override bool Equals(object obj)
         {
             return obj is Brandstof brandstof &&
-                   _naam == brandstof._naam;
+                   Naam == brandstof.Naam;
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(_naam);
+            return HashCode.Combine(Naam);
         }
-        #endregion
 
-        public override string ToString() {
-            return $"[Brandstof] {Naam}";
-        }
+        #endregion
     }
 }
