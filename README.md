@@ -30,5 +30,5 @@
 - [ ] ChasisnummerChecker
 - [ ] NummerplaatChecker
 - [x] Github Commits
-- [ ] Exceptions opkuisen
+- [x] Exceptions opkuisen
 - [x] Adres, Brandstof, RijbewijsType -> _Models_
