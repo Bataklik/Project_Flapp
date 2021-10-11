@@ -43,9 +43,9 @@ namespace Flapp_BLL.Utils
             string rijksnr = r;
 
             //dd/MM/jj
-            string dagDatum = datum[0].ToString() + datum[1].ToString();
+            string maandDatum = datum[0].ToString() + datum[1].ToString();
             
-            string maandDatum = datum[3].ToString() + datum[4].ToString();
+            string dagDatum = datum[3].ToString() + datum[4].ToString();
    
             string jaarDatum = datum[6].ToString() + datum[7].ToString();
        
@@ -59,7 +59,6 @@ namespace Flapp_BLL.Utils
             if (rijksJaar == jaarDatum && rijksDag == dagDatum && rijksMaand == maandDatum) {
                 return true;
             }
-
             else {
                 return false;
             }
