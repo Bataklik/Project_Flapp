@@ -38,5 +38,5 @@
 
 ## Vragen
 
-- [ ] 
+- [ ] Moet een voertuig een bestuurder hebben
 
