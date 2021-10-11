@@ -39,4 +39,4 @@
 ## Vragen
 
 - [ ] Moet een voertuig een bestuurder hebben
-
+- [ ] Adres huisnummer: string of int?
