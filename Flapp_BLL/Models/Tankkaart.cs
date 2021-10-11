@@ -20,6 +20,9 @@ namespace Flapp_BLL.Models
         #endregion
 
         #region Constructors
+        public Tankkaart(int kaartnummer) {
+            ZetKaartnummer(kaartnummer);
+        }
         public Tankkaart(int kaartnummer, DateTime geldigheidsdatum)
         {
             ZetKaartnummer(kaartnummer);
@@ -43,20 +46,20 @@ namespace Flapp_BLL.Models
         {
             Geblokkeerd = b;
         }
-        public void ZetBrandstofType(Brandstof b)
-        {
-            if (b == null) { throw new BrandstofException("Tankkaart brandstof mag niet null zijn"); }
-            Brandstoftype = b;
-        }
-        public void ZetPincode(string p)
-        {
-            Pincode = p;
-        }
-        public void ZetBestuurder(Bestuurder b)
-        {
-            if (b == null) { throw new BestuurderException("Tankkaart bestuurder bestaat niet!"); }
-            Bestuurder = b;
-        }
+        //public void ZetBrandstofType(Brandstof b)
+        //{
+        //    if (b == null) { throw new BrandstofException("Tankkaart brandstof mag niet null zijn"); }
+        //    Brandstoftype = b;
+        //}
+        //public void ZetPincode(string p)
+        //{
+        //    Pincode = p;
+        //}
+        //public void ZetBestuurder(Bestuurder b)
+        //{
+        //    if (b == null) { throw new BestuurderException("Tankkaart bestuurder bestaat niet!"); }
+        //    Bestuurder = b;
+        //}
         #endregion
 
         #region Methods

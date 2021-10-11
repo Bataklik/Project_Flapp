@@ -19,6 +19,7 @@ namespace Flapp_TESTS
 
             Assert.Equal("Benzine", b.Naam);
         }
+
         [Theory]
         [InlineData("")]
         [InlineData(null)]
@@ -29,7 +30,7 @@ namespace Flapp_TESTS
         }
         #endregion
 
-        #region ZetBrandstofNaam Tests
+        #region ZetMethods Tests
         [Fact]
         public void Test_ZetBrandstofNaam_Valid()
         {
@@ -37,6 +38,7 @@ namespace Flapp_TESTS
             b.ZetBrandstofNaam("Benzine");
             Assert.Equal("Benzine", b.Naam);
         }
+
         [Theory]
         [InlineData("")]
         [InlineData(null)]
