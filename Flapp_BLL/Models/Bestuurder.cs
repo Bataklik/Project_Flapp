@@ -60,9 +60,10 @@ namespace Flapp_BLL.Models
         }
         public void ZetGeslacht(string g)
         {
+            if (string.IsNullOrWhiteSpace(g)) { throw new BestuurderException("Geslacht is leeg of null!"); }
             g = g.ToUpper();
-            if (g != "M" && g != "V") { throw new BestuurderException("Geslacht moet M of V zijn"); }
-            this.Geslacht = g;
+            if (g != "M" || g != "V") { throw new BestuurderException("Geslacht moet M of V zijn!"); }
+            Geslacht = g;
         }
         public void ZetAdres(Adres a)
         {
