@@ -99,14 +99,10 @@ namespace Flapp_BLL.Models
         }
         public void ZetNummerplaat(string nummerplaat)
         {
-            if (!string.IsNullOrWhiteSpace(nummerplaat))
-            {
-                Nummerplaat = nummerplaat;
-            }
-            else
-            {
-                throw new VoertuigException("Voertuig - Nummerplaat mag niet leeg zijn");
-            }
+            NummerplaatChecker nc = new NummerplaatChecker(nummerplaat);
+            if (string.IsNullOrEmpty(nummerplaat)) { throw new VoertuigException("Een nummerplaat mag niet leeg zijn!"); }
+            if (nc.ControleNummerplaat(nummerplaat))
+                this.Nummerplaat = nummerplaat;
         }
         public void ZetBrandstofType(Brandstof brandstof)
         {

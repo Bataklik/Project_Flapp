@@ -26,11 +26,6 @@ namespace Flapp_BLL.Utils
         }
         #endregion
 
-        #region ZetMethods
-        
-        
-        #endregion
-
         #region Methods
         public bool ControleRijksgisternummer(string r, DateTime gd, string g) {
             if (r.Count(e => char.IsDigit(e)) != 11) { throw new RijksregisternummerCheckerException("Het identificatienummer bevat 11 cijfers"); }
