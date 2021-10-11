@@ -9,4 +9,5 @@
 | 2u   | Project uitleg                                    |
 | 2u   | Groepje samenstellen & rollen, C# project starten |
 | 3.5  | Klasse voertuig & aantalDeurenException begonnen  |
+| 4    | Klasse voertuig afgewerkt + feedbackmoment        |
 | \_   | \_                                                |
