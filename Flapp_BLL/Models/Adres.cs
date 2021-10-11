@@ -18,16 +18,17 @@ namespace Flapp_BLL.Models
         #region ZetMethods
         public void ZetStraat(string value)
         {
-            if (string.IsNullOrEmpty(value)) { throw new AdresException("Straatnaam mag niet leeg zijn!"); }
+            if (string.IsNullOrWhiteSpace(value)) { throw new AdresException("Straatnaam mag niet leeg zijn!"); }
             Straat = value;
         }
         public void ZetHuisnummer(int value)
         {
+            if (value <= 0) { throw new AdresException("Huisnummer mag niet onder nul zijn!"); }
             Huisnummer = value;
         }
         public void ZetStad(string value)
         {
-            if (string.IsNullOrEmpty(value)) { throw new AdresException("Stadnaam mag niet leeg zijn!"); }
+            if (string.IsNullOrWhiteSpace(value)) { throw new AdresException("Stadnaam mag niet leeg zijn!"); }
             Stad = value;
         }
         public void ZetPostcode(int value)
