@@ -32,3 +32,11 @@
 - [x] Github Commits
 - [x] Exceptions opkuisen
 - [x] Adres, Brandstof, RijbewijsType -> _Models_
+
+<!-- Vragen -->
+<!-- [ ] Empty [x] Full -->
+
+## Vragen
+
+- [ ] 
+
