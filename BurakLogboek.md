@@ -14,7 +14,7 @@
 | 1u   | Refactor bestuurder classe                                 |
 | 2u   | Refactor Voertuig & Tankkaart classe                       |
 | 2u   | xUnit project & 1 bestuurder ctor test aangemaakt          |
-| 0u   | ------------------------------------                       |
+| 2u   | Adres Test & beetje bestuurder Test                        |
 | 0u   | ------------------------------------                       |
 | 0u   | ------------------------------------                       |
 
