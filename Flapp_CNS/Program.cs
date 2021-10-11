@@ -15,11 +15,11 @@ namespace Flapp_CNS
 
             Brandstof bs1 = new Brandstof("Elektrisch");
 
-            Voertuig v1 = new Voertuig(1 ,"Tesla", "X", "13245678957903251", "2-ABC-123", bs1, "Stationwagen", "Zwart", 5);
+            Voertuig v1 = new Voertuig(1, "Tesla", "X", "13245678957903251", "2-ABC-123", bs1, "Stationwagen", "Zwart", 5);
 
             Tankkaart t1 = new Tankkaart(123456789, DateTime.Parse("06/08/2025"));
 
-            Bestuurder b1 = new Bestuurder("Declerck", "Tibo", "M", a1, DateTime.Parse("06/08/1999"), "99.08.06-289.17", RijbewijsType.B, v1, t1);
+            Bestuurder b1 = new Bestuurder("Declerck", "Tibo", Geslacht.M, a1, DateTime.Parse("06/08/1999"), "99.08.06-289.17", RijbewijsType.B, v1, t1);
             //Bestuurder b2 = new Bestuurder("Balci", "Burak", DateTime.Parse("12/05/1999"), r2, RijbewijsType.B);
 
             //Console.WriteLine(r1.ToonNummer());

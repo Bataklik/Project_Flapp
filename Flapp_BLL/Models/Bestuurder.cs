@@ -19,11 +19,11 @@ namespace Flapp_BLL.Models
         public Adres Adres { get; private set; }
         public Voertuig Voertuig { get; private set; }
         public Tankkaart Tankkaart { get; private set; }
-        public string Geslacht { get; private set; }
+        public Geslacht Geslacht { get; private set; }
         #endregion
 
         #region Constructors
-        public Bestuurder(string naam, string voornaam, string geslacht, DateTime geboortedatum, string rijksregisternummer, RijbewijsType rijbewijs)
+        public Bestuurder(string naam, string voornaam, Geslacht geslacht, DateTime geboortedatum, string rijksregisternummer, RijbewijsType rijbewijs)
         {
             ZetNaam(naam);
             ZetVoornaam(voornaam);
@@ -33,7 +33,7 @@ namespace Flapp_BLL.Models
             ZetRijbijsType(rijbewijs);
         }
 
-        public Bestuurder(string naam, string voornaam, string geslacht, Adres adres, DateTime geboortedatum, string rijksregisternummer, RijbewijsType rijbewijs, Voertuig voertuig, Tankkaart tankkaart)
+        public Bestuurder(string naam, string voornaam, Geslacht geslacht, Adres adres, DateTime geboortedatum, string rijksregisternummer, RijbewijsType rijbewijs, Voertuig voertuig, Tankkaart tankkaart)
         {
             ZetNaam(naam);
             ZetVoornaam(voornaam);
@@ -58,11 +58,8 @@ namespace Flapp_BLL.Models
             if (string.IsNullOrWhiteSpace(n)) { throw new BestuurderException("Naam mag niet leeg zijn!"); }
             Voornaam = n;
         }
-        public void ZetGeslacht(string g)
+        public void ZetGeslacht(Geslacht g)
         {
-            if (string.IsNullOrWhiteSpace(g)) { throw new BestuurderException("Geslacht is leeg of null!"); }
-            g = g.ToUpper();
-            if (g != "M" || g != "V") { throw new BestuurderException("Geslacht moet M of V zijn!"); }
             Geslacht = g;
         }
         public void ZetAdres(Adres a)
@@ -76,10 +73,10 @@ namespace Flapp_BLL.Models
         }
         public void ZetRijksregisternummer(string r)
         {
-            RijksregisternummerChecker rc = new RijksregisternummerChecker(r, this.Geboortedatum, this.Geslacht);
+            RijksregisternummerChecker rc = new RijksregisternummerChecker(r, Geboortedatum, Geslacht);
             if (r == null) { throw new BestuurderException("Bestuuder rijksregisternummer is null!"); }
-            if (rc.ControleRijksgisternummer(r, this.Geboortedatum, this.Geslacht))
-                this.Rijksregisternummer = r;
+            if (rc.ControleRijksgisternummer(r, Geboortedatum, Geslacht))
+                Rijksregisternummer = r;
         }
         public void ZetRijbijsType(RijbewijsType rt)
         {
