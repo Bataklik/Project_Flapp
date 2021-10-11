@@ -40,3 +40,4 @@
 
 - [ ] Moet een voertuig een bestuurder hebben
 - [ ] Adres huisnummer: string of int?
+- [ ] Zetmethode & Ctor testen -> we gebruiken zetmethods in constructor
