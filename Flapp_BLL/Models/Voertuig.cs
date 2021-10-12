@@ -53,56 +53,33 @@ namespace Flapp_BLL.Models
         #region ZetMethods
         public void ZetVoeruigID(int id)
         {
-            if (id > 0)
-            {
-                VoertuigID = id;
-            }
-            else
-            {
-                throw new VoertuigException("Voertuig - ID kleiner dan 0");
-            }
+            if (id <= 0) { throw new VoertuigException("Voertuig - ID kleiner dan 0"); }
+            VoertuigID = id;
         }
         public void ZetMerk(string merk)
         {
-            if (!string.IsNullOrWhiteSpace(merk))
-            {
-                Merk = merk;
-            }
-            else
-            {
-                throw new VoertuigException("Voertuig - Merk mag niet leeg zijn");
-            }
+            if (string.IsNullOrWhiteSpace(merk)) { throw new VoertuigException("Voertuig - Merk mag niet leeg zijn"); }
+            Merk = merk;
         }
         public void ZetModel(string model)
         {
-            if (!string.IsNullOrWhiteSpace(model))
-            {
-                Model = model;
-            }
-            else
-            {
-                throw new VoertuigException("Voertuig - Model mag niet leeg zijn");
-            }
+            if (string.IsNullOrWhiteSpace(model)) { throw new VoertuigException("Voertuig - Model mag niet leeg zijn"); }
+            Model = model;
         }
         public void ZetChassisNummer(string nummer)
         {
-            if (string.IsNullOrWhiteSpace(nummer) || nummer.Length < 17) { throw new VoertuigException("Voertuig - Chassisnummer moet 17 karakters lang zijn"); }
-            if (nummer.Length == 3 + 6 + 8)
-            {
-                ChassisNummer = nummer;
-            }
-            else
-            {
-
-            }
-
+            // ChassisChecker nog maken!
+            var chassisChecker = new ChassisnummerChecker(nummer);
+            if (string.IsNullOrWhiteSpace(nummer)) { throw new VoertuigException("Voertuig - Chassisnummer is leeg of null!"); }
+            if (nummer.Length != 17) { throw new VoertuigException("Voertuig - Chassisnummer moet 17 karakters lang zijn"); }
+            ChassisNummer = nummer;
         }
         public void ZetNummerplaat(string nummerplaat)
         {
             NummerplaatChecker nc = new NummerplaatChecker(nummerplaat);
             if (string.IsNullOrEmpty(nummerplaat)) { throw new VoertuigException("Een nummerplaat mag niet leeg zijn!"); }
             if (nc.ControleNummerplaat(nummerplaat))
-                this.Nummerplaat = nummerplaat;
+                Nummerplaat = nummerplaat;
         }
         public void ZetBrandstofType(Brandstof brandstof)
         {
