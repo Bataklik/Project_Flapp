@@ -67,7 +67,7 @@ namespace Flapp_TESTS
         public void Test_ZetGeblokkeerd_Valid() {
             Tankkaart t = new Tankkaart(420, DateTime.Parse("06/08/2025"), false);
             t.ZetGeblokkeerd(false);
-            Assert.Equal(true, t.Geblokkeerd);
+            Assert.False(t.Geblokkeerd);
         }
         #endregion
     }
