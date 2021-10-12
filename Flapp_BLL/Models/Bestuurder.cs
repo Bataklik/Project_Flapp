@@ -23,7 +23,7 @@ namespace Flapp_BLL.Models
         #endregion
 
         #region Constructors
-        public Bestuurder(string naam, string voornaam, Geslacht geslacht, string geboortedatum, string rijksregisternummer, RijbewijsType rijbewijs)
+        public Bestuurder(string naam, string voornaam, Geslacht geslacht, DateTime geboortedatum, string rijksregisternummer, RijbewijsType rijbewijs)
         {
             ZetNaam(naam);
             ZetVoornaam(voornaam);
@@ -33,7 +33,7 @@ namespace Flapp_BLL.Models
             ZetRijbijsType(rijbewijs);
         }
 
-        public Bestuurder(string naam, string voornaam, Geslacht geslacht, Adres adres, string geboortedatum, string rijksregisternummer, RijbewijsType rijbewijs, Voertuig voertuig, Tankkaart tankkaart)
+        public Bestuurder(string naam, string voornaam, Geslacht geslacht, Adres adres, DateTime geboortedatum, string rijksregisternummer, RijbewijsType rijbewijs, Voertuig voertuig, Tankkaart tankkaart)
         {
             ZetNaam(naam);
             ZetVoornaam(voornaam);
@@ -67,12 +67,9 @@ namespace Flapp_BLL.Models
             if (a == null) { throw new BestuurderException("Bestuurder adres is null!"); }
             Adres = a;
         }
-        public void ZetGeboortedatum(string d)
+        public void ZetGeboortedatum(DateTime d)
         {
-            DateTime _d;
-            if (!DateTime.TryParse(d, out _d)) { throw new BestuurderException("Bestuurder geboortedatum is geen geboortedatum"); }
-            if (_d > DateTime.Now) { throw new BestuurderException("Bestuurder geboortedatum is groter dan vandaag!"); }
-            Geboortedatum = _d;
+            Geboortedatum = d;
         }
         public void ZetRijksregisternummer(string r)
         {
