@@ -1,6 +1,5 @@
 using Flapp_BLL.Exceptions;
 using Flapp_BLL.Models;
-using Flapp_BLL.Utils;
 using System;
 using Xunit;
 
@@ -8,8 +7,8 @@ namespace Flapp_TESTS
 {
     public class Bestuurder_UnitTest
     {
-        // Ctor 1
         #region Ctor Tests
+        // Ctor 1
         [Fact]
         public void Test_ctor1_Valid()
         {
