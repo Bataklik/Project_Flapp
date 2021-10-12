@@ -73,10 +73,9 @@ namespace Flapp_BLL.Models
         }
         public void ZetRijksregisternummer(string r)
         {
-            RijksregisternummerChecker rc = new RijksregisternummerChecker(r, Geboortedatum, Geslacht);
+            RijksregisterChecker rc = new RijksregisterChecker(r, Geboortedatum, Geslacht);
             if (r == null) { throw new BestuurderException("Bestuuder rijksregisternummer is null!"); }
-            if (rc.ControleRijksgisternummer(r, Geboortedatum, Geslacht))
-                Rijksregisternummer = r;
+            if (rc.ControleRijksgisternummer(r, Geboortedatum, Geslacht)) Rijksregisternummer = r;
         }
         public void ZetRijbijsType(RijbewijsType rt)
         {
@@ -84,7 +83,8 @@ namespace Flapp_BLL.Models
         }
         public void ZetVoertuig(Voertuig v)
         {
-            if (v == null) { throw new BestuurderException("Bestuuder voertuig is null!"); }
+            if (v == null) { throw new VoertuigException("Bestuurder voertuig is leeg"); }
+            if (v.Bestuurder != null) { throw new VoertuigException("Bestuurder voertuig heeft al een bestuurder!"); }
             Voertuig = v;
         }
         public void ZetTankkaart(Tankkaart tk)

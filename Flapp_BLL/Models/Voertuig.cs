@@ -103,7 +103,7 @@ namespace Flapp_BLL.Models
         }
         public void ZetBestuurder(Bestuurder bestuurder)
         {
-            if (bestuurder == null) { throw new VoertuigException("Voertuig - Bestuurder dat u wilt zetten is null!"); }
+            //if (bestuurder == null) { throw new VoertuigException("Voertuig - Bestuurder dat u wilt zetten is null!"); }
             if (Bestuurder == bestuurder) { throw new VoertuigException("Voertuig - Het is dezelfde bestuurder!"); }
             Bestuurder = bestuurder;
         }
