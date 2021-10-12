@@ -7,7 +7,7 @@ namespace Flapp_TESTS
 
         #region Ctor Tests
         [Fact]
-        public void Test_ctor1_Valid() {
+        public void Test_ctor_Valid() {
             Brandstof b = new Brandstof("Elektrisch");
             Voertuig v = new Voertuig(420, "Tesla", "Model X", "13245678957903251", "2-ABC-123", b, "Stationwagen", "Zwart", 5);
 
