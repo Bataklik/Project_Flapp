@@ -17,6 +17,7 @@ namespace Flapp_BLL.Utils
         #region Constructors
         public RijksregisterChecker(string r, DateTime gd, Geslacht g)
         {
+            if (r == null) { throw new RijksregisternummerCheckerException("Rijksregisternummer is null!"); }
             if (ControleRijksgisternummer(r, gd, g))
             {
                 _nummer = r;
@@ -45,9 +46,9 @@ namespace Flapp_BLL.Utils
             string rijksnr = r;
 
             //dd/MM/jj
-            string maandDatum = datum[0].ToString() + datum[1].ToString();
+            string maandDatum = datum[3].ToString() + datum[4].ToString();
 
-            string dagDatum = datum[3].ToString() + datum[4].ToString();
+            string dagDatum = datum[0].ToString() + datum[1].ToString();
 
             string jaarDatum = datum[6].ToString() + datum[7].ToString();
 
