@@ -45,6 +45,7 @@ namespace Flapp_BLL.Models
         }
         public void ZetGeblokkeerd(bool b)
         {
+            if (b == true) { throw new TankkaartException("Tankkaart is al geblokkeerd"); }
             Geblokkeerd = b;
         }
         //public void ZetBrandstofType(Brandstof b)
