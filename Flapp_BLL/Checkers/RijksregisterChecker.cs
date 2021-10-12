@@ -6,24 +6,23 @@ using System.Collections.Generic;
 
 namespace Flapp_BLL.Utils
 {
-    public class RijksregisternummerChecker
+    public class RijksregisterChecker
     {
         #region Props
-        public string Nummer { get; private set; }
-        public DateTime Geboortedatum { get; private set; }
-        public Geslacht Geslacht { get; private set; }
+        private string _nummer;
+        private DateTime _geboortedatum;
+        private Geslacht _geslacht;
         #endregion
 
         #region Constructors
-        public RijksregisternummerChecker(string r, DateTime gd, Geslacht g)
+        public RijksregisterChecker(string r, DateTime gd, Geslacht g)
         {
             if (ControleRijksgisternummer(r, gd, g))
             {
-                Nummer = r;
-                Geboortedatum = gd;
-                Geslacht = g;
+                _nummer = r;
+                _geboortedatum = gd;
+                _geslacht = g;
             }
-
         }
         #endregion
 
@@ -83,13 +82,13 @@ namespace Flapp_BLL.Utils
         #region Override
         public override string ToString()
         {
-            return $"[Rijksregisternummer] {Nummer}";
+            return $"[Rijksregisternummer] {_nummer}";
         }
 
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(Nummer);
+            return HashCode.Combine(_nummer);
         }
         #endregion
     }
