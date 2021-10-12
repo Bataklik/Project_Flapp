@@ -20,14 +20,15 @@ namespace Flapp_BLL.Models
         #endregion
 
         #region Constructors
-        public Tankkaart(int kaartnummer) {
-            ZetKaartnummer(kaartnummer);
-        }
         public Tankkaart(int kaartnummer, DateTime geldigheidsdatum)
         {
             ZetKaartnummer(kaartnummer);
             ZetGeldigheidsdatum(geldigheidsdatum);
-            ZetGeblokkeerd(false);
+        }
+        public Tankkaart(int kaartnummer, DateTime geldigheidsdatum, bool isgeblokkeerd) {
+            ZetKaartnummer(kaartnummer);
+            ZetGeldigheidsdatum(geldigheidsdatum);
+            ZetGeblokkeerd(isgeblokkeerd);
         }
         #endregion
 
