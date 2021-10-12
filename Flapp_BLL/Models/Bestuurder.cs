@@ -86,8 +86,8 @@ namespace Flapp_BLL.Models
         }
         public void ZetVoertuig(Voertuig v)
         {
-            if (v == null) { throw new VoertuigException("Bestuurder voertuig is leeg"); }
-            if (v.Bestuurder != null) { throw new VoertuigException("Bestuurder voertuig heeft al een bestuurder!"); }
+            if (v == null) { throw new BestuurderException("Bestuurder voertuig is leeg"); }
+            if (v.Bestuurder != null) { throw new BestuurderException("Bestuurder voertuig heeft al een bestuurder!"); }
             Voertuig = v;
         }
         public void ZetTankkaart(Tankkaart tk)
