@@ -27,7 +27,7 @@
 
 - [ ] Deadline -> 12 weken
 - [x] RijksregisternummerChecker
-- [ ] ChasisnummerChecker
+- [x] ChasisnummerChecker
 - [x] NummerplaatChecker
 - [x] Github Commits
 - [x] Exceptions opkuisen
