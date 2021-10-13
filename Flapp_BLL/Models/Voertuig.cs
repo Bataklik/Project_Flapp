@@ -97,7 +97,7 @@ namespace Flapp_BLL.Models
         }
         public void ZetAantalDeuren(int deuren)
         {
-            if (deuren < 0 && deuren > 7) { throw new VoertuigException("Voertuig - Aantal deuren moet tussen 0 en 7 zijn!"); }
+            if (deuren < 0 || deuren > 7) { throw new VoertuigException("Voertuig - Aantal deuren moet tussen 0 en 7 zijn!"); }
             Aantaldeuren = deuren;
         }
         public void ZetBestuurder(Bestuurder bestuurder)
