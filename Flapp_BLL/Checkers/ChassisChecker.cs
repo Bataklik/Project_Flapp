@@ -18,13 +18,8 @@ namespace Flapp_BLL.Utils
 
         public bool controleChassisnummer(string n)
         {
-            if (n.Count(e => char.IsDigit(e)) != 9) { throw new ChassisnummerCheckerException("Een chassisnummer bevat 9 cijfers"); }
-            if (n.Count(e => !char.IsDigit(e)) != 8) { throw new ChassisnummerCheckerException("Een chassisnummer bevat 8 letters"); }            
-            if (!ControleEersteGroep(n)) { throw new ChassisnummerCheckerException("Controle op eerste groep van het nummerplaat is ongeldig! - Moet een cijfer zijn"); }
-            if (!ControleTweedeGroep(n)) { throw new ChassisnummerCheckerException("Controle op tweede groep van het nummerplaat is ongeldig! - Moeten letters zijn"); }
-            if (!ControleDerdeGroep(n)) { throw new ChassisnummerCheckerException("Controle op derde groep van het nummerplaat is ongeldig! - Moeten cijfers zijn"); }
-            if (!ControleVierdeGroep(n)) { throw new ChassisnummerCheckerException("Controle op vierde groep van het nummerplaat is ongeldig! - Moeten letters zijn"); }
-            if (!ControleVijfdeGroep(n)) { throw new ChassisnummerCheckerException("Controle op vijfde groep van het nummerplaat is ongeldig! - Moeten cijfers zijn"); }
+            if (string.IsNullOrWhiteSpace(n)) { throw new ChassisnummerCheckerException("Mag niet leeg zijn"); }
+            if (n.Count() != 17) { throw new ChassisnummerCheckerException("Een chassisnummer bevat 17 karakters"); }
             return true;
         }
 

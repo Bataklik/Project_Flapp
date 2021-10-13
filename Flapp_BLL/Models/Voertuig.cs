@@ -69,14 +69,14 @@ namespace Flapp_BLL.Models
         public void ZetChassisNummer(string nummer)
         {            
             ChassisChecker cc = new ChassisChecker(nummer);
-            if (string.IsNullOrWhiteSpace(nummer)) { throw new VoertuigException("Voertuig - Chassisnummer is leeg of null!"); }
+            //if (string.IsNullOrWhiteSpace(nummer)) { throw new VoertuigException("Voertuig - Chassisnummer is leeg of null!"); }
             if(cc.controleChassisnummer(nummer))
                 ChassisNummer = nummer;
         }
         public void ZetNummerplaat(string nummerplaat)
         {
             NummerplaatChecker nc = new NummerplaatChecker(nummerplaat);
-            if (string.IsNullOrEmpty(nummerplaat)) { throw new VoertuigException("Een nummerplaat mag niet leeg zijn!"); }
+            
             if (nc.ControleNummerplaat(nummerplaat))
                 Nummerplaat = nummerplaat;
         }
