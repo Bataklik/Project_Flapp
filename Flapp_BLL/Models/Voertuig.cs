@@ -67,12 +67,11 @@ namespace Flapp_BLL.Models
             Model = model;
         }
         public void ZetChassisNummer(string nummer)
-        {
-            // ChassisChecker nog maken!
-            var chassisChecker = new ChassisChecker(nummer);
+        {            
+            ChassisChecker cc = new ChassisChecker(nummer);
             if (string.IsNullOrWhiteSpace(nummer)) { throw new VoertuigException("Voertuig - Chassisnummer is leeg of null!"); }
-            if (nummer.Length != 17) { throw new VoertuigException("Voertuig - Chassisnummer moet 17 karakters lang zijn"); }
-            ChassisNummer = nummer;
+            if(cc.controleChassisnummer(nummer))
+                ChassisNummer = nummer;
         }
         public void ZetNummerplaat(string nummerplaat)
         {
