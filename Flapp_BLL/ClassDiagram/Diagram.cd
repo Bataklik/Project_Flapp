@@ -3,45 +3,36 @@
   <Class Name="Flapp_BLL.Models.Voertuig">
     <Position X="9" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAIBAAAAgAAgAACEkACABAAAAAAAAAAEQABMiQIIAIA=</HashCode>
+      <HashCode>BAEAAAQAAAAgBAAEkACAAAAAAAAAAAAtAghMCAAIAAA=</HashCode>
       <FileName>Models\Voertuig.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="_Bestuurder" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="Flapp_BLL.Models.Bestuurder">
     <Position X="5.75" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAwAAAgQAAEgAAEBBEAEAgAAIgAAAgAgAABIAI=</HashCode>
+      <HashCode>BAAAAICwAAAgQAIAgAAABABAAIgAAIAAAIgQAAAAQAA=</HashCode>
       <FileName>Models\Bestuurder.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Field Name="_voertuig" />
-    </ShowAsAssociation>
-  </Class>
-  <Class Name="Flapp_BLL.Utils.Adres">
-    <Position X="3" Y="2.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAABAAAEgAAAgAAAAACAgIACAgAgAQAAAAA=</HashCode>
-      <FileName>Utils\Adres.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Flapp_BLL.Models.Tankkaart">
     <Position X="1.25" Y="1" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>gBAQAEAAAAAIAABEgAIAAQACAAAAAIIJCAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAIAABEgAIAQAAAABAAAIAJCAAAAAAAAAE=</HashCode>
       <FileName>Models\Tankkaart.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Field Name="_bestuurder" />
-    </ShowAsAssociation>
   </Class>
-  <Enum Name="Flapp_BLL.Utils.RijbewijsType">
-    <Position X="11.25" Y="2.75" Width="1.5" />
+  <Class Name="Flapp_BLL.Models.Adres">
+    <Position X="3.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABABAEgAAAgAACEACAAIACAAAAAAAAQAA=</HashCode>
+      <FileName>Models\Adres.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="Flapp_BLL.Models.RijbewijsType">
+    <Position X="11" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAArAEAAAA=</HashCode>
-      <FileName>Utils\RijbewijsType.cs</FileName>
+      <FileName>Models\RijbewijsType.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Segoe UI" Size="9" />
