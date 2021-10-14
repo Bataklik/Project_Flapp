@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Flapp_BLL\Flapp_BLL.csproj" />
+    <ProjectReference Include="..\Flapp_DAL\Flapp_DAL.csproj" />
   </ItemGroup>
 
 </Project>
