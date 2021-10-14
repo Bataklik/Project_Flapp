@@ -6,13 +6,22 @@
       <HashCode>BAEAAAQAAAAgBAAEkACAAAAAAAAAAAAtAghMCAAIAAA=</HashCode>
       <FileName>Models\Voertuig.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Bestuurder" />
+    </ShowAsAssociation>
   </Class>
   <Class Name="Flapp_BLL.Models.Bestuurder">
     <Position X="5.75" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>BAAAAICwAAAgQAIAgAAABABAAIgAAIAAAIgQAAAAQAA=</HashCode>
+      <HashCode>BAAEAICwAAAgQAIAgAAABABAAIgAAIAAAIgQAAAAQAA=</HashCode>
       <FileName>Models\Bestuurder.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Adres" />
+      <Property Name="RijbewijsType" />
+      <Property Name="Voertuig" />
+      <Property Name="Tankkaart" />
+    </ShowAsAssociation>
   </Class>
   <Class Name="Flapp_BLL.Models.Tankkaart">
     <Position X="1.25" Y="1" Width="1.5" />
@@ -20,12 +29,44 @@
       <HashCode>AAAAAAAAAAAIAABEgAIAQAAAABAAAIAJCAAAAAAAAAE=</HashCode>
       <FileName>Models\Tankkaart.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Bestuurder" />
+      <Property Name="Brandstoftype" />
+    </ShowAsAssociation>
   </Class>
   <Class Name="Flapp_BLL.Models.Adres">
     <Position X="3.5" Y="1.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAABABAEgAAAgAACEACAAIACAAAAAAAAQAA=</HashCode>
       <FileName>Models\Adres.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Flapp_BLL.Models.Brandstof" Collapsed="true">
+    <Position X="3.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEgAAABBAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Brandstof.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Flapp_BLL.Utils.RijksregisterChecker" Collapsed="true">
+    <Position X="0.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAIAAAEAAAAABACAAAAAYAAAAAAAAgAAAA=</HashCode>
+      <FileName>Checkers\RijksregisterChecker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Flapp_BLL.Utils.NummerplaatChecker" Collapsed="true">
+    <Position X="2.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Checkers\NummerplaatChecker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Flapp_BLL.Utils.ChassisChecker" Collapsed="true">
+    <Position X="4" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAACAAAAAAAAAACBAAAAAAAAgAAAAQAAAA=</HashCode>
+      <FileName>Checkers\ChassisChecker.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Enum Name="Flapp_BLL.Models.RijbewijsType">
