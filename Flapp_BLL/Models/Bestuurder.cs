@@ -30,7 +30,7 @@ namespace Flapp_BLL.Models
             ZetGeslacht(geslacht);
             ZetGeboortedatum(geboortedatum);
             ZetRijksregisternummer(rijksregisternummer);
-            ZetRijbijsType(rijbewijs);
+            ZetRijbewijsType(rijbewijs);
         }
 
         public Bestuurder(string naam, string voornaam, Geslacht geslacht, Adres adres, string geboortedatum, string rijksregisternummer, RijbewijsType rijbewijs, Voertuig voertuig, Tankkaart tankkaart)
@@ -40,7 +40,7 @@ namespace Flapp_BLL.Models
             ZetGeslacht(geslacht);
             ZetGeboortedatum(geboortedatum);
             ZetRijksregisternummer(rijksregisternummer);
-            ZetRijbijsType(rijbewijs);
+            ZetRijbewijsType(rijbewijs);
             ZetAdres(adres);
             ZetVoertuig(voertuig);
             ZetTankkaart(tankkaart);
@@ -80,15 +80,17 @@ namespace Flapp_BLL.Models
             if (r == null) { throw new BestuurderException("Bestuuder rijksregisternummer is null!"); }
             if (rc.ControleRijksgisternummer(r, Geboortedatum, Geslacht)) Rijksregisternummer = r;
         }
-        public void ZetRijbijsType(RijbewijsType rt)
+        public void ZetRijbewijsType(RijbewijsType rt)
         {
             RijbewijsType = rt;
         }
-        public void ZetVoertuig(Voertuig v)
+        public void ZetVoertuig(Voertuig value)
         {
-            if (v == null) { throw new BestuurderException("Bestuurder voertuig is leeg"); }
-            if (v.Bestuurder != null) { throw new BestuurderException("Bestuurder voertuig heeft al een bestuurder!"); }
-            Voertuig = v;
+            // Misschien Fout
+            if (value == null) { throw new BestuurderException("Bestuurder: ZetVoertuig: Voertuig bestaat niet!"); }
+            if (value == Voertuig) { throw new BestuurderException("Bestuurder: ZetVoertuig: Voertuig is hetzelfde!"); }
+            if (value != null) value.ZetBestuurder(this);
+            Voertuig = value;
         }
         public void ZetTankkaart(Tankkaart tk)
         {
