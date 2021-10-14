@@ -38,7 +38,6 @@
 
 ## Vragen
 
--  Moet een voertuig een bestuurder hebben
--  Adres huisnummer: string of int?
+-  Moet een voertuig een bestuurder hebben -> mag null zijn
+-  Adres huisnummer -> string
 -  Zetmethode & Ctor testen -> we gebruiken zetmethods in constructor
--  Exception messages ook controleren in tests?
