@@ -10,7 +10,7 @@ namespace Flapp_BLL.Utils
     public class ChassisChecker
     {
         private string _chassisnummer;
-
+        // Enkele letters mogen niet! 
         public ChassisChecker(string chassisnummer)
         {
             _chassisnummer = chassisnummer;
