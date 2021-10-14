@@ -5,13 +5,15 @@ using Flapp_BLL.Exceptions;
 
 namespace Flapp_TESTS
 {
-    public class Voertuig_UnitTest {
+    public class Voertuig_UnitTest
+    {
 
         #region Ctor Tests
         #region ctor 1
-        // ctor 1
+        // Ctor 1
         [Fact]
-        public void Test_ctor1_Valid() {
+        public void Test_ctor1_Valid()
+        {
             Brandstof b = new Brandstof("Elektrisch");
             Voertuig v = new Voertuig(420, "Tesla", "Model X", "1abcd23efgh456789", "2-ABC-123", b, "Stationwagen", "Zwart", 5);
 
@@ -26,7 +28,7 @@ namespace Flapp_TESTS
             Assert.Equal(5, v.Aantaldeuren);
         }
         [Theory]
-        [InlineData(-20)]        
+        [InlineData(-20)]
         public void Test_ctor1_BadId_InValid(int id)
         {
             Brandstof b = new Brandstof("Elektrisch");
@@ -53,7 +55,7 @@ namespace Flapp_TESTS
         [Theory]
         [InlineData(null)]
         [InlineData("")]
-        [InlineData("12345678123456az")]               
+        [InlineData("12345678123456az")]
         [InlineData("  ")]
         public void Test_ctor1_BadChassisnummer_InValid(string chassis)
         {
@@ -74,9 +76,9 @@ namespace Flapp_TESTS
             Assert.Throws<NummerplaatCheckerException>(() => new Voertuig(420, "Tesla", "Model X", "1abcd23efgh456789", nummerplaat, b, "Stationwagen", "Zwart", 5));
         }
         [Theory]
-        [InlineData(null)]        
+        [InlineData(null)]
         public void Test_ctor1_BadBrandstof_InValid(Brandstof br)
-        {            
+        {
             Assert.Throws<VoertuigException>(() => new Voertuig(420, "Tesla", "Model X", "1abcd23efgh456789", "2-ABC-123", br, "Stationwagen", "Zwart", 5));
         }
         [Theory]
@@ -98,25 +100,25 @@ namespace Flapp_TESTS
             Assert.Throws<VoertuigException>(() => new Voertuig(420, "Tesla", "Model X", "1abcd23efgh456789", "2-ABC-123", b, "Stationwagen", kleur, 5));
         }
         [Theory]
-        [InlineData(-4)]            
+        [InlineData(-4)]
         public void Test_ctor1_BadAantalDeuren_InValid(int aantalDeuren)
         {
             Brandstof b = new Brandstof("Elektrisch");
             Assert.Throws<VoertuigException>(() => new Voertuig(420, "Tesla", "Model X", "1abcd23efgh456789", "2-ABC-123", b, "Stationwagen", "zwart", aantalDeuren));
         }
         #endregion
-        #region ctor 2        
+        #region Ctor 2        
         [Fact]
         public void Test_ctor2_Valid()
         {
             Brandstof b = new Brandstof("Elektrisch");
-            Voertuig v = new Voertuig("Tesla", "Model X", "1abcd23efgh456789", "2-ABC-123", b, "Stationwagen");            
+            Voertuig v = new Voertuig("Tesla", "Model X", "1abcd23efgh456789", "2-ABC-123", b, "Stationwagen");
             Assert.Equal("Tesla", v.Merk);
             Assert.Equal("Model X", v.Model);
             Assert.Equal("1abcd23efgh456789", v.ChassisNummer);
             Assert.Equal("2-ABC-123", v.Nummerplaat);
             Assert.Equal(b, v.Brandstoftype);
-            Assert.Equal("Stationwagen", v.VoertuigType);            
+            Assert.Equal("Stationwagen", v.VoertuigType);
         }
         [Theory]
         [InlineData(null)]
@@ -176,6 +178,7 @@ namespace Flapp_TESTS
         }
         #endregion
         #endregion
+
         #region zetMethods tests
         // ZetVoertuigId
         [Fact]
@@ -188,7 +191,7 @@ namespace Flapp_TESTS
             Assert.Equal(120, v.VoertuigID);
         }
         [Theory]
-        [InlineData(-8)]        
+        [InlineData(-8)]
         public void Test_ZetVoertuigId_BadId_Valid(int id)
         {
             Brandstof b = new Brandstof("Elektrisch");
@@ -284,7 +287,7 @@ namespace Flapp_TESTS
             Voertuig v = new Voertuig(420, "Tesla", "Model X", "1abcd23efgh456789", "2-ABC-123", b, "Stationwagen", "Zwart", 5);
 
             Assert.Throws<NummerplaatCheckerException>(() => v.ZetNummerplaat(nummerplaat));
-        }        
+        }
         //zetBrandstofType
         [Fact]
         public void Test_ZetBrandstof_Valid()
@@ -297,7 +300,7 @@ namespace Flapp_TESTS
             Assert.Equal(testBrandstof, v.Brandstoftype);
         }
         [Theory]
-        [InlineData(null)]        
+        [InlineData(null)]
         public void Test_ZetBrandstof_BadBrandstof_Valid(Brandstof brandstof)
         {
             Brandstof b = new Brandstof("Elektrisch");
@@ -358,7 +361,7 @@ namespace Flapp_TESTS
             Assert.Equal(3, v.Aantaldeuren);
         }
         [Theory]
-        [InlineData(8)]        
+        [InlineData(8)]
         public void Test_ZetAantalDeuren_BadAantalDeuren_Valid(int aantaldeuren)
         {
             Brandstof b = new Brandstof("Elektrisch");
