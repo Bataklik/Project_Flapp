@@ -2,7 +2,7 @@
 
 namespace Flapp_BLL.Exceptions
 {
-    internal class BestuurderException : Exception
+    public class BestuurderException : Exception
     {
         public BestuurderException(string message) : base(message)
         {

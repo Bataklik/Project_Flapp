@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Flapp_BLL.Exceptions
 {
-    class ChassisnummerCheckerException : Exception
+    public class ChassisnummerCheckerException : Exception
     {
-        public ChassisnummerCheckerException(string message) : base (message)
+        public ChassisnummerCheckerException(string message) : base(message)
         {
 
         }

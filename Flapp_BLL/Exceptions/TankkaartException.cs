@@ -2,7 +2,7 @@
 
 namespace Flapp_BLL.Exceptions
 {
-    internal class TankkaartException : Exception
+    public class TankkaartException : Exception
     {
         public TankkaartException(string message) : base(message)
         {

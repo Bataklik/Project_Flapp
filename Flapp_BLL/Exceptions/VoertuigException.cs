@@ -2,7 +2,7 @@
 
 namespace Flapp_BLL.Exceptions
 {
-    internal class VoertuigException : Exception
+    public class VoertuigException : Exception
     {
         public VoertuigException(string message) : base(message)
         {
