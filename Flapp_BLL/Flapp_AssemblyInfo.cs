@@ -18,4 +18,4 @@ using System.Runtime.InteropServices;
 [assembly: Guid("d534f3a5-498b-41c2-bd01-b4c489f192f0")]
 
 // Internals visible to 
-[assembly: InternalsVisibleTo("Flapp_TESTS")]
+//[assembly: InternalsVisibleTo("Flapp_TESTS")]
