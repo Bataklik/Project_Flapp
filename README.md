@@ -40,4 +40,3 @@
 
 -  Moet een voertuig een bestuurder hebben -> mag null zijn
 -  Adres huisnummer -> string
--  Zetmethode & Ctor testen -> we gebruiken zetmethods in constructor
