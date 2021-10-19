@@ -6,46 +6,59 @@ using System.Threading.Tasks;
 using Flapp_BLL.Interfaces;
 using Flapp_BLL.Models;
 
-namespace Flapp_BLL.Managers {
-    public class TankkaartManager {
-        private ITankkaartRepo repo;
+namespace Flapp_BLL.Managers
+{
+    public class TankkaartManager
+    {
+        private ITankkaartRepo _repo;
 
-        public TankkaartManager(ITankkaartRepo repo) {
-            this.repo = repo;
+        public TankkaartManager(ITankkaartRepo repo)
+        {
+            this._repo = repo;
         }
 
-        public void VoegTankkaartToe(Tankkaart tankkaart) {
-            try {
-                if(repo.BestaatTankkaart(tankkaart)) { throw new Exception(); }
-                repo.VoegTankkaartToe(tankkaart);
+        public void VoegTankkaartToe(Tankkaart tankkaart)
+        {
+            try
+            {
+                if (_repo.BestaatTankkaart(tankkaart)) { throw new Exception(); }
+                _repo.VoegTankkaartToe(tankkaart);
             }
-            catch (Exception) {
+            catch (Exception)
+            {
 
                 throw;
             }
         }
-        public void VerwijderTankkaart(Tankkaart tankkaart) {
-            try {
-                if(repo.BestaatTankkaart(tankkaart)) { throw new Exception(); }
-                repo.VerwijderTankkaart(tankkaart);
+        public void VerwijderTankkaart(Tankkaart tankkaart)
+        {
+            try
+            {
+                if (_repo.BestaatTankkaart(tankkaart)) { throw new Exception(); }
+                _repo.VerwijderTankkaart(tankkaart);
             }
-            catch (Exception) {
+            catch (Exception)
+            {
 
                 throw;
             }
         }
-        public void UpdateTankkaart(Tankkaart tankkaart) {
-            try {
-                if (repo.BestaatTankkaart(tankkaart)) { throw new Exception(); }
-                repo.UpdateTankkaart(tankkaart);
+        public void UpdateTankkaart(Tankkaart tankkaart)
+        {
+            try
+            {
+                if (_repo.BestaatTankkaart(tankkaart)) { throw new Exception(); }
+                _repo.UpdateTankkaart(tankkaart);
             }
-            catch (Exception) {
-
-                throw;
-            }
+            catch (Exception) { throw; }
         }
-        IReadOnlyList<Tankkaart> GeefAlleTankkaarten() {
-            return;
+        IReadOnlyList<Tankkaart> GeefAlleTankkaarten()
+        {
+            try
+            {
+                return _repo.GeefAlleTankkaarten());
+            }
+            catch (Exception) { throw; }
         }
     }
 }
