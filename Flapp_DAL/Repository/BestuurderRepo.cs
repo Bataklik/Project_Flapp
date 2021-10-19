@@ -2,16 +2,38 @@
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using Flapp_BLL.Interfaces;
+using System.Collections.Generic;
 
 namespace Flapp_DAL.Repository
 {
-    public class BestuurderRepo
+    public class BestuurderRepo : IBestuurderRepo
     {
         private string _connString;
 
         public BestuurderRepo(string connString)
         {
             _connString = connString;
+        }
+
+        public bool BestaatBestuurder(Bestuurder bestuurder) {
+            throw new NotImplementedException();
+        }
+
+        public bool BestaatBestuurderId(int id) {
+            throw new NotImplementedException();
+        }
+
+        public IReadOnlyList<Bestuurder> GeefAlleBestuurders() {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateBestuurder(Bestuurder bestuurder) {
+            throw new NotImplementedException();
+        }
+
+        public void VerwijderBestuurder(Bestuurder bestuurder) {
+            throw new NotImplementedException();
         }
 
         #region VoegBestuurderToe Method
