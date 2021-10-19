@@ -56,7 +56,7 @@ namespace Flapp_BLL.Managers
         {
             try
             {
-                return _repo.GeefAlleTankkaarten());
+                return _repo.GeefAlleTankkaarten();
             }
             catch (Exception) { throw; }
         }
