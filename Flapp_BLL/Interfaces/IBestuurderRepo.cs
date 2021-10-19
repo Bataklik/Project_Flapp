@@ -5,13 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using Flapp_BLL.Models;
 
-namespace Flapp_BLL.Interfaces {
-    public interface IBestuurderRepo {
+namespace Flapp_BLL.Interfaces
+{
+    public interface IBestuurderRepo
+    {
         bool BestaatBestuurder(Bestuurder bestuurder);
         bool BestaatBestuurderId(int id);
         void VoegBestuurderToe(Bestuurder bestuurder);
         void VerwijderBestuurder(Bestuurder bestuurder);
         void UpdateBestuurder(Bestuurder bestuurder);
-        IReadOnlyList<Bestuurder> GeefAlleTankkaarten();
+        IReadOnlyList<Bestuurder> GeefAlleBestuurders();
     }
 }
