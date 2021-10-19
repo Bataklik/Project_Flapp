@@ -6,46 +6,51 @@ using System.Threading.Tasks;
 using Flapp_BLL.Interfaces;
 using Flapp_BLL.Models;
 
-namespace Flapp_BLL.Managers {
-    public class BestuurderManager {
-        private IBestuurderRepo repo;
+namespace Flapp_BLL.Managers
+{
+    public class BestuurderManager
+    {
+        private IBestuurderRepo _repo;
 
-        public BestuurderManager(IBestuurderRepo repo) {
-            this.repo = repo;
+        public BestuurderManager(IBestuurderRepo repo)
+        {
+            _repo = repo;
         }
 
-        public void VoegBestuurderToe(Bestuurder bestuurder) {
-            try {
-                if (repo.BestaatBestuurder(bestuurder)) { throw new Exception(); }
-                repo.VoegBestuurderToe(bestuurder);
+        public void VoegBestuurderToe(Bestuurder bestuurder)
+        {
+            try
+            {
+                if (_repo.BestaatBestuurder(bestuurder)) { throw new Exception(); }
+                _repo.VoegBestuurderToe(bestuurder);
             }
-            catch (Exception) {
-
-                throw;
-            }
+            catch (Exception ex) { throw new Exception("BestuurderManager", ex); }
         }
-        public void VerwijderBestuurder(Bestuurder bestuurder) {
-            try {
-                if (repo.BestaatBestuurder(bestuurder)) { throw new Exception(); }
-                repo.VerwijderBestuurder(bestuurder);
+        public void VerwijderBestuurder(Bestuurder bestuurder)
+        {
+            try
+            {
+                if (_repo.BestaatBestuurder(bestuurder)) { throw new Exception(); }
+                _repo.VerwijderBestuurder(bestuurder);
             }
-            catch (Exception) {
-
-                throw;
-            }
+            catch (Exception ex) { throw new Exception("BestuurderManager", ex); }
         }
-        public void UpdateBestuurder(Bestuurder bestuurder) {
-            try {
-                if (repo.BestaatBestuurder(bestuurder)) { throw new Exception(); }
-                repo.UpdateBestuurder(bestuurder);
+        public void UpdateBestuurder(Bestuurder bestuurder)
+        {
+            try
+            {
+                if (_repo.BestaatBestuurder(bestuurder)) { throw new Exception(); }
+                _repo.UpdateBestuurder(bestuurder);
             }
-            catch (Exception) {
-
-                throw;
-            }
+            catch (Exception ex) { throw new Exception("BestuurderManager", ex); }
         }
-        IReadOnlyList<Bestuurder> GeefAlleTankkaarten() {
-            return;
+        IReadOnlyList<Bestuurder> GeefAlleBestuurders()
+        {
+            try
+            {
+                return _repo.GeefAlleBestuurders();
+            }
+            catch (Exception ex) { throw new Exception("BestuurderManager", ex); }
         }
     }
 }
