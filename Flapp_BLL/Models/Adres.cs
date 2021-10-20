@@ -9,6 +9,7 @@ namespace Flapp_BLL.Models
     public class Adres
     {
         #region Props
+        public int Id { get; private set; }
         public string Straat { get; private set; }
         public int Huisnummer { get; private set; }
         public string Stad { get; private set; }
@@ -16,6 +17,11 @@ namespace Flapp_BLL.Models
         #endregion
 
         #region ZetMethods
+        public void ZetId(int value)
+        {
+            if (value <= 0) { throw new AdresException("Adres id moet positief zijn!"); }
+            Id = value;
+        }
         public void ZetStraat(string value)
         {
             if (string.IsNullOrWhiteSpace(value)) { throw new AdresException("Straatnaam mag niet leeg zijn!"); }
