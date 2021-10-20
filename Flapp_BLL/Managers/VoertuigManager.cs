@@ -18,13 +18,13 @@ namespace Flapp_BLL.Managers
             this.repo = repo;
         }
 
-        public void AddVehicle(Voertuig vehicle)
+        public void VoegVoertuigToe(Voertuig voertuig)
         {
             try
             {
-                if (!repo.BestaatVoertuig(vehicle))
+                if (!repo.BestaatVoertuig(voertuig))
                 {
-                    repo.VoegVoertuigToe(vehicle);
+                    repo.VoegVoertuigToe(voertuig);
                 }
                 else
                 {
@@ -37,31 +37,31 @@ namespace Flapp_BLL.Managers
             }
         }
 
-        public void UpdateVehicle(Voertuig vehicle)
+        public void UpdateVoertuig(Voertuig voertuig)
         {
             try
             {
-                // Bestaat vehicle met properties al ?
+                // Bestaat voertuig met properties al ?
 
 
             }
             catch (Exception ex)
             {
-                throw new VoertuigException("");
+                throw new VoertuigException(ex.Message);
             }
         }
 
-        public void DeleteVehicle(Voertuig vehicle)
+        public void VerwijderVoertuig(Voertuig voertuig)
         {
             try
             {
-                if (repo.BestaatVoertuig(vehicle))
+                if (repo.BestaatVoertuig(voertuig))
                 {
-                    repo.VerwijderVoertuig(vehicle);
+                    repo.VerwijderVoertuig(voertuig);
                 }
                 else
                 {
-                    throw new VoertuigException("VehicleManager - DeleteVehicle - Vehicle already deleted");
+                    throw new VoertuigException("VoeruigManager - VerwijderVoertuig - Voertuig bestaat al");
                 }
             }
             catch (Exception ex)

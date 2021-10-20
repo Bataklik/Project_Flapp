@@ -9,9 +9,9 @@ namespace Flapp_BLL.Interfaces
 {
     public interface IVoertuigRepo
     {
-        IReadOnlyList<Voertuig> GeefAlleAutos();
+        IReadOnlyList<Voertuig> GeefAlleVoertuigen();
         IReadOnlyList<Voertuig> ZoekVoertuigen(int? vehicleId, string brand, string model, string chassisNumber, string licensePlate, Brandstof fuelType, string vehicleType, string color, int doors, Bestuurder driver);
-        Voertuig GeefAuto();
+        Voertuig GeefVoertuig();
         Voertuig ZoekVoertuig(int? vehicleId, string brand, string model, string chassisNumber, string licensePlate, Brandstof fuelType, string vehicleType, string color, int doors, Bestuurder driver);
         bool BestaatVoertuig(Voertuig vehicle);
         void VoegVoertuigToe(Voertuig vehicle);
