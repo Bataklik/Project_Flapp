@@ -52,6 +52,14 @@ namespace Flapp_BLL.Models
             ZetStad(stad);
             ZetPostcode(postcode);
         }
+        public Adres(int id, string straat, int huisnummer, string stad, int postcode)
+        {
+            ZetId(id);
+            ZetStraat(straat);
+            ZetHuisnummer(huisnummer);
+            ZetStad(stad);
+            ZetPostcode(postcode);
+        }
         #endregion
 
         #region Overrides
