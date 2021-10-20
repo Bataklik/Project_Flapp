@@ -6,7 +6,6 @@ namespace Flapp_TESTS
 {
     public class Adres_UnitTest
     {
-
         #region Ctor Tests
         [Fact]
         public void Test_ctor_Valid()

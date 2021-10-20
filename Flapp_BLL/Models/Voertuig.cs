@@ -22,6 +22,19 @@ namespace Flapp_BLL.Models
         #endregion
 
         #region Constructors
+        public Voertuig(int voertuigID, string merk, string model, string chassisNummer, string nummerPlaat, Brandstof brandstofType, string voertuigType, string kleur, int deuren, Bestuurder bestuurder)
+        {
+            ZetVoeruigID(voertuigID);
+            ZetMerk(merk);
+            ZetModel(model);
+            ZetChassisNummer(chassisNummer);
+            ZetNummerplaat(nummerPlaat);
+            ZetBrandstofType(brandstofType);
+            ZetVoertuigType(voertuigType);
+            ZetKleur(kleur);
+            ZetAantalDeuren(deuren);
+            zetBestuurder(bestuurder);
+        }
         public Voertuig(int voertuigID, string merk, string model, string chassisNummer, string nummerPlaat, Brandstof brandstofType, string voertuigType, string kleur, int deuren)
         {
             ZetVoeruigID(voertuigID);
@@ -100,16 +113,80 @@ namespace Flapp_BLL.Models
             if (deuren < 0 || deuren > 7) { throw new VoertuigException("Voertuig - Aantal deuren moet tussen 0 en 7 zijn!"); }
             Aantaldeuren = deuren;
         }
-        public void ZetBestuurder(Bestuurder bestuurder)
+        public void ZetBestuurderr(Bestuurder bestuurder)
         {
             //if (bestuurder == null) { throw new VoertuigException("Voertuig - Bestuurder dat u wilt zetten is null!"); }
             if (Bestuurder == bestuurder) { throw new VoertuigException("Voertuig - Het is dezelfde bestuurder!"); }
             Bestuurder = bestuurder;
         }
+
+        public void zetBestuurder(Bestuurder nieuweBestuurder)
+        {
+            if (nieuweBestuurder != null)
+            {
+                if (this.Bestuurder == null)
+                {
+                    if (!nieuweBestuurder.HeeftVoertuig(this)) //heeft de nieuwe bestuurder dit al als vehicle ?
+                    {
+                        nieuweBestuurder.VerwijderVoertuig();
+                        this.Bestuurder = nieuweBestuurder;
+                        nieuweBestuurder.ZetVoertuig(this);
+                    }
+                    this.Bestuurder = nieuweBestuurder;
+                }
+                else if (this.Bestuurder != nieuweBestuurder) //is huidige bestuurder niet gelijk aan nieuwe driver ?
+                {
+                    if (this.Bestuurder.HeeftVoertuig(this))
+                    {
+                        this.Bestuurder.VerwijderVoertuig();
+                        //verwijder de huidige driver zijn vehicle
+                    }
+                    if (!nieuweBestuurder.HeeftVoertuig(this)) //heeft de nieuwe bestuurder dit al als vehicle ?
+                    {
+                        nieuweBestuurder.VerwijderVoertuig();
+                        this.Bestuurder = nieuweBestuurder;
+                        nieuweBestuurder.ZetVoertuig(this);
+                    }
+
+                }
+                else if (this.Bestuurder == nieuweBestuurder) // is huidige bestuurder wel gelijk aan nieuwe driver? -> exception
+                {
+                    if (!this.Bestuurder.HeeftVoertuig(this))
+                    {
+                        this.Bestuurder.VerwijderVoertuig();
+                        this.Bestuurder.ZetVoertuig(this);
+                    }
+                }
+            }
+            else
+            {
+                throw new VoertuigException("Vehicle - SetDriver - Driver is null");
+            }
+        }
+
         #endregion
 
         #region Methods
 
+        public bool HeeftBestuurder(Bestuurder bestuurder)
+        {
+            if (Bestuurder != null)
+            {
+                if (Bestuurder == bestuurder)                
+                    return true;                
+                else                
+                    return false;                
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public void VerwijderBestuurder()
+        {
+            Bestuurder = null;
+        }
         #endregion
 
         #region Overrides

@@ -369,6 +369,53 @@ namespace Flapp_TESTS
 
             Assert.Throws<VoertuigException>(() => v.ZetAantalDeuren(aantaldeuren));
         }
+        [Fact]
+        public void Test_SetDriver_Valid()
+        {
+            Brandstof b = new Brandstof("Elektrisch");
+            Voertuig v = new Voertuig(420, "Tesla", "Model X", "1abcd23efgh456789", "2-ABC-123", b, "Stationwagen", "Zwart", 5);
+            Bestuurder driver = new Bestuurder("Raf", "Troch", Geslacht.M, "11/05/1999", "99.05.11-273.26", RijbewijsType.B);
+            v.zetBestuurder(driver);
+            Assert.Equal(driver, v.Bestuurder);
+        }
+
+        /*
+        [Fact]
+        public void Test_SetDriver_Invalid()
+        {
+            Driver driver = new Driver("Elvis", "Presley", new DateTime(1997, 05, 20), "97.05.20-327.78", new List<string> { "B", "A1" });
+            Vehicle vehicle = new Vehicle(1, "Porsche", "GT2RS", "1234-1234-1234-17", "KAPPER FURKAN", new FuelType("Gasoline"), "Sportauto", "Donkergrijs", 2, driver);
+            Assert.Throws<VehicleException>(() => vehicle.SetDriver(driver));
+        }
+        */
+
+        [Fact]
+        public void Test_HasDriver_Valid()
+        {
+            Brandstof b = new Brandstof("Elektrisch");
+            Bestuurder d = new Bestuurder("Raf", "Troch", Geslacht.M, "11/05/1999", "99.05.11-273.26", RijbewijsType.B);
+            Voertuig v = new Voertuig(420, "Tesla", "Model X", "1abcd23efgh456789", "2-ABC-123", b, "Stationwagen", "Zwart", 5, d);
+            Assert.True(v.HeeftBestuurder(d));
+        }
+
+        [Fact]
+        public void Test_HasDriver_Invalid()
+        {
+            Brandstof b = new Brandstof("Elektrisch");
+            Bestuurder d = new Bestuurder("Raf", "Troch", Geslacht.M, "11/05/1999", "99.05.11-273.26", RijbewijsType.B);
+            Voertuig v = new Voertuig(420, "Tesla", "Model X", "1abcd23efgh456789", "2-ABC-123", b, "Stationwagen", "Zwart", 5);
+            Assert.False(v.HeeftBestuurder(d));
+        }
+
+        [Fact]
+        public void Test_RemoveDriver_Valid()
+        {
+            Brandstof b = new Brandstof("Elektrisch");
+            Bestuurder d = new Bestuurder("Raf", "Troch", Geslacht.M, "11/05/1999", "99.05.11-273.26", RijbewijsType.B);
+            Voertuig v = new Voertuig(420, "Tesla", "Model X", "1abcd23efgh456789", "2-ABC-123", b, "Stationwagen", "Zwart", 5, d);
+            v.VerwijderBestuurder();
+            Assert.Null(v.Bestuurder);
+        }
         #endregion
     }
 }

@@ -84,22 +84,81 @@ namespace Flapp_BLL.Models
         {
             RijbewijsType = rt;
         }
-        public void ZetVoertuig(Voertuig value)
+        public void ZetVoertuigg(Voertuig value)
         {
             // Misschien Fout
             if (value == null) { throw new BestuurderException("Bestuurder: ZetVoertuig: Voertuig bestaat niet!"); }
             if (value == Voertuig) { throw new BestuurderException("Bestuurder: ZetVoertuig: Voertuig is hetzelfde!"); }
-            if (value != null) value.ZetBestuurder(this);
+            if (value != null) value.zetBestuurder(this);
             Voertuig = value;
         }
         public void ZetTankkaart(Tankkaart tk)
         {
             Tankkaart = tk ?? throw new BestuurderException("Bestuurder tankkaart is null!");
         }
+
+        public void ZetVoertuig(Voertuig nieuwVoertuig)
+        {
+
+            if (nieuwVoertuig != null)
+            {
+                if (this.Voertuig == null)
+                {
+                    if (!nieuwVoertuig.HeeftBestuurder(this))
+                    {
+                        nieuwVoertuig.zetBestuurder(this);
+                    }
+                }
+                else if (this.Voertuig != nieuwVoertuig)
+                {
+                    //
+                    if (this.Voertuig.HeeftBestuurder(this))
+                    {
+                        this.Voertuig.VerwijderBestuurder(); //Als zijn vorige auto nog steeds over de bestuurder beschikt
+                    }
+                    if (!nieuwVoertuig.HeeftBestuurder(this))
+                    {
+                        nieuwVoertuig.VerwijderBestuurder();
+                        nieuwVoertuig.zetBestuurder(this);
+                    }
+                }
+                Voertuig = nieuwVoertuig;
+                if (!nieuwVoertuig.HeeftBestuurder(this))
+                {
+                    nieuwVoertuig.VerwijderBestuurder();
+                    nieuwVoertuig.zetBestuurder(this);
+                }
+            }
+            else
+            {
+                throw new BestuurderException("Voertuig - zetVoertuig: Nieuw voertuig is null");
+            }
+        }
         #endregion
 
         #region Methods
-
+        public void VerwijderVoertuig() //Verwijder voertuig bij bestuurder
+        {
+            Voertuig = null;
+        }
+        public bool HeeftVoertuig(Voertuig voertuig) // Heeft de bestuurder al een voertuig?
+        {
+            if (Voertuig != null)
+            {
+                if (this.Voertuig == voertuig)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
         #endregion
 
         #region Overrides
