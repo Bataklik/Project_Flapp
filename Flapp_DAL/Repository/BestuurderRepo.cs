@@ -9,11 +9,15 @@ namespace Flapp_DAL.Repository
 {
     public class BestuurderRepo : IBestuurderRepo
     {
+        private AdresRepo _aRepo;
+        private RijbewijsTypeRepo _rtRepo;
         private string _connString;
 
         public BestuurderRepo(string connString)
         {
             _connString = connString;
+            _aRepo = new AdresRepo(connString);
+            _rtRepo = new RijbewijsTypeRepo(connString);
         }
 
         #region BestaatBestuurder Method
@@ -21,7 +25,7 @@ namespace Flapp_DAL.Repository
         {
             SqlConnection conn = new SqlConnection(_connString);
             string query = "USE [Project_Flapp_DB]; SELECT 1 FROM Bestuurder WHERE naam = @naam AND voornaam = @voornaam AND geboortedatum = @geboorte AND rijksregister = @rijksregister AND rijbewijstype_id = @rijbewijstype_id " +
-                "AND adres_id = @adres_id AND voertuig_id = @voertuig_id AND tankkaart_id = @tankkaart_id AND geslacht = @geslacht";
+                "AND adres_id = @adres_id AND voertuig_id = @voertuig_id AND tankkaart_id = @tankkaart_id AND geslacht = @geslacht;";
             using (SqlCommand cmd = conn.CreateCommand())
             {
                 conn.Open();
@@ -36,7 +40,6 @@ namespace Flapp_DAL.Repository
                     cmd.Parameters.Add(new SqlParameter("@voertuig_id", SqlDbType.Int));
                     cmd.Parameters.Add(new SqlParameter("@tankkaart_id", SqlDbType.Int));
                     cmd.Parameters.Add(new SqlParameter("@geslacht", SqlDbType.Bit));
-
 
                     cmd.CommandText = query;
 
@@ -55,6 +58,55 @@ namespace Flapp_DAL.Repository
 
                     if (bestuurderBestaat == 1) { return true; }
                     return false;
+                }
+                catch (Exception ex) { throw new Exception(ex.Message); }
+                finally { conn.Close(); }
+            }
+        }
+
+        public Bestuurder GeefBestuurder(Bestuurder b)
+        {
+            SqlConnection conn = new SqlConnection(_connString);
+            string query = "USE [Project_Flapp_DB]; SELECT * FROM Bestuurder WHERE naam = @naam AND voornaam = @voornaam AND geboortedatum = @geboorte AND rijksregister = @rijksregister AND rijbewijstype_id = @rijbewijstype_id " +
+                "AND adres_id = @adres_id AND voertuig_id = @voertuig_id AND tankkaart_id = @tankkaart_id AND geslacht = @geslacht";
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
+                cmd.Parameters.Add(new SqlParameter("@naam", SqlDbType.VarChar));
+                cmd.Parameters.Add(new SqlParameter("@voornaam", SqlDbType.VarChar));
+                cmd.Parameters.Add(new SqlParameter("@geboorte", SqlDbType.Date));
+                cmd.Parameters.Add(new SqlParameter("@rijksregister", SqlDbType.VarChar));
+                cmd.Parameters.Add(new SqlParameter("@rijbewijstype_id", SqlDbType.Int));
+                cmd.Parameters.Add(new SqlParameter("@adres_id", SqlDbType.Int));
+                cmd.Parameters.Add(new SqlParameter("@voertuig_id", SqlDbType.Int));
+                cmd.Parameters.Add(new SqlParameter("@tankkaart_id", SqlDbType.Int));
+                cmd.Parameters.Add(new SqlParameter("@geslacht", SqlDbType.Bit));
+
+                cmd.CommandText = query;
+
+                cmd.Parameters["@naam"].Value = b.Naam;
+                cmd.Parameters["@voornaam"].Value = b.Voornaam;
+                cmd.Parameters["@geboorte"].Value = b.Geboortedatum;
+                cmd.Parameters["@rijksregister"].Value = b.Rijksregisternummer;
+                cmd.Parameters["@rijbewijstype_id"].Value = 1;
+                cmd.Parameters["@adres_id"].Value = b.Adres.Id;
+                if (b.Voertuig == null) { cmd.Parameters["@voertuig_id"].Value = 1; }
+                else { cmd.Parameters["@voertuig_id"].Value = b.Voertuig.VoertuigID; }
+                cmd.Parameters["@tankkaart_id"].Value = b.Tankkaart.Kaartnummer;
+                cmd.Parameters["@geslacht"].Value = b.Geslacht;
+
+                conn.Open();
+                try
+                {
+                    SqlDataReader r = cmd.ExecuteReader();
+                    r.Read();
+                    Geslacht g = (int)r["geslacht"] == 1 ? Geslacht.M : Geslacht.V;
+                    Adres a = _aRepo.GeefAdres((int)r["adres_id"]);
+                    string geboorte = Convert.ToString(r["geboortedatum"]);
+                    // Repo's & Interfaces moeten nog gemaakt worden
+                    RijbewijsType rt = _rtRepo.GeefRijbewijs((int)r["rijbewijstype_id"]);
+                    Voertuig v = null;
+                    Tankkaart t = null;
+                    Bestuurder gevondenBestuurder = new((int)r["id"], (string)r["naam"], (string)r["voornaam"], g, a, geboorte, (string)r["rijksregister"], rt, v, t);
                 }
                 catch (Exception ex) { throw new Exception(ex.Message); }
                 finally { conn.Close(); }
