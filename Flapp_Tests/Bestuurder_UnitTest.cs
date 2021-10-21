@@ -61,7 +61,7 @@ namespace Flapp_TESTS
         public void Test_ctor2_Valid()
         {
             Tankkaart tk = new Tankkaart(1, DateTime.Now.AddDays(4));
-            Adres a = new Adres("Straat", 1, "Stad", 9000);
+            Adres a = new Adres("Straat", "1", "Stad", 9000);
             Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
             Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", RijbewijsType.B, v, tk);
 
@@ -81,7 +81,7 @@ namespace Flapp_TESTS
         public void Test_ctor2_BadNaam_InValid(string naam)
         {
             Tankkaart tk = new Tankkaart(1, DateTime.Now.AddDays(4));
-            Adres a = new Adres("Straat", 1, "Stad", 9000);
+            Adres a = new Adres("Straat", "1", "Stad", 9000);
             Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
             Assert.Throws<BestuurderException>(() => new Bestuurder(naam, "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", RijbewijsType.B, v, tk));
         }
@@ -92,7 +92,7 @@ namespace Flapp_TESTS
         public void Test_ctor2_BadVoornaam_InValid(string voornaam)
         {
             Tankkaart tk = new Tankkaart(1, DateTime.Now.AddDays(4));
-            Adres a = new Adres("Straat", 1, "Stad", 9000);
+            Adres a = new Adres("Straat", "1", "Stad", 9000);
             Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
             Assert.Throws<BestuurderException>(() => new Bestuurder("Balci", voornaam, Geslacht.M, a, "12/05/1999", "99.05.12-273.26", RijbewijsType.B, v, tk));
         }
@@ -111,7 +111,7 @@ namespace Flapp_TESTS
         public void Test_ctor2_BadGeboortedatum_invalid(string geboortedatum)
         {
             Tankkaart tk = new Tankkaart(1, DateTime.Now.AddDays(4));
-            Adres a = new Adres("Straat", 1, "Stad", 9000);
+            Adres a = new Adres("Straat", "1", "Stad", 9000);
             Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
             Assert.Throws<BestuurderException>(() => new Bestuurder("Balci", "", Geslacht.M, a, geboortedatum, "99.05.12-273.26", RijbewijsType.B, v, tk));
         }
@@ -123,7 +123,7 @@ namespace Flapp_TESTS
         public void Test_ctor2_BadRijksregisternummer_invalid(string rijksregister)
         {
             Tankkaart tk = new Tankkaart(1, DateTime.Now.AddDays(4));
-            Adres a = new Adres("Straat", 1, "Stad", 9000);
+            Adres a = new Adres("Straat", "1", "Stad", 9000);
             Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
             Assert.Throws<BestuurderException>(() => new Bestuurder("Balci", "", Geslacht.M, a, "12/05/1999", rijksregister, RijbewijsType.B, v, tk));
         }
@@ -132,14 +132,14 @@ namespace Flapp_TESTS
         public void Test_ctor2_BadVoertuig_invalid(Voertuig voertuig)
         {
             Tankkaart tk = new Tankkaart(1, DateTime.Now.AddDays(4));
-            Adres a = new Adres("Straat", 1, "Stad", 9000);
+            Adres a = new Adres("Straat", "1", "Stad", 9000);
             Assert.Throws<BestuurderException>(() => new Bestuurder("Balci", "", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", RijbewijsType.B, voertuig, tk));
         }
         [Theory]
         [InlineData(null)]
         public void Test_ctor2_BadTankkaart_invalid(Tankkaart tankkaart)
         {
-            Adres a = new Adres("Straat", 1, "Stad", 9000);
+            Adres a = new Adres("Straat", "1", "Stad", 9000);
             Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
             Assert.Throws<BestuurderException>(() => new Bestuurder("Balci", "", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", RijbewijsType.B, v, tankkaart));
         }
@@ -151,7 +151,7 @@ namespace Flapp_TESTS
         public void Test_ZetNaam_Valid()
         {
             Tankkaart tk = new Tankkaart(1, DateTime.Now.AddDays(4));
-            Adres a = new Adres("Straat", 1, "Stad", 9000);
+            Adres a = new Adres("Straat", "1", "Stad", 9000);
             Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
             Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", RijbewijsType.B, v, tk);
 
@@ -165,7 +165,7 @@ namespace Flapp_TESTS
         public void Test_ZetNaam_BadNaam_Valid(string naam)
         {
             Tankkaart tk = new Tankkaart(1, DateTime.Now.AddDays(4));
-            Adres a = new Adres("Straat", 1, "Stad", 9000);
+            Adres a = new Adres("Straat", "1", "Stad", 9000);
             Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
             Bestuurder b = new Bestuurder("Burak", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", RijbewijsType.B, v, tk);
 
@@ -177,7 +177,7 @@ namespace Flapp_TESTS
         public void Test_ZetVoornaam_Valid()
         {
             Tankkaart tk = new Tankkaart(1, DateTime.Now.AddDays(4));
-            Adres a = new Adres("Straat", 1, "Stad", 9000);
+            Adres a = new Adres("Straat", "1", "Stad", 9000);
             Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
             Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", RijbewijsType.B, v, tk);
 
@@ -191,7 +191,7 @@ namespace Flapp_TESTS
         public void Test_ZetVoornaam_BadVoornaam_Valid(string voornaam)
         {
             Tankkaart tk = new Tankkaart(1, DateTime.Now.AddDays(4));
-            Adres a = new Adres("Straat", 1, "Stad", 9000);
+            Adres a = new Adres("Straat", "1", "Stad", 9000);
             Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
             Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", RijbewijsType.B, v, tk);
 
@@ -203,11 +203,11 @@ namespace Flapp_TESTS
         public void Test_ZetAdres_Valid()
         {
             Tankkaart tk = new Tankkaart(1, DateTime.Now.AddDays(4));
-            Adres a = new Adres("Straat", 1, "Stad", 9000);
+            Adres a = new Adres("Straat", "1", "Stad", 9000);
             Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
             Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", RijbewijsType.B, v, tk);
 
-            Adres testAdres = new("straat", 1, "stad", 9001);
+            Adres testAdres = new("straat", "1", "stad", 9001);
             b.ZetAdres(testAdres);
             Assert.Equal(testAdres, b.Adres);
         }
@@ -216,7 +216,7 @@ namespace Flapp_TESTS
         public void Test_ZetAdres_BadAdres_Valid(Adres adres)
         {
             Tankkaart tk = new Tankkaart(1, DateTime.Now.AddDays(4));
-            Adres a = new Adres("Straat", 1, "Stad", 9000);
+            Adres a = new Adres("Straat", "1", "Stad", 9000);
             Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
             Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", RijbewijsType.B, v, tk);
 
@@ -228,7 +228,7 @@ namespace Flapp_TESTS
         public void Test_ZetGeboortedatum_Valid()
         {
             Tankkaart tk = new Tankkaart(1, DateTime.Now.AddDays(4));
-            Adres a = new Adres("Straat", 1, "Stad", 9000);
+            Adres a = new Adres("Straat", "1", "Stad", 9000);
             Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
             Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", RijbewijsType.B, v, tk);
 
@@ -242,7 +242,7 @@ namespace Flapp_TESTS
         public void Test_ZetGeboortedatum_BadGeboortedatum_Valid(string geboortedatum)
         {
             Tankkaart tk = new Tankkaart(1, DateTime.Now.AddDays(4));
-            Adres a = new Adres("Straat", 1, "Stad", 9000);
+            Adres a = new Adres("Straat", "1", "Stad", 9000);
             Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
             Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", RijbewijsType.B, v, tk);
 
@@ -254,7 +254,7 @@ namespace Flapp_TESTS
         public void Test_ZetRijksregisternummer_Valid()
         {
             Tankkaart tk = new Tankkaart(1, DateTime.Now.AddDays(4));
-            Adres a = new Adres("Straat", 1, "Stad", 9000);
+            Adres a = new Adres("Straat", "1", "Stad", 9000);
             Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
             Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", RijbewijsType.B, v, tk);
 
@@ -268,7 +268,7 @@ namespace Flapp_TESTS
         public void Test_ZetRijksregisternummer_BadRijksregisternummer_Valid(string rijksregisternummer)
         {
             Tankkaart tk = new Tankkaart(1, DateTime.Now.AddDays(4));
-            Adres a = new Adres("Straat", 1, "Stad", 9000);
+            Adres a = new Adres("Straat", "1", "Stad", 9000);
             Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
             Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", RijbewijsType.B, v, tk);
 
@@ -280,7 +280,7 @@ namespace Flapp_TESTS
         public void Test_ZetVoertuig_Valid()
         {
             Tankkaart tk = new Tankkaart(1, DateTime.Now.AddDays(4));
-            Adres a = new Adres("Straat", 1, "Stad", 9000);
+            Adres a = new Adres("Straat", "1", "Stad", 9000);
             Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
             Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", RijbewijsType.B, v, tk);
 
@@ -294,7 +294,7 @@ namespace Flapp_TESTS
         public void Test_ZetVoertuig_BadVoertuig1_InValid(Voertuig voertuig)
         {
             Tankkaart tk = new Tankkaart(1, DateTime.Now.AddDays(4));
-            Adres a = new Adres("Straat", 1, "Stad", 9000);
+            Adres a = new Adres("Straat", "1", "Stad", 9000);
             Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
             Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", RijbewijsType.B, v, tk);
 
@@ -307,8 +307,8 @@ namespace Flapp_TESTS
         //    Adres a = new Adres("Straat", 1, "Stad", 9000);
         //    Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
         //    Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", RijbewijsType.B, v, tk);
-            
-            
+
+
         //    v.zetBestuurder(b);
         //    Voertuig testVoertuig = new Voertuig(2, "ERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
 
@@ -321,7 +321,7 @@ namespace Flapp_TESTS
         public void Test_ZetTankkaart_Valid()
         {
             Tankkaart tk = new Tankkaart(1, DateTime.Now.AddDays(4));
-            Adres a = new Adres("Straat", 1, "Stad", 9000);
+            Adres a = new Adres("Straat", "1", "Stad", 9000);
             Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
             Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", RijbewijsType.B, v, tk);
 
@@ -334,7 +334,7 @@ namespace Flapp_TESTS
         public void Test_ZetTankkaart_BadTankkaart_InValid(Tankkaart tankkaart)
         {
             Tankkaart tk = new Tankkaart(1, DateTime.Now.AddDays(4));
-            Adres a = new Adres("Straat", 1, "Stad", 9000);
+            Adres a = new Adres("Straat", "1", "Stad", 9000);
             Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
             Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", RijbewijsType.B, v, tk);
 
