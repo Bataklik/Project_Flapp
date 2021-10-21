@@ -23,6 +23,13 @@
 <!-- Feedback -->
 <!-- [ ] Empty [x] Full -->
 
+## ToDo's
+* GeefBestuurder methode
+* RijbewijsTypeRepo klassen afwerken
+* IRijbewijsTypeRepo interface maken
+* Alle methode's met NotImplementedException() maken
+* Geef Voertuig & Tankkaart methode maken
+
 ## Feedback: 21/10
 - [ ] Voor alle klassen een unit test
 - [ ] Bestuurder heeft voertuig en voertuig heeft dezelfde bestuurder.
