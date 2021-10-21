@@ -17,4 +17,6 @@
 | 2u   | Adres Test + beetje bestuurder Test                        |
 | 2u   | Create Datalaag + BestuurderRepo, Exceptions Internal -> Public |
 | 1u   | Create sql table files                       |
+| 2u   | Create Adres interface, repo, manager                      |
+
 
