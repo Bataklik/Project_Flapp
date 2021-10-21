@@ -14,6 +14,8 @@ namespace Flapp_DAL.Repository
         {
             _connString = connString;
         }
+
+        #region BestaatAdres Method
         public bool BestaatAdres(Adres a)
         {
             SqlConnection conn = new SqlConnection(_connString);
@@ -47,6 +49,9 @@ namespace Flapp_DAL.Repository
             }
         }
 
+        #endregion
+
+        #region VoegAdresToe Method
         public void VoegAdresToe(Adres a)
         {
             SqlConnection conn = new SqlConnection(_connString);
@@ -74,5 +79,7 @@ namespace Flapp_DAL.Repository
                 finally { conn.Close(); }
             }
         }
+
+        #endregion
     }
 }
