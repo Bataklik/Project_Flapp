@@ -46,7 +46,8 @@ namespace Flapp_DAL.Repository
                     cmd.Parameters["@rijksregister"].Value = b.Rijksregisternummer;
                     cmd.Parameters["@rijbewijstype_id"].Value = 1;
                     cmd.Parameters["@adres_id"].Value = b.Adres.Id;
-                    cmd.Parameters["@voertuig_id"].Value = b.Voertuig.VoertuigID;
+                    if (b.Voertuig == null) { cmd.Parameters["@voertuig_id"].Value = 1; }
+                    else { cmd.Parameters["@voertuig_id"].Value = b.Voertuig.VoertuigID; }
                     cmd.Parameters["@tankkaart_id"].Value = b.Tankkaart.Kaartnummer;
                     cmd.Parameters["@geslacht"].Value = b.Geslacht;
 
