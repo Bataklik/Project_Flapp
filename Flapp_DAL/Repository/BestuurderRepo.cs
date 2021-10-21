@@ -50,11 +50,10 @@ namespace Flapp_DAL.Repository
                     cmd.Parameters["@tankkaart_id"].Value = b.Tankkaart.Kaartnummer;
                     cmd.Parameters["@geslacht"].Value = b.Geslacht;
 
-                    int klantBestaat = Convert.ToInt32(cmd.ExecuteScalar());
+                    int bestuurderBestaat = Convert.ToInt32(cmd.ExecuteScalar());
 
-                    if (klantBestaat == 1) { return true; }
+                    if (bestuurderBestaat == 1) { return true; }
                     return false;
-
                 }
                 catch (Exception ex) { throw new Exception(ex.Message); }
                 finally { conn.Close(); }
