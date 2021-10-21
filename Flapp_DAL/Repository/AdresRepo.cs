@@ -80,6 +80,11 @@ namespace Flapp_DAL.Repository
             }
         }
 
+        public Adres GeefAdres(int aId)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
     }
 }
