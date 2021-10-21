@@ -52,7 +52,7 @@ namespace Flapp_BLL.Models
             ZetStad(stad);
             ZetPostcode(postcode);
         }
-        public Adres(int id, string straat, int huisnummer, string stad, int postcode)
+        public Adres(int id, string straat, string huisnummer, string stad, int postcode)
         {
             ZetId(id);
             ZetStraat(straat);
