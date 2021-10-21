@@ -287,6 +287,7 @@ namespace Flapp_TESTS
             Voertuig testVoertuig = new Voertuig(2, "ERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
             b.ZetVoertuig(testVoertuig);
             Assert.Equal(testVoertuig, b.Voertuig);
+            Assert.Equal(testVoertuig.Bestuurder, b);
         }
         [Theory]
         [InlineData(null)]

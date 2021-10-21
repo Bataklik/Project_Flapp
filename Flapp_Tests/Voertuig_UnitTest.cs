@@ -377,6 +377,7 @@ namespace Flapp_TESTS
             Bestuurder driver = new Bestuurder("Raf", "Troch", Geslacht.M, "11/05/1999", "99.05.11-273.26", RijbewijsType.B);
             v.zetBestuurder(driver);
             Assert.Equal(driver, v.Bestuurder);
+            Assert.Equal(v, driver.Voertuig);
         }
 
         /*
