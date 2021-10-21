@@ -21,7 +21,7 @@ namespace Flapp_BLL.Managers
         {
             try
             {
-                if (_repo.BestaatBestuurder(bestuurder)) { throw new Exception(); }
+                if (_repo.BestaatBestuurder(bestuurder)) { throw new Exception("BestuurderManager: Bestuurder bestaat al!"); }
                 _repo.VoegBestuurderToe(bestuurder);
             }
             catch (Exception ex) { throw new Exception("BestuurderManager", ex); }
@@ -30,7 +30,7 @@ namespace Flapp_BLL.Managers
         {
             try
             {
-                if (_repo.BestaatBestuurder(bestuurder)) { throw new Exception(); }
+                if (!_repo.BestaatBestuurder(bestuurder)) { throw new Exception("BestuurderManager: Bestuurder bestaat niet!"); }
                 _repo.VerwijderBestuurder(bestuurder);
             }
             catch (Exception ex) { throw new Exception("BestuurderManager", ex); }
@@ -39,12 +39,12 @@ namespace Flapp_BLL.Managers
         {
             try
             {
-                if (_repo.BestaatBestuurder(bestuurder)) { throw new Exception(); }
+                if (!_repo.BestaatBestuurder(bestuurder)) { throw new Exception("BestuurderManager: Bestuurder bestaat niet!"); }
                 _repo.UpdateBestuurder(bestuurder);
             }
             catch (Exception ex) { throw new Exception("BestuurderManager", ex); }
         }
-        IReadOnlyList<Bestuurder> GeefAlleBestuurders()
+        public IReadOnlyList<Bestuurder> GeefAlleBestuurders()
         {
             try
             {
