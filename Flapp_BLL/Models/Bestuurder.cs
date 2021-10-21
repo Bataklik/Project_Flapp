@@ -20,6 +20,7 @@ namespace Flapp_BLL.Models
         public Voertuig Voertuig { get; private set; }
         public Tankkaart Tankkaart { get; private set; }
         public Geslacht Geslacht { get; private set; }
+        public int Id { get; private set; }
         #endregion
 
         #region Constructors
@@ -45,9 +46,39 @@ namespace Flapp_BLL.Models
             ZetVoertuig(voertuig);
             ZetTankkaart(tankkaart);
         }
+
+        public Bestuurder(int id, string naam, string voornaam, Geslacht geslacht, string geboortedatum, string rijksregisternummer, RijbewijsType rijbewijs)
+        {
+            ZetId(id);
+            ZetNaam(naam);
+            ZetVoornaam(voornaam);
+            ZetGeslacht(geslacht);
+            ZetGeboortedatum(geboortedatum);
+            ZetRijksregisternummer(rijksregisternummer);
+            ZetRijbewijsType(rijbewijs);
+        }
+
+        public Bestuurder(int id, string naam, string voornaam, Geslacht geslacht, Adres adres, string geboortedatum, string rijksregisternummer, RijbewijsType rijbewijs, Voertuig voertuig, Tankkaart tankkaart)
+        {
+            ZetId(id);
+            ZetNaam(naam);
+            ZetVoornaam(voornaam);
+            ZetGeslacht(geslacht);
+            ZetGeboortedatum(geboortedatum);
+            ZetRijksregisternummer(rijksregisternummer);
+            ZetRijbewijsType(rijbewijs);
+            ZetAdres(adres);
+            ZetVoertuig(voertuig);
+            ZetTankkaart(tankkaart);
+        }
         #endregion
 
         #region ZetMethods
+        public void ZetId(int id)
+        {
+            if (id <= 0) { throw new BestuurderException("Id moet positief zijn!"); }
+            Id = id;
+        }
         public void ZetNaam(string n)
         {
             if (string.IsNullOrWhiteSpace(n)) { throw new BestuurderException("Naam mag niet leeg zijn!"); }
