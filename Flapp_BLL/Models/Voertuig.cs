@@ -80,16 +80,16 @@ namespace Flapp_BLL.Models
             Model = model;
         }
         public void ZetChassisNummer(string nummer)
-        {            
+        {
             ChassisChecker cc = new ChassisChecker(nummer);
             //if (string.IsNullOrWhiteSpace(nummer)) { throw new VoertuigException("Voertuig - Chassisnummer is leeg of null!"); }
-            if(cc.controleChassisnummer(nummer))
+            if (cc.controleChassisnummer(nummer))
                 ChassisNummer = nummer;
         }
         public void ZetNummerplaat(string nummerplaat)
         {
             NummerplaatChecker nc = new NummerplaatChecker(nummerplaat);
-            
+
             if (nc.ControleNummerplaat(nummerplaat))
                 Nummerplaat = nummerplaat;
         }
@@ -172,10 +172,10 @@ namespace Flapp_BLL.Models
         {
             if (Bestuurder != null)
             {
-                if (Bestuurder == bestuurder)                
-                    return true;                
-                else                
-                    return false;                
+                if (Bestuurder == bestuurder)
+                    return true;
+                else
+                    return false;
             }
             else
             {
@@ -197,3 +197,16 @@ namespace Flapp_BLL.Models
         #endregion
     }
 }
+
+//USE[Project_Flapp_DB];
+//CREATE TABLE[dbo].[voertuig](
+//   [id][int] IDENTITY(1, 1) PRIMARY KEY,
+//   [merk] [varchar](50) NOT NULL,
+//   [model] [varchar](50) NOT NULL,
+//   [chassisnummer] [varchar](17) NOT NULL,
+//   [nummerplaat] [varchar](9) NOT NULL,
+//   [brandstof_type] [int] FOREIGN KEY REFERENCES dbo.Brandstof(id),
+//   [voertuig_type] [varchar](50) NOT NULL,
+//   [kleur] [varchar](50) NULL,
+//   [deuren] [int] NULL,
+//   [bestuurder_id] [int] FOREIGN KEY REFERENCES dbo.Bestuurder(id));

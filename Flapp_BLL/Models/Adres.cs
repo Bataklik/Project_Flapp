@@ -11,7 +11,7 @@ namespace Flapp_BLL.Models
         #region Props
         public int Id { get; private set; }
         public string Straat { get; private set; }
-        public int Huisnummer { get; private set; }
+        public string Huisnummer { get; private set; }
         public string Stad { get; private set; }
         public int Postcode { get; private set; }
         #endregion
@@ -27,9 +27,9 @@ namespace Flapp_BLL.Models
             if (string.IsNullOrWhiteSpace(value)) { throw new AdresException("Straatnaam mag niet leeg zijn!"); }
             Straat = value;
         }
-        public void ZetHuisnummer(int value)
+        public void ZetHuisnummer(string value)
         {
-            if (value <= 0) { throw new AdresException("Huisnummer mag niet onder nul zijn!"); }
+            if (string.IsNullOrWhiteSpace(value)) { throw new AdresException("Huisnummer mag niet leeg zijn!"); }
             Huisnummer = value;
         }
         public void ZetStad(string value)
@@ -45,7 +45,7 @@ namespace Flapp_BLL.Models
         #endregion
 
         #region Construtors
-        public Adres(string straat, int huisnummer, string stad, int postcode)
+        public Adres(string straat, string huisnummer, string stad, int postcode)
         {
             ZetStraat(straat);
             ZetHuisnummer(huisnummer);
@@ -84,3 +84,11 @@ namespace Flapp_BLL.Models
         #endregion
     }
 }
+
+//USE[Project_Flapp_DB];
+//CREATE TABLE[dbo].[Adres](
+//   [Id][int] IDENTITY(1, 1) PRIMARY KEY,
+//   [Straat] [varchar](50) NOT NULL,
+//   [Huisnummer] [varchar](50) NOT NULL,
+//   [Stad] [varchar](50) NOT NULL,
+//   [Postcode] [int] NOT NULL);
