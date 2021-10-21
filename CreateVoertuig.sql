@@ -1,5 +1,5 @@
 USE[Project_Flapp_DB];
-CREATE TABLE[dbo].[voertuig](
+CREATE TABLE[dbo].[Voertuig](
    [id][int] IDENTITY(1, 1) PRIMARY KEY,
    [merk] [varchar](50) NOT NULL,
    [model] [varchar](50) NOT NULL,
