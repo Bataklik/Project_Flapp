@@ -9,4 +9,5 @@ CREATE TABLE[dbo].[voertuig](
    [voertuig_type] [varchar](50) NOT NULL,
    [kleur] [varchar](50) NULL,
    [deuren] [int] NULL,
-   [bestuurder_id] [int] FOREIGN KEY REFERENCES dbo.Bestuurder(id));
+   [bestuurder_id] [int] NULL);
+   --FOREIGN KEY REFERENCES dbo.Bestuurder(id)
