@@ -16,5 +16,5 @@
 | 2u   | xUnit project + 1 bestuurder ctor test aangemaakt          |
 | 2u   | Adres Test + beetje bestuurder Test                        |
 | 2u   | Create Datalaag + BestuurderRepo, Exceptions Internal -> Public |
-| 0u   | ------------------------------------                       |
+| 1u   | Create sql table files                       |
 
