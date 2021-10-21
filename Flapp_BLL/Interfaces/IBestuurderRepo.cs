@@ -15,5 +15,6 @@ namespace Flapp_BLL.Interfaces
         void VerwijderBestuurder(Bestuurder bestuurder);
         void UpdateBestuurder(Bestuurder bestuurder);
         IReadOnlyList<Bestuurder> GeefAlleBestuurders();
+        Bestuurder GeefBestuurder(Bestuurder b);
     }
 }
