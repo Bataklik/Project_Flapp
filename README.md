@@ -23,7 +23,7 @@
 <!-- Feedback -->
 <!-- [ ] Empty [x] Full -->
 
-## Feedback 21/10
+## Feedback: 21/10
 - [ ] Voor alle klassen een unit test
 - [ ] Bestuurder heeft voertuig en voertuig heeft dezelfde bestuurder.
 - [ ] Tankkaart heeft bestuurder en bestuurder heeft dezelfde tankkaart.
@@ -39,11 +39,4 @@
 - [x] Github Commits
 - [x] Exceptions opkuisen
 - [x] Adres, Brandstof, RijbewijsType -> _Models_
-
-<!-- Vragen -->
 <!-- [ ] Empty [x] Full -->
-
-## Vragen
-
--  Moet een voertuig een bestuurder hebben -> mag null zijn
--  Adres huisnummer -> string
