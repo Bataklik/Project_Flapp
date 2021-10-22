@@ -31,6 +31,16 @@ namespace Flapp_BLL.Models
             ZetGeldigheidsdatum(geldigheidsdatum);
             ZetGeblokkeerd(isgeblokkeerd);
         }
+
+        public Tankkaart(int kaartnummer, DateTime geldigheidsdatum, string pincode, Brandstof brandstoftype, Bestuurder bestuurder, bool geblokkeerd) : this(kaartnummer, geldigheidsdatum)
+        {
+            ZetKaartnummer(kaartnummer);
+            ZetPincode(pincode);
+            ZetBrandstofType(brandstoftype);
+            ZetBestuurder(bestuurder);
+            ZetGeblokkeerd(geblokkeerd);
+        }
+
         #endregion
 
         #region ZetMethods
@@ -49,20 +59,19 @@ namespace Flapp_BLL.Models
             if (b == true) { throw new TankkaartException("Tankkaart is al geblokkeerd"); }
             Geblokkeerd = b;
         }
-        //public void ZetBrandstofType(Brandstof b)
-        //{
-        //    if (b == null) { throw new BrandstofException("Tankkaart brandstof mag niet null zijn"); }
-        //    Brandstoftype = b;
-        //}
-        //public void ZetPincode(string p)
-        //{
-        //    Pincode = p;
-        //}
-        //public void ZetBestuurder(Bestuurder b)
-        //{
-        //    if (b == null) { throw new BestuurderException("Tankkaart bestuurder bestaat niet!"); }
-        //    Bestuurder = b;
-        //}
+        public void ZetBrandstofType(Brandstof b)
+        {
+            Brandstoftype = b;
+        }
+        public void ZetPincode(string p)
+        {
+            if (string.IsNullOrWhiteSpace(p)) { throw new TankkaartException("Tankkaart pincode is null!"); }
+            Pincode = p;
+        }
+        public void ZetBestuurder(Bestuurder b)
+        {
+            Bestuurder = b;
+        }
         #endregion
 
         #region Methods

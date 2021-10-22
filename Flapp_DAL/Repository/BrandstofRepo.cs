@@ -1,19 +1,23 @@
 ﻿using Flapp_BLL.Interfaces;
 using Flapp_BLL.Models;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Flapp_DAL.Repository
 {
-    public class RijbewijsTypeRepo : IRijbewijsTypeRepo
+    public class BrandstofRepo : IBrandstofRepo
     {
         private string _connString;
 
-        public RijbewijsTypeRepo(string connString)
+        public BrandstofRepo(string connString)
         {
             _connString = connString;
         }
 
-        public RijbewijsType GeefRijbewijs(int rId)
+        public Brandstof GeefBrandstof(int bId)
         {
             throw new NotImplementedException();
         }
