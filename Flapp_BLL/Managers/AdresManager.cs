@@ -1,10 +1,7 @@
-﻿using Flapp_BLL.Interfaces;
+﻿using Flapp_BLL.Exceptions.ManagerExceptions;
+using Flapp_BLL.Interfaces;
 using Flapp_BLL.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Flapp_BLL.Managers
 {
@@ -21,30 +18,30 @@ namespace Flapp_BLL.Managers
         {
             try
             {
-                if (_repo.BestaatAdres(a)) { throw new Exception("AdresManager: VoegAdresToe: Adres bestaat al!"); }
+                if (_repo.BestaatAdres(a)) { throw new AdresManagerException("AdresManager: VoegAdresToe: Adres bestaat al!"); }
                 _repo.VoegAdresToe(a);
             }
-            catch (Exception ex) { throw new Exception("AdresManager", ex); }
+            catch (Exception ex) { throw new AdresManagerException("AdresManager", ex); }
         }
 
         public void VerwijderAdres(Adres a)
         {
             try
             {
-                if (!_repo.BestaatAdres(a)) { throw new Exception("AdresManager: VerwijderAdres: Adres bestaat niet!"); }
+                if (!_repo.BestaatAdres(a)) { throw new AdresManagerException("AdresManager: VerwijderAdres: Adres bestaat niet!"); }
                 _repo.VerwijderAdres(a);
             }
-            catch (Exception ex) { throw new Exception("AdresManager", ex); }
+            catch (Exception ex) { throw new AdresManagerException("AdresManager", ex); }
         }
 
         public void UpdateAdres(Adres a)
         {
             try
             {
-                if (!_repo.BestaatAdres(a)) { throw new Exception("AdresManager: UpdateAdres: Adres bestaat niet!"); }
+                if (!_repo.BestaatAdres(a)) { throw new AdresManagerException("AdresManager: UpdateAdres: Adres bestaat niet!"); }
                 _repo.UpdateAdres(a);
             }
-            catch (Exception ex) { throw new Exception("AdresManager", ex); }
+            catch (Exception ex) { throw new AdresManagerException("AdresManager", ex); }
         }
     }
 }
