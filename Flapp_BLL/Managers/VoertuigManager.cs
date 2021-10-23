@@ -2,72 +2,46 @@
 using Flapp_BLL.Interfaces;
 using Flapp_BLL.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Flapp_BLL.Managers
 {
     class VoertuigManager
     {
-        private IVoertuigRepo repo;
+        private IVoertuigRepo _repo;
 
         public VoertuigManager(IVoertuigRepo repo)
         {
-            this.repo = repo;
+            _repo = repo;
         }
 
         public void VoegVoertuigToe(Voertuig voertuig)
         {
             try
             {
-                if (!repo.BestaatVoertuig(voertuig))
-                {
-                    repo.VoegVoertuigToe(voertuig);
-                }
-                else
-                {
-                    throw new VoertuigException("VehicleManager - AddVehicle - Vehicle already added");
-                }
+                if (_repo.BestaatVoertuig(voertuig)) { throw new VoertuigException("VoertuigManager - VoegVoertuigToe - Voertuig bestaat al!"); }
+                _repo.VoegVoertuigToe(voertuig);
             }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            catch (Exception ex) { throw new Exception(ex.Message); }
         }
 
         public void UpdateVoertuig(Voertuig voertuig)
         {
             try
             {
-                // Bestaat voertuig met properties al ?
-
-
+                if (!_repo.BestaatVoertuig(voertuig)) { throw new VoertuigException("VoertuigManager - UpdateVoertuig - Voertuig bestaat niet!"); }
+                _repo.UpdateVoertuig(voertuig);
             }
-            catch (Exception ex)
-            {
-                throw new VoertuigException(ex.Message);
-            }
+            catch (Exception ex) { throw new Exception(ex.Message); }
         }
 
         public void VerwijderVoertuig(Voertuig voertuig)
         {
             try
             {
-                if (repo.BestaatVoertuig(voertuig))
-                {
-                    repo.VerwijderVoertuig(voertuig);
-                }
-                else
-                {
-                    throw new VoertuigException("VoeruigManager - VerwijderVoertuig - Voertuig bestaat al");
-                }
+                if (!_repo.BestaatVoertuig(voertuig)) { throw new VoertuigException("VoertuigManager - VerwijderVoertuig - Voertuig bestaat niet!"); }
+                _repo.VerwijderVoertuig(voertuig);
             }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            catch (Exception ex) { throw new Exception(ex.Message); }
         }
     }
 }
