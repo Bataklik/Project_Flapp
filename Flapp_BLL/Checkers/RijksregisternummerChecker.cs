@@ -1,12 +1,12 @@
-﻿using Flapp_BLL.Exceptions;
+﻿using Flapp_BLL.Exceptions.CheckerExceptions;
 using System;
 using System.Linq;
 using Flapp_BLL.Models;
 using System.Collections.Generic;
 
-namespace Flapp_BLL.Utils
+namespace Flapp_BLL.Checkers
 {
-    public class RijksregisterChecker
+    public class RijksregisternummerChecker
     {
         #region Props
         private string _nummer;
@@ -15,10 +15,10 @@ namespace Flapp_BLL.Utils
         #endregion
 
         #region Constructors
-        public RijksregisterChecker(string r, DateTime gd, Geslacht g)
+        public RijksregisternummerChecker(string r, DateTime gd, Geslacht g)
         {
             if (r == null) { throw new RijksregisternummerCheckerException("Rijksregisternummer is null!"); }
-            if (ControleRijksgisternummer(r, gd, g))
+            if (ControleRijksregisternummer(r, gd, g))
             {
                 _nummer = r;
                 _geboortedatum = gd;
@@ -28,7 +28,7 @@ namespace Flapp_BLL.Utils
         #endregion
 
         #region Methods
-        public bool ControleRijksgisternummer(string r, DateTime gd, Geslacht g)
+        public bool ControleRijksregisternummer(string r, DateTime gd, Geslacht g)
         {
             if (r.Count(e => char.IsDigit(e)) != 11) { throw new RijksregisternummerCheckerException("Het identificatienummer bevat 11 cijfers"); }
             if (r.Count(e => e == '.') != 3) { throw new RijksregisternummerCheckerException("Het Rijksregisternummer is ongeldig!"); }
@@ -38,7 +38,7 @@ namespace Flapp_BLL.Utils
             return true;
         }
 
-        private bool ControleEersteGroep(string r, DateTime gd)
+        public bool ControleEersteGroep(string r, DateTime gd)
         {
             DateTime datetime = gd;
             string datum = datetime.ToString("dd/MM/y");
@@ -66,7 +66,7 @@ namespace Flapp_BLL.Utils
             else { return false; }
         }
 
-        private bool ControleTweedeGroep(string r, Geslacht g)
+        public bool ControleTweedeGroep(string r, Geslacht g)
         {
             //21.10.02-289.65
             string tweedeGroep = r[9].ToString() + r[10].ToString() + r[11].ToString();

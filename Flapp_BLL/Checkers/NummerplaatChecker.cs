@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Runtime;
-using Flapp_BLL.Exceptions;
+using Flapp_BLL.Exceptions.CheckerExceptions;
 
-namespace Flapp_BLL.Utils
+namespace Flapp_BLL.Checkers
 {
     public class NummerplaatChecker
     {
@@ -31,7 +31,7 @@ namespace Flapp_BLL.Utils
             return true;
         }
 
-        private bool ControleEersteGroep(string n)
+        public bool ControleEersteGroep(string n)
         {
             string eersteGroep = n[0].ToString();
             if (eersteGroep == "1" || eersteGroep == "2")

@@ -18,7 +18,7 @@ namespace Flapp_BLL.Managers {
         public void GeefBrandstof(Brandstof brandstof) {
             try {
                 if (!_repo.BestaatBrandstof(brandstof)) { throw new BrandstofManagerException("BrandstofManager: BrandstofType bestaat niet"); }
-                _repo.GeefBrandstof(brandstof.Naam);
+                _repo.GeefBrandstof(brandstof);
             }
             catch (Exception ex) { throw new BrandstofManagerException("BrandstofManager", ex); }
         }

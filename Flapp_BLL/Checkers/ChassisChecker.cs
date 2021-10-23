@@ -1,7 +1,7 @@
 ﻿using Flapp_BLL.Exceptions.CheckerExceptions;
 using System.Linq;
 
-namespace Flapp_BLL.Utils
+namespace Flapp_BLL.Checkers
 {
     public class ChassisChecker
     {

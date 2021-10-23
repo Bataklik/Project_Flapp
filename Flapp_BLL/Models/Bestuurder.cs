@@ -1,5 +1,5 @@
 ﻿using Flapp_BLL.Exceptions.ModelExpections;
-using Flapp_BLL.Utils;
+using Flapp_BLL.Checkers;
 using System;
 using System.Collections.Generic;
 
@@ -107,9 +107,9 @@ namespace Flapp_BLL.Models
         }
         public void ZetRijksregisternummer(string r)
         {
-            RijksregisterChecker rc = new RijksregisterChecker(r, Geboortedatum, Geslacht);
+            RijksregisternummerChecker rc = new RijksregisternummerChecker(r, Geboortedatum, Geslacht);
             if (r == null) { throw new BestuurderException("Bestuuder rijksregisternummer is null!"); }
-            if (rc.ControleRijksgisternummer(r, Geboortedatum, Geslacht)) Rijksregisternummer = r;
+            if (rc.ControleRijksregisternummer(r, Geboortedatum, Geslacht)) Rijksregisternummer = r;
         }
         public void ZetRijbewijsType(RijbewijsType rt)
         {

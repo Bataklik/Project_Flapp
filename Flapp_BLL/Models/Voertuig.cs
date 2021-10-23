@@ -1,5 +1,5 @@
 ﻿using Flapp_BLL.Exceptions.ModelExpections;
-using Flapp_BLL.Utils;
+using Flapp_BLL.Checkers;
 
 namespace Flapp_BLL.Models
 {
