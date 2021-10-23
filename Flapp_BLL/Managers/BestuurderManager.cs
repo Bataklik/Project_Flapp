@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Flapp_BLL.Exceptions.ManagerExceptions;
 using Flapp_BLL.Interfaces;
 using Flapp_BLL.Models;
 
@@ -18,28 +19,28 @@ namespace Flapp_BLL.Managers
         {
             try
             {
-                if (_repo.BestaatBestuurder(bestuurder)) { throw new Exception("BestuurderManager: VoegBestuurderToe: Bestuurder bestaat al!"); }
+                if (_repo.BestaatBestuurder(bestuurder)) { throw new BestuurderManagerException("BestuurderManager: VoegBestuurderToe: Bestuurder bestaat al!"); }
                 _repo.VoegBestuurderToe(bestuurder);
             }
-            catch (Exception ex) { throw new Exception("BestuurderManager", ex); }
+            catch (Exception ex) { throw new BestuurderManagerException("BestuurderManager", ex); }
         }
         public void VerwijderBestuurder(Bestuurder bestuurder)
         {
             try
             {
-                if (!_repo.BestaatBestuurder(bestuurder)) { throw new Exception("BestuurderManager: VerwijderBestuurder: Bestuurder bestaat niet!"); }
+                if (!_repo.BestaatBestuurder(bestuurder)) { throw new BestuurderManagerException("BestuurderManager: VerwijderBestuurder: Bestuurder bestaat niet!"); }
                 _repo.VerwijderBestuurder(bestuurder);
             }
-            catch (Exception ex) { throw new Exception("BestuurderManager", ex); }
+            catch (Exception ex) { throw new BestuurderManagerException("BestuurderManager", ex); }
         }
         public void UpdateBestuurder(Bestuurder bestuurder)
         {
             try
             {
-                if (!_repo.BestaatBestuurder(bestuurder)) { throw new Exception("BestuurderManager: UpdateBestuurder: Bestuurder bestaat niet!"); }
+                if (!_repo.BestaatBestuurder(bestuurder)) { throw new BestuurderManagerException("BestuurderManager: UpdateBestuurder: Bestuurder bestaat niet!"); }
                 _repo.UpdateBestuurder(bestuurder);
             }
-            catch (Exception ex) { throw new Exception("BestuurderManager", ex); }
+            catch (Exception ex) { throw new BestuurderManagerException("BestuurderManager", ex); }
         }
         public IReadOnlyList<Bestuurder> GeefAlleBestuurders()
         {
@@ -47,7 +48,7 @@ namespace Flapp_BLL.Managers
             {
                 return _repo.GeefAlleBestuurders();
             }
-            catch (Exception ex) { throw new Exception("BestuurderManager", ex); }
+            catch (Exception ex) { throw new BestuurderManagerException("BestuurderManager", ex); }
         }
     }
 }
