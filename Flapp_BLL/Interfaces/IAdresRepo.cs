@@ -6,5 +6,7 @@ namespace Flapp_BLL.Interfaces
     {
         bool BestaatAdres(Adres a);
         void VoegAdresToe(Adres a);
+        void VerwijderAdres(Adres a);
+        void UpdateAdres(Adres a);
     }
 }

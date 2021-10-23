@@ -21,8 +21,28 @@ namespace Flapp_BLL.Managers
         {
             try
             {
-                if (_repo.BestaatAdres(a)) { throw new Exception("AdresManager: Adres bestaat al!"); }
+                if (_repo.BestaatAdres(a)) { throw new Exception("AdresManager: VoegAdresToe: Adres bestaat al!"); }
                 _repo.VoegAdresToe(a);
+            }
+            catch (Exception ex) { throw new Exception("AdresManager", ex); }
+        }
+
+        public void VerwijderAdres(Adres a)
+        {
+            try
+            {
+                if (!_repo.BestaatAdres(a)) { throw new Exception("AdresManager: VerwijderAdres: Adres bestaat niet!"); }
+                _repo.VerwijderAdres(a);
+            }
+            catch (Exception ex) { throw new Exception("AdresManager", ex); }
+        }
+
+        public void UpdateAdres(Adres a)
+        {
+            try
+            {
+                if (!_repo.BestaatAdres(a)) { throw new Exception("AdresManager: UpdateAdres: Adres bestaat niet!"); }
+                _repo.UpdateAdres(a);
             }
             catch (Exception ex) { throw new Exception("AdresManager", ex); }
         }
