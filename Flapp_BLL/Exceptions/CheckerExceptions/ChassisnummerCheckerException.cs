@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Flapp_BLL.Exceptions
+namespace Flapp_BLL.Exceptions.CheckerExceptions
 {
     public class ChassisnummerCheckerException : Exception
     {

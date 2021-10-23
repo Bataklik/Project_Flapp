@@ -79,12 +79,27 @@ namespace Flapp_DAL.Repository
                 finally { conn.Close(); }
             }
         }
+        #endregion
 
+        #region GeefAdres Method
         public Adres GeefAdres(int aId)
         {
             throw new NotImplementedException();
         }
+        #endregion
 
+        #region VerwijderAdres Method
+        public void VerwijderAdres(Adres a)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
+        #region UpdateAdres Method
+        public void UpdateAdres(Adres a)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
     }
 }

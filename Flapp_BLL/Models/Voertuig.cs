@@ -1,4 +1,4 @@
-﻿using Flapp_BLL.Exceptions;
+﻿using Flapp_BLL.Exceptions.ModelExpections;
 using Flapp_BLL.Utils;
 
 namespace Flapp_BLL.Models

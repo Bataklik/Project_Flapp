@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Flapp_BLL.Exceptions
+namespace Flapp_BLL.Exceptions.ModelExpections
 {
     public class TankkaartException : Exception
     {

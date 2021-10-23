@@ -1,7 +1,8 @@
-﻿using System;
-using Xunit;
+﻿using Xunit;
 using Flapp_BLL.Models;
 using Flapp_BLL.Exceptions;
+using Flapp_BLL.Exceptions.CheckerExceptions;
+using Flapp_BLL.Exceptions.ModelExpections;
 
 namespace Flapp_TESTS
 {
