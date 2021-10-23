@@ -9,6 +9,8 @@ namespace Flapp_BLL.Interfaces
 {
     public interface IBrandstofRepo
     {
-        Brandstof GeefBrandstof(int bId);
+        Brandstof GeefBrandstof(Brandstof brandstof);
+
+        bool BestaatBrandstof(Brandstof brandstof);
     }
 }

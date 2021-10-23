@@ -9,6 +9,8 @@ namespace Flapp_BLL.Interfaces
 {
     public interface IRijbewijsTypeRepo
     {
-        RijbewijsType GeefRijbewijs(int rId);
+        RijbewijsType GeefRijbewijs(RijbewijsType rijbewijs);
+
+        bool BestaatRijbewijs(RijbewijsType rijbewijs);
     }
 }
