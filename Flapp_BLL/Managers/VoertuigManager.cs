@@ -18,7 +18,7 @@ namespace Flapp_BLL.Managers
         {
             try
             {
-                if (_repo.BestaatVoertuig(voertuig)) { throw new VoertuigException("VoertuigManager - VoegVoertuigToe - Voertuig bestaat al!"); }
+                if (_repo.BestaatVoertuig(voertuig)) { throw new VoertuigException("VoertuigManager: VoegVoertuigToe: Voertuig bestaat al!"); }
                 _repo.VoegVoertuigToe(voertuig);
             }
             catch (Exception ex) { throw new Exception(ex.Message); }
@@ -28,7 +28,7 @@ namespace Flapp_BLL.Managers
         {
             try
             {
-                if (!_repo.BestaatVoertuig(voertuig)) { throw new VoertuigException("VoertuigManager - UpdateVoertuig - Voertuig bestaat niet!"); }
+                if (!_repo.BestaatVoertuig(voertuig)) { throw new VoertuigException("VoertuigManager: UpdateVoertuig: Voertuig bestaat niet!"); }
                 _repo.UpdateVoertuig(voertuig);
             }
             catch (Exception ex) { throw new Exception(ex.Message); }
@@ -38,7 +38,7 @@ namespace Flapp_BLL.Managers
         {
             try
             {
-                if (!_repo.BestaatVoertuig(voertuig)) { throw new VoertuigException("VoertuigManager - VerwijderVoertuig - Voertuig bestaat niet!"); }
+                if (!_repo.BestaatVoertuig(voertuig)) { throw new VoertuigException("VoertuigManager: VerwijderVoertuig: Voertuig bestaat niet!"); }
                 _repo.VerwijderVoertuig(voertuig);
             }
             catch (Exception ex) { throw new Exception(ex.Message); }
