@@ -9,19 +9,11 @@ namespace Flapp_DAL.Repository
 {
     public class BestuurderRepo : IBestuurderRepo
     {
-        private TankkaartRepo _tRepo;
-        private VoertuigRepo _vRepo;
-        private AdresRepo _aRepo;
-        private RijbewijsTypeRepo _rtRepo;
         private string _connString;
 
         public BestuurderRepo(string connString)
         {
             _connString = connString;
-            _aRepo = new AdresRepo(connString);
-            _rtRepo = new RijbewijsTypeRepo(connString);
-            _vRepo = new VoertuigRepo(connString);
-            _tRepo = new TankkaartRepo(connString);
         }
 
         #region BestaatBestuurder Method
@@ -172,12 +164,12 @@ namespace Flapp_DAL.Repository
                     SqlDataReader r = cmd.ExecuteReader();
                     r.Read();
                     Geslacht g = (int)r["geslacht"] == 1 ? Geslacht.M : Geslacht.V;
-                    Adres a = _aRepo.GeefAdres((int)r["adres_id"]);
+                    Adres a = null;// _aRepo.GeefAdres((int)r["adres_id"]);
                     string geboorte = Convert.ToString(r["geboortedatum"]);
                     // Repo's & Interfaces moeten nog gemaakt worden
-                    RijbewijsType rt = _rtRepo.GeefRijbewijs((int)r["rijbewijstype_id"]);
-                    Voertuig v = _vRepo.GeefVoertuig((int)r["voertuig_id"]);
-                    Tankkaart t = _tRepo.GeefTankkaart((int)r["tankkaart_id"]);
+                    RijbewijsType rt = RijbewijsType.B;//_rtRepo.GeefRijbewijs((int)r["rijbewijstype_id"]);
+                    Voertuig v = null;//_vRepo.GeefVoertuig((int)r["voertuig_id"]);
+                    Tankkaart t = null;// _tRepo.GeefTankkaart((int)r["tankkaart_id"]);
                     Bestuurder gevondenBestuurder = new((int)r["id"], (string)r["naam"], (string)r["voornaam"], g, a, geboorte, (string)r["rijksregister"], rt, v, t);
                     return gevondenBestuurder;
                 }
@@ -204,12 +196,12 @@ namespace Flapp_DAL.Repository
                     SqlDataReader r = cmd.ExecuteReader();
                     r.Read();
                     Geslacht g = (int)r["geslacht"] == 1 ? Geslacht.M : Geslacht.V;
-                    Adres a = _aRepo.GeefAdres((int)r["adres_id"]);
+                    Adres a = null;//_aRepo.GeefAdres((int)r["adres_id"]);
                     string geboorte = Convert.ToString(r["geboortedatum"]);
                     // Repo's & Interfaces moeten nog gemaakt worden
-                    RijbewijsType rt = _rtRepo.GeefRijbewijs((int)r["rijbewijstype_id"]);
-                    Voertuig v = _vRepo.GeefVoertuig((int)r["voertuig_id"]);
-                    Tankkaart t = _tRepo.GeefTankkaart((int)r["tankkaart_id"]);
+                    RijbewijsType rt = RijbewijsType.B; //_rtRepo.GeefRijbewijs((int)r["rijbewijstype_id"]);
+                    Voertuig v = null;//_vRepo.GeefVoertuig((int)r["voertuig_id"]);
+                    Tankkaart t = null; //_tRepo.GeefTankkaart((int)r["tankkaart_id"]);
                     Bestuurder gevondenBestuurder = new((int)r["id"], (string)r["naam"], (string)r["voornaam"], g, a, geboorte, (string)r["rijksregister"], rt, v, t);
                     return gevondenBestuurder;
                 }

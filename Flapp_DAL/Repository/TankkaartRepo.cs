@@ -7,15 +7,12 @@ namespace Flapp_DAL.Repository
 {
     public class TankkaartRepo
     {
-        private BestuurderRepo _bsRepo;
-        private BrandstofRepo _bRepo;
         private string _connString;
 
         public TankkaartRepo(string connString)
         {
             _connString = connString;
-            _bRepo = new(connString);
-            _bsRepo = new(connString);
+
         }
 
         public Tankkaart GeefTankkaart(int tId)
@@ -36,8 +33,8 @@ namespace Flapp_DAL.Repository
                 {
                     SqlDataReader r = cmd.ExecuteReader();
                     r.Read();
-                    Brandstof b = _bRepo.GeefBrandstof((int)r["brandstof_id"]); // Mag null zijn
-                    Bestuurder bs = _bsRepo.GeefBestuurder((int)r["bestuurder_id"]); // Mag null zijn
+                    Brandstof b = null;//_bRepo.GeefBrandstof((int)r["brandstof_id"]); // Mag null zijn
+                    Bestuurder bs = null;// _bsRepo.GeefBestuurder((int)r["bestuurder_id"]); // Mag null zijn
                     Tankkaart gevondenTankkaart = new Tankkaart((int)r["id"], (DateTime)r["geldigheidsdatum"], (string)r["pincode"], b, bs, (bool)r["geblokkeerd"]);
                     return gevondenTankkaart;
                 }
