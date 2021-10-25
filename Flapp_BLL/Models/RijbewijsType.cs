@@ -5,9 +5,10 @@ using System.Text;
 
 namespace Flapp_BLL.Models
 {
-    public enum RijbewijsType
+    public class RijbewijsType
     {
-        A, AM, B, C, D, G
+        public int Id { get; set; }
+        public string Naam { get; set; }
     }
 }
 
