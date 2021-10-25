@@ -6,7 +6,8 @@ namespace Flapp_BLL.Checkers
     public class ChassisChecker
     {
         private string _chassisnummer;
-        // Enkele letters mogen niet! 
+        
+        // Enkele letters mogen niet! IOQ
         public ChassisChecker(string chassisnummer)
         {
             _chassisnummer = chassisnummer;
@@ -14,64 +15,19 @@ namespace Flapp_BLL.Checkers
 
         public bool controleChassisnummer(string n)
         {
+            int lengte = 17;
+            string NietToegelatenLetters = "ioqIOQ";
             if (string.IsNullOrWhiteSpace(n)) { throw new ChassisnummerCheckerException("Mag niet leeg zijn"); }
-            if (n.Count() != 17) { throw new ChassisnummerCheckerException("Een chassisnummer bevat 17 karakters"); }
-            return true;
-        }
+            if (n.Count() != lengte) { throw new ChassisnummerCheckerException("Een chassisnummer bevat 17 karakters"); }
 
-        private bool ControleEersteGroep(string n)
-        {
-            string eersteGroep = n[0].ToString();
-            if (eersteGroep.All(char.IsDigit) == true)
-                return true;
-            else
-                return false;
-        }
-        private bool ControleTweedeGroep(string n)
-        {
-            string eerste = (n[1].ToString());
-            string tweede = (n[2].ToString());
-            string derde = (n[3].ToString());
-            string vierde = (n[4].ToString());
-            if (!eerste.All(char.IsDigit) == true && !tweede.All(char.IsDigit) == true && !derde.All(char.IsDigit) == true && !vierde.All(char.IsDigit) == true)
-                return true;
-            else
-                return false;
-        }
-        private bool ControleDerdeGroep(string n)
-        {
-            string eerste = (n[5].ToString());
-            string tweede = (n[6].ToString());
-            if (eerste.All(char.IsDigit) == true && tweede.All(char.IsDigit))
-                return true;
-            else
-                return false;
-        }
-        private bool ControleVierdeGroep(string n)
-        {
-            string eerste = (n[7].ToString());
-            string tweede = (n[8].ToString());
-            string derde = (n[9].ToString());
-            string vierde = (n[10].ToString());
-            if (!eerste.All(char.IsDigit) == true && !tweede.All(char.IsDigit) == true && !derde.All(char.IsDigit) == true && !vierde.All(char.IsDigit) == true)
-                return true;
-            else
-                return false;
-        }
-        private bool ControleVijfdeGroep(string n)
-        {
-            string eerste = (n[11].ToString());
-            string tweede = (n[12].ToString());
-            string derde = (n[13].ToString());
-            string vierde = (n[14].ToString());
-            string vijfde = (n[15].ToString());
-            string zesde = (n[16].ToString());
-            string tweedeGroep = eerste + tweede + derde + vierde;
-            if (eerste.All(char.IsDigit) == true && tweede.All(char.IsDigit) == true && derde.All(char.IsDigit) == true && vierde.All(char.IsDigit) == true &&
-                vijfde.All(char.IsDigit) == true && zesde.All(char.IsDigit) == true)
-                return true;
-            else
-                return false;
-        }
+            foreach (char c in NietToegelatenLetters)
+            {
+                if (n.Contains(c))
+                {
+                    throw new ChassisnummerCheckerException("Bevat een niet toegelaten letter (I, O of Q)");
+                }
+            }
+            return true;
+        }        
     }
 }
