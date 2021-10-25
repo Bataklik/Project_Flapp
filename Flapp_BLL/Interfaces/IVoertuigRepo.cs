@@ -11,11 +11,11 @@ namespace Flapp_BLL.Interfaces
     {
         IReadOnlyList<Voertuig> GeefAlleVoertuigen();
         //IReadOnlyList<Voertuig> ZoekVoertuigen(int? vehicleId, string brand, string model, string chassisNumber, string licensePlate, Brandstof fuelType, string vehicleType, string color, int doors, Bestuurder driver);
-        Voertuig GeefVoertuig(int vId);
+        Voertuig GeefVoertuig(int id);
         //Voertuig ZoekVoertuig(int? vehicleId, string brand, string model, string chassisNumber, string licensePlate, Brandstof fuelType, string vehicleType, string color, int doors, Bestuurder driver);
-        bool BestaatVoertuig(Voertuig v);
-        void VoegVoertuigToe(Voertuig v);
-        void UpdateVoertuig(Voertuig v);
-        void VerwijderVoertuig(Voertuig v);
+        bool BestaatVoertuig(Voertuig voertuig);
+        void VoegVoertuigToe(Voertuig voertuig);
+        void UpdateVoertuig(Voertuig voertuig);
+        void VerwijderVoertuig(Voertuig voertuig);
     }
 }
