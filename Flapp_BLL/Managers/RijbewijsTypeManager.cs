@@ -7,17 +7,22 @@ using Flapp_BLL.Interfaces;
 using Flapp_BLL.Models;
 using Flapp_BLL.Exceptions.ManagerExceptions;
 
-namespace Flapp_BLL.Managers {
-    public class RijbewijsTypeManager {
+namespace Flapp_BLL.Managers
+{
+    public class RijbewijsTypeManager
+    {
         private IRijbewijsTypeRepo _repo;
 
-        public RijbewijsTypeManager(IRijbewijsTypeRepo _repo) {
+        public RijbewijsTypeManager(IRijbewijsTypeRepo _repo)
+        {
             this._repo = _repo;
         }
 
-        public void GeefRijbewijs(RijbewijsType rijbewijsType) {
-            try {
-                if (!_repo.BestaatRijbewijs(rijbewijsType)) { throw new RijbewijsTypeManagerException("RijbewijsTypeManager: RijbewijsType bestaat niet"); }
+        public void GeefRijbewijs(RijbewijsType rijbewijsType)
+        {
+            if (!_repo.BestaatRijbewijs(rijbewijsType)) { throw new RijbewijsTypeManagerException("RijbewijsTypeManager: RijbewijsType bestaat niet"); }
+            try
+            {
                 _repo.GeefRijbewijs(rijbewijsType);
             }
             catch (Exception ex) { throw new RijbewijsTypeManagerException("RijbewijsTypeManager", ex); }

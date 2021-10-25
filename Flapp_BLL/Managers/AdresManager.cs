@@ -14,32 +14,32 @@ namespace Flapp_BLL.Managers
             _repo = repo;
         }
 
-        public void VoegAdresToe(Adres a)
+        public void VoegAdresToe(Adres adres)
         {
+            if (_repo.BestaatAdres(adres)) { throw new AdresManagerException("AdresManager: VoegAdresToe: Adres bestaat al!"); }
             try
             {
-                if (_repo.BestaatAdres(a)) { throw new AdresManagerException("AdresManager: VoegAdresToe: Adres bestaat al!"); }
-                _repo.VoegAdresToe(a);
+                _repo.VoegAdresToe(adres);
             }
             catch (Exception ex) { throw new AdresManagerException("AdresManager", ex); }
         }
 
-        public void VerwijderAdres(Adres a)
+        public void VerwijderAdres(Adres adres)
         {
+            if (!_repo.BestaatAdres(adres)) { throw new AdresManagerException("AdresManager: VerwijderAdres: Adres bestaat niet!"); }
             try
             {
-                if (!_repo.BestaatAdres(a)) { throw new AdresManagerException("AdresManager: VerwijderAdres: Adres bestaat niet!"); }
-                _repo.VerwijderAdres(a);
+                _repo.VerwijderAdres(adres);
             }
             catch (Exception ex) { throw new AdresManagerException("AdresManager", ex); }
         }
 
-        public void UpdateAdres(Adres a)
+        public void UpdateAdres(Adres adres)
         {
+            if (!_repo.BestaatAdres(adres)) { throw new AdresManagerException("AdresManager: UpdateAdres: Adres bestaat niet!"); }
             try
             {
-                if (!_repo.BestaatAdres(a)) { throw new AdresManagerException("AdresManager: UpdateAdres: Adres bestaat niet!"); }
-                _repo.UpdateAdres(a);
+                _repo.UpdateAdres(adres);
             }
             catch (Exception ex) { throw new AdresManagerException("AdresManager", ex); }
         }

@@ -1,4 +1,5 @@
-﻿using Flapp_BLL.Exceptions.ModelExpections;
+﻿using Flapp_BLL.Exceptions.ManagerExceptions;
+using Flapp_BLL.Exceptions.ModelExpections;
 using Flapp_BLL.Interfaces;
 using Flapp_BLL.Models;
 using System;
@@ -16,32 +17,32 @@ namespace Flapp_BLL.Managers
 
         public void VoegVoertuigToe(Voertuig voertuig)
         {
+            if (_repo.BestaatVoertuig(voertuig)) { throw new VoertuigException("VoertuigManager: VoegVoertuigToe: Voertuig bestaat al!"); }
             try
             {
-                if (_repo.BestaatVoertuig(voertuig)) { throw new VoertuigException("VoertuigManager: VoegVoertuigToe: Voertuig bestaat al!"); }
                 _repo.VoegVoertuigToe(voertuig);
             }
-            catch (Exception ex) { throw new Exception(ex.Message); }
+            catch (Exception ex) { throw new VoertuigManagerException(ex.Message); }
         }
 
         public void UpdateVoertuig(Voertuig voertuig)
         {
+            if (!_repo.BestaatVoertuig(voertuig)) { throw new VoertuigException("VoertuigManager: UpdateVoertuig: Voertuig bestaat niet!"); }
             try
             {
-                if (!_repo.BestaatVoertuig(voertuig)) { throw new VoertuigException("VoertuigManager: UpdateVoertuig: Voertuig bestaat niet!"); }
                 _repo.UpdateVoertuig(voertuig);
             }
-            catch (Exception ex) { throw new Exception(ex.Message); }
+            catch (Exception ex) { throw new VoertuigManagerException(ex.Message); }
         }
 
         public void VerwijderVoertuig(Voertuig voertuig)
         {
+            if (!_repo.BestaatVoertuig(voertuig)) { throw new VoertuigException("VoertuigManager: VerwijderVoertuig: Voertuig bestaat niet!"); }
             try
             {
-                if (!_repo.BestaatVoertuig(voertuig)) { throw new VoertuigException("VoertuigManager: VerwijderVoertuig: Voertuig bestaat niet!"); }
                 _repo.VerwijderVoertuig(voertuig);
             }
-            catch (Exception ex) { throw new Exception(ex.Message); }
+            catch (Exception ex) { throw new VoertuigManagerException(ex.Message); }
         }
     }
 }

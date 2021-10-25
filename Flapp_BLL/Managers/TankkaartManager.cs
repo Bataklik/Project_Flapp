@@ -17,27 +17,27 @@ namespace Flapp_BLL.Managers
 
         public void VoegTankkaartToe(Tankkaart tankkaart)
         {
+            if (_repo.BestaatTankkaart(tankkaart)) { throw new Exception("TankkaartManager: VoegTankkaartToe: Tankkaart bestaat al!"); }
             try
             {
-                if (_repo.BestaatTankkaart(tankkaart)) { throw new Exception("TankkaartManager: VoegTankkaartToe: Tankkaart bestaat al!"); }
                 _repo.VoegTankkaartToe(tankkaart);
             }
             catch (Exception ex) { throw new TankkaartManagerException("TankkaartManager", ex); }
         }
         public void VerwijderTankkaart(Tankkaart tankkaart)
         {
+            if (!_repo.BestaatTankkaart(tankkaart)) { throw new Exception("TankkaartManager: VerwijderTankkaart: Tankkaart bestaat niet!"); }
             try
             {
-                if (!_repo.BestaatTankkaart(tankkaart)) { throw new Exception("TankkaartManager: VerwijderTankkaart: Tankkaart bestaat niet!"); }
                 _repo.VerwijderTankkaart(tankkaart);
             }
             catch (Exception ex) { throw new TankkaartManagerException("TankkaartManager", ex); }
         }
         public void UpdateTankkaart(Tankkaart tankkaart)
         {
+            if (!_repo.BestaatTankkaart(tankkaart)) { throw new Exception("TankkaartManager: UpdateTankkaart: Tankkaart bestaat niet!"); }
             try
             {
-                if (!_repo.BestaatTankkaart(tankkaart)) { throw new Exception("TankkaartManager: UpdateTankkaart: Tankkaart bestaat niet!"); }
                 _repo.UpdateTankkaart(tankkaart);
             }
             catch (Exception ex) { throw new TankkaartManagerException("TankkaartManager", ex); }
