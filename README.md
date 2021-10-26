@@ -4,7 +4,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-    <img src="FLAPP.png" alt="Logo" width="150" height="150" style="border-radius:50%;">
+    <img src="Flapp_Assets/Images/FLAPP.png" alt="Logo" width="150" height="150" style="border-radius:50%;">
 
   <h3 align="center">Fleet Management App</h3>
 
@@ -12,11 +12,11 @@
     Logboeken van de contributors
     <br />
     <br />
-    <a href="./BurakLogboek.md">Burak Balci</a>
+    <a href="Flapp_Assets/Logboeken/BurakLogboek.md">Burak Balci</a>
     ·
-    <a href="./RafLogboek.md">Raf Troch</a>
+    <a href="Flapp_Assets/Logboeken/RafLogboek.md">Raf Troch</a>
     ·
-    <a href="./TiboLogboek.md">Tibo Declerck</a>
+    <a href="Flapp_Assets/Logboeken/TiboLogboek.md">Tibo Declerck</a>
   </p>
 </div>
 
