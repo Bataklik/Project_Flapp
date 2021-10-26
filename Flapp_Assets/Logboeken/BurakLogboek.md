@@ -19,6 +19,7 @@
 | 1u   | Create sql table files                                     |
 | 2u   | Create Adres interface, repo, manager                      |
 | 2u   | Create 2 ManagerExceptions, 3 nieuwe folders in Exceptions |
-
-
-
+| 2u   | Add VoegRijbewijsToe, VoegBrandstofToe met bijhorende methods |
+| 0u   | ---------------------------------------------------------- |
+| 0u   | ---------------------------------------------------------- |
+| 0u   | ---------------------------------------------------------- |
