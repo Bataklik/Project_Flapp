@@ -28,7 +28,7 @@
 * RijbewijsTypeRepo klassen afwerken
 * Alle methode's met NotImplementedException() maken
 * Geef Voertuig & Tankkaart methode maken
-* UnitTests RijbewijsType 
+* ~UnitTests RijbewijsType~
 
 ## Feedback: 21/10
 - [ ] Voor alle klassen een unit test
