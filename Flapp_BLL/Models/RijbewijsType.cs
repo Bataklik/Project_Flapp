@@ -1,14 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Flapp_BLL.Exceptions.ModelExpections;
 
 namespace Flapp_BLL.Models
 {
     public class RijbewijsType
     {
-        public int Id { get; set; }
-        public string Naam { get; set; }
+        #region Props
+        public int Id { get; private set; }
+        public string Naam { get; private set; }
+        #endregion
+
+        #region Constructor
+        public RijbewijsType(int id, string naam)
+        {
+            ZetId(id);
+            ZetNaam(naam);
+        }
+        public RijbewijsType(string naam)
+        {
+            ZetNaam(naam);
+        }
+        #endregion
+
+        #region Zetmethods
+        public void ZetId(int id)
+        {
+            if (id <= 0) { throw new RijbewijsTypeException("RijbewijsType: ZetId: Id moet positief zijn!"); }
+            Id = id;
+        }
+        public void ZetNaam(string naam)
+        {
+            if (string.IsNullOrWhiteSpace(naam)) { throw new RijbewijsTypeException("RijbewijsType: ZetNaam: Naam mag niet leeg zijn!"); }
+            Naam = naam;
+        }
+        #endregion
     }
 }
 

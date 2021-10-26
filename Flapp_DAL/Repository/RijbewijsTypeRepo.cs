@@ -15,60 +15,55 @@ namespace Flapp_DAL.Repository
             _connString = connString;
         }
 
-        public bool BestaatRijbewijs(RijbewijsType r)
-        {
-            SqlConnection conn = new SqlConnection(_connString);
-            string query = "USE [Project_Flapp_DB]; SELECT 1 FROM RijbewijsType WHERE naam = @naam;";
-            using (SqlCommand cmd = conn.CreateCommand())
-            {
-                conn.Open();
-                try
-                {
-                    cmd.Parameters.Add(new SqlParameter("@naam", SqlDbType.VarChar));
-
-                    cmd.CommandText = query;
-
-                    cmd.Parameters["@naam"].Value = r.GetType();
-
-                    int bestuurderBestaat = Convert.ToInt32(cmd.ExecuteScalar());
-
-                    if (bestuurderBestaat == 1) { return true; }
-                    return false;
-                }
-                catch (Exception ex) { throw new Exception(ex.Message); }
-                finally { conn.Close(); }
-            }
-        }
+        #region BestaatRijbewijs Method
         public bool BestaatRijbewijs(int id)
         {
-            throw new NotImplementedException();
-        }
-        public bool BestaatRijbewijs(string naam)
-        {
             SqlConnection conn = new SqlConnection(_connString);
-            string query = "USE [Project_Flapp_DB]; SELECT 1 FROM RijbewijsType WHERE naam = @naam;";
+            string query = "USE [Project_Flapp_DB]; SELECT 1 FROM Rijbewijs WHERE id = @id;";
             using (SqlCommand cmd = conn.CreateCommand())
             {
                 conn.Open();
                 try
                 {
                     cmd.Parameters.Add(new SqlParameter("@naam", SqlDbType.VarChar));
-
                     cmd.CommandText = query;
+                    cmd.Parameters["@id"].Value = id;
 
-                    cmd.Parameters["@naam"].Value = r.GetType();
+                    int rijbewijsBestaat = Convert.ToInt32(cmd.ExecuteScalar());
 
-                    int bestuurderBestaat = Convert.ToInt32(cmd.ExecuteScalar());
-
-                    if (bestuurderBestaat == 1) { return true; }
+                    if (rijbewijsBestaat == 1) { return true; }
                     return false;
                 }
                 catch (Exception ex) { throw new Exception(ex.Message); }
                 finally { conn.Close(); }
             }
         }
+        public bool BestaatRijbewijs(RijbewijsType rijbewijs)
+        {
+            SqlConnection conn = new SqlConnection(_connString);
+            string query = "USE [Project_Flapp_DB]; SELECT 1 FROM Rijbewijs WHERE rijbewijs_naam = @naam;";
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
+                conn.Open();
+                try
+                {
+                    cmd.Parameters.Add(new SqlParameter("@naam", SqlDbType.VarChar));
+                    cmd.CommandText = query;
+                    cmd.Parameters["@naam"].Value = rijbewijs.Naam;
 
-        public RijbewijsType GeefRijbewijs(RijbewijsType r)
+                    int rijbewijsBestaat = Convert.ToInt32(cmd.ExecuteScalar());
+
+                    if (rijbewijsBestaat == 1) { return true; }
+                    return false;
+                }
+                catch (Exception ex) { throw new Exception(ex.Message); }
+                finally { conn.Close(); }
+            }
+        }
+        #endregion
+
+        #region GeefRijbewijs Method
+        public RijbewijsType GeefRijbewijs(RijbewijsType rijbewijs)
         {
             throw new NotImplementedException();
         }
@@ -76,20 +71,39 @@ namespace Flapp_DAL.Repository
         {
             throw new NotImplementedException();
         }
+        #endregion
 
+        #region VoegRijbewijsToe Method
+        public void VoegRijbewijsToe(RijbewijsType rijbewijs)
+        {
+            SqlConnection conn = new SqlConnection(_connString);
+            string query = "USE [Project_Flapp_DB]; INSERT INTO [dbo].[Rijbewijs]([rijbewijs_naam])VALUES (@rijbewijs_naam);";
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
+                conn.Open();
+                try
+                {
+                    cmd.Parameters.Add(new SqlParameter("@rijbewijs_naam", SqlDbType.VarChar));
+                    cmd.CommandText = query;
+                    cmd.Parameters["@rijbewijs_naam"].Value = rijbewijs.Naam;
+
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception ex) { throw new Exception(ex.Message); }
+                finally { conn.Close(); }
+            }
+        }
+        #endregion
+
+        #region VerwijderRijbewijs Method
         public void VerwijderRijbewijs(int id)
         {
             throw new NotImplementedException();
         }
-
-        public void VerwijderRijbewijs(string naam)
+        public void VerwijderRijbewijs(RijbewijsType rijbewijs)
         {
             throw new NotImplementedException();
         }
-
-        public void VoegRijbewijsToe(RijbewijsType rijbewijs)
-        {
-            throw new NotImplementedException();
-        }
+        #endregion
     }
 }
