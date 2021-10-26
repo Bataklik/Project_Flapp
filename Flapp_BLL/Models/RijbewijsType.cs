@@ -1,4 +1,5 @@
 ﻿using Flapp_BLL.Exceptions.ModelExpections;
+using System.Linq;
 
 namespace Flapp_BLL.Models
 {
@@ -30,6 +31,7 @@ namespace Flapp_BLL.Models
         public void ZetNaam(string naam)
         {
             if (string.IsNullOrWhiteSpace(naam)) { throw new RijbewijsTypeException("RijbewijsType: ZetNaam: Naam mag niet leeg zijn!"); }
+            if (!naam.Any(char.IsUpper)) { throw new RijbewijsTypeException("RijbewijsType: ZetNaam: Naam moet niet hoofdletter!"); }
             Naam = naam;
         }
         #endregion
