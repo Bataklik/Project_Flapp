@@ -26,9 +26,9 @@
 ## ToDo's
 * GeefBestuurder methode
 * RijbewijsTypeRepo klassen afwerken
-* IRijbewijsTypeRepo interface maken
 * Alle methode's met NotImplementedException() maken
 * Geef Voertuig & Tankkaart methode maken
+* UnitTests RijbewijsType 
 
 ## Feedback: 21/10
 - [ ] Voor alle klassen een unit test
