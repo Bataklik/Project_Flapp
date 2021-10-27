@@ -168,6 +168,9 @@ namespace Flapp_BLL.Models
         #endregion
 
         #region Methods
+        public void VerwijderTankkaart() {
+            Tankkaart = null;
+        }
         public void VerwijderVoertuig() //Verwijder voertuig bij bestuurder
         {
             Voertuig = null;

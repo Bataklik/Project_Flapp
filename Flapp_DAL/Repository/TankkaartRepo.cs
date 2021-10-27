@@ -17,6 +17,28 @@ namespace Flapp_DAL.Repository
 
         }
 
+        public bool BestaatBestuurder(Bestuurder bestuurder) {
+            SqlConnection conn = new SqlConnection(_connString);
+            string query = "USE [Project_Flapp_DB]; SELECT 1 FROM Tankkaart WHERE bestuurder_id = @bestuurder_id;";
+            using (SqlCommand cmd = conn.CreateCommand()) {
+                conn.Open();
+                try {
+                    cmd.Parameters.Add(new SqlParameter("@bestuurder_id", SqlDbType.Int));
+
+                    cmd.CommandText = query;
+
+                    cmd.Parameters["@bestuurder_id"].Value = bestuurder.Id;
+
+                    int tankkaartBestaat = Convert.ToInt32(cmd.ExecuteScalar());
+
+                    if (tankkaartBestaat == 1) { return true; }
+                    return false;
+                }
+                catch (Exception ex) { throw new Exception(ex.Message); }
+                finally { conn.Close(); }
+            }
+        }
+
         public bool BestaatTankkaart(Tankkaart t)
         {
             SqlConnection conn = new SqlConnection(_connString);
@@ -80,6 +102,10 @@ namespace Flapp_DAL.Repository
             throw new NotImplementedException();
         }
 
+        public IReadOnlyList<Voertuig> GeefAlleTankkaartenZonderBestuurders() {
+            throw new NotImplementedException();
+        }
+
         public Tankkaart GeefTankkaart(int kaartnr) {
             SqlConnection conn = new SqlConnection(_connString);
             string query = "SELECT * FROM dbo.Tankkaart WHERE kaartnr = @kaartnr;";
@@ -103,6 +129,10 @@ namespace Flapp_DAL.Repository
                 catch (Exception ex) { throw new Exception("TankkaartRepo", ex); }
                 finally { conn.Close(); }
             }
+        }
+
+        public bool HeeftBestuurder(Bestuurder bestuurder) {
+            throw new NotImplementedException();
         }
 
         public void UpdateTankkaart(Tankkaart t) {
@@ -133,6 +163,10 @@ namespace Flapp_DAL.Repository
             }
         }
 
+        public void VerwijderBestuurder(Bestuurder bestuurder) {
+            throw new NotImplementedException();
+        }
+
         public void VerwijderTankkaart(Tankkaart t) {
             SqlConnection conn = new SqlConnection(_connString);
             string query = "USE [Project_Flapp_DB]; DELETE FROM [dbo].[Tankkaart] WHERE kaartnr = @kaartnr;";
@@ -150,6 +184,10 @@ namespace Flapp_DAL.Repository
                 catch (Exception ex) { throw new Exception(ex.Message); }
                 finally { conn.Close(); }
             }
+        }
+
+        public void VoegBestuurderToe(Bestuurder bestuurder) {
+            throw new NotImplementedException();
         }
 
         public void VoegTankkaartToe(Tankkaart t) {
