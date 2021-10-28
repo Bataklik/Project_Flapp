@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Flapp_BLL.Models;
 
 namespace Flapp_BLL.Interfaces
@@ -18,9 +14,7 @@ namespace Flapp_BLL.Interfaces
         Bestuurder GeefBestuurder(Bestuurder bestuurder);
 
         //bool HeeftTankkaart(Tankkaart tankkaart); Moet kunnen kijken of een bestuurder een tankkaart heeft
-        //IReadOnlyList<Bestuurder> GeefAlleBestuurdersZonderTankkaarten() Voor een lijst voor bestuurders zonder tankkaarten;
-
+        IReadOnlyList<Bestuurder> GeefAlleBestuurdersZonderTankkaarten()
         //bool HeeftVoertuig(Voertuig voertuig); Moet kunnen kijken of een bestuurder een voertuig heeft
-        //IReadOnlyList<Bestuurder> GeefAlleVoertuigenZonderBestuurder() Voor een lijst voor bestuurders zonder voertuigen;
     }
 }
