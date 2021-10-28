@@ -50,5 +50,14 @@ namespace Flapp_BLL.Managers
             }
             catch (Exception ex) { throw new BestuurderManagerException("BestuurderManager", ex); }
         }
+        public IReadOnlyList<Bestuurder> GeefAlleBestuurdersZonderTankkaarten()
+        {
+            try
+            {
+                return _repo.GeefAlleBestuurders();
+            }
+            catch (Exception ex) { throw new BestuurderManagerException("BestuurderManager", ex); }
+
+        }
     }
 }
