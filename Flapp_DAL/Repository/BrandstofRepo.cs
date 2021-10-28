@@ -19,6 +19,7 @@ namespace Flapp_DAL.Repository
             _connString = connString;
         }
 
+        #region BestaatBrandstof Methods
         public bool BestaatBrandstof(Brandstof b)
         {
             SqlConnection conn = new SqlConnection(_connString);
@@ -61,7 +62,30 @@ namespace Flapp_DAL.Repository
                 finally { conn.Close(); }
             }
         }
+        public bool BestaatBrandstof(string brandstof_naam)
+        {
+            SqlConnection conn = new SqlConnection(_connString);
+            string query = "USE [Project_Flapp_DB]; SELECT 1 FROM Brandstof WHERE brandstof_naam = @brandstof_naam;";
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
+                conn.Open();
+                try
+                {
+                    cmd.Parameters.Add(new SqlParameter("@brandstof_naam", SqlDbType.VarChar));
+                    cmd.CommandText = query;
+                    cmd.Parameters["@brandstof_naam"].Value = brandstof_naam;
 
+                    int brandstofBestaat = Convert.ToInt32(cmd.ExecuteScalar());
+                    if (brandstofBestaat == 1) { return true; }
+                    return false;
+                }
+                catch (Exception ex) { throw new Exception(ex.Message); }
+                finally { conn.Close(); }
+            }
+        }
+        #endregion
+
+        #region GeefBrandstof Methods
         public Brandstof GeefBrandstof(Brandstof b)
         {
             SqlConnection conn = new SqlConnection(_connString);
@@ -106,7 +130,9 @@ namespace Flapp_DAL.Repository
                 finally { conn.Close(); }
             }
         }
+        #endregion
 
+        #region VoegBrandstofToe Method
         public void VoegBrandstofToe(Brandstof b)
         {
             SqlConnection conn = new SqlConnection(_connString);
@@ -126,6 +152,10 @@ namespace Flapp_DAL.Repository
                 finally { conn.Close(); }
             }
         }
+
+        #endregion
+
+        #region UpdateBrandstof Method
         public void UpdateBrandstof(Brandstof b)
         {
             SqlConnection conn = new SqlConnection(_connString);
@@ -148,6 +178,9 @@ namespace Flapp_DAL.Repository
             }
         }
 
+        #endregion
+
+        #region VerwijderBrandstof Methods
         public void VerwijderBrandstof(int id)
         {
             SqlConnection conn = new SqlConnection(_connString);
@@ -186,27 +219,6 @@ namespace Flapp_DAL.Repository
                 finally { conn.Close(); }
             }
         }
-
-        public bool BestaatBrandstof(string brandstof_naam)
-        {
-            SqlConnection conn = new SqlConnection(_connString);
-            string query = "USE [Project_Flapp_DB]; SELECT 1 FROM Brandstof WHERE brandstof_naam = @brandstof_naam;";
-            using (SqlCommand cmd = conn.CreateCommand())
-            {
-                conn.Open();
-                try
-                {
-                    cmd.Parameters.Add(new SqlParameter("@brandstof_naam", SqlDbType.VarChar));
-                    cmd.CommandText = query;
-                    cmd.Parameters["@brandstof_naam"].Value = brandstof_naam;
-
-                    int brandstofBestaat = Convert.ToInt32(cmd.ExecuteScalar());
-                    if (brandstofBestaat == 1) { return true; }
-                    return false;
-                }
-                catch (Exception ex) { throw new Exception(ex.Message); }
-                finally { conn.Close(); }
-            }
-        }
+        #endregion
     }
 }
