@@ -25,7 +25,7 @@ namespace Flapp_DAL.Repository
                 conn.Open();
                 try
                 {
-                    cmd.Parameters.Add(new SqlParameter("@naam", SqlDbType.VarChar));
+                    cmd.Parameters.Add(new SqlParameter("@id", SqlDbType.Int));
                     cmd.CommandText = query;
                     cmd.Parameters["@id"].Value = id;
 
@@ -65,11 +65,47 @@ namespace Flapp_DAL.Repository
         #region GeefRijbewijs Method
         public RijbewijsType GeefRijbewijs(RijbewijsType rijbewijs)
         {
-            throw new NotImplementedException();
+            SqlConnection conn = new SqlConnection(_connString);
+            string query = "USE [Project_Flapp_DB]; SELECT * FROM Rijbewijs WHERE rijbewijs_naam = @naam;";
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
+                cmd.Parameters.Add(new SqlParameter("@naam", SqlDbType.VarChar));
+                cmd.CommandText = query;
+                cmd.Parameters["@naam"].Value = rijbewijs.Naam;
+
+                conn.Open();
+                try
+                {
+                    SqlDataReader r = cmd.ExecuteReader();
+                    r.Read();
+                    RijbewijsType rijb = new((int)r["id"], (string)r["rijbewijs_naam"]);
+                    return rijb;
+                }
+                catch (Exception ex) { throw new Exception(ex.Message); }
+                finally { conn.Close(); }
+            }
         }
         public RijbewijsType GeefRijbewijs(int id)
         {
-            throw new NotImplementedException();
+            SqlConnection conn = new SqlConnection(_connString);
+            string query = "USE [Project_Flapp_DB]; SELECT * FROM Rijbewijs WHERE id = @id;";
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
+                cmd.Parameters.Add(new SqlParameter("@id", SqlDbType.Int));
+                cmd.CommandText = query;
+                cmd.Parameters["@id"].Value = id;
+
+                conn.Open();
+                try
+                {
+                    SqlDataReader r = cmd.ExecuteReader();
+                    r.Read();
+                    RijbewijsType rijb = new((int)r["id"], (string)r["rijbewijs_naam"]);
+                    return rijb;
+                }
+                catch (Exception ex) { throw new Exception(ex.Message); }
+                finally { conn.Close(); }
+            }
         }
         #endregion
 
