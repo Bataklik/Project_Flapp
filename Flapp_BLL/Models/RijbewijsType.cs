@@ -35,6 +35,13 @@ namespace Flapp_BLL.Models
             Naam = naam;
         }
         #endregion
+
+        #region Overrides
+        public override string ToString()
+        {
+            return $"{Id}, {Naam}";
+        }
+        #endregion
     }
 }
 
