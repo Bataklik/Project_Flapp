@@ -13,8 +13,8 @@ namespace Flapp_BLL.Models
         public DateTime Geldigheidsdatum { get; private set; } // !
 
         public string Pincode { get; private set; }
-        public Brandstof Brandstoftype { get; private set; }
         // Tankkaart moet meerdere brandstoffen hebben.
+        public Brandstof Brandstoftype { get; private set; }
         public Bestuurder Bestuurder { get; private set; }
         public bool Geblokkeerd { get; private set; }
         #endregion
@@ -88,29 +88,9 @@ namespace Flapp_BLL.Models
 
         public void VerwijderBestuurder(Bestuurder bestuurder)
         {
-            if (bestuurder == null) throw new Exception();
-            if (!_bestuurders.Contains(bestuurder)) throw new Exception();
-            else
-            {
-                if (bestuurder.Tankkaart == this)
-                {
-                    bestuurder.VerwijderTankkaart();
-                    _bestuurders.Remove(bestuurder);
-                }
-            }
-            _bestuurders.Remove(bestuurder);
-        }
-
-        public bool BestaatBestuurder(Bestuurder bestuurder)
-        {
-            if (_bestuurders.Contains(bestuurder))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            if (bestuurder == null) throw new TankkaartException("Tankkaart: VerwijderBestuurder: Tankkaart bestuurder is null!");
+            if (bestuurder.Tankkaart != this) throw new TankkaartException("Tankkaart: VerwijderBestuurder: Tankkaart bestuurder is niet hetzelfde als gekozen bestuurder!!");
+            bestuurder.VerwijderTankkaart();
         }
         #endregion
 
