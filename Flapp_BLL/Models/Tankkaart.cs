@@ -14,10 +14,9 @@ namespace Flapp_BLL.Models
 
         public string Pincode { get; private set; }
         public Brandstof Brandstoftype { get; private set; }
+        // Tankkaart moet meerdere brandstoffen hebben.
         public Bestuurder Bestuurder { get; private set; }
         public bool Geblokkeerd { get; private set; }
-
-        private List<Bestuurder> _bestuurders = new List<Bestuurder>(); 
         #endregion
 
         #region Constructors
@@ -76,29 +75,25 @@ namespace Flapp_BLL.Models
         #endregion
 
         #region Methods
-        public IReadOnlyList<Bestuurder> GetBestuurders() {
-            return _bestuurders.AsReadOnly();
+        public void VoegBestuurderToe(Bestuurder bestuurder)
+        {
+            if (bestuurder == null) throw new TankkaartException("Tankkaart: VoegBestuurderToe: Tankkaart bestuurder bestaat niet!");
+            if (bestuurder.Tankkaart != null) { throw new TankkaartException("Tankkaart: VoegBestuurderToe: Tankkaart bestuurder bestaat niet!"); }
+
+            if (bestuurder.Tankkaart != this)
+            {
+                bestuurder.ZetTankkaart(this);
+            }
         }
 
-        public void VoegBestuurderToe(Bestuurder bestuurder) {
-            if (bestuurder == null) throw new Exception();
-            if (_bestuurders.Contains(bestuurder)) {
-                throw new Exception("Bestuurder already exists");
-            }
-            else {
-                _bestuurders.Add(bestuurder);
-                if (bestuurder.Tankkaart != this) {
-                    bestuurder.ZetTankkaart(this);
-                }
-            }
-
-        }
-
-        public void VerwijderBestuurder(Bestuurder bestuurder) {
+        public void VerwijderBestuurder(Bestuurder bestuurder)
+        {
             if (bestuurder == null) throw new Exception();
             if (!_bestuurders.Contains(bestuurder)) throw new Exception();
-            else {
-                if (bestuurder.Tankkaart == this) {
+            else
+            {
+                if (bestuurder.Tankkaart == this)
+                {
                     bestuurder.VerwijderTankkaart();
                     _bestuurders.Remove(bestuurder);
                 }
@@ -106,11 +101,14 @@ namespace Flapp_BLL.Models
             _bestuurders.Remove(bestuurder);
         }
 
-        public bool BestaatBestuurder(Bestuurder bestuurder) {
-            if (_bestuurders.Contains(bestuurder)) {
+        public bool BestaatBestuurder(Bestuurder bestuurder)
+        {
+            if (_bestuurders.Contains(bestuurder))
+            {
                 return true;
             }
-            else {
+            else
+            {
                 return false;
             }
         }
