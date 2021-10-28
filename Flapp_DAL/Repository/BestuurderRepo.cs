@@ -211,8 +211,32 @@ namespace Flapp_DAL.Repository
         }
         #endregion
 
-        #region GeefAlleBestuurders Method
+        #region GeefAlleBestuurders Methodbe
         public IReadOnlyList<Bestuurder> GeefAlleBestuurders()
+        {
+            SqlConnection conn = new SqlConnection(_connString);
+            IList<Bestuurder> alleBestuurders = new List<Bestuurder>();
+            string query = "USE [Project_Flapp_DB]; SELECT * FROM Bestuurder;";
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
+                cmd.CommandText = query;
+                conn.Open();
+                try
+                {
+                    SqlDataReader r = cmd.ExecuteReader();
+                    while (r.Read())
+                    {
+                        // Bestuurder aanmaken en toevoegen aan list
+                        // alleBestuurders.Add(new());
+                    }
+                }
+                catch (Exception ex) { throw new Exception(ex.Message); }
+                finally { conn.Close(); }
+            }
+            return (IReadOnlyList<Bestuurder>)alleBestuurders;
+        }
+
+        public IReadOnlyList<Bestuurder> GeefAlleBestuurdersZonderTankkaarten()
         {
             throw new NotImplementedException();
         }
