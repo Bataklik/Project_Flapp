@@ -168,7 +168,8 @@ namespace Flapp_BLL.Models
         #endregion
 
         #region Methods
-        public void VerwijderTankkaart() {
+        public void VerwijderTankkaart()
+        {
             Tankkaart = null;
         }
         public void VerwijderVoertuig() //Verwijder voertuig bij bestuurder
@@ -177,21 +178,13 @@ namespace Flapp_BLL.Models
         }
         public bool HeeftVoertuig(Voertuig voertuig) // Heeft de bestuurder al een voertuig?
         {
+            if (voertuig == null) { throw new VoertuigException("Voertuig: HeeftVoertuig: Voertuig parameter is null!"); }
             if (Voertuig != null)
             {
-                if (this.Voertuig == voertuig)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                if (Voertuig == voertuig) { return true; }
+                else { return false; }
             }
-            else
-            {
-                return false;
-            }
+            else { return false; }
         }
         #endregion
 
