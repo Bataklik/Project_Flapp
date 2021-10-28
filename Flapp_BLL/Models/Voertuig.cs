@@ -124,27 +124,27 @@ namespace Flapp_BLL.Models
         {
             if (nieuweBestuurder != null)
             {
-                if (this.Bestuurder == null)
+                if (Bestuurder == null)
                 {
                     if (!nieuweBestuurder.HeeftVoertuig(this)) //heeft de nieuwe bestuurder dit al als vehicle ?
                     {
                         nieuweBestuurder.VerwijderVoertuig();
-                        this.Bestuurder = nieuweBestuurder;
+                        Bestuurder = nieuweBestuurder;
                         nieuweBestuurder.ZetVoertuig(this);
                     }
-                    this.Bestuurder = nieuweBestuurder;
+                    Bestuurder = nieuweBestuurder;
                 }
-                else if (this.Bestuurder != nieuweBestuurder) //is huidige bestuurder niet gelijk aan nieuwe driver ?
+                else if (Bestuurder != nieuweBestuurder) //is huidige bestuurder niet gelijk aan nieuwe driver ?
                 {
-                    if (this.Bestuurder.HeeftVoertuig(this))
+                    if (Bestuurder.HeeftVoertuig(this))
                     {
-                        this.Bestuurder.VerwijderVoertuig();
+                        Bestuurder.VerwijderVoertuig();
                         //verwijder de huidige driver zijn vehicle
                     }
                     if (!nieuweBestuurder.HeeftVoertuig(this)) //heeft de nieuwe bestuurder dit al als vehicle ?
                     {
                         nieuweBestuurder.VerwijderVoertuig();
-                        this.Bestuurder = nieuweBestuurder;
+                        Bestuurder = nieuweBestuurder;
                         nieuweBestuurder.ZetVoertuig(this);
                     }
 
