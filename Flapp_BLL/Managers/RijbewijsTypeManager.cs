@@ -18,14 +18,29 @@ namespace Flapp_BLL.Managers
             this._repo = _repo;
         }
 
-        public bool BestaatRijbewijs(RijbewijsType rijbewijs) {
-            if (!_repo.BestaatRijbewijs(rijbewijs)) { return false; }
-            try {
-                return true;
+        public bool BestaatRijbewijs(RijbewijsType rijbewijs)
+        {
+            return _repo.BestaatRijbewijs(rijbewijs);
+        }
+        public RijbewijsType GeefRijbewijs(RijbewijsType rijbewijs)
+        {
+            if (!_repo.BestaatRijbewijs(rijbewijs)) { throw new RijbewijsTypeManagerException("RijbewijsTypeManager: GeefRijbewijs: Rijbewijs bestaat niet!"); }
+            try
+            {
+                return _repo.GeefRijbewijs(rijbewijs); ;
+            }
+            catch (Exception ex) { throw new RijbewijsTypeManagerException("RijbewijsTypeManager", ex); }
+
+        }
+        public RijbewijsType GeefRijbewijs(int id)
+        {
+            if (!_repo.BestaatRijbewijs(id)) { throw new RijbewijsTypeManagerException("RijbewijsTypeManager: GeefRijbewijs: Rijbewijs bestaat niet!"); }
+            try
+            {
+                return _repo.GeefRijbewijs(id); ;
             }
             catch (Exception ex) { throw new RijbewijsTypeManagerException("RijbewijsTypeManager", ex); }
         }
-
         public void VoegRijbewijsToe(RijbewijsType rijbewijs)
         {
             if (_repo.BestaatRijbewijs(rijbewijs)) { throw new RijbewijsTypeManagerException("RijbewijsTypeManager: VoegRijbewijsToe: RijbewijsType bestaat al"); }
