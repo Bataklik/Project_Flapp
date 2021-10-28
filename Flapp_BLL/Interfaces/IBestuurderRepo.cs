@@ -14,7 +14,7 @@ namespace Flapp_BLL.Interfaces
         Bestuurder GeefBestuurder(Bestuurder bestuurder);
 
         //bool HeeftTankkaart(Tankkaart tankkaart); Moet kunnen kijken of een bestuurder een tankkaart heeft
-        IReadOnlyList<Bestuurder> GeefAlleBestuurdersZonderTankkaarten()
+        IReadOnlyList<Bestuurder> GeefAlleBestuurdersZonderTankkaarten();
         //bool HeeftVoertuig(Voertuig voertuig); Moet kunnen kijken of een bestuurder een voertuig heeft
     }
 }
