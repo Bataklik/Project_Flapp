@@ -30,7 +30,7 @@ namespace Flapp_CNS
 
             Bestuurder b1 = new Bestuurder("Declerck", "Tibo", Geslacht.M, a1, "06/08/1999", "99.08.06-289.17", rbtB, v1, t1);
 
-            rbtm.VoegRijbewijsToe(rbtB);
+            Console.WriteLine(rbtm.GeefRijbewijs(1));
         }
     }
 }
