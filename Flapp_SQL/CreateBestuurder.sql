@@ -5,7 +5,6 @@ CREATE TABLE[dbo].[Bestuurder](
    [voornaam] [varchar](50) NOT NULL,
    [geboortedatum] [date] NOT NULL,
    [rijksregister] [varchar](15) NOT NULL,
-   [rijbewijstype_id] [int] FOREIGN KEY REFERENCES dbo.Rijbewijs(id),
    [adres_id] [int] FOREIGN KEY REFERENCES dbo.Adres(id),
    [voertuig_id] [int] FOREIGN KEY REFERENCES dbo.Voertuig(id),
    [tankkaart_id] [int] FOREIGN KEY REFERENCES dbo.Tankkaart(id),
