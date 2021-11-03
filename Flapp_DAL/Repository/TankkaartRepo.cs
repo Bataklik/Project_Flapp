@@ -98,9 +98,49 @@ namespace Flapp_DAL.Repository
             }
         }
 
-        public IReadOnlyList<Tankkaart> GeefAlleTankkaarten() {
-            throw new NotImplementedException();
-        }
+        //public IReadOnlyList<Tankkaart> GeefAlleTankkaarten(int kaartnr, DateTime geldigheidsdatum, string pincode, Brandstof brandstof, Bestuurder bestuurder, bool geblokkeerd, bool strikt = true) {
+        //    List<Tankkaart> truitjes = new List<Tankkaart>();
+        //    SqlConnection conn = new SqlConnection();
+        //    string query = "SELECT * FROM [dbo].[Tankkaart] WHERE ";
+        //    bool AND = false;
+        //    if (kaartnr > 0) {
+        //        AND = true;
+        //        if (strikt) query += " kaartnr=@kaartnr";
+        //        else query += " UPPER(kaartnr)=UPPER(@kaartnr)";
+        //    }
+        //    if (geldigheidsdatum.GetHashCode() == 0) {
+        //        if (AND) query += " AND "; else AND = false;
+        //        if (strikt) query += " geldigheidsdatum=@geldigheidsdatum";
+        //        else query += " UPPER(geldigheidsdatum)=UPPER(@geldigheidsdatum) ";
+        //    }
+        //    if (!string.IsNullOrWhiteSpace(pincode)) {
+        //        if (AND) query += " AND "; else AND = false;
+        //        if (strikt) query += " seizoen=@seizoen";
+        //        else query += " UPPER(seizoen)=UPPER(@seizoen) ";
+        //    }
+        //    if (brandstof != null) {
+        //        if (AND) query += " AND "; else AND = false;
+        //        if (strikt) query += " brandstof_naam=@brandstof_naam";
+        //        else query += " UPPER(brandstof_naam)=UPPER(@brandstof) ";
+        //    }
+        //    if (bestuurder != null) {
+        //        if (AND) query += " AND "; else AND = false;
+        //        if (strikt) query += " bestuurder=@bestuurder_id";
+        //        else query += " UPPER(bestuurder)=UPPER(@bestuurder) ";
+        //    }
+        //    if (AND) query += " AND "; else AND = false;
+        //    if (strikt) query += " geblokkeerd=@geblokkeerd";
+        //    else query += " UPPER(geblokkeerd)=UPPER(@geblokkeerd) ";
+        //    using (SqlCommand cmd = conn.CreateCommand()) {
+        //        conn.Open();
+        //        try {
+        //            cmd.Parameters.Add(new SqlParameter("@kaartnr", SqlDbType.Int));
+        //            cmd.CommandText = query;
+        //            cmd.Parameters["@kaartnr"].Value = t.Kaartnummer;
+
+        //        } catch (Exception ex) { throw new Exception(ex.Message); } finally { conn.Close(); }
+        //    }
+        //}
 
         public IReadOnlyList<Voertuig> GeefAlleTankkaartenZonderBestuurders() {
             throw new NotImplementedException();
@@ -131,8 +171,24 @@ namespace Flapp_DAL.Repository
             }
         }
 
-        public bool HeeftBestuurder(Bestuurder bestuurder) {
-            throw new NotImplementedException();
+        public bool HeeftBestuurder(Bestuurder b) {
+            SqlConnection conn = new SqlConnection(_connString);
+            string query = "USE [Project_Flapp_DB]; SELECT * FROM [dbo].[Tankkaart] WHERE bestuurder_id=@bestuurder_id;";
+            using (SqlCommand cmd = conn.CreateCommand()) {
+                conn.Open();
+                try {
+                    cmd.Parameters.Add(new SqlParameter("@bestuurder_id", SqlDbType.Int));
+
+                    cmd.CommandText = query;
+
+                    cmd.Parameters["@bestuurder_id"].Value = b.Id;
+                
+                    int bestuurderBestaat = Convert.ToInt32(cmd.ExecuteScalar());
+
+                    if (bestuurderBestaat == 1) { return true; }
+                    return false;
+                } catch (Exception ex) { throw new Exception(ex.Message); } finally { conn.Close(); }
+            }
         }
 
         public void UpdateTankkaart(Tankkaart t) {
@@ -163,8 +219,21 @@ namespace Flapp_DAL.Repository
             }
         }
 
-        public void VerwijderBestuurder(Bestuurder bestuurder) {
-            throw new NotImplementedException();
+        public void VerwijderBestuurder(Bestuurder b) {
+            SqlConnection conn = new SqlConnection(_connString);
+            string query = "USE [Project_Flapp_DB]; DELETE FROM [dbo].[Tankkaart] WHERE bestuurder_id = @bestuurder_id;";
+            using (SqlCommand cmd = conn.CreateCommand()) {
+                conn.Open();
+                try {
+                    cmd.Parameters.Add(new SqlParameter("@bestuurder_id", SqlDbType.Int));
+
+                    cmd.CommandText = query;
+
+                    cmd.Parameters["@bestuurder_id"].Value = b.Id;
+
+                    cmd.ExecuteNonQuery();
+                } catch (Exception ex) { throw new Exception(ex.Message); } finally { conn.Close(); }
+            }
         }
 
         public void VerwijderTankkaart(Tankkaart t) {
@@ -186,8 +255,21 @@ namespace Flapp_DAL.Repository
             }
         }
 
-        public void VoegBestuurderToe(Bestuurder bestuurder) {
-            throw new NotImplementedException();
+        public void VoegBestuurderToe(Bestuurder b) {
+            SqlConnection conn = new SqlConnection(_connString);
+            string query = "USE [Project_Flapp_DB]; INSERT INTO [dbo].[Tankkaart] ([bestuurder_id]) SELECT [dbo].[Bestuurder].[Id] FROM [dbo].[Bestuurder] WHERE [dbo].[Bestuurder].[Id]=@bestuurder_id;";
+            using (SqlCommand cmd = conn.CreateCommand()) {
+                conn.Open();
+                try {
+                    cmd.Parameters.Add(new SqlParameter("@bestuurder_id", SqlDbType.Int));
+
+                    cmd.CommandText = query;
+
+                    cmd.Parameters["@bestuurder_id"].Value = b.Id;
+
+                    cmd.ExecuteNonQuery();
+                } catch (Exception ex) { throw new Exception(ex.Message); } finally { conn.Close(); }
+            }
         }
 
         public void VoegTankkaartToe(Tankkaart t) {
@@ -215,6 +297,10 @@ namespace Flapp_DAL.Repository
                 catch (Exception ex) { throw new Exception(ex.Message); }
                 finally { conn.Close(); }
             }
+        }
+
+        IReadOnlyList<Tankkaart> ITankkaartRepo.GeefAlleTankkaartenZonderBestuurders() {
+            throw new NotImplementedException();
         }
     }
 }
