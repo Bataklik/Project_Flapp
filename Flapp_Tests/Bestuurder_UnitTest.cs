@@ -14,7 +14,8 @@ namespace Flapp_TESTS
         [Fact]
         public void Test_ctor1_Valid()
         {
-            Bestuurder b = new("Balci", "Burak", Geslacht.M, "12/05/1999", "99.05.12-273.26", new("B"));
+            List<RijbewijsType> rt = new List<RijbewijsType>();
+            Bestuurder b = new("Balci", "Burak", Geslacht.M, "12/05/1999", "99.05.12-273.26", rt);
 
             Assert.Equal("Balci", b.Naam);
             Assert.Equal("Burak", b.Voornaam);
@@ -65,8 +66,10 @@ namespace Flapp_TESTS
             Tankkaart tk = new Tankkaart(1, DateTime.Now.AddDays(4));
             Adres a = new Adres("Straat", "1", "Stad", 9000);
             Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
-            Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", new RijbewijsType("B"), v, tk);
-
+            Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", new(), v, tk);
+            List<RijbewijsType> rt = new List<RijbewijsType>();
+            rt.Add(new RijbewijsType("B"));
+            b.ZetRijbewijsType(rt);
             Assert.Equal("Balci", b.Naam);
             Assert.Equal("Burak", b.Voornaam);
             Assert.Equal(Geslacht.M, b.Geslacht);

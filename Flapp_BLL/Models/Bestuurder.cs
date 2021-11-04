@@ -14,7 +14,7 @@ namespace Flapp_BLL.Models
         public string Voornaam { get; private set; } // ! 
         public DateTime Geboortedatum { get; private set; } // !
         public string Rijksregisternummer { get; private set; } // !
-        public List<RijbewijsType> RijbewijsType { get; private set; } = new(); // !
+        public List<RijbewijsType> RijbewijsType { get; private set; }// !
 
         public Adres Adres { get; private set; }
         public Voertuig Voertuig { get; private set; }

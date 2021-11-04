@@ -53,7 +53,6 @@ namespace Flapp_BLL.Models
         {
             return HashCode.Combine(Naam);
         }
-
         #endregion
     }
 }

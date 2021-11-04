@@ -3,6 +3,7 @@ using Flapp_BLL.Models;
 using System;
 using Flapp_BLL.Managers;
 using Flapp_DAL.Repository;
+using System.Collections.Generic;
 
 namespace Flapp_CNS
 {
@@ -20,15 +21,16 @@ namespace Flapp_CNS
             // Models
             Adres a1 = new Adres(1, "Frans Uyttenhovestraat", "91", "Gent", 9000);
 
-            RijbewijsType rbtB = new RijbewijsType("B");
+
 
             Brandstof bs1 = new Brandstof("Elektrisch");
 
             Voertuig v1 = new Voertuig(1, "Tesla", "X", "13245678957903251", "2-ABC-123", bs1, "Stationwagen", "Zwart", 5);
 
             Tankkaart t1 = new Tankkaart(1, DateTime.Parse("06/08/2025"));
-
-            Bestuurder b1 = new Bestuurder("Declerck", "Tibo", Geslacht.M, a1, "06/08/1999", "99.08.06-289.17", rbtB, v1, t1);
+            List<RijbewijsType> rt = new List<RijbewijsType>();
+            rt.Add(new RijbewijsType("B"));
+            Bestuurder b1 = new Bestuurder("Declerck", "Tibo", Geslacht.M, a1, "06/08/1999", "99.08.06-289.17", rt, v1, t1);
 
             Console.WriteLine(rbtm.GeefRijbewijs(1));
         }

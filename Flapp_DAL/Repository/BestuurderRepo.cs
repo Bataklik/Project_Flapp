@@ -10,7 +10,6 @@ namespace Flapp_DAL.Repository
     public class BestuurderRepo : IBestuurderRepo
     {
         private string _connString;
-
         public BestuurderRepo(string connString)
         {
             _connString = connString;
@@ -111,7 +110,6 @@ namespace Flapp_DAL.Repository
                 finally { conn.Close(); }
             }
         }
-
         #endregion
 
         #region UpdateBestuurder Method
@@ -166,14 +164,16 @@ namespace Flapp_DAL.Repository
                     Geslacht g = (int)r["geslacht"] == 1 ? Geslacht.M : Geslacht.V;
                     Adres a = null;// _aRepo.GeefAdres((int)r["adres_id"]);
                     string geboorte = Convert.ToString(r["geboortedatum"]);
-                    // Repo's & Interfaces moeten nog gemaakt worden
-                    RijbewijsType rt = null;//_rtRepo.GeefRijbewijs((int)r["rijbewijstype_id"]);
+                    List<RijbewijsType> rt = new();
                     Voertuig v = null;//_vRepo.GeefVoertuig((int)r["voertuig_id"]);
-                    Tankkaart t = null;// _tRepo.GeefTankkaart((int)r["tankkaart_id"]);
+                    Tankkaart t = null; //_tRepo.GeefTankkaart((int)r["tankkaart_id"]);
                     Bestuurder gevondenBestuurder = new((int)r["id"], (string)r["naam"], (string)r["voornaam"], g, a, geboorte, (string)r["rijksregister"], rt, v, t);
                     return gevondenBestuurder;
                 }
-                catch (Exception ex) { throw new Exception(ex.Message); }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
                 finally { conn.Close(); }
 
             }
@@ -199,7 +199,7 @@ namespace Flapp_DAL.Repository
                     Adres a = null;//_aRepo.GeefAdres((int)r["adres_id"]);
                     string geboorte = Convert.ToString(r["geboortedatum"]);
                     // Repo's & Interfaces moeten nog gemaakt worden
-                    RijbewijsType rt = null; //_rtRepo.GeefRijbewijs((int)r["rijbewijstype_id"]);
+                    List<RijbewijsType> rt = new(); //_rtRepo.GeefRijbewijs((int)r["rijbewijstype_id"]);
                     Voertuig v = null;//_vRepo.GeefVoertuig((int)r["voertuig_id"]);
                     Tankkaart t = null; //_tRepo.GeefTankkaart((int)r["tankkaart_id"]);
                     Bestuurder gevondenBestuurder = new((int)r["id"], (string)r["naam"], (string)r["voornaam"], g, a, geboorte, (string)r["rijksregister"], rt, v, t);
