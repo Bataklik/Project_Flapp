@@ -7,16 +7,6 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <TabControl>
-            <TabItem Header="Voertuig beheer">
-                <Grid>
-                    <TabControl>
-                        <TabItem Header="Brandstof beheer">
-                        </TabItem>
-                    </TabControl>
-                </Grid>
-            </TabItem>
-            <TabItem Header=""></TabItem>
-        </TabControl>
+
     </Grid>
 </Window>
