@@ -21,5 +21,5 @@
 | 2u   | Create 2 ManagerExceptions, 3 nieuwe folders in Exceptions |
 | 2u   | Add VoegRijbewijsToe, VoegBrandstofToe met bijhorende methods |
 | 2u   | Change RijbewijsType -> List<RijbewijsType> & Change errors|
-| 0u   | ---------------------------------------------------------- |
+| 3u   | Rework sql tables and add CreateAll.sql                    |
 | 0u   | ---------------------------------------------------------- |
