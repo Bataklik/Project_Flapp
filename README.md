@@ -23,6 +23,10 @@
 <!-- Feedback -->
 <!-- [ ] Empty [x] Full -->
 
+## TODO's
+* AdresRepo: Geef, Verwijder, Update.
+* BestuurderRepo: Bestaat, Update, Verwijder, 
+
 ## Feedback: 4/11 ##
 - [ ] Bestuurder & Tankkaart moeten gelinkt zijn aan elkaar. En ook andere links
 - [ ] Transactie's
