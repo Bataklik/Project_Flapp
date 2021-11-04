@@ -25,9 +25,7 @@
 
 ## Feedback: 4/11 ##
 - [ ] Bestuurder & Tankkaart moeten gelinkt zijn aan elkaar. En ook andere links
-
 - [ ] Transactie's
-
 - [ ] Één methode in één repo's, probeer te vermijden om repo -> repo
 
 ## Feedback: 21/10
