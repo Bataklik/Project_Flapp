@@ -51,7 +51,7 @@ namespace Flapp_DAL.Repository
 
                     cmd.Parameters["@kleur"].Value = v.Kleur;
                     cmd.Parameters["@deuren"].Value = v.Aantaldeuren;
-                    cmd.Parameters["@bestuurder_id"].Value = _bRepo.GeefBestuurder(v.Bestuurder);
+                    cmd.Parameters["@bestuurder_id"].Value = v.Bestuurder.Id;
 
 
                     int AdresBestaat = Convert.ToInt32(cmd.ExecuteScalar());
