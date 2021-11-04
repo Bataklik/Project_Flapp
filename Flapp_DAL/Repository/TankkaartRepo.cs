@@ -17,12 +17,15 @@ namespace Flapp_DAL.Repository
 
         }
 
-        public bool BestaatBestuurder(Bestuurder bestuurder) {
+        public bool BestaatBestuurder(Bestuurder bestuurder)
+        {
             SqlConnection conn = new SqlConnection(_connString);
             string query = "USE [Project_Flapp_DB]; SELECT 1 FROM Tankkaart WHERE bestuurder_id = @bestuurder_id;";
-            using (SqlCommand cmd = conn.CreateCommand()) {
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
                 conn.Open();
-                try {
+                try
+                {
                     cmd.Parameters.Add(new SqlParameter("@bestuurder_id", SqlDbType.Int));
 
                     cmd.CommandText = query;
@@ -76,12 +79,15 @@ namespace Flapp_DAL.Repository
             }
         }
 
-        public bool BestaatTankkaart(int kaartnr) {
+        public bool BestaatTankkaart(int kaartnr)
+        {
             SqlConnection conn = new SqlConnection(_connString);
             string query = "USE [Project_Flapp_DB]; SELECT 1 FROM Tankkaart WHERE kaartnr = @kaartnr;";
-            using (SqlCommand cmd = conn.CreateCommand()) {
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
                 conn.Open();
-                try {
+                try
+                {
                     cmd.Parameters.Add(new SqlParameter("@kaartnr", SqlDbType.Int));
 
                     cmd.CommandText = query;
@@ -98,6 +104,12 @@ namespace Flapp_DAL.Repository
             }
         }
 
+        public IReadOnlyList<Tankkaart> GeefAlleTankkaarten()
+        {
+            throw new NotImplementedException();
+        }
+
+        // Bro hoezo vraag je alle kaarten maar je wilt een kaartnr??? LOGIC 101
         //public IReadOnlyList<Tankkaart> GeefAlleTankkaarten(int kaartnr, DateTime geldigheidsdatum, string pincode, Brandstof brandstof, Bestuurder bestuurder, bool geblokkeerd, bool strikt = true) {
         //    List<Tankkaart> truitjes = new List<Tankkaart>();
         //    SqlConnection conn = new SqlConnection();
@@ -142,14 +154,17 @@ namespace Flapp_DAL.Repository
         //    }
         //}
 
-        public IReadOnlyList<Voertuig> GeefAlleTankkaartenZonderBestuurders() {
+        public IReadOnlyList<Voertuig> GeefAlleTankkaartenZonderBestuurders()
+        {
             throw new NotImplementedException();
         }
 
-        public Tankkaart GeefTankkaart(int kaartnr) {
+        public Tankkaart GeefTankkaart(int kaartnr)
+        {
             SqlConnection conn = new SqlConnection(_connString);
             string query = "SELECT * FROM dbo.Tankkaart WHERE kaartnr = @kaartnr;";
-            using (SqlCommand cmd = conn.CreateCommand()) {
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
                 cmd.CommandText = query;
                 SqlParameter pId = new SqlParameter();
                 pId.ParameterName = "@kaartnr";
@@ -158,7 +173,8 @@ namespace Flapp_DAL.Repository
                 cmd.Parameters.Add(pId);
                 conn.Open();
 
-                try {
+                try
+                {
                     SqlDataReader r = cmd.ExecuteReader();
                     r.Read();
                     Brandstof b = null;//_bRepo.GeefBrandstof((int)r["brandstof_id"]); // Mag null zijn
@@ -171,33 +187,41 @@ namespace Flapp_DAL.Repository
             }
         }
 
-        public bool HeeftBestuurder(Bestuurder b) {
+        public bool HeeftBestuurder(Bestuurder b)
+        {
             SqlConnection conn = new SqlConnection(_connString);
             string query = "USE [Project_Flapp_DB]; SELECT * FROM [dbo].[Tankkaart] WHERE bestuurder_id=@bestuurder_id;";
-            using (SqlCommand cmd = conn.CreateCommand()) {
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
                 conn.Open();
-                try {
+                try
+                {
                     cmd.Parameters.Add(new SqlParameter("@bestuurder_id", SqlDbType.Int));
 
                     cmd.CommandText = query;
 
                     cmd.Parameters["@bestuurder_id"].Value = b.Id;
-                
+
                     int bestuurderBestaat = Convert.ToInt32(cmd.ExecuteScalar());
 
                     if (bestuurderBestaat == 1) { return true; }
                     return false;
-                } catch (Exception ex) { throw new Exception(ex.Message); } finally { conn.Close(); }
+                }
+                catch (Exception ex) { throw new Exception(ex.Message); }
+                finally { conn.Close(); }
             }
         }
 
-        public void UpdateTankkaart(Tankkaart t) {
+        public void UpdateTankkaart(Tankkaart t)
+        {
             SqlConnection conn = new SqlConnection(_connString);
             string query = "USE [Project_Flapp_DB]; UPDATE [dbo].[Tankkaart] WHERE kaartnr = @kaartnr AND geldigheidsdatum = @geldigheidsdatum AND pincode = @pincode" +
                 "AND brandstoftype = @brandstoftype AND bestuurder_id = @bestuurder_id AND geblokkeerd = @geblokkeerd;";
-            using (SqlCommand cmd = conn.CreateCommand()) {
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
                 conn.Open();
-                try {
+                try
+                {
                     cmd.Parameters.Add(new SqlParameter("@kaartnr", SqlDbType.Int));
                     cmd.Parameters.Add(new SqlParameter("@geldigheidsdatum", SqlDbType.Date));
                     cmd.Parameters.Add(new SqlParameter("@brandstoftype", SqlDbType.NVarChar));
@@ -219,12 +243,15 @@ namespace Flapp_DAL.Repository
             }
         }
 
-        public void VerwijderBestuurder(Bestuurder b) {
+        public void VerwijderBestuurder(Bestuurder b)
+        {
             SqlConnection conn = new SqlConnection(_connString);
             string query = "USE [Project_Flapp_DB]; DELETE FROM [dbo].[Tankkaart] WHERE bestuurder_id = @bestuurder_id;";
-            using (SqlCommand cmd = conn.CreateCommand()) {
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
                 conn.Open();
-                try {
+                try
+                {
                     cmd.Parameters.Add(new SqlParameter("@bestuurder_id", SqlDbType.Int));
 
                     cmd.CommandText = query;
@@ -232,16 +259,21 @@ namespace Flapp_DAL.Repository
                     cmd.Parameters["@bestuurder_id"].Value = b.Id;
 
                     cmd.ExecuteNonQuery();
-                } catch (Exception ex) { throw new Exception(ex.Message); } finally { conn.Close(); }
+                }
+                catch (Exception ex) { throw new Exception(ex.Message); }
+                finally { conn.Close(); }
             }
         }
 
-        public void VerwijderTankkaart(Tankkaart t) {
+        public void VerwijderTankkaart(Tankkaart t)
+        {
             SqlConnection conn = new SqlConnection(_connString);
             string query = "USE [Project_Flapp_DB]; DELETE FROM [dbo].[Tankkaart] WHERE kaartnr = @kaartnr;";
-            using (SqlCommand cmd = conn.CreateCommand()) {
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
                 conn.Open();
-                try {
+                try
+                {
                     cmd.Parameters.Add(new SqlParameter("@kaartnr", SqlDbType.Int));
 
                     cmd.CommandText = query;
@@ -255,12 +287,15 @@ namespace Flapp_DAL.Repository
             }
         }
 
-        public void VoegBestuurderToe(Bestuurder b) {
+        public void VoegBestuurderToe(Bestuurder b)
+        {
             SqlConnection conn = new SqlConnection(_connString);
             string query = "USE [Project_Flapp_DB]; INSERT INTO [dbo].[Tankkaart] ([bestuurder_id]) SELECT [dbo].[Bestuurder].[Id] FROM [dbo].[Bestuurder] WHERE [dbo].[Bestuurder].[Id]=@bestuurder_id;";
-            using (SqlCommand cmd = conn.CreateCommand()) {
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
                 conn.Open();
-                try {
+                try
+                {
                     cmd.Parameters.Add(new SqlParameter("@bestuurder_id", SqlDbType.Int));
 
                     cmd.CommandText = query;
@@ -268,16 +303,21 @@ namespace Flapp_DAL.Repository
                     cmd.Parameters["@bestuurder_id"].Value = b.Id;
 
                     cmd.ExecuteNonQuery();
-                } catch (Exception ex) { throw new Exception(ex.Message); } finally { conn.Close(); }
+                }
+                catch (Exception ex) { throw new Exception(ex.Message); }
+                finally { conn.Close(); }
             }
         }
 
-        public void VoegTankkaartToe(Tankkaart t) {
+        public void VoegTankkaartToe(Tankkaart t)
+        {
             SqlConnection conn = new SqlConnection(_connString);
             string query = "USE [Project_Flapp_DB]; INSERT INTO [dbo].[Tankkaart] ([kaartnr] ,[geldigheidsdatum] ,[brandstoftype] ,[bestuurder_id] ,[geblokkeerd]) VALUES (@kaartnr ,@geldigheidsdatum ,@brandstoftype ,@bestuurder_id ,@geblokkeerd);";
-            using (SqlCommand cmd = conn.CreateCommand()) {
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
                 conn.Open();
-                try {
+                try
+                {
                     cmd.Parameters.Add(new SqlParameter("@kaartnr", SqlDbType.Int));
                     cmd.Parameters.Add(new SqlParameter("@geldigheidsdatum", SqlDbType.Date));
                     cmd.Parameters.Add(new SqlParameter("@brandstoftype", SqlDbType.NVarChar));
@@ -299,7 +339,8 @@ namespace Flapp_DAL.Repository
             }
         }
 
-        IReadOnlyList<Tankkaart> ITankkaartRepo.GeefAlleTankkaartenZonderBestuurders() {
+        IReadOnlyList<Tankkaart> ITankkaartRepo.GeefAlleTankkaartenZonderBestuurders()
+        {
             throw new NotImplementedException();
         }
     }

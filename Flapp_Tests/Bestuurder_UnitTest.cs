@@ -20,7 +20,7 @@ namespace Flapp_TESTS
             Assert.Equal(Geslacht.M, b.Geslacht);
             Assert.Equal(DateTime.Parse("12/05/1999"), b.Geboortedatum);
             Assert.Equal("99.05.12-273.26", b.Rijksregisternummer);
-            Assert.Equal("B", b.RijbewijsType.Naam);
+            Assert.Contains(new RijbewijsType("B"), b.RijbewijsType);
         }
         [Theory]
         [InlineData(null)]
@@ -64,14 +64,14 @@ namespace Flapp_TESTS
             Tankkaart tk = new Tankkaart(1, DateTime.Now.AddDays(4));
             Adres a = new Adres("Straat", "1", "Stad", 9000);
             Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
-            Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", new("B"), v, tk);
+            Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", new RijbewijsType("B"), v, tk);
 
             Assert.Equal("Balci", b.Naam);
             Assert.Equal("Burak", b.Voornaam);
             Assert.Equal(Geslacht.M, b.Geslacht);
             Assert.Equal(DateTime.Parse("12/05/1999"), b.Geboortedatum);
             Assert.Equal("99.05.12-273.26", b.Rijksregisternummer);
-            Assert.Equal("B", b.RijbewijsType.Naam);
+            Assert.Contains(new RijbewijsType("B"), b.RijbewijsType);
             Assert.Equal(v, b.Voertuig);
             Assert.Equal(tk, b.Tankkaart);
         }

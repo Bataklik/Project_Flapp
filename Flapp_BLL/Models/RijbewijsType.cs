@@ -1,4 +1,5 @@
 ﻿using Flapp_BLL.Exceptions.ModelExpections;
+using System;
 using System.Linq;
 
 namespace Flapp_BLL.Models
@@ -41,6 +42,18 @@ namespace Flapp_BLL.Models
         {
             return $"{Id}, {Naam}";
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj is RijbewijsType type &&
+                   Naam == type.Naam;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Naam);
+        }
+
         #endregion
     }
 }
