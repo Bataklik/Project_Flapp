@@ -24,11 +24,11 @@
 <!-- [ ] Empty [x] Full -->
 
 ## Feedback: 4/11 ##
-* Bestuurder & Tankkaart moeten gelinkt zijn aan elkaar. En ook andere links
+- [ ] Bestuurder & Tankkaart moeten gelinkt zijn aan elkaar. En ook andere links
 
-* Transactie's
+- [ ] Transactie's
 
-* Één methode in één repo's, probeer te vermijden om repo -> repo
+- [ ] Één methode in één repo's, probeer te vermijden om repo -> repo
 
 ## Feedback: 21/10
 - [ ] Voor alle klassen een unit test
