@@ -19,8 +19,8 @@ namespace Flapp_DAL.Repository
         public bool BestaatBestuurder(Bestuurder b)
         {
             SqlConnection conn = new SqlConnection(_connString);
-            string query = "USE [Project_Flapp_DB]; SELECT 1 FROM Bestuurder WHERE naam = @naam AND voornaam = @voornaam AND geboortedatum = @geboorte AND rijksregister = @rijksregister AND rijbewijstype_id = @rijbewijstype_id " +
-                "AND adres_id = @adres_id AND voertuig_id = @voertuig_id AND tankkaart_id = @tankkaart_id AND geslacht = @geslacht;";
+            string query = "USE [Project_Flapp_DB]; SELECT 1 FROM Bestuurder WHERE bestuurder_naam = @naam AND bestuurder_voornaam = @voornaam AND bestuurder_geboortedatum = @geboorte AND bestuurder_rijksregister = @rijksregister AND " +
+                "AND bestuurder_adres_id = @adres_id AND bestuurder_tankkaart_id = @tankkaart_id AND bestuurder_geslacht = @geslacht;";
             using (SqlCommand cmd = conn.CreateCommand())
             {
                 conn.Open();
@@ -30,9 +30,7 @@ namespace Flapp_DAL.Repository
                     cmd.Parameters.Add(new SqlParameter("@voornaam", SqlDbType.VarChar));
                     cmd.Parameters.Add(new SqlParameter("@geboorte", SqlDbType.Date));
                     cmd.Parameters.Add(new SqlParameter("@rijksregister", SqlDbType.VarChar));
-                    cmd.Parameters.Add(new SqlParameter("@rijbewijstype_id", SqlDbType.Int));
                     cmd.Parameters.Add(new SqlParameter("@adres_id", SqlDbType.Int));
-                    cmd.Parameters.Add(new SqlParameter("@voertuig_id", SqlDbType.Int));
                     cmd.Parameters.Add(new SqlParameter("@tankkaart_id", SqlDbType.Int));
                     cmd.Parameters.Add(new SqlParameter("@geslacht", SqlDbType.Bit));
 
@@ -42,10 +40,7 @@ namespace Flapp_DAL.Repository
                     cmd.Parameters["@voornaam"].Value = b.Voornaam;
                     cmd.Parameters["@geboorte"].Value = b.Geboortedatum;
                     cmd.Parameters["@rijksregister"].Value = b.Rijksregisternummer;
-                    cmd.Parameters["@rijbewijstype_id"].Value = 1;
                     cmd.Parameters["@adres_id"].Value = b.Adres.Id;
-                    if (b.Voertuig == null) { cmd.Parameters["@voertuig_id"].Value = 1; }
-                    else { cmd.Parameters["@voertuig_id"].Value = b.Voertuig.VoertuigID; }
                     cmd.Parameters["@tankkaart_id"].Value = b.Tankkaart.Kaartnummer;
                     cmd.Parameters["@geslacht"].Value = b.Geslacht;
 
@@ -58,7 +53,6 @@ namespace Flapp_DAL.Repository
                 finally { conn.Close(); }
             }
         }
-
         public bool BestaatBestuurderId(int id)
         {
             throw new NotImplementedException();
@@ -69,7 +63,7 @@ namespace Flapp_DAL.Repository
         public void VoegBestuurderToe(Bestuurder b)
         {
             SqlConnection conn = new SqlConnection(_connString);
-            string query = "USE [Project_Flapp_DB] INSERT INTO [dbo].[Bestuurder] ([naam] ,[voornaam] ,[geboortedatum] ,[rijksregister] ,[rijbewijstype_id] ,[adres_id] ,[voertuig_id] ,[tankkaart_id] ,[geslacht]) VALUES (@naam ,@voornaam ,@geboorte ,@rijksregister ,@rijbewijs ,@adres ,@voertuig ,@tankkaart,@geslacht)";
+            string query = "USE [Project_Flapp_DB] INSERT INTO [dbo].[Bestuurder] ([bestuurder_naam] ,[bestuurder_voornaam] ,[bestuurder_geboortedatum] ,[bestuurder_rijksregister] ,[bestuurder_adres_id] ,[bestuurder_tankkaart_id] ,[bestuurder_geslacht]) VALUES (@naam ,@voornaam ,@geboorte ,@rijksregister ,@adres ,@tankkaart,@geslacht)";
             using (SqlCommand cmd = conn.CreateCommand())
             {
                 conn.Open();
@@ -79,13 +73,9 @@ namespace Flapp_DAL.Repository
                     cmd.Parameters.Add(new SqlParameter("@voornaam", SqlDbType.VarChar));
                     cmd.Parameters.Add(new SqlParameter("@geboorte", SqlDbType.DateTime));
                     cmd.Parameters.Add(new SqlParameter("@rijksregister", SqlDbType.VarChar));
-                    cmd.Parameters.Add(new SqlParameter("@rijbewijs", SqlDbType.Int));
                     cmd.Parameters.Add(new SqlParameter("@adres", SqlDbType.Int));
-                    cmd.Parameters.Add(new SqlParameter("@voertuig", SqlDbType.Int));
                     cmd.Parameters.Add(new SqlParameter("@tankkaart", SqlDbType.Int));
                     cmd.Parameters.Add(new SqlParameter("@geslacht", SqlDbType.Bit));
-
-
 
                     cmd.CommandText = query;
 
@@ -93,13 +83,7 @@ namespace Flapp_DAL.Repository
                     cmd.Parameters["@voornaam"].Value = b.Voornaam;
                     cmd.Parameters["@geboorte"].Value = b.Geboortedatum;
                     cmd.Parameters["@rijksregister"].Value = b.Rijksregisternummer;
-                    // Rijbewijs type moet een ID zijn
-                    cmd.Parameters["@rijbewijs"].Value = 1;
-                    // Adres moet een ID zijn
                     cmd.Parameters["@adres"].Value = b.Adres.Id;
-                    // Voertuig moet een ID zijn
-                    cmd.Parameters["@voertuig"].Value = b.Voertuig.VoertuigID;
-                    // Tankkaart moet een ID zijn
                     cmd.Parameters["@tankkaart"].Value = b.Tankkaart.Kaartnummer;
                     if (b.Geslacht == Geslacht.M) { cmd.Parameters["@geslacht"].Value = 1; }
                     else { cmd.Parameters["@geslacht"].Value = 0; }
@@ -130,17 +114,15 @@ namespace Flapp_DAL.Repository
         public Bestuurder GeefBestuurder(Bestuurder b)
         {
             SqlConnection conn = new SqlConnection(_connString);
-            string query = "USE [Project_Flapp_DB]; SELECT * FROM Bestuurder WHERE naam = @naam AND voornaam = @voornaam AND geboortedatum = @geboorte AND rijksregister = @rijksregister AND rijbewijstype_id = @rijbewijstype_id " +
-                "AND adres_id = @adres_id AND voertuig_id = @voertuig_id AND tankkaart_id = @tankkaart_id AND geslacht = @geslacht";
+            string query = "USE [Project_Flapp_DB]; SELECT * FROM Bestuurder WHERE bestuurder_naam = @naam AND bestuurder_voornaam = @voornaam AND bestuurder_geboortedatum = @geboorte AND bestuurder_rijksregister = @rijksregister AND " +
+                "AND bestuurder_adres_id = @adres_id AND bestuurder_tankkaart_id = @tankkaart_id AND bestuurder_geslacht = @geslacht";
             using (SqlCommand cmd = conn.CreateCommand())
             {
                 cmd.Parameters.Add(new SqlParameter("@naam", SqlDbType.VarChar));
                 cmd.Parameters.Add(new SqlParameter("@voornaam", SqlDbType.VarChar));
                 cmd.Parameters.Add(new SqlParameter("@geboorte", SqlDbType.Date));
                 cmd.Parameters.Add(new SqlParameter("@rijksregister", SqlDbType.VarChar));
-                cmd.Parameters.Add(new SqlParameter("@rijbewijstype_id", SqlDbType.Int));
                 cmd.Parameters.Add(new SqlParameter("@adres_id", SqlDbType.Int));
-                cmd.Parameters.Add(new SqlParameter("@voertuig_id", SqlDbType.Int));
                 cmd.Parameters.Add(new SqlParameter("@tankkaart_id", SqlDbType.Int));
                 cmd.Parameters.Add(new SqlParameter("@geslacht", SqlDbType.Bit));
 
@@ -150,10 +132,7 @@ namespace Flapp_DAL.Repository
                 cmd.Parameters["@voornaam"].Value = b.Voornaam;
                 cmd.Parameters["@geboorte"].Value = b.Geboortedatum;
                 cmd.Parameters["@rijksregister"].Value = b.Rijksregisternummer;
-                cmd.Parameters["@rijbewijstype_id"].Value = 1;
                 cmd.Parameters["@adres_id"].Value = b.Adres.Id;
-                if (b.Voertuig == null) { cmd.Parameters["@voertuig_id"].Value = 1; }
-                else { cmd.Parameters["@voertuig_id"].Value = b.Voertuig.VoertuigID; }
                 cmd.Parameters["@tankkaart_id"].Value = b.Tankkaart.Kaartnummer;
                 cmd.Parameters["@geslacht"].Value = b.Geslacht;
                 conn.Open();
@@ -165,7 +144,6 @@ namespace Flapp_DAL.Repository
                     Adres a = null;// _aRepo.GeefAdres((int)r["adres_id"]);
                     string geboorte = Convert.ToString(r["geboortedatum"]);
                     List<RijbewijsType> rt = new();
-                    Voertuig v = null;//_vRepo.GeefVoertuig((int)r["voertuig_id"]);
                     Tankkaart t = null; //_tRepo.GeefTankkaart((int)r["tankkaart_id"]);
                     Bestuurder gevondenBestuurder = new((int)r["id"], (string)r["naam"], (string)r["voornaam"], g, a, geboorte, (string)r["rijksregister"], rt, v, t);
                     return gevondenBestuurder;
