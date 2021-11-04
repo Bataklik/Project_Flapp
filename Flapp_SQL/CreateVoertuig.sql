@@ -1,13 +1,12 @@
+-- Voertuig
 USE[Project_Flapp_DB];
 CREATE TABLE[dbo].[Voertuig](
-   [id][int] IDENTITY(1, 1) PRIMARY KEY,
-   [merk] [varchar](50) NOT NULL,
-   [model] [varchar](50) NOT NULL,
-   [chassisnummer] [varchar](17) NOT NULL,
-   [nummerplaat] [varchar](9) NOT NULL,
-   [brandstof_type] [int] FOREIGN KEY REFERENCES dbo.Brandstof(id),
+   [voertuig_id][int] IDENTITY(1, 1) PRIMARY KEY,
+   [voertuig_merk] [varchar](50) NOT NULL,
+   [voertuig_model] [varchar](50) NOT NULL,
+   [voertuig_chassisnummer] [varchar](17) NOT NULL,
+   [voertuig_nummerplaat] [varchar](9) NOT NULL,
+   [voertuig_brandstof_id] [int] FOREIGN KEY REFERENCES dbo.Brandstof(brandstof_id),
    [voertuig_type] [varchar](50) NOT NULL,
-   [kleur] [varchar](50) NULL,
-   [deuren] [int] NULL,
-   [bestuurder_id] [int] NULL);
-   --FOREIGN KEY REFERENCES dbo.Bestuurder(id)
+   [voertuig_kleur] [varchar](50) NULL,
+   [voertuig_deuren] [int] NULL);
