@@ -375,7 +375,7 @@ namespace Flapp_TESTS
         {
             Brandstof b = new Brandstof("Elektrisch");
             Voertuig v = new Voertuig(420, "Tesla", "Model X", "1abcd23efgh456789", "2-ABC-123", b, "Stationwagen", "Zwart", 5);
-            Bestuurder driver = new Bestuurder("Raf", "Troch", Geslacht.M, "11/05/1999", "99.05.11-273.26", new("B"));
+            Bestuurder driver = new Bestuurder("Raf", "Troch", Geslacht.M, "11/05/1999", "99.05.11-273.26", new());
             v.zetBestuurder(driver);
             Assert.Equal(driver, v.Bestuurder);
             Assert.Equal(v, driver.Voertuig);
@@ -395,7 +395,7 @@ namespace Flapp_TESTS
         public void Test_HasDriver_Valid()
         {
             Brandstof b = new Brandstof("Elektrisch");
-            Bestuurder d = new Bestuurder("Raf", "Troch", Geslacht.M, "11/05/1999", "99.05.11-273.26", new("B"));
+            Bestuurder d = new Bestuurder("Raf", "Troch", Geslacht.M, "11/05/1999", "99.05.11-273.26", new());
             Voertuig v = new Voertuig(420, "Tesla", "Model X", "1abcd23efgh456789", "2-ABC-123", b, "Stationwagen", "Zwart", 5, d);
             Assert.True(v.HeeftBestuurder(d));
         }
@@ -404,7 +404,7 @@ namespace Flapp_TESTS
         public void Test_HasDriver_Invalid()
         {
             Brandstof b = new Brandstof("Elektrisch");
-            Bestuurder d = new Bestuurder("Raf", "Troch", Geslacht.M, "11/05/1999", "99.05.11-273.26", new("B"));
+            Bestuurder d = new Bestuurder("Raf", "Troch", Geslacht.M, "11/05/1999", "99.05.11-273.26", new());
             Voertuig v = new Voertuig(420, "Tesla", "Model X", "1abcd23efgh456789", "2-ABC-123", b, "Stationwagen", "Zwart", 5);
             Assert.False(v.HeeftBestuurder(d));
         }
@@ -413,7 +413,7 @@ namespace Flapp_TESTS
         public void Test_RemoveDriver_Valid()
         {
             Brandstof b = new Brandstof("Elektrisch");
-            Bestuurder d = new Bestuurder("Raf", "Troch", Geslacht.M, "11/05/1999", "99.05.11-273.26", new("B"));
+            Bestuurder d = new Bestuurder("Raf", "Troch", Geslacht.M, "11/05/1999", "99.05.11-273.26", new());
             Voertuig v = new Voertuig(420, "Tesla", "Model X", "1abcd23efgh456789", "2-ABC-123", b, "Stationwagen", "Zwart", 5, d);
             v.VerwijderBestuurder();
             Assert.Null(v.Bestuurder);

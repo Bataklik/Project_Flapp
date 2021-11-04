@@ -30,7 +30,7 @@ namespace Flapp_TESTS
         [InlineData("  ")]
         public void Test_ctor1_BadNaam_InValid(string naam)
         {
-            Assert.Throws<BestuurderException>(() => new Bestuurder(naam, "Burak", Geslacht.M, "12/05/1999", "99.05.12-273.26", new("B")));
+            Assert.Throws<BestuurderException>(() => new Bestuurder(naam, "Burak", Geslacht.M, "12/05/1999", "99.05.12-273.26", new()));
         }
         [Theory]
         [InlineData(null)]
@@ -38,7 +38,7 @@ namespace Flapp_TESTS
         [InlineData("  ")]
         public void Test_ctor1_BadVoorNaam_InValid(string voornaam)
         {
-            Assert.Throws<BestuurderException>(() => new Bestuurder("Burak", voornaam, Geslacht.M, "12/05/1999", "99.05.12-273.26", new("B")));
+            Assert.Throws<BestuurderException>(() => new Bestuurder("Burak", voornaam, Geslacht.M, "12/05/1999", "99.05.12-273.26", new()));
         }
         [Theory]
         [InlineData(null)]
@@ -46,7 +46,7 @@ namespace Flapp_TESTS
         [InlineData("  ")]
         public void Test_ctor1_BadGeboortedatum_InValid(string geboortedatum)
         {
-            Assert.Throws<BestuurderException>(() => new Bestuurder("Burak", "Balci", Geslacht.M, geboortedatum, "99.05.12-273.26", new("B")));
+            Assert.Throws<BestuurderException>(() => new Bestuurder("Burak", "Balci", Geslacht.M, geboortedatum, "99.05.12-273.26", new()));
         }
         [Theory]
         [InlineData(null)]
@@ -55,7 +55,7 @@ namespace Flapp_TESTS
         [InlineData("  ")]
         public void Test_ctor1_BadRijksregister_InValid(string rijksregister)
         {
-            Assert.Throws<RijksregisternummerCheckerException>(() => new Bestuurder("Burak", "Balci", Geslacht.M, "12/05/1999", rijksregister, new("B")));
+            Assert.Throws<RijksregisternummerCheckerException>(() => new Bestuurder("Burak", "Balci", Geslacht.M, "12/05/1999", rijksregister, new()));
         }
 
 
@@ -88,7 +88,7 @@ namespace Flapp_TESTS
             Tankkaart tk = new Tankkaart(1, DateTime.Now.AddDays(4));
             Adres a = new Adres("Straat", "1", "Stad", 9000);
             Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
-            Assert.Throws<BestuurderException>(() => new Bestuurder(naam, "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", new("B"), v, tk));
+            Assert.Throws<BestuurderException>(() => new Bestuurder(naam, "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", new(), v, tk));
         }
         [Theory]
         [InlineData(null)]
@@ -99,7 +99,7 @@ namespace Flapp_TESTS
             Tankkaart tk = new Tankkaart(1, DateTime.Now.AddDays(4));
             Adres a = new Adres("Straat", "1", "Stad", 9000);
             Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
-            Assert.Throws<BestuurderException>(() => new Bestuurder("Balci", voornaam, Geslacht.M, a, "12/05/1999", "99.05.12-273.26", new("B"), v, tk));
+            Assert.Throws<BestuurderException>(() => new Bestuurder("Balci", voornaam, Geslacht.M, a, "12/05/1999", "99.05.12-273.26", new(), v, tk));
         }
         [Theory]
         [InlineData(null)]
@@ -107,7 +107,7 @@ namespace Flapp_TESTS
         {
             Tankkaart tk = new Tankkaart(1, DateTime.Now.AddDays(4));
             Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
-            Assert.Throws<BestuurderException>(() => new Bestuurder("Balci", "", Geslacht.M, adres, "12/05/1999", "99.05.12-273.26", new("B"), v, tk));
+            Assert.Throws<BestuurderException>(() => new Bestuurder("Balci", "", Geslacht.M, adres, "12/05/1999", "99.05.12-273.26", new(), v, tk));
         }
         [Theory]
         [InlineData(null)]
@@ -118,7 +118,7 @@ namespace Flapp_TESTS
             Tankkaart tk = new Tankkaart(1, DateTime.Now.AddDays(4));
             Adres a = new Adres("Straat", "1", "Stad", 9000);
             Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
-            Assert.Throws<BestuurderException>(() => new Bestuurder("Balci", "", Geslacht.M, a, geboortedatum, "99.05.12-273.26", new("B"), v, tk));
+            Assert.Throws<BestuurderException>(() => new Bestuurder("Balci", "", Geslacht.M, a, geboortedatum, "99.05.12-273.26", new(), v, tk));
         }
         [Theory]
         [InlineData(null)]
@@ -130,7 +130,7 @@ namespace Flapp_TESTS
             Tankkaart tk = new Tankkaart(1, DateTime.Now.AddDays(4));
             Adres a = new Adres("Straat", "1", "Stad", 9000);
             Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
-            Assert.Throws<BestuurderException>(() => new Bestuurder("Balci", "", Geslacht.M, a, "12/05/1999", rijksregister, new("B"), v, tk));
+            Assert.Throws<BestuurderException>(() => new Bestuurder("Balci", "", Geslacht.M, a, "12/05/1999", rijksregister, new(), v, tk));
         }
         [Theory]
         [InlineData(null)]
@@ -138,7 +138,7 @@ namespace Flapp_TESTS
         {
             Tankkaart tk = new Tankkaart(1, DateTime.Now.AddDays(4));
             Adres a = new Adres("Straat", "1", "Stad", 9000);
-            Assert.Throws<BestuurderException>(() => new Bestuurder("Balci", "", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", new("B"), voertuig, tk));
+            Assert.Throws<BestuurderException>(() => new Bestuurder("Balci", "", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", new(), voertuig, tk));
         }
         [Theory]
         [InlineData(null)]
@@ -146,7 +146,7 @@ namespace Flapp_TESTS
         {
             Adres a = new Adres("Straat", "1", "Stad", 9000);
             Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
-            Assert.Throws<BestuurderException>(() => new Bestuurder("Balci", "", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", new("B"), v, tankkaart));
+            Assert.Throws<BestuurderException>(() => new Bestuurder("Balci", "", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", new(), v, tankkaart));
         }
         [Theory]
         [InlineData(null)]
@@ -155,7 +155,7 @@ namespace Flapp_TESTS
             Tankkaart tk = new Tankkaart(1, DateTime.Now.AddDays(4));
             Adres a = new Adres("Straat", "1", "Stad", 9000);
             Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
-            Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", new("A"), v, tk);
+            Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", new(), v, tk);
             Assert.Throws<BestuurderException>(() => b.ZetRijbewijsType(rb));
         }
         [Theory]
@@ -179,7 +179,7 @@ namespace Flapp_TESTS
             Tankkaart tk = new Tankkaart(1, DateTime.Now.AddDays(4));
             Adres a = new Adres("Straat", "1", "Stad", 9000);
             Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
-            Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", new("B"), v, tk);
+            Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", new(), v, tk);
 
             b.ZetNaam("Bob");
             Assert.Equal("Bob", b.Naam);
@@ -193,7 +193,7 @@ namespace Flapp_TESTS
             Tankkaart tk = new Tankkaart(1, DateTime.Now.AddDays(4));
             Adres a = new Adres("Straat", "1", "Stad", 9000);
             Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
-            Bestuurder b = new Bestuurder("Burak", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", new("B"), v, tk);
+            Bestuurder b = new Bestuurder("Burak", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", new(), v, tk);
 
             Assert.Throws<BestuurderException>(() => b.ZetNaam(naam));
         }
@@ -205,7 +205,7 @@ namespace Flapp_TESTS
             Tankkaart tk = new Tankkaart(1, DateTime.Now.AddDays(4));
             Adres a = new Adres("Straat", "1", "Stad", 9000);
             Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
-            Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", new("B"), v, tk);
+            Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", new(), v, tk);
 
             b.ZetVoornaam("Bob");
             Assert.Equal("Bob", b.Voornaam);
@@ -219,7 +219,7 @@ namespace Flapp_TESTS
             Tankkaart tk = new Tankkaart(1, DateTime.Now.AddDays(4));
             Adres a = new Adres("Straat", "1", "Stad", 9000);
             Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
-            Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", new("B"), v, tk);
+            Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", new(), v, tk);
 
             Assert.Throws<BestuurderException>(() => b.ZetVoornaam(voornaam));
         }
@@ -231,7 +231,7 @@ namespace Flapp_TESTS
             Tankkaart tk = new Tankkaart(1, DateTime.Now.AddDays(4));
             Adres a = new Adres("Straat", "1", "Stad", 9000);
             Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
-            Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", new("B"), v, tk);
+            Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", new(), v, tk);
 
             Adres testAdres = new("straat", "1", "stad", 9001);
             b.ZetAdres(testAdres);
@@ -244,7 +244,7 @@ namespace Flapp_TESTS
             Tankkaart tk = new Tankkaart(1, DateTime.Now.AddDays(4));
             Adres a = new Adres("Straat", "1", "Stad", 9000);
             Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
-            Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", new("B"), v, tk);
+            Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", new(), v, tk);
 
             Assert.Throws<BestuurderException>(() => b.ZetAdres(adres));
         }
@@ -256,7 +256,7 @@ namespace Flapp_TESTS
             Tankkaart tk = new Tankkaart(1, DateTime.Now.AddDays(4));
             Adres a = new Adres("Straat", "1", "Stad", 9000);
             Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
-            Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", new("B"), v, tk);
+            Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", new(), v, tk);
 
             b.ZetGeboortedatum("11/05/1998");
             Assert.Equal("11/05/1998", b.Geboortedatum.ToShortDateString());
@@ -270,7 +270,7 @@ namespace Flapp_TESTS
             Tankkaart tk = new Tankkaart(1, DateTime.Now.AddDays(4));
             Adres a = new Adres("Straat", "1", "Stad", 9000);
             Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
-            Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", new("B"), v, tk);
+            Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", new(), v, tk);
 
             Assert.Throws<BestuurderException>(() => b.ZetGeboortedatum(geboortedatum));
         }
@@ -282,7 +282,7 @@ namespace Flapp_TESTS
             Tankkaart tk = new Tankkaart(1, DateTime.Now.AddDays(4));
             Adres a = new Adres("Straat", "1", "Stad", 9000);
             Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
-            Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", new("B"), v, tk);
+            Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", new(), v, tk);
 
             b.ZetRijksregisternummer("99.05.12-213.26");
             Assert.Equal("99.05.12-213.26", b.Rijksregisternummer);
@@ -296,7 +296,7 @@ namespace Flapp_TESTS
             Tankkaart tk = new Tankkaart(1, DateTime.Now.AddDays(4));
             Adres a = new Adres("Straat", "1", "Stad", 9000);
             Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
-            Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", new("B"), v, tk);
+            Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", new(), v, tk);
 
             Assert.Throws<RijksregisternummerCheckerException>(() => b.ZetRijksregisternummer(rijksregisternummer));
         }
@@ -308,7 +308,7 @@ namespace Flapp_TESTS
             Tankkaart tk = new Tankkaart(1, DateTime.Now.AddDays(4));
             Adres a = new Adres("Straat", "1", "Stad", 9000);
             Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
-            Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", new("B"), v, tk);
+            Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", new(), v, tk);
 
             Voertuig testVoertuig = new Voertuig(2, "ERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
             b.ZetVoertuig(testVoertuig);
@@ -322,7 +322,7 @@ namespace Flapp_TESTS
             Tankkaart tk = new Tankkaart(1, DateTime.Now.AddDays(4));
             Adres a = new Adres("Straat", "1", "Stad", 9000);
             Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
-            Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", new("B"), v, tk);
+            Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", new(), v, tk);
 
             Assert.Throws<BestuurderException>(() => b.ZetVoertuig(voertuig));
         }
@@ -349,7 +349,7 @@ namespace Flapp_TESTS
             Tankkaart tk = new Tankkaart(1, DateTime.Now.AddDays(4));
             Adres a = new Adres("Straat", "1", "Stad", 9000);
             Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
-            Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", new("B"), v, tk);
+            Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", new(), v, tk);
 
             Tankkaart testTankkaart = new(1, DateTime.Now.AddDays(5));
             b.ZetTankkaart(testTankkaart);
@@ -362,7 +362,7 @@ namespace Flapp_TESTS
             Tankkaart tk = new Tankkaart(1, DateTime.Now.AddDays(4));
             Adres a = new Adres("Straat", "1", "Stad", 9000);
             Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
-            Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", new("B"), v, tk);
+            Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", new(), v, tk);
 
             Assert.Throws<BestuurderException>(() => b.ZetTankkaart(tankkaart));
         }
