@@ -20,6 +20,6 @@
 | 2u   | Create Adres interface, repo, manager                      |
 | 2u   | Create 2 ManagerExceptions, 3 nieuwe folders in Exceptions |
 | 2u   | Add VoegRijbewijsToe, VoegBrandstofToe met bijhorende methods |
-| 0u   | ---------------------------------------------------------- |
+| 2u   | Change RijbewijsType -> List<RijbewijsType> & Change errors|
 | 0u   | ---------------------------------------------------------- |
 | 0u   | ---------------------------------------------------------- |
