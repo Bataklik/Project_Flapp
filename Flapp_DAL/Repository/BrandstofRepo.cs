@@ -177,7 +177,6 @@ namespace Flapp_DAL.Repository
                 finally { conn.Close(); }
             }
         }
-
         #endregion
 
         #region VerwijderBrandstof Methods
