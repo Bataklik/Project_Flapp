@@ -24,30 +24,30 @@ namespace Flapp_BLL.Models
         #endregion
 
         #region Constructors
-        public Bestuurder(string naam, string voornaam, Geslacht geslacht, string geboortedatum, string rijksregisternummer, RijbewijsType rijbewijs)
+        public Bestuurder(string naam, string voornaam, Geslacht geslacht, string geboortedatum, string rijksregisternummer, List<RijbewijsType> rijbewijs)
         {
             ZetNaam(naam);
             ZetVoornaam(voornaam);
             ZetGeslacht(geslacht);
             ZetGeboortedatum(geboortedatum);
             ZetRijksregisternummer(rijksregisternummer);
-            VoegRijbewijsToe(rijbewijs);
+            ZetRijbewijsType(rijbewijs);
         }
 
-        public Bestuurder(string naam, string voornaam, Geslacht geslacht, Adres adres, string geboortedatum, string rijksregisternummer, RijbewijsType rijbewijs, Voertuig voertuig, Tankkaart tankkaart)
+        public Bestuurder(string naam, string voornaam, Geslacht geslacht, Adres adres, string geboortedatum, string rijksregisternummer, List<RijbewijsType> rijbewijs, Voertuig voertuig, Tankkaart tankkaart)
         {
             ZetNaam(naam);
             ZetVoornaam(voornaam);
             ZetGeslacht(geslacht);
             ZetGeboortedatum(geboortedatum);
             ZetRijksregisternummer(rijksregisternummer);
-            VoegRijbewijsToe(rijbewijs);
+            ZetRijbewijsType(rijbewijs);
             ZetAdres(adres);
             ZetVoertuig(voertuig);
             ZetTankkaart(tankkaart);
         }
 
-        public Bestuurder(int id, string naam, string voornaam, Geslacht geslacht, string geboortedatum, string rijksregisternummer, RijbewijsType rijbewijs)
+        public Bestuurder(int id, string naam, string voornaam, Geslacht geslacht, string geboortedatum, string rijksregisternummer, List<RijbewijsType> rijbewijs)
         {
             ZetId(id);
             ZetNaam(naam);
@@ -55,10 +55,10 @@ namespace Flapp_BLL.Models
             ZetGeslacht(geslacht);
             ZetGeboortedatum(geboortedatum);
             ZetRijksregisternummer(rijksregisternummer);
-            VoegRijbewijsToe(rijbewijs);
+            ZetRijbewijsType(rijbewijs);
         }
 
-        public Bestuurder(int id, string naam, string voornaam, Geslacht geslacht, Adres adres, string geboortedatum, string rijksregisternummer, RijbewijsType rijbewijs, Voertuig voertuig, Tankkaart tankkaart)
+        public Bestuurder(int id, string naam, string voornaam, Geslacht geslacht, Adres adres, string geboortedatum, string rijksregisternummer, List<RijbewijsType> rijbewijs, Voertuig voertuig, Tankkaart tankkaart)
         {
             ZetId(id);
             ZetNaam(naam);
@@ -66,7 +66,7 @@ namespace Flapp_BLL.Models
             ZetGeslacht(geslacht);
             ZetGeboortedatum(geboortedatum);
             ZetRijksregisternummer(rijksregisternummer);
-            VoegRijbewijsToe(rijbewijs);
+            ZetRijbewijsType(rijbewijs);
             ZetAdres(adres);
             ZetVoertuig(voertuig);
             ZetTankkaart(tankkaart);
