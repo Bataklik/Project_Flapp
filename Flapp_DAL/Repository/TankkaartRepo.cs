@@ -109,7 +109,6 @@ namespace Flapp_DAL.Repository
             throw new NotImplementedException();
         }
 
-        // Bro hoezo vraag je alle kaarten maar je wilt een kaartnr??? LOGIC 101
         //public IReadOnlyList<Tankkaart> GeefAlleTankkaarten(int kaartnr, DateTime geldigheidsdatum, string pincode, Brandstof brandstof, Bestuurder bestuurder, bool geblokkeerd, bool strikt = true) {
         //    List<Tankkaart> truitjes = new List<Tankkaart>();
         //    SqlConnection conn = new SqlConnection();
