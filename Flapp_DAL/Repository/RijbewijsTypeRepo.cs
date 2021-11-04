@@ -134,11 +134,41 @@ namespace Flapp_DAL.Repository
         #region VerwijderRijbewijs Method
         public void VerwijderRijbewijs(int id)
         {
-            throw new NotImplementedException();
+            SqlConnection conn = new SqlConnection(_connString);
+            string query = "USE [Project_Flapp_DB]; DELETE FROM [dbo].[Rijbewijs] WHERE id = @id;";
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
+                conn.Open();
+                try
+                {
+                    cmd.Parameters.Add(new SqlParameter("@id", SqlDbType.Int));
+                    cmd.CommandText = query;
+                    cmd.Parameters["@id"].Value = id;
+
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception ex) { throw new Exception(ex.Message); }
+                finally { conn.Close(); }
+            }
         }
         public void VerwijderRijbewijs(RijbewijsType rijbewijs)
         {
-            throw new NotImplementedException();
+            SqlConnection conn = new SqlConnection(_connString);
+            string query = "USE [Project_Flapp_DB]; DELETE FROM [dbo].[Rijbewijs] WHERE rijbewijs_naam = @naam;";
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
+                conn.Open();
+                try
+                {
+                    cmd.Parameters.Add(new SqlParameter("@naam", SqlDbType.VarChar));
+                    cmd.CommandText = query;
+                    cmd.Parameters["@naam"].Value = rijbewijs.Naam;
+
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception ex) { throw new Exception(ex.Message); }
+                finally { conn.Close(); }
+            }
         }
         #endregion
     }
