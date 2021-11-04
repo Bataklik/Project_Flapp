@@ -2,6 +2,7 @@ using Flapp_BLL.Exceptions.CheckerExceptions;
 using Flapp_BLL.Exceptions.ModelExpections;
 using Flapp_BLL.Models;
 using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace Flapp_TESTS
@@ -143,6 +144,27 @@ namespace Flapp_TESTS
             Adres a = new Adres("Straat", "1", "Stad", 9000);
             Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
             Assert.Throws<BestuurderException>(() => new Bestuurder("Balci", "", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", new("B"), v, tankkaart));
+        }
+        [Theory]
+        [InlineData(null)]
+        public void Test_ctor2_BadRijbewijs_invalid(List<RijbewijsType> rb)
+        {
+            Tankkaart tk = new Tankkaart(1, DateTime.Now.AddDays(4));
+            Adres a = new Adres("Straat", "1", "Stad", 9000);
+            Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
+            Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", new("A"), v, tk);
+            Assert.Throws<BestuurderException>(() => b.ZetRijbewijsType(rb));
+        }
+        [Theory]
+        [InlineData(" ")]
+        [InlineData("")]
+        [InlineData(null)]
+        public void Test_ctor2_BadEenRijbewijs_invalid(string r)
+        {
+            Tankkaart tk = new Tankkaart(1, DateTime.Now.AddDays(4));
+            Adres a = new Adres("Straat", "1", "Stad", 9000);
+            Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
+            Assert.Throws<RijbewijsTypeException>(() => new RijbewijsType(r));
         }
         #endregion
 
