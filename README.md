@@ -25,7 +25,8 @@
 
 ## TODO's
 * AdresRepo: Geef, Verwijder, Update.
-* BestuurderRepo: Bestaat, Update, Verwijder, 
+* BestuurderRepo: Bestaat, Update, Verwijder,
+* Voertuig: Class reworken 
 
 ## Feedback: 4/11 ##
 - [ ] Bestuurder & Tankkaart moeten gelinkt zijn aan elkaar. En ook andere links
