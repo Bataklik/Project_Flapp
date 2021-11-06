@@ -143,7 +143,7 @@ namespace Flapp_DAL.Repository
                     Geslacht g = (int)r["geslacht"] == 1 ? Geslacht.M : Geslacht.V;
                     Adres a = null;// _aRepo.GeefAdres((int)r["adres_id"]);
                     string geboorte = Convert.ToString(r["geboortedatum"]);
-                    List<RijbewijsType> rt = new();
+                    List<Rijbewijs> rt = new();
                     Tankkaart t = null; //_tRepo.GeefTankkaart((int)r["tankkaart_id"]);
                     Bestuurder gevondenBestuurder = new((int)r["id"], (string)r["naam"], (string)r["voornaam"], g, a, geboorte, (string)r["rijksregister"], rt, null, t);
                     return gevondenBestuurder;
@@ -177,7 +177,7 @@ namespace Flapp_DAL.Repository
                     Adres a = null;//_aRepo.GeefAdres((int)r["adres_id"]);
                     string geboorte = Convert.ToString(r["geboortedatum"]);
                     // Repo's & Interfaces moeten nog gemaakt worden
-                    List<RijbewijsType> rt = new(); //_rtRepo.GeefRijbewijs((int)r["rijbewijstype_id"]);
+                    List<Rijbewijs> rt = new(); //_rtRepo.GeefRijbewijs((int)r["rijbewijstype_id"]);
                     Voertuig v = null;//_vRepo.GeefVoertuig((int)r["voertuig_id"]);
                     Tankkaart t = null; //_tRepo.GeefTankkaart((int)r["tankkaart_id"]);
                     Bestuurder gevondenBestuurder = new((int)r["id"], (string)r["naam"], (string)r["voornaam"], g, a, geboorte, (string)r["rijksregister"], rt, v, t);

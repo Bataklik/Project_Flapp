@@ -14,7 +14,7 @@ namespace Flapp_TESTS
         [Fact]
         public void Test_ctor1_Valid()
         {
-            List<RijbewijsType> rt = new List<RijbewijsType>();
+            List<Rijbewijs> rt = new List<Rijbewijs>();
             Bestuurder b = new("Balci", "Burak", Geslacht.M, "12/05/1999", "99.05.12-273.26", rt);
 
             Assert.Equal("Balci", b.Naam);
@@ -22,7 +22,7 @@ namespace Flapp_TESTS
             Assert.Equal(Geslacht.M, b.Geslacht);
             Assert.Equal(DateTime.Parse("12/05/1999"), b.Geboortedatum);
             Assert.Equal("99.05.12-273.26", b.Rijksregisternummer);
-            Assert.Contains(new RijbewijsType("B"), b.RijbewijsType);
+            Assert.Contains(new Rijbewijs("B"), b.RijbewijsType);
         }
         [Theory]
         [InlineData(null)]
@@ -67,15 +67,15 @@ namespace Flapp_TESTS
             Adres a = new Adres("Straat", "1", "Stad", 9000);
             Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
             Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", new(), v, tk);
-            List<RijbewijsType> rt = new List<RijbewijsType>();
-            rt.Add(new RijbewijsType("B"));
+            List<Rijbewijs> rt = new List<Rijbewijs>();
+            rt.Add(new Rijbewijs("B"));
             b.ZetRijbewijsLijst(rt);
             Assert.Equal("Balci", b.Naam);
             Assert.Equal("Burak", b.Voornaam);
             Assert.Equal(Geslacht.M, b.Geslacht);
             Assert.Equal(DateTime.Parse("12/05/1999"), b.Geboortedatum);
             Assert.Equal("99.05.12-273.26", b.Rijksregisternummer);
-            Assert.Contains(new RijbewijsType("B"), b.RijbewijsType);
+            Assert.Contains(new Rijbewijs("B"), b.RijbewijsType);
             Assert.Equal(v, b.Voertuig);
             Assert.Equal(tk, b.Tankkaart);
         }
@@ -150,7 +150,7 @@ namespace Flapp_TESTS
         }
         [Theory]
         [InlineData(null)]
-        public void Test_ctor2_BadRijbewijs_invalid(List<RijbewijsType> rb)
+        public void Test_ctor2_BadRijbewijs_invalid(List<Rijbewijs> rb)
         {
             Tankkaart tk = new Tankkaart(1, DateTime.Now.AddDays(4));
             Adres a = new Adres("Straat", "1", "Stad", 9000);
@@ -167,7 +167,7 @@ namespace Flapp_TESTS
             Tankkaart tk = new Tankkaart(1, DateTime.Now.AddDays(4));
             Adres a = new Adres("Straat", "1", "Stad", 9000);
             Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
-            Assert.Throws<RijbewijsTypeException>(() => new RijbewijsType(r));
+            Assert.Throws<RijbewijsException>(() => new Rijbewijs(r));
         }
         #endregion
 

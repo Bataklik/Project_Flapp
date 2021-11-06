@@ -4,13 +4,13 @@ using Xunit;
 
 namespace Flapp_TESTS
 {
-    public class RijbewijsType_UnitTest
+    public class Rijbewijs_UnitTest
     {
         #region Ctor Tests
         [Fact]
         public void Test_ctor_Naam_Valid()
         {
-            RijbewijsType rb = new RijbewijsType("B");
+            Rijbewijs rb = new Rijbewijs("B");
             Assert.Equal("B", rb.Naam);
         }
 
@@ -20,7 +20,7 @@ namespace Flapp_TESTS
         [InlineData("    ")]
         public void Test_ctor_Naam_InValid(string naam)
         {
-            var ex = Assert.Throws<RijbewijsTypeException>(() => new RijbewijsType(naam));
+            var ex = Assert.Throws<RijbewijsException>(() => new Rijbewijs(naam));
             Assert.Equal("RijbewijsType: ZetNaam: Naam mag niet leeg zijn!", ex.Message);
         }
         #endregion
@@ -29,7 +29,7 @@ namespace Flapp_TESTS
         [Fact]
         public void Test_ZetId_Valid()
         {
-            RijbewijsType rb = new RijbewijsType(1, "B");
+            Rijbewijs rb = new Rijbewijs(1, "B");
             rb.ZetId(2);
             Assert.Equal(2, rb.Id);
         }
@@ -40,14 +40,14 @@ namespace Flapp_TESTS
         [InlineData(0)]
         public void Test_ZetId_BadId_InValid(int id)
         {
-            RijbewijsType rb = new RijbewijsType("B");
-            Assert.Throws<RijbewijsTypeException>(() => rb.ZetId(id));
+            Rijbewijs rb = new Rijbewijs("B");
+            Assert.Throws<RijbewijsException>(() => rb.ZetId(id));
         }
 
         [Fact]
         public void Test_ZetNaam_Valid()
         {
-            RijbewijsType rb = new RijbewijsType("B");
+            Rijbewijs rb = new Rijbewijs("B");
             rb.ZetNaam("A");
             Assert.Equal("A", rb.Naam);
         }
@@ -59,8 +59,8 @@ namespace Flapp_TESTS
         [InlineData("a")]
         public void Test_ZetNaam_BadNaam_InValid(string naam)
         {
-            RijbewijsType rb = new RijbewijsType("B");
-            Assert.Throws<RijbewijsTypeException>(() => rb.ZetNaam(naam));
+            Rijbewijs rb = new Rijbewijs("B");
+            Assert.Throws<RijbewijsException>(() => rb.ZetNaam(naam));
         }
         #endregion
     }

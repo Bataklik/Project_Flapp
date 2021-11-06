@@ -9,20 +9,20 @@ using Flapp_BLL.Exceptions.ManagerExceptions;
 
 namespace Flapp_BLL.Managers
 {
-    public class RijbewijsTypeManager
+    public class RijbewijsManager
     {
-        private IRijbewijsTypeRepo _repo;
+        private IRijbewijsRepo _repo;
 
-        public RijbewijsTypeManager(IRijbewijsTypeRepo _repo)
+        public RijbewijsManager(IRijbewijsRepo _repo)
         {
             this._repo = _repo;
         }
 
-        public bool BestaatRijbewijs(RijbewijsType rijbewijs)
+        public bool BestaatRijbewijs(Rijbewijs rijbewijs)
         {
             return _repo.BestaatRijbewijs(rijbewijs);
         }
-        public RijbewijsType GeefRijbewijs(RijbewijsType rijbewijs)
+        public Rijbewijs GeefRijbewijs(Rijbewijs rijbewijs)
         {
             if (!_repo.BestaatRijbewijs(rijbewijs)) { throw new RijbewijsTypeManagerException("RijbewijsTypeManager: GeefRijbewijs: Rijbewijs bestaat niet!"); }
             try
@@ -32,7 +32,7 @@ namespace Flapp_BLL.Managers
             catch (Exception ex) { throw new RijbewijsTypeManagerException("RijbewijsTypeManager", ex); }
 
         }
-        public RijbewijsType GeefRijbewijs(int id)
+        public Rijbewijs GeefRijbewijs(int id)
         {
             if (!_repo.BestaatRijbewijs(id)) { throw new RijbewijsTypeManagerException("RijbewijsTypeManager: GeefRijbewijs: Rijbewijs bestaat niet!"); }
             try
@@ -41,7 +41,7 @@ namespace Flapp_BLL.Managers
             }
             catch (Exception ex) { throw new RijbewijsTypeManagerException("RijbewijsTypeManager", ex); }
         }
-        public void VoegRijbewijsToe(RijbewijsType rijbewijs)
+        public void VoegRijbewijsToe(Rijbewijs rijbewijs)
         {
             if (_repo.BestaatRijbewijs(rijbewijs)) { throw new RijbewijsTypeManagerException("RijbewijsTypeManager: VoegRijbewijsToe: RijbewijsType bestaat al"); }
             try

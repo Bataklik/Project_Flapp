@@ -6,11 +6,11 @@ using System.Data.SqlClient;
 
 namespace Flapp_DAL.Repository
 {
-    public class RijbewijsTypeRepo : IRijbewijsTypeRepo
+    public class RijbewijsRepo : IRijbewijsRepo
     {
         private string _connString;
 
-        public RijbewijsTypeRepo(string connString)
+        public RijbewijsRepo(string connString)
         {
             _connString = connString;
         }
@@ -38,7 +38,7 @@ namespace Flapp_DAL.Repository
                 finally { conn.Close(); }
             }
         }
-        public bool BestaatRijbewijs(RijbewijsType rijbewijs)
+        public bool BestaatRijbewijs(Rijbewijs rijbewijs)
         {
             SqlConnection conn = new SqlConnection(_connString);
             string query = "USE [Project_Flapp_DB]; SELECT 1 FROM Rijbewijs WHERE rijbewijs_naam = @naam;";
@@ -63,7 +63,7 @@ namespace Flapp_DAL.Repository
         #endregion
 
         #region GeefRijbewijs Method
-        public RijbewijsType GeefRijbewijs(RijbewijsType rijbewijs)
+        public Rijbewijs GeefRijbewijs(Rijbewijs rijbewijs)
         {
             SqlConnection conn = new SqlConnection(_connString);
             string query = "USE [Project_Flapp_DB]; SELECT * FROM Rijbewijs WHERE rijbewijs_naam = @naam;";
@@ -78,14 +78,14 @@ namespace Flapp_DAL.Repository
                 {
                     SqlDataReader r = cmd.ExecuteReader();
                     r.Read();
-                    RijbewijsType rijb = new((int)r["id"], (string)r["rijbewijs_naam"]);
+                    Rijbewijs rijb = new((int)r["id"], (string)r["rijbewijs_naam"]);
                     return rijb;
                 }
                 catch (Exception ex) { throw new Exception(ex.Message); }
                 finally { conn.Close(); }
             }
         }
-        public RijbewijsType GeefRijbewijs(int id)
+        public Rijbewijs GeefRijbewijs(int id)
         {
             SqlConnection conn = new SqlConnection(_connString);
             string query = "USE [Project_Flapp_DB]; SELECT * FROM Rijbewijs WHERE id = @id;";
@@ -100,7 +100,7 @@ namespace Flapp_DAL.Repository
                 {
                     SqlDataReader r = cmd.ExecuteReader();
                     r.Read();
-                    RijbewijsType rijb = new((int)r["id"], (string)r["rijbewijs_naam"]);
+                    Rijbewijs rijb = new((int)r["id"], (string)r["rijbewijs_naam"]);
                     return rijb;
                 }
                 catch (Exception ex) { throw new Exception(ex.Message); }
@@ -110,7 +110,7 @@ namespace Flapp_DAL.Repository
         #endregion
 
         #region VoegRijbewijsToe Method
-        public void VoegRijbewijsToe(RijbewijsType rijbewijs)
+        public void VoegRijbewijsToe(Rijbewijs rijbewijs)
         {
             SqlConnection conn = new SqlConnection(_connString);
             string query = "USE [Project_Flapp_DB]; INSERT INTO [dbo].[Rijbewijs]([rijbewijs_naam])VALUES (@rijbewijs_naam);";
@@ -151,7 +151,7 @@ namespace Flapp_DAL.Repository
                 finally { conn.Close(); }
             }
         }
-        public void VerwijderRijbewijs(RijbewijsType rijbewijs)
+        public void VerwijderRijbewijs(Rijbewijs rijbewijs)
         {
             SqlConnection conn = new SqlConnection(_connString);
             string query = "USE [Project_Flapp_DB]; DELETE FROM [dbo].[Rijbewijs] WHERE rijbewijs_naam = @naam;";
