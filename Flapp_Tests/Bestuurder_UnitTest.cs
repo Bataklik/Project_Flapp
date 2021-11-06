@@ -69,7 +69,7 @@ namespace Flapp_TESTS
             Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", new(), v, tk);
             List<RijbewijsType> rt = new List<RijbewijsType>();
             rt.Add(new RijbewijsType("B"));
-            b.ZetRijbewijsType(rt);
+            b.ZetRijbewijsLijst(rt);
             Assert.Equal("Balci", b.Naam);
             Assert.Equal("Burak", b.Voornaam);
             Assert.Equal(Geslacht.M, b.Geslacht);
@@ -156,7 +156,7 @@ namespace Flapp_TESTS
             Adres a = new Adres("Straat", "1", "Stad", 9000);
             Voertuig v = new Voertuig(1, "MERRY", "THICC", "13245678957903251", "1-ABC-123", new Brandstof("Benzine"), "Auto", "Geel", 4);
             Bestuurder b = new Bestuurder("Balci", "Burak", Geslacht.M, a, "12/05/1999", "99.05.12-273.26", new(), v, tk);
-            Assert.Throws<BestuurderException>(() => b.ZetRijbewijsType(rb));
+            Assert.Throws<BestuurderException>(() => b.ZetRijbewijsLijst(rb));
         }
         [Theory]
         [InlineData(" ")]

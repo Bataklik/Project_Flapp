@@ -46,7 +46,7 @@ namespace Flapp_DAL.Repository
 
                     cmd.Parameters["@chassisnummer"].Value = v.ChassisNummer;
                     cmd.Parameters["@nummerplaat"].Value = v.Nummerplaat;
-                    cmd.Parameters["@brandstof_type"].Value = v.Brandstoftype;
+                    cmd.Parameters["@brandstof_type"].Value = v.Brandstof;
                     cmd.Parameters["@voertuig_type"].Value = v.VoertuigType;
 
                     cmd.Parameters["@kleur"].Value = v.Kleur;
@@ -128,7 +128,7 @@ namespace Flapp_DAL.Repository
                     cmd.Parameters["@model"].Value = v.Model;
                     cmd.Parameters["@chassisnummer"].Value = v.ChassisNummer;
                     cmd.Parameters["@nummerplaat"].Value = v.Nummerplaat;
-                    cmd.Parameters["@brandstof_type"].Value = v.Brandstoftype.Id;
+                    cmd.Parameters["@brandstof_type"].Value = v.Brandstof.Id;
                     cmd.Parameters["@voertuig_type"].Value = v.VoertuigType;
                     cmd.Parameters["@kleur"].Value = v.Kleur;
                     cmd.Parameters["@deuren"].Value = v.Aantaldeuren;
@@ -173,7 +173,7 @@ namespace Flapp_DAL.Repository
                     cmd.Parameters["@model"].Value = v.Model;
                     cmd.Parameters["@chassisnummer"].Value = v.ChassisNummer;
                     cmd.Parameters["@nummerplaat"].Value = v.Nummerplaat;
-                    cmd.Parameters["@brandstof_type"].Value = v.Brandstoftype.Id;
+                    cmd.Parameters["@brandstof_type"].Value = v.Brandstof.Id;
                     cmd.Parameters["@voertuig_type"].Value = v.VoertuigType;
                     cmd.Parameters["@kleur"].Value = v.Kleur;
                     cmd.Parameters["@deuren"].Value = v.Aantaldeuren;

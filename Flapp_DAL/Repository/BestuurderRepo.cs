@@ -145,7 +145,7 @@ namespace Flapp_DAL.Repository
                     string geboorte = Convert.ToString(r["geboortedatum"]);
                     List<RijbewijsType> rt = new();
                     Tankkaart t = null; //_tRepo.GeefTankkaart((int)r["tankkaart_id"]);
-                    Bestuurder gevondenBestuurder = new((int)r["id"], (string)r["naam"], (string)r["voornaam"], g, a, geboorte, (string)r["rijksregister"], rt, v, t);
+                    Bestuurder gevondenBestuurder = new((int)r["id"], (string)r["naam"], (string)r["voornaam"], g, a, geboorte, (string)r["rijksregister"], rt, null, t);
                     return gevondenBestuurder;
                 }
                 catch (Exception ex)

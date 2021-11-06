@@ -23,7 +23,7 @@ namespace Flapp_TESTS
             Assert.Equal("Model X", v.Model);
             Assert.Equal("1abcd23efgh456789", v.ChassisNummer);
             Assert.Equal("2-ABC-123", v.Nummerplaat);
-            Assert.Equal(b, v.Brandstoftype);
+            Assert.Equal(b, v.Brandstof);
             Assert.Equal("Stationwagen", v.VoertuigType);
             Assert.Equal("Zwart", v.Kleur);
             Assert.Equal(5, v.Aantaldeuren);
@@ -118,7 +118,7 @@ namespace Flapp_TESTS
             Assert.Equal("Model X", v.Model);
             Assert.Equal("1abcd23efgh456789", v.ChassisNummer);
             Assert.Equal("2-ABC-123", v.Nummerplaat);
-            Assert.Equal(b, v.Brandstoftype);
+            Assert.Equal(b, v.Brandstof);
             Assert.Equal("Stationwagen", v.VoertuigType);
         }
         [Theory]
@@ -298,7 +298,7 @@ namespace Flapp_TESTS
 
             Brandstof testBrandstof = new Brandstof("Diesel");
             v.ZetBrandstofType(testBrandstof);
-            Assert.Equal(testBrandstof, v.Brandstoftype);
+            Assert.Equal(testBrandstof, v.Brandstof);
         }
         [Theory]
         [InlineData(null)]
