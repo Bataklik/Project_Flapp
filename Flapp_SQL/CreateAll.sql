@@ -2,12 +2,12 @@ USE[Project_Flapp_DB];
 -- ALLE TABLES MOETEN WEG ZIJN VOOR EEN TABLE TE MAKEN!
 -- Rijbewijs
 IF  NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Rijbewijs]') AND type in (N'U'))
-BEGIN
-	CREATE TABLE[dbo].[Rijbewijs](
-	[rijbewijsId][int] IDENTITY(1, 1) PRIMARY KEY,
-	[naam] [varchar](5));
-END
-
+   BEGIN
+	   CREATE TABLE[dbo].[Rijbewijs](
+	   [rijbewijsId][int] IDENTITY(1, 1) PRIMARY KEY,
+	   [naam] [varchar](5));
+   END
+   
 -- Adres
 IF  NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Adres]') AND type in (N'U'))
 BEGIN
