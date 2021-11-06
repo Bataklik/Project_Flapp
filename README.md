@@ -24,6 +24,7 @@
 <!-- [ ] Empty [x] Full -->
 
 ## TODO's
+* Sql column names zijn aangepast dus repo's aanpassen
 * AdresRepo: Geef, Verwijder, Update.
 * BestuurderRepo: Bestaat, Update, Verwijder,
 * Tankkaart moet meerdere brandstoffen hebben.
