@@ -1,9 +1,7 @@
-﻿using Flapp_BLL.Checkers;
-using Flapp_BLL.Models;
+﻿using Flapp_BLL.Models;
 using System;
 using Flapp_BLL.Managers;
 using Flapp_DAL.Repository;
-using System.Collections.Generic;
 
 namespace Flapp_CNS
 {
@@ -14,16 +12,22 @@ namespace Flapp_CNS
         {
             string connStringBurak = @"Data Source=LAPTOP-BURAQ\SQLEXPRESS;Initial Catalog=Project_Flapp_DB;Integrated Security=True"; ;
 
-            Voertuig auto = new Voertuig("BMW", "BERLINE", "3GCUKREC7FG207394", "1-LIN-003", new Brandstof("Diezel"), "Vier persoonswagen");
-            Console.WriteLine(auto);
+            //Geven
+            //RijbewijsGevenId(connStringBurak);
+            //RijbewijsGevenObj(connStringBurak);
+            //AdresGevenId(connStringBurak);
+            //AdresGevenObj(connStringBurak);
+
+            //Toevoegen
             //AdresToevoegen(connStringBurak);
             //BrandstofToevoegen(connStringBurak);
             //RijbewijsToevoegen(connStringBurak);
         }
 
-        private static void RijbewijsToevoegen(string connStringBurak)
+        #region Toevoegen
+        private static void RijbewijsToevoegen(string conn)
         {
-            RijbewijsManager rijbewijsManager = new RijbewijsManager(new RijbewijsRepo(connStringBurak));
+            RijbewijsManager rijbewijsManager = new RijbewijsManager(new RijbewijsRepo(conn));
             Rijbewijs rijbewijs1 = new Rijbewijs("C");
             rijbewijsManager.VoegRijbewijsToe(rijbewijs1);
         }
@@ -42,5 +46,37 @@ namespace Flapp_CNS
 
             brandstofManager.VoegBrandstofToe(brandstof1);
         }
+        #endregion
+
+        #region Geef
+        private static Rijbewijs RijbewijsGevenId(string conn)
+        {
+            RijbewijsManager rijbewijsManager = new RijbewijsManager(new RijbewijsRepo(conn));
+            Rijbewijs result = rijbewijsManager.GeefRijbewijs(4);
+            Console.WriteLine(result);
+            return result;
+        }
+        private static Rijbewijs RijbewijsGevenObj(string conn)
+        {
+            RijbewijsManager rijbewijsManager = new RijbewijsManager(new RijbewijsRepo(conn));
+            Rijbewijs result = rijbewijsManager.GeefRijbewijs(new Rijbewijs("B"));
+            Console.WriteLine(result);
+            return result;
+        }
+        private static Adres AdresGevenId(string conn)
+        {
+            AdresManager adresManager = new AdresManager(new AdresRepo(conn));
+            Adres result = adresManager.GeefAdres(2);
+            Console.WriteLine(result);
+            return result;
+        }
+        private static Adres AdresGevenObj(string conn)
+        {
+            AdresManager adresManager = new AdresManager(new AdresRepo(conn));
+            Adres result = adresManager.GeefAdres(new Adres("Keizerstraat", "1", "Gent", 9000));
+            Console.WriteLine(result);
+            return result;
+        }
+        #endregion
     }
 }

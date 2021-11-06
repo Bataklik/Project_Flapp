@@ -48,6 +48,29 @@ namespace Flapp_DAL.Repository
                 finally { conn.Close(); }
             }
         }
+        public bool BestaatAdres(int id)
+        {
+            SqlConnection conn = new SqlConnection(_connString);
+            string query = "USE [Project_Flapp_DB]; SELECT 1 [adresId] ,[straat] ,[huisnummer] ,[stad] ,[postcode] FROM [Project_Flapp_DB].[dbo].[Adres] WHERE adresId = @id;";
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
+                conn.Open();
+                try
+                {
+                    cmd.Parameters.Add(new SqlParameter("@id", SqlDbType.Int));
+
+                    cmd.CommandText = query;
+
+                    cmd.Parameters["@id"].Value = id;
+
+                    int AdresBestaat = Convert.ToInt32(cmd.ExecuteScalar());
+                    if (AdresBestaat == 1) { return true; }
+                    return false;
+                }
+                catch (Exception ex) { throw new Exception(ex.Message); }
+                finally { conn.Close(); }
+            }
+        }
         #endregion
 
         #region VoegAdresToe Method
@@ -81,9 +104,58 @@ namespace Flapp_DAL.Repository
         #endregion
 
         #region GeefAdres Method
-        public Adres GeefAdres(int aId)
+        public Adres GeefAdres(int id)
         {
-            throw new NotImplementedException();
+            SqlConnection conn = new SqlConnection(_connString);
+            string query = "USE [Project_Flapp_DB]; SELECT * FROM Adres WHERE adresId = @id;";
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
+                cmd.Parameters.Add(new SqlParameter("@id", SqlDbType.Int));
+                cmd.CommandText = query;
+                cmd.Parameters["@id"].Value = id;
+
+                conn.Open();
+                try
+                {
+                    SqlDataReader r = cmd.ExecuteReader();
+                    r.Read();
+                    Adres adres = new Adres((int)r["adresId"], (string)r["straat"], (string)r["huisnummer"], (string)r["stad"], (int)r["postcode"]);
+                    return adres;
+                }
+                catch (Exception ex) { throw new Exception(ex.Message); }
+                finally { conn.Close(); }
+            }
+        }
+
+        public Adres GeefAdres(Adres adres)
+        {
+            SqlConnection conn = new SqlConnection(_connString);
+            string query = "USE [Project_Flapp_DB]; SELECT * FROM Adres WHERE straat = @straat " +
+                "AND huisnummer = @huisnummer AND stad = @stad AND postcode = @postcode;";
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
+                cmd.Parameters.Add(new SqlParameter("@straat", SqlDbType.VarChar));
+                cmd.Parameters.Add(new SqlParameter("@huisnummer", SqlDbType.VarChar));
+                cmd.Parameters.Add(new SqlParameter("@stad", SqlDbType.VarChar));
+                cmd.Parameters.Add(new SqlParameter("@postcode", SqlDbType.Int));
+
+                cmd.CommandText = query;
+                cmd.Parameters["@straat"].Value = adres.Straat;
+                cmd.Parameters["@huisnummer"].Value = adres.Huisnummer;
+                cmd.Parameters["@stad"].Value = adres.Stad;
+                cmd.Parameters["@postcode"].Value = adres.Postcode;
+
+
+                conn.Open();
+                try
+                {
+                    SqlDataReader r = cmd.ExecuteReader();
+                    r.Read();
+                    return new Adres((int)r["adresId"], (string)r["straat"], (string)r["huisnummer"], (string)r["stad"], (int)r["postcode"]);
+                }
+                catch (Exception ex) { throw new Exception(ex.Message); }
+                finally { conn.Close(); }
+            }
         }
         #endregion
 
@@ -97,6 +169,7 @@ namespace Flapp_DAL.Repository
         #region UpdateAdres Method
         public void UpdateAdres(Adres a)
         {
+            Console.WriteLine("Test");
             throw new NotImplementedException();
         }
         #endregion

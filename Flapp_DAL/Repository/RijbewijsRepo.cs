@@ -78,7 +78,7 @@ namespace Flapp_DAL.Repository
                 {
                     SqlDataReader r = cmd.ExecuteReader();
                     r.Read();
-                    Rijbewijs rijb = new((int)r["id"], (string)r["rijbewijs_naam"]);
+                    Rijbewijs rijb = new((int)r["rijbewijsId"], (string)r["naam"]);
                     return rijb;
                 }
                 catch (Exception ex) { throw new Exception(ex.Message); }
@@ -100,7 +100,7 @@ namespace Flapp_DAL.Repository
                 {
                     SqlDataReader r = cmd.ExecuteReader();
                     r.Read();
-                    Rijbewijs rijb = new((int)r["id"], (string)r["rijbewijs_naam"]);
+                    Rijbewijs rijb = new((int)r["rijbewijsId"], (string)r["naam"]);
                     return rijb;
                 }
                 catch (Exception ex) { throw new Exception(ex.Message); }

@@ -33,13 +33,31 @@ namespace Flapp_BLL.Managers
             }
             catch (Exception ex) { throw new AdresManagerException("AdresManager", ex); }
         }
-
         public void UpdateAdres(Adres adres)
         {
             if (!_repo.BestaatAdres(adres)) { throw new AdresManagerException("AdresManager: UpdateAdres: Adres bestaat niet!"); }
             try
             {
                 _repo.UpdateAdres(adres);
+            }
+            catch (Exception ex) { throw new AdresManagerException("AdresManager", ex); }
+        }
+
+        public Adres GeefAdres(int id)
+        {
+            if (!_repo.BestaatAdres(id)) { throw new AdresManagerException("AdresManager: GeefAdres: Adres bestaat niet!"); }
+            try
+            {
+                return _repo.GeefAdres(id);
+            }
+            catch (Exception ex) { throw new AdresManagerException("AdresManager", ex); }
+        }
+        public Adres GeefAdres(Adres adres)
+        {
+            if (!_repo.BestaatAdres(adres)) { throw new AdresManagerException("AdresManager: GeefAdres: Adres bestaat niet!"); }
+            try
+            {
+                return _repo.GeefAdres(adres);
             }
             catch (Exception ex) { throw new AdresManagerException("AdresManager", ex); }
         }
