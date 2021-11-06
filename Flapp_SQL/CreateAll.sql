@@ -25,7 +25,6 @@ CREATE TABLE[dbo].[Tankkaart](
    [tankkaart_id][int] IDENTITY(1, 1) PRIMARY KEY,
    [tankkaart_geldigheidsdatum] [date] NOT NULL,
    [tankkaart_pincode] [varchar](50) NULL,
-   [tankkaart_brandstof_id] [int] NULL FOREIGN KEY REFERENCES dbo.Brandstof(brandstof_id),
    [geblokkeerd] [bit] NOT NULL);
 
 -- Voertuig
@@ -36,7 +35,6 @@ CREATE TABLE[dbo].[Voertuig](
    [voertuig_model] [varchar](50) NOT NULL,
    [voertuig_chassisnummer] [varchar](17) NOT NULL,
    [voertuig_nummerplaat] [varchar](9) NOT NULL,
-   [voertuig_brandstof_id] [int] FOREIGN KEY REFERENCES dbo.Brandstof(brandstof_id),
    [voertuig_type] [varchar](50) NOT NULL,
    [voertuig_kleur] [varchar](50) NULL,
    [voertuig_deuren] [int] NULL);
@@ -67,3 +65,10 @@ CREATE TABLE[dbo].[Brandstof_Voertuig](
    [brandstofvoertuig_brandstof_id][int] FOREIGN KEY REFERENCES Brandstof(brandstof_id),
    [brandstofvoertuig_voertuig_id][int] FOREIGN KEY REFERENCES Voertuig(voertuig_id),
    PRIMARY KEY (brandstofvoertuig_brandstof_id, brandstofvoertuig_voertuig_id));
+
+-- Brandstof_Tankkaart
+USE[Project_Flapp_DB];
+CREATE TABLE[dbo].[Brandstof_Tankkaart](
+   [brandstoftankkaart_brandstof_id][int] FOREIGN KEY REFERENCES Brandstof(brandstof_id),
+   [brandstoftankkaart_Tankkaart_id][int] FOREIGN KEY REFERENCES Tankkaart(tankkaart_id),
+   PRIMARY KEY (brandstoftankkaart_brandstof_id, brandstoftankkaart_Tankkaart_id));
