@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace Flapp_TESTS
+namespace Flapp_TESTS.UnitTests_Models
 {
     public class Bestuurder_UnitTest
     {
@@ -14,7 +14,7 @@ namespace Flapp_TESTS
         [Fact]
         public void Test_ctor1_Valid()
         {
-            List<Rijbewijs> rt = new List<Rijbewijs>();
+            List<Rijbewijs> rt = new List<Rijbewijs> { new Rijbewijs("B") };
             Bestuurder b = new("Balci", "Burak", Geslacht.M, "12/05/1999", "99.05.12-273.26", rt);
 
             Assert.Equal("Balci", b.Naam);

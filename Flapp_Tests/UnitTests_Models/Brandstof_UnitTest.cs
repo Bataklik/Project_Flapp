@@ -2,7 +2,7 @@
 using Flapp_BLL.Models;
 using Flapp_BLL.Exceptions.ModelExpections;
 
-namespace Flapp_TESTS
+namespace Flapp_TESTS.UnitTests_Models
 {
     public class Brandstof_UnitTest
     {

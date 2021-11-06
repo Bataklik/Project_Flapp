@@ -3,7 +3,7 @@ using Xunit;
 using Flapp_BLL.Models;
 using Flapp_BLL.Exceptions.ModelExpections;
 
-namespace Flapp_TESTS
+namespace Flapp_TESTS.UnitTests_Models
 {
     public class Tankkaart_UnitTest
     {
@@ -23,8 +23,7 @@ namespace Flapp_TESTS
         [InlineData(-250)]
         public void Test_ctor_BadKaartnr_InValid(int nr)
         {
-            var ex = Assert.Throws<TankkaartException>(() => new Tankkaart(nr, DateTime.Parse("06/08/2025")));
-            Assert.Equal("Tankkaart kaartnummer is kleiner dan 1!", ex.Message);
+            Assert.Throws<TankkaartException>(() => new Tankkaart(nr, DateTime.Parse("06/08/2025")));
         }
 
         //Bad Geldigheidsdatum
@@ -33,8 +32,7 @@ namespace Flapp_TESTS
         [InlineData("10/12/1999")]
         public void Test_ctor_BadGeldigheidsdatum_InValid(DateTime dt)
         {
-            var ex = Assert.Throws<TankkaartException>(() => new Tankkaart(420, dt));
-            Assert.Equal("Tankkaart Geldigheidsdatum mag niet kleiner zijn dan vandaag!", ex.Message);
+            Assert.Throws<TankkaartException>(() => new Tankkaart(420, dt));
         }
         #endregion
 
@@ -54,11 +52,9 @@ namespace Flapp_TESTS
         public void Test_ZetTankkaartNr_InValid(int nr)
         {
             Tankkaart t = new Tankkaart(1, DateTime.Parse("06/08/2025"));
-            var ex = Assert.Throws<TankkaartException>(() => t.ZetKaartnummer(nr)); ;
-            Assert.Equal("Tankkaart kaartnummer is kleiner dan 1!", ex.Message);
+            Assert.Throws<TankkaartException>(() => t.ZetKaartnummer(nr)); ;
         }
 
-        //ZetGeldigheidsdatum
         [Fact]
         public void Test_ZetGeldigheidsdatum_Valid()
         {
@@ -72,15 +68,14 @@ namespace Flapp_TESTS
         public void Test_ctor_ZetGeldigheidsdatum_InValid(DateTime dt)
         {
             Tankkaart t = new Tankkaart(1, DateTime.Parse("06/08/2025"));
-            var ex = Assert.Throws<TankkaartException>(() => t.ZetGeldigheidsdatum(dt));
-            Assert.Equal("Tankkaart Geldigheidsdatum mag niet kleiner zijn dan vandaag!", ex.Message);
+            Assert.Throws<TankkaartException>(() => t.ZetGeldigheidsdatum(dt));
         }
 
         //ZetGeblokkeerd
         [Fact]
         public void Test_ZetGeblokkeerd_Valid()
         {
-            Tankkaart t = new Tankkaart(420, DateTime.Parse("06/08/2025"), false);
+            Tankkaart t = new Tankkaart(420, DateTime.Parse("06/08/2025"), true);
             t.ZetGeblokkeerd(false);
             Assert.False(t.Geblokkeerd);
         }
@@ -89,9 +84,8 @@ namespace Flapp_TESTS
         [InlineData(true)]
         public void Test_ZetGeblokkeerd_InValid(bool b)
         {
-            Tankkaart t = new Tankkaart(1, DateTime.Parse("06/08/2025"));
-            var ex = Assert.Throws<TankkaartException>(() => t.ZetGeblokkeerd(b));
-            Assert.Equal("Tankkaart is al geblokkeerd", ex.Message);
+            Tankkaart t = new Tankkaart(1, DateTime.Parse("06/08/2025"), true);
+            Assert.Throws<TankkaartException>(() => t.ZetGeblokkeerd(b));
         }
         #endregion
     }

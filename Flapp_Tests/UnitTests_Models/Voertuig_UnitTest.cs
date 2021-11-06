@@ -4,7 +4,7 @@ using Flapp_BLL.Exceptions;
 using Flapp_BLL.Exceptions.CheckerExceptions;
 using Flapp_BLL.Exceptions.ModelExpections;
 
-namespace Flapp_TESTS
+namespace Flapp_TESTS.UnitTests_Models
 {
     public class Voertuig_UnitTest
     {

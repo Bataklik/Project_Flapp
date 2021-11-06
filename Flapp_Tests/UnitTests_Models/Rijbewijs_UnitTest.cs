@@ -2,7 +2,7 @@
 using Flapp_BLL.Models;
 using Xunit;
 
-namespace Flapp_TESTS
+namespace Flapp_TESTS.UnitTests_Models
 {
     public class Rijbewijs_UnitTest
     {
