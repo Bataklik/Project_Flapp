@@ -13,7 +13,7 @@ namespace Flapp_BLL.Models
         public string Model { get; private set; } // !
         public string ChassisNummer { get; private set; } // ! 
         public string Nummerplaat { get; private set; } // !
-        public Brandstof Brandstoftype { get; private set; } // !
+        public Brandstof Brandstof { get; private set; } // !
         public string VoertuigType { get; private set; } // !
 
         public string Kleur { get; private set; }
@@ -96,7 +96,7 @@ namespace Flapp_BLL.Models
         public void ZetBrandstofType(Brandstof brandstof)
         {
             if (brandstof == null) { throw new VoertuigException("Voertuig - brandstof is null!"); }
-            Brandstoftype = brandstof;
+            Brandstof = brandstof;
         }
         public void ZetVoertuigType(string voertuigType)
         {
@@ -149,12 +149,12 @@ namespace Flapp_BLL.Models
                     }
 
                 }
-                else if (this.Bestuurder == nieuweBestuurder) // is huidige bestuurder wel gelijk aan nieuwe driver? -> exception
+                else if (Bestuurder == nieuweBestuurder) // is huidige bestuurder wel gelijk aan nieuwe driver? -> exception
                 {
-                    if (!this.Bestuurder.HeeftVoertuig(this))
+                    if (!Bestuurder.HeeftVoertuig(this))
                     {
-                        this.Bestuurder.VerwijderVoertuig();
-                        this.Bestuurder.ZetVoertuig(this);
+                        Bestuurder.VerwijderVoertuig();
+                        Bestuurder.ZetVoertuig(this);
                     }
                 }
             }
@@ -192,21 +192,11 @@ namespace Flapp_BLL.Models
         #region Overrides
         public override string ToString()
         {
-            return $"[Voertuig] {VoertuigType}, {Merk}, {Model}, {ChassisNummer}, {Nummerplaat}, {Brandstoftype}, {VoertuigType}, {Kleur}, {Aantaldeuren}, {Bestuurder}";
+            return $"\n\t---------------{GetType().Name}---------\n" +
+                $"\t{Merk}, {Model}, {ChassisNummer}\n" +
+                $"\t{Brandstof}, {VoertuigType}\n" +
+                $"\t--------------------------------";
         }
         #endregion
     }
 }
-
-//USE[Project_Flapp_DB];
-//CREATE TABLE[dbo].[voertuig](
-//   [id][int] IDENTITY(1, 1) PRIMARY KEY,
-//   [merk] [varchar](50) NOT NULL,
-//   [model] [varchar](50) NOT NULL,
-//   [chassisnummer] [varchar](17) NOT NULL,
-//   [nummerplaat] [varchar](9) NOT NULL,
-//   [brandstof_type] [int] FOREIGN KEY REFERENCES dbo.Brandstof(id),
-//   [voertuig_type] [varchar](50) NOT NULL,
-//   [kleur] [varchar](50) NULL,
-//   [deuren] [int] NULL,
-//   [bestuurder_id] [int] FOREIGN KEY REFERENCES dbo.Bestuurder(id));
