@@ -14,9 +14,11 @@ namespace Flapp_CNS
         {
             string connStringBurak = @"Data Source=LAPTOP-BURAQ\SQLEXPRESS;Initial Catalog=Project_Flapp_DB;Integrated Security=True"; ;
 
+            Voertuig auto = new Voertuig("BMW", "BERLINE", "3GCUKREC7FG207394", "1-LIN-003", new Brandstof("Diezel"), "Vier persoonswagen");
+            Console.WriteLine(auto);
             //AdresToevoegen(connStringBurak);
             //BrandstofToevoegen(connStringBurak);
-            RijbewijsToevoegen(connStringBurak);
+            //RijbewijsToevoegen(connStringBurak);
         }
 
         private static void RijbewijsToevoegen(string connStringBurak)
