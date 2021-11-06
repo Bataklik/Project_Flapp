@@ -40,7 +40,7 @@ namespace Flapp_BLL.Models
         #region Overrides
         public override string ToString()
         {
-            return $"{Id}, {Naam}";
+            return $"{Naam} ";
         }
 
         public override bool Equals(object obj)
@@ -56,8 +56,3 @@ namespace Flapp_BLL.Models
         #endregion
     }
 }
-
-//USE[Project_Flapp_DB];
-//CREATE TABLE[dbo].[Rijbewijs](
-//   [id][int] IDENTITY(1, 1) PRIMARY KEY,
-//   [rijbewijs_naam] [varchar](5))
