@@ -19,7 +19,7 @@ namespace Flapp_DAL.Repository
         public bool BestaatAdres(Adres a)
         {
             SqlConnection conn = new SqlConnection(_connString);
-            string query = "USE [Project_Flapp_DB]; SELECT 1 [id] ,[adres_straat] ,[adres_huisnummer] ,[adres_stad] ,[adres_postcode] FROM [Project_Flapp_DB].[dbo].[Adres] WHERE adres_straat = @straat AND adres_huisnummer = @huisnummer AND adres_stad = @stad AND adres_postcode = @postcode;";
+            string query = "USE [Project_Flapp_DB]; SELECT 1 [adresId] ,[straat] ,[huisnummer] ,[stad] ,[postcode] FROM [Project_Flapp_DB].[dbo].[Adres] WHERE straat = @straat AND huisnummer = @huisnummer AND stad = @stad AND postcode = @postcode;";
             using (SqlCommand cmd = conn.CreateCommand())
             {
                 conn.Open();
@@ -54,7 +54,7 @@ namespace Flapp_DAL.Repository
         public void VoegAdresToe(Adres a)
         {
             SqlConnection conn = new SqlConnection(_connString);
-            string query = "USE [Project_Flapp_DB]; INSERT INTO [dbo].[Adres] ([adres_straat] ,[adres_huisnummer] ,[adres_stad] ,[adres_postcode]) VALUES (@straat ,@huisnummer ,@stad ,@postcode);";
+            string query = "USE [Project_Flapp_DB]; INSERT INTO [dbo].[Adres] ([straat] ,[huisnummer] ,[stad] ,[postcode]) VALUES (@straat ,@huisnummer ,@stad ,@postcode);";
             using (SqlCommand cmd = conn.CreateCommand())
             {
                 conn.Open();

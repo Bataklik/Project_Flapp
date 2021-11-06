@@ -19,7 +19,7 @@ namespace Flapp_DAL.Repository
         public bool BestaatRijbewijs(int id)
         {
             SqlConnection conn = new SqlConnection(_connString);
-            string query = "USE [Project_Flapp_DB]; SELECT 1 FROM Rijbewijs WHERE id = @id;";
+            string query = "USE [Project_Flapp_DB]; SELECT 1 FROM Rijbewijs WHERE rijbewijsId = @id;";
             using (SqlCommand cmd = conn.CreateCommand())
             {
                 conn.Open();
@@ -41,7 +41,7 @@ namespace Flapp_DAL.Repository
         public bool BestaatRijbewijs(Rijbewijs rijbewijs)
         {
             SqlConnection conn = new SqlConnection(_connString);
-            string query = "USE [Project_Flapp_DB]; SELECT 1 FROM Rijbewijs WHERE rijbewijs_naam = @naam;";
+            string query = "USE [Project_Flapp_DB]; SELECT 1 FROM Rijbewijs WHERE naam = @naam;";
             using (SqlCommand cmd = conn.CreateCommand())
             {
                 conn.Open();
@@ -66,7 +66,7 @@ namespace Flapp_DAL.Repository
         public Rijbewijs GeefRijbewijs(Rijbewijs rijbewijs)
         {
             SqlConnection conn = new SqlConnection(_connString);
-            string query = "USE [Project_Flapp_DB]; SELECT * FROM Rijbewijs WHERE rijbewijs_naam = @naam;";
+            string query = "USE [Project_Flapp_DB]; SELECT * FROM Rijbewijs WHERE naam = @naam;";
             using (SqlCommand cmd = conn.CreateCommand())
             {
                 cmd.Parameters.Add(new SqlParameter("@naam", SqlDbType.VarChar));
@@ -88,7 +88,7 @@ namespace Flapp_DAL.Repository
         public Rijbewijs GeefRijbewijs(int id)
         {
             SqlConnection conn = new SqlConnection(_connString);
-            string query = "USE [Project_Flapp_DB]; SELECT * FROM Rijbewijs WHERE id = @id;";
+            string query = "USE [Project_Flapp_DB]; SELECT * FROM Rijbewijs WHERE rijbewijsId = @id;";
             using (SqlCommand cmd = conn.CreateCommand())
             {
                 cmd.Parameters.Add(new SqlParameter("@id", SqlDbType.Int));
@@ -113,7 +113,7 @@ namespace Flapp_DAL.Repository
         public void VoegRijbewijsToe(Rijbewijs rijbewijs)
         {
             SqlConnection conn = new SqlConnection(_connString);
-            string query = "USE [Project_Flapp_DB]; INSERT INTO [dbo].[Rijbewijs]([rijbewijs_naam])VALUES (@rijbewijs_naam);";
+            string query = "USE [Project_Flapp_DB]; INSERT INTO [dbo].[Rijbewijs]([naam])VALUES (@rijbewijs_naam);";
             using (SqlCommand cmd = conn.CreateCommand())
             {
                 conn.Open();
@@ -135,7 +135,7 @@ namespace Flapp_DAL.Repository
         public void VerwijderRijbewijs(int id)
         {
             SqlConnection conn = new SqlConnection(_connString);
-            string query = "USE [Project_Flapp_DB]; DELETE FROM [dbo].[Rijbewijs] WHERE id = @id;";
+            string query = "USE [Project_Flapp_DB]; DELETE FROM [dbo].[Rijbewijs] WHERE rijbewijsId = @id;";
             using (SqlCommand cmd = conn.CreateCommand())
             {
                 conn.Open();
@@ -154,7 +154,7 @@ namespace Flapp_DAL.Repository
         public void VerwijderRijbewijs(Rijbewijs rijbewijs)
         {
             SqlConnection conn = new SqlConnection(_connString);
-            string query = "USE [Project_Flapp_DB]; DELETE FROM [dbo].[Rijbewijs] WHERE rijbewijs_naam = @naam;";
+            string query = "USE [Project_Flapp_DB]; DELETE FROM [dbo].[Rijbewijs] WHERE naam = @naam;";
             using (SqlCommand cmd = conn.CreateCommand())
             {
                 conn.Open();
