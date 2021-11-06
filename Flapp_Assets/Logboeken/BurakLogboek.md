@@ -22,4 +22,7 @@
 | 2u   | Add VoegRijbewijsToe, VoegBrandstofToe met bijhorende methods |
 | 2u   | Change RijbewijsType -> List<RijbewijsType> & Change errors|
 | 3u   | Rework sql tables and add CreateAll.sql                    |
+| 2.3u | Create Brandstof_Tankkaart sql table & rework db           |
 | 0u   | ---------------------------------------------------------- |
+| 0u   | ---------------------------------------------------------- |
+
