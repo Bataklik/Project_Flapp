@@ -16,13 +16,13 @@ namespace Flapp_CNS
 
             //AdresToevoegen(connStringBurak);
             //BrandstofToevoegen(connStringBurak);
-            //RijbewijsToevoegen(connStringBurak);
+            RijbewijsToevoegen(connStringBurak);
         }
 
         private static void RijbewijsToevoegen(string connStringBurak)
         {
             RijbewijsManager rijbewijsManager = new RijbewijsManager(new RijbewijsRepo(connStringBurak));
-            Rijbewijs rijbewijs1 = new Rijbewijs("AM");
+            Rijbewijs rijbewijs1 = new Rijbewijs("C");
             rijbewijsManager.VoegRijbewijsToe(rijbewijs1);
         }
         private static void AdresToevoegen(string conn)
