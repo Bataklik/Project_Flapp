@@ -31,7 +31,7 @@ namespace Flapp_BLL.Models
             ZetGeslacht(geslacht);
             ZetGeboortedatum(geboortedatum);
             ZetRijksregisternummer(rijksregisternummer);
-            ZetRijbewijsType(rijbewijs);
+            ZetRijbewijsLijst(rijbewijs);
         }
 
         public Bestuurder(string naam, string voornaam, Geslacht geslacht, Adres adres, string geboortedatum, string rijksregisternummer, List<RijbewijsType> rijbewijs, Voertuig voertuig, Tankkaart tankkaart)
@@ -41,7 +41,7 @@ namespace Flapp_BLL.Models
             ZetGeslacht(geslacht);
             ZetGeboortedatum(geboortedatum);
             ZetRijksregisternummer(rijksregisternummer);
-            ZetRijbewijsType(rijbewijs);
+            ZetRijbewijsLijst(rijbewijs);
             ZetAdres(adres);
             ZetVoertuig(voertuig);
             ZetTankkaart(tankkaart);
@@ -55,7 +55,7 @@ namespace Flapp_BLL.Models
             ZetGeslacht(geslacht);
             ZetGeboortedatum(geboortedatum);
             ZetRijksregisternummer(rijksregisternummer);
-            ZetRijbewijsType(rijbewijs);
+            ZetRijbewijsLijst(rijbewijs);
         }
 
         public Bestuurder(int id, string naam, string voornaam, Geslacht geslacht, Adres adres, string geboortedatum, string rijksregisternummer, List<RijbewijsType> rijbewijs, Voertuig voertuig, Tankkaart tankkaart)
@@ -66,7 +66,7 @@ namespace Flapp_BLL.Models
             ZetGeslacht(geslacht);
             ZetGeboortedatum(geboortedatum);
             ZetRijksregisternummer(rijksregisternummer);
-            ZetRijbewijsType(rijbewijs);
+            ZetRijbewijsLijst(rijbewijs);
             ZetAdres(adres);
             ZetVoertuig(voertuig);
             ZetTankkaart(tankkaart);
@@ -111,18 +111,10 @@ namespace Flapp_BLL.Models
             if (r == null) { throw new BestuurderException("Bestuuder rijksregisternummer is null!"); }
             if (rc.ControleRijksregisternummer(r, Geboortedatum, Geslacht)) Rijksregisternummer = r;
         }
-        public void ZetRijbewijsType(List<RijbewijsType> rt)
+        public void ZetRijbewijsLijst(List<RijbewijsType> rt)
         {
             if (rt == null) { throw new BestuurderException("Rijbewijs lijst is null!"); }
             RijbewijsType = rt;
-        }
-        public void ZetVoertuigg(Voertuig value)
-        {
-            // Misschien Fout
-            if (value == null) { throw new BestuurderException("Bestuurder: ZetVoertuig: Voertuig bestaat niet!"); }
-            if (value == Voertuig) { throw new BestuurderException("Bestuurder: ZetVoertuig: Voertuig is hetzelfde!"); }
-            if (value != null) value.zetBestuurder(this);
-            Voertuig = value;
         }
         public void ZetTankkaart(Tankkaart tk)
         {
@@ -133,19 +125,19 @@ namespace Flapp_BLL.Models
 
             if (nieuwVoertuig != null)
             {
-                if (this.Voertuig == null)
+                if (Voertuig == null)
                 {
                     if (!nieuwVoertuig.HeeftBestuurder(this))
                     {
                         nieuwVoertuig.zetBestuurder(this);
                     }
                 }
-                else if (this.Voertuig != nieuwVoertuig)
+                else if (Voertuig != nieuwVoertuig)
                 {
                     //
-                    if (this.Voertuig.HeeftBestuurder(this))
+                    if (Voertuig.HeeftBestuurder(this))
                     {
-                        this.Voertuig.VerwijderBestuurder(); //Als zijn vorige auto nog steeds over de bestuurder beschikt
+                        Voertuig.VerwijderBestuurder(); //Als zijn vorige auto nog steeds over de bestuurder beschikt
                     }
                     if (!nieuwVoertuig.HeeftBestuurder(this))
                     {
@@ -211,19 +203,15 @@ namespace Flapp_BLL.Models
         {
             return HashCode.Combine(Naam, Voornaam, Adres, Geboortedatum, Rijksregisternummer, RijbewijsType, Voertuig, Tankkaart);
         }
+
+        public override string ToString()
+        {
+            return $"\n\t---------------{GetType().Name}---------\n" +
+                $"\t{Naam}, {Voornaam}, {Geboortedatum.ToShortDateString()}\n" +
+                $"\t{Rijksregisternummer}, {string.Join(", ", RijbewijsType)}\n" +
+                $"\t--------------------------------";
+        }
+
         #endregion
     }
 }
-
-//USE[Project_Flapp_DB];
-//CREATE TABLE[dbo].[Bestuurder](
-//   [id][int] IDENTITY(1, 1) PRIMARY KEY,
-//   [naam] [varchar](50) NOT NULL,
-//   [voornaam] [varchar](50) NOT NULL,
-//   [geboortedatum] [date] NOT NULL,
-//   [rijksregister] [varchar](15) NOT NULL,
-//   [rijbewijstype_id] [int] FOREIGN KEY REFERENCES dbo.Rijbewijs(id),
-//   [adres_id] [int] FOREIGN KEY REFERENCES dbo.Adres(id),
-//   [voertuig_id] [int] NULL,
-//   [tankkaart_id] [int] NULL,
-//   [geslacht] [bit] NOT NULL)
