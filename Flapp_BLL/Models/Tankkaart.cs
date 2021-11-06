@@ -14,7 +14,7 @@ namespace Flapp_BLL.Models
 
         public string Pincode { get; private set; }
         // Tankkaart moet meerdere brandstoffen hebben.
-        public Brandstof Brandstoftype { get; private set; }
+        public Brandstof Brandstof { get; private set; }
         public Bestuurder Bestuurder { get; private set; }
         public bool Geblokkeerd { get; private set; }
         #endregion
@@ -36,7 +36,7 @@ namespace Flapp_BLL.Models
         {
             ZetKaartnummer(kaartnummer);
             ZetPincode(pincode);
-            ZetBrandstofType(brandstoftype);
+            ZetBrandstof(brandstoftype);
             ZetBestuurder(bestuurder);
             ZetGeblokkeerd(geblokkeerd);
         }
@@ -44,33 +44,35 @@ namespace Flapp_BLL.Models
         #endregion
 
         #region ZetMethods
-        public void ZetKaartnummer(int kn)
+        public void ZetKaartnummer(int nummer)
         {
-            if (kn < 1) { throw new TankkaartException("Tankkaart kaartnummer is kleiner dan 1!"); }
-            Kaartnummer = kn;
+            if (nummer < 1) { throw new TankkaartException("Tankkaart: ZetKaartnummer: Tankkaart kaartnummer is kleiner dan 1!"); }
+            Kaartnummer = nummer;
         }
-        public void ZetGeldigheidsdatum(DateTime gd)
+        public void ZetGeldigheidsdatum(DateTime datum)
         {
-            if (gd < DateTime.Now) { throw new TankkaartException("Tankkaart Geldigheidsdatum mag niet kleiner zijn dan vandaag!"); }
-            Geldigheidsdatum = gd;
+            if (datum < DateTime.Now) { throw new TankkaartException("Tankkaart: ZetGeldigheidsdatum: Tankkaart Geldigheidsdatum mag niet kleiner zijn dan vandaag!"); }
+            Geldigheidsdatum = datum;
         }
-        public void ZetGeblokkeerd(bool b)
+        public void ZetGeblokkeerd(bool blok)
         {
-            if (b == true) { throw new TankkaartException("Tankkaart is al geblokkeerd"); }
-            Geblokkeerd = b;
+            if (blok == Geblokkeerd) { throw new TankkaartException("Tankkaart: ZetGeblokkeerd: Tankkaart blokstatus is hetzelfde!"); }
+            Geblokkeerd = blok;
         }
-        public void ZetBrandstofType(Brandstof b)
+        public void ZetBrandstof(Brandstof brandstof)
         {
-            Brandstoftype = b;
+            if (brandstof == null) { throw new TankkaartException("Tankkaart: ZetBrandstof: Tankkaart brandstof is null!"); }
+            Brandstof = brandstof;
         }
-        public void ZetPincode(string p)
+        public void ZetPincode(string pincode)
         {
-            if (string.IsNullOrWhiteSpace(p)) { throw new TankkaartException("Tankkaart pincode is null!"); }
-            Pincode = p;
+            if (string.IsNullOrWhiteSpace(pincode)) { throw new TankkaartException("Tankkaart: ZetPincode: Tankkaart pincode is null!"); }
+            Pincode = pincode;
         }
-        public void ZetBestuurder(Bestuurder b)
+        public void ZetBestuurder(Bestuurder bestuurder)
         {
-            Bestuurder = b;
+            if (bestuurder == null) { throw new TankkaartException("Tankkaart: ZetBestuurder: Tankkaart bestuurder is null!"); }
+            Bestuurder = bestuurder;
         }
         #endregion
 
@@ -97,7 +99,9 @@ namespace Flapp_BLL.Models
         #region Overrides
         public override string ToString()
         {
-            return $"[Tankkaart] {Kaartnummer}, {Geldigheidsdatum}";
+            return $"\n\t---------------{GetType().Name}---------\n" +
+                $"\t{Kaartnummer}, {Geldigheidsdatum.ToShortDateString()}\n" +
+                $"\t--------------------------------\n";
         }
         public override bool Equals(object obj)
         {
@@ -107,7 +111,6 @@ namespace Flapp_BLL.Models
                    EqualityComparer<Bestuurder>.Default.Equals(Bestuurder, tankkaart.Bestuurder) &&
                    Geblokkeerd == tankkaart.Geblokkeerd;
         }
-
         public override int GetHashCode()
         {
             return HashCode.Combine(Kaartnummer, Geldigheidsdatum, Bestuurder, Geblokkeerd);
@@ -115,14 +118,3 @@ namespace Flapp_BLL.Models
         #endregion
     }
 }
-
-//USE[Project_Flapp_DB];
-//CREATE TABLE[dbo].[Tankkaart](
-//   [id][int] IDENTITY(1, 1) PRIMARY KEY,
-//   [geldigheidsdatum] [date] NOT NULL,
-//   [pincode] [varchar](50) NOT NULL,
-//   [brandstof_id] [int] NOT NULL,
-//   [bestuurder_id] [int] FOREIGN KEY REFERENCES dbo.Bestuurder(id),
-//   [brandstof_type] [int] FOREIGN KEY REFERENCES dbo.Brandstof(id),
-//   [voertuig_type] [varchar](50) NOT NULL,
-//   [geblokkeerd] [bit]NOT NULL);

@@ -65,7 +65,7 @@ namespace Flapp_DAL.Repository
                     cmd.Parameters["@kaartnr"].Value = t.Kaartnummer;
                     cmd.Parameters["@geldigheidsdatum"].Value = t.Geldigheidsdatum;
                     cmd.Parameters["@pincode"].Value = t.Pincode;
-                    cmd.Parameters["@brandstoftype"].Value = t.Brandstoftype;
+                    cmd.Parameters["@brandstoftype"].Value = t.Brandstof;
                     cmd.Parameters["@bestuurder_id"].Value = 1;
                     cmd.Parameters["@geblokkeerd"].Value = t.Geblokkeerd;
 
@@ -231,7 +231,7 @@ namespace Flapp_DAL.Repository
 
                     cmd.Parameters["@kaartnr"].Value = t.Kaartnummer;
                     cmd.Parameters["@geldigheidsdatum"].Value = t.Geldigheidsdatum;
-                    cmd.Parameters["@brandstoftype"].Value = t.Brandstoftype;
+                    cmd.Parameters["@brandstoftype"].Value = t.Brandstof;
                     cmd.Parameters["@bestuurder_id"].Value = t.Bestuurder.Id;
                     cmd.Parameters["@geblokkeerd"].Value = t.Geblokkeerd;
 
@@ -327,7 +327,7 @@ namespace Flapp_DAL.Repository
 
                     cmd.Parameters["@kaartnr"].Value = t.Kaartnummer;
                     cmd.Parameters["@geldigheidsdatum"].Value = t.Geldigheidsdatum;
-                    cmd.Parameters["@brandstoftype"].Value = t.Brandstoftype;
+                    cmd.Parameters["@brandstoftype"].Value = t.Brandstof;
                     cmd.Parameters["@bestuurder_id"].Value = t.Bestuurder.Id;
                     cmd.Parameters["@geblokkeerd"].Value = t.Geblokkeerd;
 
