@@ -193,7 +193,7 @@ namespace Flapp_DAL.Repository
         public IReadOnlyList<Bestuurder> GeefAlleBestuurders()
         {
             SqlConnection conn = new SqlConnection(_connString);
-            IList<Bestuurder> alleBestuurders = new List<Bestuurder>();
+            IList<Bestuurder> bestuurders = new List<Bestuurder>();
             string query = "USE [Project_Flapp_DB]; SELECT * FROM Bestuurder;";
             using (SqlCommand cmd = conn.CreateCommand())
             {
@@ -204,14 +204,13 @@ namespace Flapp_DAL.Repository
                     SqlDataReader r = cmd.ExecuteReader();
                     while (r.Read())
                     {
-                        // Bestuurder aanmaken en toevoegen aan list
-                        // alleBestuurders.Add(new());
+                        bestuurders.Add(new Bestuurder(r["bestuurderId"], r["naam"], r["voornaam"], r["geboortedatum"], r["rijksregister"], r[]));
                     }
                 }
                 catch (Exception ex) { throw new Exception(ex.Message); }
                 finally { conn.Close(); }
             }
-            return (IReadOnlyList<Bestuurder>)alleBestuurders;
+            return (IReadOnlyList<Bestuurder>)bestuurders;
         }
 
         public IReadOnlyList<Bestuurder> GeefAlleBestuurdersZonderTankkaarten()
