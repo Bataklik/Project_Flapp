@@ -35,6 +35,7 @@ CREATE TABLE[dbo].[Tankkaart](
    [geldigheidsdatum] [date] NOT NULL,
    [pincode] [varchar](50) NULL,
    [geblokkeerd] [bit] NOT NULL);
+   SET DATEFORMAT DMY
 END
 
 -- Voertuig
@@ -64,6 +65,7 @@ CREATE TABLE[dbo].[Bestuurder](
    [voertuigId] [int] FOREIGN KEY REFERENCES dbo.Voertuig(voertuigId),
    [tankkaartId] [int] FOREIGN KEY REFERENCES dbo.Tankkaart(tankkaartId),
    [geslacht] [bit] NOT NULL);
+   SET DATEFORMAT DMY
 END
 
 -- Rijbewijs_Bestuurder

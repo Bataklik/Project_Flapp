@@ -186,30 +186,27 @@ namespace Flapp_BLL.Models
         #endregion
 
         #region Overrides
+        public override string ToString()
+        {
+            return $"\n---------------{GetType().Name}---------\n" +
+                $"{Naam}, {Voornaam}, {Geboortedatum.ToShortDateString()}\n" +
+                $"{Rijksregisternummer}, {string.Join(", ", RijbewijsType)}\n" +
+                $"--------------------------------";
+        }
+
         public override bool Equals(object obj)
         {
             return obj is Bestuurder bestuurder &&
                    Naam == bestuurder.Naam &&
                    Voornaam == bestuurder.Voornaam &&
-                   EqualityComparer<Adres>.Default.Equals(Adres, bestuurder.Adres) &&
                    Geboortedatum == bestuurder.Geboortedatum &&
                    Rijksregisternummer == bestuurder.Rijksregisternummer &&
-                   RijbewijsType == bestuurder.RijbewijsType &&
-                   EqualityComparer<Voertuig>.Default.Equals(Voertuig, bestuurder.Voertuig) &&
-                   EqualityComparer<Tankkaart>.Default.Equals(Tankkaart, bestuurder.Tankkaart);
+                   Id == bestuurder.Id;
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(Naam, Voornaam, Adres, Geboortedatum, Rijksregisternummer, RijbewijsType, Voertuig, Tankkaart);
-        }
-
-        public override string ToString()
-        {
-            return $"\n\t---------------{GetType().Name}---------\n" +
-                $"\t{Naam}, {Voornaam}, {Geboortedatum.ToShortDateString()}\n" +
-                $"\t{Rijksregisternummer}, {string.Join(", ", RijbewijsType)}\n" +
-                $"\t--------------------------------";
+            return HashCode.Combine(Naam, Voornaam, Geboortedatum, Rijksregisternummer, Id);
         }
 
         #endregion
