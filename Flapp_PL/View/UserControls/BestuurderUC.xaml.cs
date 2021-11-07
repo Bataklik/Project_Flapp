@@ -15,11 +15,12 @@ namespace Flapp_PL.View.UserControls
     {
         private BestuurderManager _bestuurderManager;
         private string _connStringBurak = @"Data Source=LAPTOP-BURAQ\SQLEXPRESS;Initial Catalog=Project_Flapp_DB;Integrated Security=True";
+        private string _connStringTiboDesktop = @"Data Source=DESKTOP-8JVOTB1\SQLEXPRESS;Initial Catalog=Project_Flapp_DB;Integrated Security=True";
 
         public BestuurderUC()
         {
             InitializeComponent();
-            _bestuurderManager = new BestuurderManager(new BestuurderRepo(_connStringBurak));
+            _bestuurderManager = new BestuurderManager(new BestuurderRepo(_connStringTiboDesktop));
 
             laadBestuurders();
         }
