@@ -15,7 +15,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border x:Name="borderButton" CornerRadius="10" Background="#112D4E" BorderThickness="0">
+                        <Border x:Name="borderButton" CornerRadius="5" Background="#112D4E" BorderThickness="0">
                             <ContentPresenter x:Name="cpButton" Content="{TemplateBinding Content}" TextBlock.Foreground="#F9F7F7" VerticalAlignment="Center" HorizontalAlignment="Center"></ContentPresenter>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -34,18 +34,25 @@
             <ColumnDefinition Width="300"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <StackPanel Background="#112D4E">
-            <Grid>
+        <StackPanel Background="#112D4E" >
+            <StackPanel Margin="10" 
+                        Orientation="Horizontal" 
+                        HorizontalAlignment="Center">
+                <Image Source="./Images/Flapp_LOGO.png"
+                       Height="50"
+                       Width="50"
+                       />
                 <Label Content="Flapp"
                        FontSize="28"
                        HorizontalAlignment="Center"
                        Foreground="#F9F7F7"/>
-            </Grid>
+            </StackPanel>
             <Button x:Name="btnBestuurder"
-                    Height="50"
+                    Click="btnBestuurder_Click"
+                    Height="60"
                     Grid.Column="0"
                     Background="#112D4E"
-                                        Margin="0,20"
+                    Margin="0,20"
 
                     >
                 <StackPanel Orientation="Horizontal">
@@ -66,7 +73,8 @@
                 </StackPanel>
             </Button>
             <Button x:Name="btnVoertuig"
-                    Height="50"
+                    Click="btnVoertuig_Click"
+                    Height="60"
                     Grid.Column="0"
                     Background="#112D4E"
                                         Margin="0,20"
@@ -90,7 +98,8 @@
                 </StackPanel>
             </Button>
             <Button x:Name="btnTankkaart"
-                    Height="50"
+                    Click="btnTankkaart_Click"
+                    Height="60"
                     Grid.Column="0"
                     Background="#112D4E"
                     Margin="0,20"
@@ -112,8 +121,10 @@
                                HorizontalAlignment="Left"/>
                 </StackPanel>
             </Button>
-
-
         </StackPanel>
+        <WrapPanel x:Name="wpUserControl" 
+                   Grid.Column="1">
+
+        </WrapPanel>
     </Grid>
 </Window>
