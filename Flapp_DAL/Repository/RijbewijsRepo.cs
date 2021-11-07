@@ -1,6 +1,7 @@
 ﻿using Flapp_BLL.Interfaces;
 using Flapp_BLL.Models;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -106,6 +107,29 @@ namespace Flapp_DAL.Repository
                 catch (Exception ex) { throw new Exception(ex.Message); }
                 finally { conn.Close(); }
             }
+        }
+        #endregion
+
+        #region GeefAlleRijbewijzen
+        public IReadOnlyList<Rijbewijs> GeefAlleRijbewijzen() {
+            SqlConnection conn = new SqlConnection(_connString);
+            List<Rijbewijs> rijbewijzen = new List<Rijbewijs>();
+            string query = "SELECT * FROM [Project_Flapp_DB].[dbo].[Rijbewijs];";
+            using (SqlCommand cmd = conn.CreateCommand()) {
+                cmd.CommandText = query;
+                conn.Open();
+                try {
+                    SqlDataReader r = cmd.ExecuteReader();
+                    while (r.Read()) {
+                        string naam = (string)r["naam"];
+                        Rijbewijs rijbewijs = new Rijbewijs(naam);
+                        rijbewijzen.Add(rijbewijs);
+                    }
+                }
+                catch (Exception ex) { throw new Exception(ex.Message); }
+                finally { conn.Close(); }
+            }
+            return rijbewijzen;
         }
         #endregion
 

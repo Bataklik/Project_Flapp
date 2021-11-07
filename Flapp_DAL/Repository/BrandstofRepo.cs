@@ -224,7 +224,7 @@ namespace Flapp_DAL.Repository
         public IReadOnlyList<Brandstof> GeefAlleBrandstoffen() {
             SqlConnection conn = new SqlConnection(_connString);
             List<Brandstof> brandstoffen = new List<Brandstof>();
-            string query = "SELECT * FROM [Project_Flapp_DB].[dbo].[Tankkaart] INNER JOIN Brandstof_Tankkaart ON Tankkaart.tankkaartId = Brandstof_Tankkaart.tankkaartId INNER JOIN Brandstof ON Brandstof_Tankkaart.brandstofId = Brandstof.brandstofId;";
+            string query = "SELECT * FROM [Project_Flapp_DB].[dbo].[Brandstof]";
             using (SqlCommand cmd = conn.CreateCommand()) {
                 cmd.CommandText = query;
                 conn.Open();
