@@ -15,7 +15,6 @@ namespace Flapp_BLL.Interfaces
         bool BestaatBestuurder(Bestuurder bestuurder); //Moet kunnen kijken of een tankkaart een bestuurder heeft
         void VoegBestuurderToe(Bestuurder bestuurder);
         void VerwijderBestuurder(Bestuurder bestuurder);
-        IReadOnlyList<Tankkaart> GeefAlleTankkaarten();
-        IReadOnlyList<Tankkaart> GeefAlleTankkaartenZonderBestuurders(); //Voor een lijst voor tankkaarten zonder bestuurders;
+        IReadOnlyList<Tankkaart> GeefAlleTankkaarten(); //Voor een lijst voor tankkaarten zonder bestuurders;
     }
 }

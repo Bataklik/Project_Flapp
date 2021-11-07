@@ -106,56 +106,27 @@ namespace Flapp_DAL.Repository
 
         public IReadOnlyList<Tankkaart> GeefAlleTankkaarten()
         {
-            throw new NotImplementedException();
-        }
-
-        //public IReadOnlyList<Tankkaart> GeefAlleTankkaarten(int kaartnr, DateTime geldigheidsdatum, string pincode, Brandstof brandstof, Bestuurder bestuurder, bool geblokkeerd, bool strikt = true) {
-        //    List<Tankkaart> truitjes = new List<Tankkaart>();
-        //    SqlConnection conn = new SqlConnection();
-        //    string query = "SELECT * FROM [dbo].[Tankkaart] WHERE ";
-        //    bool AND = false;
-        //    if (kaartnr > 0) {
-        //        AND = true;
-        //        if (strikt) query += " kaartnr=@kaartnr";
-        //        else query += " UPPER(kaartnr)=UPPER(@kaartnr)";
-        //    }
-        //    if (geldigheidsdatum.GetHashCode() == 0) {
-        //        if (AND) query += " AND "; else AND = false;
-        //        if (strikt) query += " geldigheidsdatum=@geldigheidsdatum";
-        //        else query += " UPPER(geldigheidsdatum)=UPPER(@geldigheidsdatum) ";
-        //    }
-        //    if (!string.IsNullOrWhiteSpace(pincode)) {
-        //        if (AND) query += " AND "; else AND = false;
-        //        if (strikt) query += " seizoen=@seizoen";
-        //        else query += " UPPER(seizoen)=UPPER(@seizoen) ";
-        //    }
-        //    if (brandstof != null) {
-        //        if (AND) query += " AND "; else AND = false;
-        //        if (strikt) query += " brandstof_naam=@brandstof_naam";
-        //        else query += " UPPER(brandstof_naam)=UPPER(@brandstof) ";
-        //    }
-        //    if (bestuurder != null) {
-        //        if (AND) query += " AND "; else AND = false;
-        //        if (strikt) query += " bestuurder=@bestuurder_id";
-        //        else query += " UPPER(bestuurder)=UPPER(@bestuurder) ";
-        //    }
-        //    if (AND) query += " AND "; else AND = false;
-        //    if (strikt) query += " geblokkeerd=@geblokkeerd";
-        //    else query += " UPPER(geblokkeerd)=UPPER(@geblokkeerd) ";
-        //    using (SqlCommand cmd = conn.CreateCommand()) {
-        //        conn.Open();
-        //        try {
-        //            cmd.Parameters.Add(new SqlParameter("@kaartnr", SqlDbType.Int));
-        //            cmd.CommandText = query;
-        //            cmd.Parameters["@kaartnr"].Value = t.Kaartnummer;
-
-        //        } catch (Exception ex) { throw new Exception(ex.Message); } finally { conn.Close(); }
-        //    }
-        //}
-
-        public IReadOnlyList<Voertuig> GeefAlleTankkaartenZonderBestuurders()
-        {
-            throw new NotImplementedException();
+            SqlConnection conn = new SqlConnection(_connString);
+            List<Tankkaart> tankkaarten = new List<Tankkaart>();
+            string query = "SELECT * FROM [Project_Flapp_DB].[dbo].[Tankkaart] INNER JOIN Brandstof_Tankkaart ON Tankkaart.tankkaartId = Brandstof_Tankkaart.tankkaartId INNER JOIN Brandstof ON Brandstof_Tankkaart.brandstofId = Brandstof.brandstofId;";
+            using (SqlCommand cmd = conn.CreateCommand()) {
+                cmd.CommandText = query;
+                conn.Open();
+                try {
+                    SqlDataReader r = cmd.ExecuteReader();
+                    while (r.Read()) {
+                        int kaartnr = (int)r["tankkaartId"];
+                        DateTime datum = (DateTime)r["geldigheidsdatum"];
+                        string pincode = (string)r["pincode"];
+                        bool geblokkeerd = (bool)r["geblokkeerd"];
+                        Tankkaart tankkaart = new Tankkaart(kaartnr, datum);
+                        tankkaarten.Add(tankkaart);
+                    }
+                }
+                catch (Exception ex) { throw new Exception(ex.Message); }
+                finally { conn.Close(); }
+            }
+            return tankkaarten;
         }
 
         public Tankkaart GeefTankkaart(int kaartnr)
@@ -336,11 +307,6 @@ namespace Flapp_DAL.Repository
                 catch (Exception ex) { throw new Exception(ex.Message); }
                 finally { conn.Close(); }
             }
-        }
-
-        IReadOnlyList<Tankkaart> ITankkaartRepo.GeefAlleTankkaartenZonderBestuurders()
-        {
-            throw new NotImplementedException();
         }
     }
 }
