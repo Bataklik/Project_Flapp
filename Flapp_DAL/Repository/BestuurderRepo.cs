@@ -194,7 +194,7 @@ namespace Flapp_DAL.Repository
         {
             SqlConnection conn = new SqlConnection(_connString);
             IList<Bestuurder> bestuurders = new List<Bestuurder>();
-            string query = "USE [Project_Flapp_DB]; SELECT * FROM Bestuurder;";
+            string query = "SELECT * FROM [Project_Flapp_DB].[dbo].[Bestuurder] INNER JOIN Rijbewijs_Bestuurder ON Bestuurder.bestuurderId = Rijbewijs_Bestuurder.bestuurderId INNER JOIN Rijbewijs ON Rijbewijs_Bestuurder.rijbewijsId = Rijbewijs.rijbewijsId INNER JOIN Adres ON Bestuurder.adresId = Adres.adresId INNER JOIN Voertuig ON Bestuurder.voertuigId = Voertuig.voertuigId INNER JOIN Tankkaart ON Bestuurder.tankkaartId = Tankkaart.tankkaartId;";
             using (SqlCommand cmd = conn.CreateCommand())
             {
                 cmd.CommandText = query;
@@ -204,7 +204,7 @@ namespace Flapp_DAL.Repository
                     SqlDataReader r = cmd.ExecuteReader();
                     while (r.Read())
                     {
-                        bestuurders.Add(new Bestuurder(r["bestuurderId"], r["naam"], r["voornaam"], r["geboortedatum"], r["rijksregister"], r[]));
+                        bestuurders.Add(new Bestuurder(r["bestuurderId"], r["naam"], r["voornaam"], r["geboortedatum"], r["rijksregister"], r["naam"],));
                     }
                 }
                 catch (Exception ex) { throw new Exception(ex.Message); }
