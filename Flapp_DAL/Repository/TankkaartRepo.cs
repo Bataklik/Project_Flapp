@@ -213,27 +213,27 @@ namespace Flapp_DAL.Repository
             }
         }
 
-        public void VerwijderBestuurder(Bestuurder b)
-        {
-            SqlConnection conn = new SqlConnection(_connString);
-            string query = "USE [Project_Flapp_DB]; DELETE FROM [dbo].[Tankkaart] WHERE bestuurder_id = @bestuurder_id;";
-            using (SqlCommand cmd = conn.CreateCommand())
-            {
-                conn.Open();
-                try
-                {
-                    cmd.Parameters.Add(new SqlParameter("@bestuurder_id", SqlDbType.Int));
+        //public void VerwijderBestuurder(Bestuurder b)
+        //{
+        //    SqlConnection conn = new SqlConnection(_connString);
+        //    string query = "USE [Project_Flapp_DB]; DELETE FROM [dbo].[Tankkaart] WHERE bestuurder_id = @bestuurder_id;";
+        //    using (SqlCommand cmd = conn.CreateCommand())
+        //    {
+        //        conn.Open();
+        //        try
+        //        {
+        //            cmd.Parameters.Add(new SqlParameter("@bestuurder_id", SqlDbType.Int));
 
-                    cmd.CommandText = query;
+        //            cmd.CommandText = query;
 
-                    cmd.Parameters["@bestuurder_id"].Value = b.Id;
+        //            cmd.Parameters["@bestuurder_id"].Value = b.Id;
 
-                    cmd.ExecuteNonQuery();
-                }
-                catch (Exception ex) { throw new Exception(ex.Message); }
-                finally { conn.Close(); }
-            }
-        }
+        //            cmd.ExecuteNonQuery();
+        //        }
+        //        catch (Exception ex) { throw new Exception(ex.Message); }
+        //        finally { conn.Close(); }
+        //    }
+        //}
 
         public void VerwijderTankkaart(Tankkaart t)
         {
@@ -257,27 +257,27 @@ namespace Flapp_DAL.Repository
             }
         }
 
-        public void VoegBestuurderToe(Bestuurder b)
-        {
-            SqlConnection conn = new SqlConnection(_connString);
-            string query = "USE [Project_Flapp_DB]; INSERT INTO [dbo].[Tankkaart] ([bestuurder_id]) SELECT [dbo].[Bestuurder].[Id] FROM [dbo].[Bestuurder] WHERE [dbo].[Bestuurder].[Id]=@bestuurder_id;";
-            using (SqlCommand cmd = conn.CreateCommand())
-            {
-                conn.Open();
-                try
-                {
-                    cmd.Parameters.Add(new SqlParameter("@bestuurder_id", SqlDbType.Int));
+        //public void VoegBestuurderToe(Bestuurder b)
+        //{
+        //    SqlConnection conn = new SqlConnection(_connString);
+        //    string query = "USE [Project_Flapp_DB]; INSERT INTO [dbo].[Tankkaart] ([bestuurder_id]) SELECT [dbo].[Bestuurder].[Id] FROM [dbo].[Bestuurder] WHERE [dbo].[Bestuurder].[Id]=@bestuurder_id;";
+        //    using (SqlCommand cmd = conn.CreateCommand())
+        //    {
+        //        conn.Open();
+        //        try
+        //        {
+        //            cmd.Parameters.Add(new SqlParameter("@bestuurder_id", SqlDbType.Int));
 
-                    cmd.CommandText = query;
+        //            cmd.CommandText = query;
 
-                    cmd.Parameters["@bestuurder_id"].Value = b.Id;
+        //            cmd.Parameters["@bestuurder_id"].Value = b.Id;
 
-                    cmd.ExecuteNonQuery();
-                }
-                catch (Exception ex) { throw new Exception(ex.Message); }
-                finally { conn.Close(); }
-            }
-        }
+        //            cmd.ExecuteNonQuery();
+        //        }
+        //        catch (Exception ex) { throw new Exception(ex.Message); }
+        //        finally { conn.Close(); }
+        //    }
+        //}
 
         public void VoegTankkaartToe(Tankkaart t)
         {
