@@ -33,7 +33,7 @@ namespace Flapp_BLL.Models
             ZetVoertuigType(voertuigType);
             ZetKleur(kleur);
             ZetAantalDeuren(deuren);
-            zetBestuurder(bestuurder);
+            ZetBestuurder(bestuurder);
         }
         public Voertuig(int voertuigID, string merk, string model, string chassisNummer, string nummerPlaat, Brandstof brandstofType, string voertuigType, string kleur, int deuren)
         {
@@ -46,7 +46,6 @@ namespace Flapp_BLL.Models
             ZetVoertuigType(voertuigType);
             ZetKleur(kleur);
             ZetAantalDeuren(deuren);
-            //ZetBestuurder(bestuurder);
         }
 
         // !
@@ -120,7 +119,7 @@ namespace Flapp_BLL.Models
             Bestuurder = bestuurder;
         }
 
-        public void zetBestuurder(Bestuurder nieuweBestuurder)
+        public void ZetBestuurder(Bestuurder nieuweBestuurder)
         {
             if (nieuweBestuurder != null)
             {

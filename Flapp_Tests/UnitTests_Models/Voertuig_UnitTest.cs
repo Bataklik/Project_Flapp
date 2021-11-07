@@ -376,7 +376,7 @@ namespace Flapp_TESTS.UnitTests_Models
             Brandstof b = new Brandstof("Elektrisch");
             Voertuig v = new Voertuig(420, "Tesla", "Model X", "1abcd23efgh456789", "2-ABC-123", b, "Stationwagen", "Zwart", 5);
             Bestuurder driver = new Bestuurder("Raf", "Troch", Geslacht.M, "11/05/1999", "99.05.11-273.26", new());
-            v.zetBestuurder(driver);
+            v.ZetBestuurder(driver);
             Assert.Equal(driver, v.Bestuurder);
             Assert.Equal(v, driver.Voertuig);
         }

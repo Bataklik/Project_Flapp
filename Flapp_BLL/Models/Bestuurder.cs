@@ -129,7 +129,7 @@ namespace Flapp_BLL.Models
                 {
                     if (!nieuwVoertuig.HeeftBestuurder(this))
                     {
-                        nieuwVoertuig.zetBestuurder(this);
+                        nieuwVoertuig.ZetBestuurder(this);
                     }
                 }
                 else if (Voertuig != nieuwVoertuig)
@@ -142,14 +142,14 @@ namespace Flapp_BLL.Models
                     if (!nieuwVoertuig.HeeftBestuurder(this))
                     {
                         nieuwVoertuig.VerwijderBestuurder();
-                        nieuwVoertuig.zetBestuurder(this);
+                        nieuwVoertuig.ZetBestuurder(this);
                     }
                 }
                 Voertuig = nieuwVoertuig;
                 if (!nieuwVoertuig.HeeftBestuurder(this))
                 {
                     nieuwVoertuig.VerwijderBestuurder();
-                    nieuwVoertuig.zetBestuurder(this);
+                    nieuwVoertuig.ZetBestuurder(this);
                 }
             }
             else

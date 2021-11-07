@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flapp_TESTS", "Flapp_Tests\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flapp_DAL", "Flapp_DAL\Flapp_DAL.csproj", "{2DD0E71F-E684-406F-82FC-5691B18F981C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flapp_PL", "Flapp_PL\Flapp_PL.csproj", "{17D727FD-D2B6-4906-BA9A-E6B617174582}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flapp_PL", "Flapp_PL\Flapp_PL.csproj", "{17D727FD-D2B6-4906-BA9A-E6B617174582}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

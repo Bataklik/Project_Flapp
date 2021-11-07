@@ -32,6 +32,14 @@ namespace Flapp_BLL.Models
             ZetGeblokkeerd(isgeblokkeerd);
         }
 
+        public Tankkaart(int kaartnummer, DateTime geldigheidsdatum, string pincode, Brandstof brandstoftype, bool geblokkeerd) : this(kaartnummer, geldigheidsdatum)
+        {
+            ZetKaartnummer(kaartnummer);
+            ZetPincode(pincode);
+            ZetBrandstof(brandstoftype);
+            ZetGeblokkeerd(geblokkeerd);
+        }
+
         public Tankkaart(int kaartnummer, DateTime geldigheidsdatum, string pincode, Brandstof brandstoftype, Bestuurder bestuurder, bool geblokkeerd) : this(kaartnummer, geldigheidsdatum)
         {
             ZetKaartnummer(kaartnummer);
@@ -56,7 +64,6 @@ namespace Flapp_BLL.Models
         }
         public void ZetGeblokkeerd(bool blok)
         {
-            if (blok == Geblokkeerd) { throw new TankkaartException("Tankkaart: ZetGeblokkeerd: Tankkaart blokstatus is hetzelfde!"); }
             Geblokkeerd = blok;
         }
         public void ZetBrandstof(Brandstof brandstof)

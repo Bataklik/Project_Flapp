@@ -31,7 +31,7 @@ namespace Flapp_PL.View.UserControls
             {
                 bestuurders = _bestuurderManager.GeefAlleBestuurders();
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            catch (Exception ex) { throw new Exception(ex.Message, ex); }
             lstbBestuurders.ItemsSource = bestuurders;
         }
     }

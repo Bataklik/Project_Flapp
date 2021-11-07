@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:UserControls="clr-namespace:Flapp_PL.View.UserControls"
         xmlns:local="clr-namespace:Flapp_PL"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
@@ -56,7 +57,7 @@
 
                     >
                 <StackPanel Orientation="Horizontal">
-                    <materialDesign:PackIcon Kind="DriversLicense"
+                    <materialDesign:PackIcon Kind="Person"
                                              Margin="0,0,50,0"
                                              Width="50" 
                                              Height="50"
@@ -129,7 +130,7 @@
                     Margin="0,20"
                     >
                 <StackPanel Orientation="Horizontal">
-                    <materialDesign:PackIcon Kind="Card"
+                    <materialDesign:PackIcon Kind="DriversLicense"
                                              Margin="0,0,50,0"
                                              Width="50" 
                                              Height="50"

@@ -14,21 +14,26 @@ namespace Flapp_PL
 
         private void btnBestuurder_Click(object sender, RoutedEventArgs e)
         {
-            BestuurderUC bestuurderUc = new BestuurderUC();
             wpUserControl.Children.Clear();
+            BestuurderUC bestuurderUc = new BestuurderUC();
             wpUserControl.Children.Add(bestuurderUc);
         }
         private void btnVoertuig_Click(object sender, RoutedEventArgs e)
         {
-            VoertuigUC voertuigUc = new VoertuigUC();
             wpUserControl.Children.Clear();
+            VoertuigUC voertuigUc = new VoertuigUC();
             wpUserControl.Children.Add(voertuigUc);
         }
         private void btnTankkaart_Click(object sender, RoutedEventArgs e)
         {
-            TankkaartUC tankkaartUc = new TankkaartUC();
             wpUserControl.Children.Clear();
+            TankkaartUC tankkaartUc = new TankkaartUC();
             wpUserControl.Children.Add(tankkaartUc);
+        }
+
+        private void btnRijbewijs_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
