@@ -1,18 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Flapp_PL.View.UserControls;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
 namespace Flapp_PL
 {
     /// <summary>
@@ -23,6 +10,25 @@ namespace Flapp_PL
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void btnBestuurder_Click(object sender, RoutedEventArgs e)
+        {
+            BestuurderUC bestuurderUc = new BestuurderUC();
+            wpUserControl.Children.Clear();
+            wpUserControl.Children.Add(bestuurderUc);
+        }
+        private void btnVoertuig_Click(object sender, RoutedEventArgs e)
+        {
+            VoertuigUC voertuigUc = new VoertuigUC();
+            wpUserControl.Children.Clear();
+            wpUserControl.Children.Add(voertuigUc);
+        }
+        private void btnTankkaart_Click(object sender, RoutedEventArgs e)
+        {
+            TankkaartUC tankkaartUc = new TankkaartUC();
+            wpUserControl.Children.Clear();
+            wpUserControl.Children.Add(tankkaartUc);
         }
     }
 }
