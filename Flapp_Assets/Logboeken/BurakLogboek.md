@@ -24,5 +24,5 @@
 | 3u   | Rework sql tables and add CreateAll.sql                    |
 | 2.3u | Create Brandstof_Tankkaart sql table & rework db           |
 | 2u   | Check Adres, Rijbewijs Toevoegen & Geven                   |
-| 0u   | ---------------------------------------------------------- |
+| 3u   | Proberen van GeefAlleBestuurders te maken, maar datum wordt in andere format terug gegeven |
 
