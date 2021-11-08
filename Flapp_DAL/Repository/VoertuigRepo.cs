@@ -18,6 +18,57 @@ namespace Flapp_DAL.Repository
             _bRepo = new BestuurderRepo(connString);
         }
 
+        #region zoekvoertuigen
+        public IReadOnlyList<Voertuig> SearchVehicles(int? id, string merk, string model, string chassisNummer, string Nummerplaat, Brandstof fuelType, string vehicleType, string color, int doors, Bestuurder driver)
+        {
+            SqlConnection cn = getConnection();
+            List<Vehicle> vehicles = new List<Vehicle>();
+            string query = "SELECT * FROM vehicle WHERE brand=@brand,model=@model,chasisNumber=@chasisNumber,licensePlate=@licensePlate,vehicleType=@vehicleType,color=@color,doors=@doors";
+            using (SqlCommand cmd = cn.CreateCommand())
+            {
+                cn.Open();
+                try
+                {
+                    cmd.Parameters.Add(new SqlParameter("@brand", SqlDbType.NVarChar));
+                    cmd.Parameters.Add(new SqlParameter("@model", SqlDbType.NVarChar));
+                    cmd.Parameters.Add(new SqlParameter("@chasisNumber", SqlDbType.NVarChar));
+                    cmd.Parameters.Add(new SqlParameter("@licensePlate", SqlDbType.NVarChar));
+                    cmd.Parameters.Add(new SqlParameter("@vehicleType", SqlDbType.NVarChar));
+                    cmd.Parameters.Add(new SqlParameter("@color", SqlDbType.NVarChar));
+                    cmd.Parameters.Add(new SqlParameter("@doors", SqlDbType.NVarChar));
+
+                    cmd.Parameters["@brand"].Value = brand;
+                    cmd.Parameters["@model"].Value = model;
+                    cmd.Parameters["@chasisNumber"].Value = chassisNumber;
+                    cmd.Parameters["@licensePlate"].Value = licensePlate;
+                    cmd.Parameters["@vehicleType"].Value = vehicleType;
+                    cmd.Parameters["@color"].Value = color;
+                    cmd.Parameters["@doors"].Value = doors;
+
+
+                    cmd.CommandText = query;
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    //while (reader.Read())
+                    //{
+                    //    string brand = (string)["brand"];
+                    //    string model = (string)reader["model"];
+                    //    vehicles.Add(new Vehicle(brand,model,chassisNumber,licensePlate,new List<FuelType>(),vehicleType,color,doors));
+                    //}
+                }
+                catch (Exception ex)
+                {
+
+                    throw new Exception(ex.Message);
+                }
+                finally
+                {
+                    cn.Close();
+                }
+            }
+            return vehicles.AsReadOnly();
+        }
+        #endregion
+
         #region BestaatVoertuig Method
         public bool BestaatVoertuig(Voertuig v)
         {
@@ -54,9 +105,9 @@ namespace Flapp_DAL.Repository
                     cmd.Parameters["@bestuurder_id"].Value = _bRepo.GeefBestuurder(v.Bestuurder);
 
 
-                    int AdresBestaat = Convert.ToInt32(cmd.ExecuteScalar());
+                    int VoertuigBestaat = Convert.ToInt32(cmd.ExecuteScalar());
 
-                    if (AdresBestaat == 1) { return true; }
+                    if (VoertuigBestaat == 1) { return true; }
                     return false;
                 }
                 catch (Exception ex) { throw new Exception(ex.Message); }
