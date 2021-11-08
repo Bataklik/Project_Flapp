@@ -228,7 +228,7 @@ namespace Flapp_DAL.Repository
                         Adres adres = new Adres((int)r["adresId"], (string)r["straat"], (string)r["huisnummer"], (string)r["stad"], (int)r["postcode"]);
                         Geslacht geslacht = (bool)r["geslacht"] ? Geslacht.M : Geslacht.V;
                         List<Rijbewijs> rijbewijzen = new List<Rijbewijs> { new Rijbewijs(r[12].ToString()) };
-                        Brandstof brandstof = new Brandstof(Convert.ToInt32(r[32]), r[33].ToString());
+                        List<Brandstof> brandstof = new List<Brandstof> { new Brandstof(Convert.ToInt32(r[32]), r[33].ToString())};
                         Voertuig voertuig = new Voertuig((int)r["voertuigId"], (string)r["merk"], (string)r["model"], (string)r["chassisnummer"], (string)r["nummerplaat"], brandstof, (string)r["type"], (string)r["kleur"], (int)r["deuren"]);
 
                         Tankkaart tankkaart = new Tankkaart((int)r["tankkaartId"], (DateTime)r["geldigheidsdatum"], (string)r["pincode"], new Brandstof("NIETS"), (bool)r["geblokkeerd"]);

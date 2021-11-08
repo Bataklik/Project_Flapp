@@ -1,5 +1,6 @@
 ﻿using Flapp_BLL.Exceptions.ModelExpections;
 using Flapp_BLL.Checkers;
+using System.Collections.Generic;
 
 namespace Flapp_BLL.Models
 {
@@ -13,7 +14,7 @@ namespace Flapp_BLL.Models
         public string Model { get; private set; } // !
         public string ChassisNummer { get; private set; } // ! 
         public string Nummerplaat { get; private set; } // !
-        public Brandstof Brandstof { get; private set; } // !
+        public List<Brandstof> Brandstof { get; private set; } // !
         public string VoertuigType { get; private set; } // !
 
         public string Kleur { get; private set; }
@@ -22,41 +23,53 @@ namespace Flapp_BLL.Models
         #endregion
 
         #region Constructors
-        public Voertuig(int voertuigID, string merk, string model, string chassisNummer, string nummerPlaat, Brandstof brandstofType, string voertuigType, string kleur, int deuren, Bestuurder bestuurder)
+        public Voertuig(int voertuigID, string merk, string model, string chassisNummer, string nummerPlaat, List<Brandstof> brandstofType, string voertuigType, string kleur, int deuren, Bestuurder bestuurder)
         {
             ZetVoeruigID(voertuigID);
             ZetMerk(merk);
             ZetModel(model);
             ZetChassisNummer(chassisNummer);
             ZetNummerplaat(nummerPlaat);
-            ZetBrandstofType(brandstofType);
+            ZetBrandstofTypeLijst(brandstofType);
             ZetVoertuigType(voertuigType);
             ZetKleur(kleur);
             ZetAantalDeuren(deuren);
             ZetBestuurder(bestuurder);
         }
-        public Voertuig(int voertuigID, string merk, string model, string chassisNummer, string nummerPlaat, Brandstof brandstofType, string voertuigType, string kleur, int deuren)
+        public Voertuig(int voertuigID, string merk, string model, string chassisNummer, string nummerPlaat, List<Brandstof> brandstofType, string voertuigType, string kleur, int deuren)
         {
             ZetVoeruigID(voertuigID);
             ZetMerk(merk);
             ZetModel(model);
             ZetChassisNummer(chassisNummer);
             ZetNummerplaat(nummerPlaat);
-            ZetBrandstofType(brandstofType);
+            ZetBrandstofTypeLijst(brandstofType);
             ZetVoertuigType(voertuigType);
             ZetKleur(kleur);
             ZetAantalDeuren(deuren);
         }
 
         // !
-        public Voertuig(string merk, string model, string chassisNummer, string nummerplaat, Brandstof brandstoftype, string voertuigType)
+        public Voertuig(string merk, string model, string chassisNummer, string nummerplaat, List<Brandstof> brandstoftype, string voertuigType)
         {
             ZetMerk(merk);
             ZetModel(model);
             ZetChassisNummer(chassisNummer);
             ZetNummerplaat(nummerplaat);
-            ZetBrandstofType(brandstoftype);
+            ZetBrandstofTypeLijst(brandstoftype);
             ZetVoertuigType(voertuigType);
+        }
+
+        public Voertuig(string merk, string model, string chassisNummer, string nummerplaat, string voertuigType, string kleur, int deuren)
+        {
+            ZetMerk(merk);
+            ZetModel(model);
+            ZetChassisNummer(chassisNummer);
+            ZetNummerplaat(nummerplaat);
+            
+            ZetVoertuigType(voertuigType);
+            ZetKleur(kleur);
+            ZetAantalDeuren(deuren);
         }
 
 
@@ -92,10 +105,10 @@ namespace Flapp_BLL.Models
             if (nc.ControleNummerplaat(nummerplaat))
                 Nummerplaat = nummerplaat;
         }
-        public void ZetBrandstofType(Brandstof brandstof)
+        public void ZetBrandstofTypeLijst(List<Brandstof> bt)
         {
-            if (brandstof == null) { throw new VoertuigException("Voertuig - brandstof is null!"); }
-            Brandstof = brandstof;
+            if (bt == null) { throw new VoertuigException("Brandstof lijst is null!"); }
+            Brandstof = bt;
         }
         public void ZetVoertuigType(string voertuigType)
         {

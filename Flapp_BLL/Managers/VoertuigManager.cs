@@ -3,10 +3,11 @@ using Flapp_BLL.Exceptions.ModelExpections;
 using Flapp_BLL.Interfaces;
 using Flapp_BLL.Models;
 using System;
+using System.Collections.Generic;
 
 namespace Flapp_BLL.Managers
 {
-    class VoertuigManager
+    public class VoertuigManager
     {
         private IVoertuigRepo _repo;
 
@@ -43,6 +44,15 @@ namespace Flapp_BLL.Managers
                 _repo.VerwijderVoertuig(voertuig);
             }
             catch (Exception ex) { throw new VoertuigManagerException(ex.Message); }
+        }
+
+        public IReadOnlyList<Voertuig> GeefAlleVoertuigen()
+        {
+            try
+            {
+                return _repo.GeefAlleVoertuigen();
+            }
+            catch (Exception ex) { throw new BestuurderManagerException("VoertuigManager: Geef alle voertuigen:", ex); }
         }
     }
 }

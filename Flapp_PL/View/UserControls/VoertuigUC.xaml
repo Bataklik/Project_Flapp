@@ -7,6 +7,25 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Label Content="VoertuigUC"/>
+        <Label Margin="0,0,-7,0">
+            <ListBox x:Name="lstVoertuigen" Height="438" Width="326"/>            
+        </Label>
+
+        <Label Content="Merk:" Margin="550,50,47,376" />
+        <TextBox x:Name="txtMerk" Height="25" Width="150" Margin="600,50,47,376" />
+        <Label Content="Model:" Margin="550,90,47,335" />
+        <TextBox x:Name="txtModel" Height="25" Width="150" Margin="600,90,47,335" />
+        <Label Content="Chassisnummer:" Margin="500,130,47,295" />
+        <TextBox x:Name="txtChassis" Height="25" Width="150" Margin="600,130,47,295" />
+        <Label Content="Nummerplaat:" Margin="500,170,47,256" />
+        <TextBox x:Name="txtNummerplaat" Height="25" Width="150" Margin="600,170,47,256" />
+        <Label Content="Type wagen:" Margin="500,210,47,213" />
+        <TextBox x:Name="txtType" Height="25" Width="150" Margin="600,210,47,213" />
+        <Label Content="Kleur:" Margin="550,250,47,174" />
+        <TextBox x:Name="txtKleur" Height="25" Width="150" Margin="600,250,47,174" />
+        <Label Content="Aantal deuren:" Margin="500,290,47,136" />
+        <TextBox x:Name="txtDeuren" Height="25" Width="150" Margin="600,290,47,136" />
+
+        <Button x:Name="btnVoegVoertuigToe" Content="Toevoegen" Height="50" Width="200" Margin="545,350,55,50" Background="White" Click="btnVoegVoertuigToe_Click"/>
     </Grid>
 </UserControl>
