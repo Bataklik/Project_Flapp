@@ -4,7 +4,7 @@ using Flapp_BLL.Exceptions;
 using Flapp_BLL.Exceptions.CheckerExceptions;
 using Flapp_BLL.Exceptions.ModelExpections;
 
-namespace Flapp_TESTS
+namespace Flapp_TESTS.UnitTests_Models
 {
     public class Voertuig_UnitTest
     {
@@ -23,7 +23,7 @@ namespace Flapp_TESTS
             Assert.Equal("Model X", v.Model);
             Assert.Equal("1abcd23efgh456789", v.ChassisNummer);
             Assert.Equal("2-ABC-123", v.Nummerplaat);
-            Assert.Equal(b, v.Brandstoftype);
+            Assert.Equal(b, v.Brandstof);
             Assert.Equal("Stationwagen", v.VoertuigType);
             Assert.Equal("Zwart", v.Kleur);
             Assert.Equal(5, v.Aantaldeuren);
@@ -118,7 +118,7 @@ namespace Flapp_TESTS
             Assert.Equal("Model X", v.Model);
             Assert.Equal("1abcd23efgh456789", v.ChassisNummer);
             Assert.Equal("2-ABC-123", v.Nummerplaat);
-            Assert.Equal(b, v.Brandstoftype);
+            Assert.Equal(b, v.Brandstof);
             Assert.Equal("Stationwagen", v.VoertuigType);
         }
         [Theory]
@@ -298,7 +298,7 @@ namespace Flapp_TESTS
 
             Brandstof testBrandstof = new Brandstof("Diesel");
             v.ZetBrandstofType(testBrandstof);
-            Assert.Equal(testBrandstof, v.Brandstoftype);
+            Assert.Equal(testBrandstof, v.Brandstof);
         }
         [Theory]
         [InlineData(null)]
@@ -375,8 +375,8 @@ namespace Flapp_TESTS
         {
             Brandstof b = new Brandstof("Elektrisch");
             Voertuig v = new Voertuig(420, "Tesla", "Model X", "1abcd23efgh456789", "2-ABC-123", b, "Stationwagen", "Zwart", 5);
-            Bestuurder driver = new Bestuurder("Raf", "Troch", Geslacht.M, "11/05/1999", "99.05.11-273.26", new("B"));
-            v.zetBestuurder(driver);
+            Bestuurder driver = new Bestuurder("Raf", "Troch", Geslacht.M, "11/05/1999", "99.05.11-273.26", new());
+            v.ZetBestuurder(driver);
             Assert.Equal(driver, v.Bestuurder);
             Assert.Equal(v, driver.Voertuig);
         }
@@ -395,7 +395,7 @@ namespace Flapp_TESTS
         public void Test_HasDriver_Valid()
         {
             Brandstof b = new Brandstof("Elektrisch");
-            Bestuurder d = new Bestuurder("Raf", "Troch", Geslacht.M, "11/05/1999", "99.05.11-273.26", new("B"));
+            Bestuurder d = new Bestuurder("Raf", "Troch", Geslacht.M, "11/05/1999", "99.05.11-273.26", new());
             Voertuig v = new Voertuig(420, "Tesla", "Model X", "1abcd23efgh456789", "2-ABC-123", b, "Stationwagen", "Zwart", 5, d);
             Assert.True(v.HeeftBestuurder(d));
         }
@@ -404,7 +404,7 @@ namespace Flapp_TESTS
         public void Test_HasDriver_Invalid()
         {
             Brandstof b = new Brandstof("Elektrisch");
-            Bestuurder d = new Bestuurder("Raf", "Troch", Geslacht.M, "11/05/1999", "99.05.11-273.26", new("B"));
+            Bestuurder d = new Bestuurder("Raf", "Troch", Geslacht.M, "11/05/1999", "99.05.11-273.26", new());
             Voertuig v = new Voertuig(420, "Tesla", "Model X", "1abcd23efgh456789", "2-ABC-123", b, "Stationwagen", "Zwart", 5);
             Assert.False(v.HeeftBestuurder(d));
         }
@@ -413,7 +413,7 @@ namespace Flapp_TESTS
         public void Test_RemoveDriver_Valid()
         {
             Brandstof b = new Brandstof("Elektrisch");
-            Bestuurder d = new Bestuurder("Raf", "Troch", Geslacht.M, "11/05/1999", "99.05.11-273.26", new("B"));
+            Bestuurder d = new Bestuurder("Raf", "Troch", Geslacht.M, "11/05/1999", "99.05.11-273.26", new());
             Voertuig v = new Voertuig(420, "Tesla", "Model X", "1abcd23efgh456789", "2-ABC-123", b, "Stationwagen", "Zwart", 5, d);
             v.VerwijderBestuurder();
             Assert.Null(v.Bestuurder);

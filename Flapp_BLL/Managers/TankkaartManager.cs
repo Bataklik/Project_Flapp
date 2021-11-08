@@ -63,7 +63,7 @@ namespace Flapp_BLL.Managers
             if (_repo.BestaatBestuurder(bestuurder)) { throw new Exception("TankkaartManager: BestaatBestuurder: Bestuurder bestaat al!"); }
             try
             {
-                _repo.VoegBestuurderToe(bestuurder);
+                //_repo.VoegBestuurderToe(bestuurder);
             }
             catch (Exception ex) { throw new TankkaartManagerException("TankkaartManager", ex); }
         }
@@ -72,7 +72,7 @@ namespace Flapp_BLL.Managers
             if (!_repo.BestaatBestuurder(bestuurder)) { throw new TankkaartManagerException("TankkaartManager: VerwijderBestuurder: Bestuurder bestaat niet"); }
             try
             {
-                _repo.VerwijderBestuurder(bestuurder);
+                //_repo.VerwijderBestuurder(bestuurder);
             }
             catch (Exception ex) { throw new TankkaartManagerException("TankkaartManager", ex); }
         }

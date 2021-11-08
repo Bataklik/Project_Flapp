@@ -1,6 +1,5 @@
-﻿using System;
+﻿using Flapp_BLL.Models;
 using System.Collections.Generic;
-using Flapp_BLL.Models;
 
 namespace Flapp_BLL.Interfaces
 {
@@ -13,9 +12,8 @@ namespace Flapp_BLL.Interfaces
         void UpdateTankkaart(Tankkaart tankkaart);
 
         bool BestaatBestuurder(Bestuurder bestuurder); //Moet kunnen kijken of een tankkaart een bestuurder heeft
-        void VoegBestuurderToe(Bestuurder bestuurder);
-        void VerwijderBestuurder(Bestuurder bestuurder);
-        IReadOnlyList<Tankkaart> GeefAlleTankkaarten();
-        IReadOnlyList<Tankkaart> GeefAlleTankkaartenZonderBestuurders(); //Voor een lijst voor tankkaarten zonder bestuurders;
+        //void VoegBestuurderToe(Bestuurder bestuurder);
+        //void VerwijderBestuurder(Bestuurder bestuurder);
+        IReadOnlyList<Tankkaart> GeefAlleTankkaarten(); //Voor een lijst voor tankkaarten;
     }
 }

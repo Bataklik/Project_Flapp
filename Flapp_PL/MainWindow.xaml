@@ -3,10 +3,153 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:UserControls="clr-namespace:Flapp_PL.View.UserControls"
         xmlns:local="clr-namespace:Flapp_PL"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Title="Flapp: Dashboard" Height="500" Width="1100">
+    <Window.Resources>
+        <!-- Button Style-->
+        <Style TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="borderButton" CornerRadius="5" Background="#112D4E" BorderThickness="0">
+                            <ContentPresenter x:Name="cpButton" Content="{TemplateBinding Content}" TextBlock.Foreground="#F9F7F7" VerticalAlignment="Center" HorizontalAlignment="Center"></ContentPresenter>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="borderButton" Property="Background" Value="#3F72AF"/>
+                                <Setter TargetName="cpButton" Property="TextBlock.Foreground" Value="#FFD369"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Background="#112D4E" >
+            <StackPanel Margin="10" 
+                        Orientation="Horizontal" 
+                        HorizontalAlignment="Center">
+                <Image Source="./Images/Flapp_LOGO.png"
+                       Height="50"
+                       Width="50"
+                       />
+                <Label Content="Flapp"
+                       FontSize="28"
+                       HorizontalAlignment="Center"
+                       Foreground="#F9F7F7"/>
+            </StackPanel>
+            <Button x:Name="btnBestuurder"
+                    Click="btnBestuurder_Click"
+                    Height="60"
+                    Grid.Column="0"
+                    Background="#112D4E"
+                    Margin="0,20"
 
+                    >
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="Person"
+                                             Margin="0,0,50,0"
+                                             Width="50" 
+                                             Height="50"
+                                             HorizontalAlignment="Left"
+                                             Foreground="#F9F7F7"/>
+                    <TextBlock Text="Bestuurder"
+                               Width="100"
+                               Margin="0,0,10,0"
+                               VerticalAlignment="Center"
+                               Foreground="#F9F7F7"
+                               FontSize="18" 
+                               TextAlignment="Left" 
+                               HorizontalAlignment="Left"/>
+                </StackPanel>
+            </Button>
+            <Button x:Name="btnVoertuig"
+                    Click="btnVoertuig_Click"
+                    Height="60"
+                    Grid.Column="0"
+                    Background="#112D4E"
+                                        Margin="0,20"
+
+                    >
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="Car"
+                                             Margin="0,0,50,0"
+                                             Width="50" 
+                                             Height="50"
+                                             HorizontalAlignment="Left"
+                                             Foreground="#F9F7F7"/>
+                    <TextBlock Text="Voertuig"
+                               Width="100"
+                               Margin="0,0,10,0"
+                               VerticalAlignment="Center"
+                               Foreground="#F9F7F7"
+                               FontSize="18" 
+                               TextAlignment="Left" 
+                               HorizontalAlignment="Left"/>
+                </StackPanel>
+            </Button>
+            <Button x:Name="btnTankkaart"
+                    Click="btnTankkaart_Click"
+                    Height="60"
+                    Grid.Column="0"
+                    Background="#112D4E"
+                    Margin="0,20"
+                    >
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="Card"
+                                             Margin="0,0,50,0"
+                                             Width="50" 
+                                             Height="50"
+                                             HorizontalAlignment="Left"
+                                             Foreground="#F9F7F7"/>
+                    <TextBlock Text="Tankkaart"
+                               Width="100"
+                               Margin="0,0,10,0"
+                               VerticalAlignment="Center"
+                               Foreground="#F9F7F7"
+                               FontSize="18" 
+                               TextAlignment="Left" 
+                               HorizontalAlignment="Left"/>
+                </StackPanel>
+            </Button>
+            <Button x:Name="btnRijbewijs"
+                    Click="btnRijbewijs_Click"
+                    Height="60"
+                    Grid.Column="0"
+                    Background="#112D4E"
+                    Margin="0,20"
+                    >
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="DriversLicense"
+                                             Margin="0,0,50,0"
+                                             Width="50" 
+                                             Height="50"
+                                             HorizontalAlignment="Left"
+                                             Foreground="#F9F7F7"/>
+                    <TextBlock Text="Rijbewijs"
+                               Width="100"
+                               Margin="0,0,10,0"
+                               VerticalAlignment="Center"
+                               Foreground="#F9F7F7"
+                               FontSize="18" 
+                               TextAlignment="Left" 
+                               HorizontalAlignment="Left"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+        <WrapPanel x:Name="wpUserControl" 
+                   Grid.Column="1">
+
+        </WrapPanel>
     </Grid>
 </Window>

@@ -20,6 +20,9 @@
 | 2u   | Create Adres interface, repo, manager                      |
 | 2u   | Create 2 ManagerExceptions, 3 nieuwe folders in Exceptions |
 | 2u   | Add VoegRijbewijsToe, VoegBrandstofToe met bijhorende methods |
-| 0u   | ---------------------------------------------------------- |
-| 0u   | ---------------------------------------------------------- |
-| 0u   | ---------------------------------------------------------- |
+| 2u   | Change RijbewijsType -> List<RijbewijsType> & Change errors|
+| 3u   | Rework sql tables and add CreateAll.sql                    |
+| 2.3u | Create Brandstof_Tankkaart sql table & rework db           |
+| 2u   | Check Adres, Rijbewijs Toevoegen & Geven                   |
+| 3u   | Proberen van GeefAlleBestuurders te maken, maar datum wordt in andere format terug gegeven |
+

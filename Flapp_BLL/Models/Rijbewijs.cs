@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Flapp_BLL.Models
 {
-    public class RijbewijsType
+    public class Rijbewijs
     {
         #region Props
         public int Id { get; private set; }
@@ -12,12 +12,12 @@ namespace Flapp_BLL.Models
         #endregion
 
         #region Constructor
-        public RijbewijsType(int id, string naam)
+        public Rijbewijs(int id, string naam)
         {
             ZetId(id);
             ZetNaam(naam);
         }
-        public RijbewijsType(string naam)
+        public Rijbewijs(string naam)
         {
             ZetNaam(naam);
         }
@@ -26,13 +26,13 @@ namespace Flapp_BLL.Models
         #region Zetmethods
         public void ZetId(int id)
         {
-            if (id <= 0) { throw new RijbewijsTypeException("RijbewijsType: ZetId: Id moet positief zijn!"); }
+            if (id <= 0) { throw new RijbewijsException("RijbewijsType: ZetId: Id moet positief zijn!"); }
             Id = id;
         }
         public void ZetNaam(string naam)
         {
-            if (string.IsNullOrWhiteSpace(naam)) { throw new RijbewijsTypeException("RijbewijsType: ZetNaam: Naam mag niet leeg zijn!"); }
-            if (!naam.Any(char.IsUpper)) { throw new RijbewijsTypeException("RijbewijsType: ZetNaam: Naam moet niet hoofdletter!"); }
+            if (string.IsNullOrWhiteSpace(naam)) { throw new RijbewijsException("RijbewijsType: ZetNaam: Naam mag niet leeg zijn!"); }
+            if (!naam.Any(char.IsUpper)) { throw new RijbewijsException("RijbewijsType: ZetNaam: Naam moet niet hoofdletter!"); }
             Naam = naam;
         }
         #endregion
@@ -40,12 +40,12 @@ namespace Flapp_BLL.Models
         #region Overrides
         public override string ToString()
         {
-            return $"{Id}, {Naam}";
+            return $"{Naam} ";
         }
 
         public override bool Equals(object obj)
         {
-            return obj is RijbewijsType type &&
+            return obj is Rijbewijs type &&
                    Naam == type.Naam;
         }
 
@@ -53,12 +53,6 @@ namespace Flapp_BLL.Models
         {
             return HashCode.Combine(Naam);
         }
-
         #endregion
     }
 }
-
-//USE[Project_Flapp_DB];
-//CREATE TABLE[dbo].[Rijbewijs](
-//   [id][int] IDENTITY(1, 1) PRIMARY KEY,
-//   [rijbewijs_naam] [varchar](5))

@@ -25,7 +25,7 @@ namespace Flapp_BLL.Checkers
             //1-ABC-123
             if (string.IsNullOrEmpty(n)) { throw new NummerplaatCheckerException("Een nummerplaat mag niet leeg zijn!"); }
             if (n.Count(e => char.IsDigit(e)) != 4) { throw new NummerplaatCheckerException("Een nummerplaat bevat 4 cijfers"); }
-            if (n.Count(e => !char.IsDigit(e)) != 5) { throw new NummerplaatCheckerException("Een nummerplaat bevat 3 letters"); }
+            if (n.Count(e => char.IsLetter(e)) != 3) { throw new NummerplaatCheckerException("Een nummerplaat bevat 3 letters"); }
             if (n.Count(e => e == '-') != 2) { throw new NummerplaatCheckerException("Het nummerplaat is ongeldig!"); }
             if (!ControleEersteGroep(n)) { throw new NummerplaatCheckerException("Controle op eerste groep van het nummerplaat is ongeldig!"); }
             return true;

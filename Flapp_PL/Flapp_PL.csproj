@@ -7,7 +7,20 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="View\" />
+    <None Remove="Images\FLAPP_LOGO.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MaterialDesignThemes" Version="4.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Flapp_BLL\Flapp_BLL.csproj" />
+    <ProjectReference Include="..\Flapp_DAL\Flapp_DAL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\FLAPP_LOGO.png" />
   </ItemGroup>
 
 </Project>

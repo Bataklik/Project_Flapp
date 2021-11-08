@@ -1,4 +1,5 @@
 ﻿using Flapp_BLL.Models;
+using System.Collections.Generic;
 
 namespace Flapp_BLL.Interfaces
 {
@@ -6,6 +7,7 @@ namespace Flapp_BLL.Interfaces
     {
         Brandstof GeefBrandstof(Brandstof brandstof);
         Brandstof GeefBrandstof(int id);
+        IReadOnlyList<Brandstof> GeefAlleBrandstoffen();
         bool BestaatBrandstof(Brandstof brandstof);
         bool BestaatBrandstof(int id);
         bool BestaatBrandstof(string brandstof_naam);

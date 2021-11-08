@@ -1,13 +1,8 @@
 ﻿using Flapp_BLL.Checkers;
 using Flapp_BLL.Exceptions.CheckerExceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
-namespace Flapp_TESTS
+namespace Flapp_TESTS.UnitTests_Models
 {
     public class ChassisChecker_UnitTest
     {

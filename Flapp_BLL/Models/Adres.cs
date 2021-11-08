@@ -81,11 +81,3 @@ namespace Flapp_BLL.Models
         #endregion
     }
 }
-
-//USE[Project_Flapp_DB];
-//CREATE TABLE[dbo].[Adres](
-//   [Id][int] IDENTITY(1, 1) PRIMARY KEY,
-//   [Straat] [varchar](50) NOT NULL,
-//   [Huisnummer] [varchar](50) NOT NULL,
-//   [Stad] [varchar](50) NOT NULL,
-//   [Postcode] [int] NOT NULL);

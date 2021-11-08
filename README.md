@@ -23,12 +23,16 @@
 <!-- Feedback -->
 <!-- [ ] Empty [x] Full -->
 
-## ToDo's
-* GeefBestuurder methode
-* RijbewijsTypeRepo klassen afwerken
-* Alle methode's met NotImplementedException() maken
-* Geef Voertuig & Tankkaart methode maken
-* ~UnitTests RijbewijsType~
+## TODO's
+* Sql column names zijn aangepast dus repo's aanpassen
+* AdresRepo: Geef, Verwijder, Update.
+* BestuurderRepo: Bestaat, Update, Verwijder,
+* Tankkaart moet meerdere brandstoffen hebben.
+
+## Feedback: 4/11 ##
+- [ ] Bestuurder & Tankkaart moeten gelinkt zijn aan elkaar. En ook andere links
+- [ ] Transactie's
+- [ ] Één methode in één repo's, probeer te vermijden om repo -> repo
 
 ## Feedback: 21/10
 - [ ] Voor alle klassen een unit test

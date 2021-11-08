@@ -8,11 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Flapp_TESTS.ManagerTesting {
-    public class BrandstofManager_UnitTest {
+namespace Flapp_TESTS.UnitTests_Models
+{
+    public class BrandstofManager_UnitTest
+    {
         private IBrandstofRepo repo;
         //[Fact]
-        public void VoegBrandstofToe() {
+        public void VoegBrandstofToe()
+        {
             Brandstof brandstof = new Brandstof("Benzine");
             BrandstofManager bm = new BrandstofManager(repo);
             bm.VoegBrandstofToe(brandstof);
