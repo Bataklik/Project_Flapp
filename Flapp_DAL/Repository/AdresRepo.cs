@@ -162,16 +162,51 @@ namespace Flapp_DAL.Repository
         #region VerwijderAdres Method
         public void VerwijderAdres(Adres a)
         {
-            throw new NotImplementedException();
+            SqlConnection conn = new SqlConnection(_connString);
+            string query = "USE [Project_Flapp_DB]; DELETE FROM [dbo].[Adres] WHERE adresid = @adresid;";
+            using (SqlCommand cmd = conn.CreateCommand()) {
+                conn.Open();
+                try {
+                    cmd.Parameters.Add(new SqlParameter("@adresid", SqlDbType.Int));
+
+                    cmd.CommandText = query;
+
+                    cmd.Parameters["@adresid"].Value = a.Id;
+
+                    cmd.ExecuteNonQuery();
+                } catch (Exception ex) { throw new Exception(ex.Message); } finally { conn.Close(); }
+            }
         }
         #endregion
 
         #region UpdateAdres Method
         public void UpdateAdres(Adres a)
         {
-            Console.WriteLine("Test");
-            throw new NotImplementedException();
+            SqlConnection conn = new SqlConnection(_connString);
+            string query = "USE [Project_Flapp_DB]; UPDATE [dbo].[Adres] WHERE adresid = @adresid AND straat = @straat AND huisnummer = @huisnummer" +
+                "AND stad = @stad AND postcode = @postcode";
+            using (SqlCommand cmd = conn.CreateCommand()) {
+                conn.Open();
+                try {
+                    cmd.Parameters.Add(new SqlParameter("@adresid", SqlDbType.Int));
+                    cmd.Parameters.Add(new SqlParameter("@straat", SqlDbType.NVarChar));
+                    cmd.Parameters.Add(new SqlParameter("@huisnummer", SqlDbType.NVarChar));
+                    cmd.Parameters.Add(new SqlParameter("@stad", SqlDbType.NVarChar));
+                    cmd.Parameters.Add(new SqlParameter("@postcode", SqlDbType.Int));
+
+                    cmd.CommandText = query;
+
+                    cmd.Parameters["@adresid"].Value = a.Id;
+                    cmd.Parameters["@straat"].Value = a.Straat;
+                    cmd.Parameters["@huisnummer"].Value = a.Huisnummer;
+                    cmd.Parameters["@stad"].Value = a.Stad;
+                    cmd.Parameters["@postcode"].Value = a.Postcode;
+
+                    cmd.ExecuteNonQuery();
+                } catch (Exception ex) { throw new Exception(ex.Message); } finally { conn.Close(); }
+            }
         }
         #endregion
+
     }
 }

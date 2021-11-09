@@ -19,8 +19,8 @@ namespace Flapp_DAL.Repository
         public bool BestaatBestuurder(Bestuurder b)
         {
             SqlConnection conn = new SqlConnection(_connString);
-            string query = "USE [Project_Flapp_DB]; SELECT 1 FROM Bestuurder WHERE bestuurder_naam = @naam AND bestuurder_voornaam = @voornaam AND bestuurder_geboortedatum = @geboorte AND bestuurder_rijksregister = @rijksregister AND " +
-                "AND bestuurder_adres_id = @adres_id AND bestuurder_tankkaart_id = @tankkaart_id AND bestuurder_geslacht = @geslacht;";
+            string query = "USE [Project_Flapp_DB]; SELECT 1 FROM Bestuurder WHERE naam = @naam AND voornaam = @voornaam AND geboortedatum = @geboorte AND rijksregister = @rijksregister AND " +
+                "AND adresid = @adresid AND tankkaartid = @tankkaartid AND geslacht = @geslacht;";
             using (SqlCommand cmd = conn.CreateCommand())
             {
                 conn.Open();
@@ -83,7 +83,7 @@ namespace Flapp_DAL.Repository
         public void VoegBestuurderToe(Bestuurder b)
         {
             SqlConnection conn = new SqlConnection(_connString);
-            string query = "USE [Project_Flapp_DB] INSERT INTO [dbo].[Bestuurder] ([bestuurder_naam] ,[bestuurder_voornaam] ,[bestuurder_geboortedatum] ,[bestuurder_rijksregister] ,[bestuurder_adres_id] ,[bestuurder_tankkaart_id] ,[bestuurder_geslacht]) VALUES (@naam ,@voornaam ,@geboorte ,@rijksregister ,@adres ,@tankkaart,@geslacht)";
+            string query = "USE [Project_Flapp_DB] INSERT INTO [dbo].[Bestuurder] ([naam] ,[voornaam] ,[geboortedatum] ,[rijksregister] ,[adresid] ,[tankkaartid] ,[geslacht]) VALUES (@naam ,@voornaam ,@geboorte ,@rijksregister ,@adresid ,@tankkaartid ,@geslacht)";
             using (SqlCommand cmd = conn.CreateCommand())
             {
                 conn.Open();
@@ -117,16 +117,54 @@ namespace Flapp_DAL.Repository
         #endregion
 
         #region UpdateBestuurder Method
-        public void UpdateBestuurder(Bestuurder bestuurder)
+        public void UpdateBestuurder(Bestuurder b)
         {
-            throw new NotImplementedException();
+            SqlConnection conn = new SqlConnection(_connString);
+            string query = "USE [Project_Flapp_DB] UPDATE [dbo].[Bestuurder] WHERE naam = @naam AND voornaam = @voornaam AND geboorte = @geboorte AND rijksregister = @rijksregister AND adresid = @adresid AND tankkaartid = @tankkaartid AND geslacht = @geslacht)";
+            using (SqlCommand cmd = conn.CreateCommand()) {
+                conn.Open();
+                try {
+                    cmd.Parameters.Add(new SqlParameter("@naam", SqlDbType.VarChar));
+                    cmd.Parameters.Add(new SqlParameter("@voornaam", SqlDbType.VarChar));
+                    cmd.Parameters.Add(new SqlParameter("@geboorte", SqlDbType.DateTime));
+                    cmd.Parameters.Add(new SqlParameter("@rijksregister", SqlDbType.VarChar));
+                    cmd.Parameters.Add(new SqlParameter("@adres", SqlDbType.Int));
+                    cmd.Parameters.Add(new SqlParameter("@tankkaart", SqlDbType.Int));
+                    cmd.Parameters.Add(new SqlParameter("@geslacht", SqlDbType.Bit));
+
+                    cmd.CommandText = query;
+
+                    cmd.Parameters["@naam"].Value = b.Naam;
+                    cmd.Parameters["@voornaam"].Value = b.Voornaam;
+                    cmd.Parameters["@geboorte"].Value = b.Geboortedatum;
+                    cmd.Parameters["@rijksregister"].Value = b.Rijksregisternummer;
+                    cmd.Parameters["@adres"].Value = b.Adres.Id;
+                    cmd.Parameters["@tankkaart"].Value = b.Tankkaart.Kaartnummer;
+                    if (b.Geslacht == Geslacht.M) { cmd.Parameters["@geslacht"].Value = 1; } else { cmd.Parameters["@geslacht"].Value = 0; }
+
+                    cmd.ExecuteNonQuery();
+                } catch (Exception ex) { throw new Exception(ex.Message); } finally { conn.Close(); }
+            }
         }
         #endregion
 
         #region VerwijderBestuurder Method
-        public void VerwijderBestuurder(Bestuurder bestuurder)
+        public void VerwijderBestuurder(Bestuurder b)
         {
-            throw new NotImplementedException();
+            SqlConnection conn = new SqlConnection(_connString);
+            string query = "USE [Project_Flapp_DB]; DELETE FROM [dbo].[Bestuurder] WHERE bestuurderid = @bestuurderid;";
+            using (SqlCommand cmd = conn.CreateCommand()) {
+                conn.Open();
+                try {
+                    cmd.Parameters.Add(new SqlParameter("@bestuurderid", SqlDbType.Int));
+
+                    cmd.CommandText = query;
+
+                    cmd.Parameters["@bestuurderid"].Value = b.Id;
+
+                    cmd.ExecuteNonQuery();
+                } catch (Exception ex) { throw new Exception(ex.Message); } finally { conn.Close(); }
+            }
         }
         #endregion
 
@@ -134,27 +172,14 @@ namespace Flapp_DAL.Repository
         public Bestuurder GeefBestuurder(Bestuurder b)
         {
             SqlConnection conn = new SqlConnection(_connString);
-            string query = "USE [Project_Flapp_DB]; SELECT * FROM Bestuurder WHERE bestuurder_naam = @naam AND bestuurder_voornaam = @voornaam AND bestuurder_geboortedatum = @geboorte AND bestuurder_rijksregister = @rijksregister AND " +
-                "AND bestuurder_adres_id = @adres_id AND bestuurder_tankkaart_id = @tankkaart_id AND bestuurder_geslacht = @geslacht";
+            string query = "USE [Project_Flapp_DB]; SELECT * FROM Bestuurder WHERE bestuurderid = @bestuurderid";
             using (SqlCommand cmd = conn.CreateCommand())
             {
-                cmd.Parameters.Add(new SqlParameter("@naam", SqlDbType.VarChar));
-                cmd.Parameters.Add(new SqlParameter("@voornaam", SqlDbType.VarChar));
-                cmd.Parameters.Add(new SqlParameter("@geboorte", SqlDbType.Date));
-                cmd.Parameters.Add(new SqlParameter("@rijksregister", SqlDbType.VarChar));
-                cmd.Parameters.Add(new SqlParameter("@adres_id", SqlDbType.Int));
-                cmd.Parameters.Add(new SqlParameter("@tankkaart_id", SqlDbType.Int));
-                cmd.Parameters.Add(new SqlParameter("@geslacht", SqlDbType.Bit));
+                cmd.Parameters.Add(new SqlParameter("@bestuurderid", SqlDbType.VarChar));
 
                 cmd.CommandText = query;
 
-                cmd.Parameters["@naam"].Value = b.Naam;
-                cmd.Parameters["@voornaam"].Value = b.Voornaam;
-                cmd.Parameters["@geboorte"].Value = b.Geboortedatum;
-                cmd.Parameters["@rijksregister"].Value = b.Rijksregisternummer;
-                cmd.Parameters["@adres_id"].Value = b.Adres.Id;
-                cmd.Parameters["@tankkaart_id"].Value = b.Tankkaart.Kaartnummer;
-                cmd.Parameters["@geslacht"].Value = b.Geslacht;
+                cmd.Parameters["@bestuurderid"].Value = b.Id;
                 conn.Open();
                 try
                 {
