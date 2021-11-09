@@ -20,7 +20,7 @@ namespace Flapp_PL.View.UserControls
         public BestuurderUC()
         {
             InitializeComponent();
-            _bestuurderManager = new BestuurderManager(new BestuurderRepo(_connStringRaf));
+            _bestuurderManager = new BestuurderManager(new BestuurderRepo(_connStringTiboDesktop));
 
             laadBestuurders();
         }
