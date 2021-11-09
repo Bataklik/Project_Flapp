@@ -136,7 +136,7 @@ namespace Flapp_DAL.Repository
         public void VoegBrandstofToe(Brandstof b)
         {
             SqlConnection conn = new SqlConnection(_connString);
-            string query = "USE [Project_Flapp_DB]; INSERT INTO [dbo].[Brandstof] ([naam]) VALUES (@brandstof_naam);";
+            string query = "USE [Project_Flapp_DB]; INSERT INTO [dbo].[Brandstof] ([naam]) VALUES (@naam);";
             using (SqlCommand cmd = conn.CreateCommand())
             {
                 conn.Open();
@@ -159,17 +159,17 @@ namespace Flapp_DAL.Repository
         public void UpdateBrandstof(Brandstof b)
         {
             SqlConnection conn = new SqlConnection(_connString);
-            string query = "USE [Project_Flapp_DB]; UPDATE [dbo].[Brandstof] SET [naam] = @brandstof_naam WHERE brandstofId = @brandstof_id;";
+            string query = "USE [Project_Flapp_DB]; UPDATE [dbo].[Brandstof] SET [naam] = @naam WHERE brandstofId = @brandstofId;";
             using (SqlCommand cmd = conn.CreateCommand())
             {
                 conn.Open();
                 try
                 {
-                    cmd.Parameters.Add(new SqlParameter("@brandstof_id", SqlDbType.Int));
-                    cmd.Parameters.Add(new SqlParameter("@brandstof_naam", SqlDbType.VarChar));
+                    cmd.Parameters.Add(new SqlParameter("@brandstofId", SqlDbType.Int));
+                    cmd.Parameters.Add(new SqlParameter("@naam", SqlDbType.VarChar));
                     cmd.CommandText = query;
-                    cmd.Parameters["@brandstof_id"].Value = b.Id;
-                    cmd.Parameters["@brandstof_naam"].Value = b.Naam;
+                    cmd.Parameters["@brandstofId"].Value = b.Id;
+                    cmd.Parameters["@naam"].Value = b.Naam;
 
                     cmd.ExecuteNonQuery();
                 }
@@ -183,15 +183,15 @@ namespace Flapp_DAL.Repository
         public void VerwijderBrandstof(int id)
         {
             SqlConnection conn = new SqlConnection(_connString);
-            string query = "USE [Project_Flapp_DB]; DELETE FROM [dbo].[Brandstof] WHERE brandstofId = @id;";
+            string query = "USE [Project_Flapp_DB]; DELETE FROM [dbo].[Brandstof] WHERE brandstofId = @brandstofId;";
             using (SqlCommand cmd = conn.CreateCommand())
             {
                 conn.Open();
                 try
                 {
-                    cmd.Parameters.Add(new SqlParameter("@id", SqlDbType.Int));
+                    cmd.Parameters.Add(new SqlParameter("@brandstofId", SqlDbType.Int));
                     cmd.CommandText = query;
-                    cmd.Parameters["@id"].Value = id;
+                    cmd.Parameters["@brandstofId"].Value = id;
 
                     cmd.ExecuteNonQuery();
                 }
@@ -224,7 +224,7 @@ namespace Flapp_DAL.Repository
         public IReadOnlyList<Brandstof> GeefAlleBrandstoffen() {
             SqlConnection conn = new SqlConnection(_connString);
             List<Brandstof> brandstoffen = new List<Brandstof>();
-            string query = "SELECT * FROM [Project_Flapp_DB].[dbo].[Brandstof]";
+            string query = "SELECT * FROM [dbo].[Brandstof]";
             using (SqlCommand cmd = conn.CreateCommand()) {
                 cmd.CommandText = query;
                 conn.Open();

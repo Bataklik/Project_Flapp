@@ -27,10 +27,12 @@ namespace Flapp_PL.View.UserControls
 
         private void laadBestuurders()
         {
-            IReadOnlyList<Bestuurder> bestuurders = null;
+            List<Bestuurder> bestuurders = new List<Bestuurder>();
             try
             {
-                bestuurders = _bestuurderManager.GeefAlleBestuurders();
+                foreach (var v in _bestuurderManager.GeefAlleBestuurders()) {
+                    bestuurders.Add(v);
+                }
             }
             catch (Exception ex) { throw new Exception(ex.Message, ex); }
             lstbBestuurders.ItemsSource = bestuurders;

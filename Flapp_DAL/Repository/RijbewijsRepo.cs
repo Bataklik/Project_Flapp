@@ -20,13 +20,13 @@ namespace Flapp_DAL.Repository
         public bool BestaatRijbewijs(int id)
         {
             SqlConnection conn = new SqlConnection(_connString);
-            string query = "USE [Project_Flapp_DB]; SELECT 1 FROM Rijbewijs WHERE rijbewijsId = @id;";
+            string query = "USE [Project_Flapp_DB]; SELECT 1 FROM Rijbewijs WHERE rijbewijsId = @rijbewijsId;";
             using (SqlCommand cmd = conn.CreateCommand())
             {
                 conn.Open();
                 try
                 {
-                    cmd.Parameters.Add(new SqlParameter("@id", SqlDbType.Int));
+                    cmd.Parameters.Add(new SqlParameter("@rijbewijsId", SqlDbType.Int));
                     cmd.CommandText = query;
                     cmd.Parameters["@id"].Value = id;
 
@@ -89,12 +89,12 @@ namespace Flapp_DAL.Repository
         public Rijbewijs GeefRijbewijs(int id)
         {
             SqlConnection conn = new SqlConnection(_connString);
-            string query = "USE [Project_Flapp_DB]; SELECT * FROM Rijbewijs WHERE rijbewijsId = @id;";
+            string query = "USE [Project_Flapp_DB]; SELECT * FROM Rijbewijs WHERE rijbewijsId = @rijbewijsId;";
             using (SqlCommand cmd = conn.CreateCommand())
             {
                 cmd.Parameters.Add(new SqlParameter("@id", SqlDbType.Int));
                 cmd.CommandText = query;
-                cmd.Parameters["@id"].Value = id;
+                cmd.Parameters["@rijbewijsId"].Value = id;
 
                 conn.Open();
                 try
@@ -137,7 +137,7 @@ namespace Flapp_DAL.Repository
         public void VoegRijbewijsToe(Rijbewijs rijbewijs)
         {
             SqlConnection conn = new SqlConnection(_connString);
-            string query = "USE [Project_Flapp_DB]; INSERT INTO [dbo].[Rijbewijs]([naam])VALUES (@rijbewijs_naam);";
+            string query = "USE [Project_Flapp_DB]; INSERT INTO [dbo].[Rijbewijs]([naam])VALUES (@naam);";
             using (SqlCommand cmd = conn.CreateCommand())
             {
                 conn.Open();
