@@ -25,7 +25,6 @@
 
 ## TODO's
 
-- Sql column names zijn aangepast dus repo's aanpassen
 - Tankkaart moet meerdere brandstoffen hebben.
 
 ## Feedback: 4/11
