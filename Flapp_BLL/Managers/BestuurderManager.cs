@@ -42,7 +42,7 @@ namespace Flapp_BLL.Managers
             }
             catch (Exception ex) { throw new BestuurderManagerException("BestuurderManager", ex); }
         }
-        public IReadOnlyList<Bestuurder> GeefAlleBestuurders()
+        public Dictionary<int, Bestuurder> GeefAlleBestuurders()
         {
             try
             {
@@ -50,14 +50,22 @@ namespace Flapp_BLL.Managers
             }
             catch (Exception ex) { throw new BestuurderManagerException("BestuurderManager", ex); }
         }
-        public IReadOnlyList<Bestuurder> GeefAlleBestuurdersZonderTankkaarten()
+        public Dictionary<int, Bestuurder> GeefAlleBestuurders(int top)
         {
             try
             {
-                return _repo.GeefAlleBestuurders();
+                return _repo.GeefAlleBestuurders(top);
             }
             catch (Exception ex) { throw new BestuurderManagerException("BestuurderManager", ex); }
+        }
+        //public IReadOnlyList<Bestuurder> GeefAlleBestuurdersZonderTankkaarten()
+        //{
+        //    try
+        //    {
+        //        return _repo.GeefAlleBestuurders();
+        //    }
+        //    catch (Exception ex) { throw new BestuurderManagerException("BestuurderManager", ex); }
 
-        }
+        //}
     }
 }

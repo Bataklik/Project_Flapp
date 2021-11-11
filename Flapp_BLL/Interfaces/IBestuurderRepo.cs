@@ -10,7 +10,8 @@ namespace Flapp_BLL.Interfaces
         void VoegBestuurderToe(Bestuurder bestuurder);
         void VerwijderBestuurder(Bestuurder bestuurder);
         void UpdateBestuurder(Bestuurder bestuurder);
-        IReadOnlyList<Bestuurder> GeefAlleBestuurders();
+        Dictionary<int, Bestuurder> GeefAlleBestuurders();
+        Dictionary<int, Bestuurder> GeefAlleBestuurders(int top);
         Bestuurder GeefBestuurder(Bestuurder bestuurder);
 
         //bool HeeftTankkaart(Tankkaart tankkaart); Moet kunnen kijken of een bestuurder een tankkaart heeft

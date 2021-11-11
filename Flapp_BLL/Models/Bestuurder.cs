@@ -2,6 +2,7 @@
 using Flapp_BLL.Checkers;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Flapp_BLL.Models
 {
@@ -95,7 +96,7 @@ namespace Flapp_BLL.Models
         }
         public void ZetAdres(Adres a)
         {
-            if (a == null) { throw new BestuurderException("Bestuurder adres is null!"); }
+            //if (a == null) { throw new BestuurderException("Bestuurder adres is null!"); }
             Adres = a;
         }
         public void ZetGeboortedatum(string d)
@@ -118,7 +119,7 @@ namespace Flapp_BLL.Models
         }
         public void ZetTankkaart(Tankkaart tk)
         {
-            Tankkaart = tk ?? throw new BestuurderException("Bestuurder tankkaart is null!");
+            Tankkaart = tk; //?? throw new BestuurderException("Bestuurder tankkaart is null!");
         }
         public void ZetVoertuig(Voertuig nieuwVoertuig)
         {
@@ -154,7 +155,8 @@ namespace Flapp_BLL.Models
             }
             else
             {
-                throw new BestuurderException("Voertuig - zetVoertuig: Nieuw voertuig is null");
+                Voertuig = nieuwVoertuig;
+                //throw new BestuurderException("Voertuig - zetVoertuig: Nieuw voertuig is null");
             }
         }
         #endregion
@@ -190,7 +192,7 @@ namespace Flapp_BLL.Models
         {
             return $"\n---------------{GetType().Name}---------\n" +
                 $"{Naam}, {Voornaam}, {Geboortedatum.ToShortDateString()}\n" +
-                $"{Rijksregisternummer}, {string.Join(", ", RijbewijsType)}\n" +
+                $"{Rijksregisternummer}, {string.Join(", ", RijbewijsType.OrderBy(r => r.Naam))}\n" +
                 $"--------------------------------";
         }
 
