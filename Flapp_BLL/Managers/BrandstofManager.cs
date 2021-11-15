@@ -60,5 +60,13 @@ namespace Flapp_BLL.Managers
             if (!_repo.BestaatBrandstof(naam)) { throw new BrandstofManagerException("BrandstofManager: VerwijderBrandstof: BrandstofType bestaat niet!"); }
             _repo.VerwijderBrandstof(naam);
         }
+        public IReadOnlyList<Brandstof> GeefAlleBrandstoffen()
+        {
+            try
+            {
+                return _repo.GeefAlleBrandstoffen();
+            }
+            catch (Exception ex) { throw new BestuurderManagerException("VoertuigManager: Geef alle Brandstoffen:", ex); }
+        }
     }
 }

@@ -8,7 +8,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Label Margin="0,0,-7,0">
-            <ListBox x:Name="lstVoertuigen" Height="438" Width="326"/>            
+            <ListBox x:Name="lstVoertuigen" Height="247" Width="326"/>
         </Label>
 
         <Label Content="Merk:" Margin="550,50,47,376" />
@@ -25,7 +25,7 @@
         <TextBox x:Name="txtKleur" Height="25" Width="150" Margin="600,250,47,174" />
         <Label Content="Aantal deuren:" Margin="500,290,47,136" />
         <TextBox x:Name="txtDeuren" Height="25" Width="150" Margin="600,290,47,136" />
-
+        <DataGrid x:Name="lstBrandstof" Margin="6,264,369,20" SelectionChanged="lstBrandstof_SelectionChanged"></DataGrid>
         <Button x:Name="btnVoegVoertuigToe" Content="Toevoegen" Height="50" Width="200" Margin="545,350,55,50" Background="White" Click="btnVoegVoertuigToe_Click"/>
     </Grid>
 </UserControl>
