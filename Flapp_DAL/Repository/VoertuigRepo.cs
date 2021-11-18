@@ -121,7 +121,7 @@ namespace Flapp_DAL.Repository
         {
             SqlConnection conn = new SqlConnection(_connString);
             List<Voertuig> voertuigen = new List<Voertuig>();
-            string query = "SELECT * FROM [Project_Flapp_DB].[dbo].[Voertuig] INNER JOIN Brandstof_Voertuig ON Voertuig.voertuigId = Brandstof_Voertuig.voertuigId;";
+            string query = "USE Project_Flapp_DB; SELECT * FROM[Project_Flapp_DB].[dbo].[Voertuig] INNER JOIN Brandstof_Voertuig ON Voertuig.voertuigId = Brandstof_Voertuig.voertuigId INNER JOIN Brandstof ON Brandstof_Voertuig.brandstofId = brandstof.brandstofId;";
             using (SqlCommand cmd = conn.CreateCommand())
             {
                 cmd.CommandText = query;
@@ -131,7 +131,7 @@ namespace Flapp_DAL.Repository
                     SqlDataReader r = cmd.ExecuteReader();
                     while (r.Read())
                     {
-                        List<Brandstof> brandstof = new List<Brandstof> { new Brandstof(r[12].ToString()) };
+                        List<Brandstof> brandstof = new List<Brandstof> { new Brandstof((string)r["naam"]) };
                         Voertuig voertuig = new Voertuig((int)r["voertuigId"], (string)r["merk"], (string)r["model"], (string)r["chassisnummer"], (string)r["nummerplaat"], brandstof, (string)r["type"], (string)r["kleur"], (int)r["deuren"]);
 
                         voertuigen.Add(voertuig);
@@ -153,7 +153,7 @@ namespace Flapp_DAL.Repository
                 cmd.CommandText = query;
 
                 cmd.Parameters["@id"].Value = vId;
-                
+
                 conn.Open();
                 try
                 {
@@ -187,7 +187,7 @@ namespace Flapp_DAL.Repository
                     cmd.Parameters.Add(new SqlParameter("@model", SqlDbType.NVarChar));
                     cmd.Parameters.Add(new SqlParameter("@chassisnummer", SqlDbType.NVarChar));
                     cmd.Parameters.Add(new SqlParameter("@nummerplaat", SqlDbType.NVarChar));
-                    
+
                     cmd.Parameters.Add(new SqlParameter("@type", SqlDbType.NVarChar));
                     cmd.Parameters.Add(new SqlParameter("@kleur", SqlDbType.NVarChar));
                     cmd.Parameters.Add(new SqlParameter("@deuren", SqlDbType.Int));
@@ -200,7 +200,7 @@ namespace Flapp_DAL.Repository
                     cmd.Parameters["@model"].Value = v.Model;
                     cmd.Parameters["@chassisnummer"].Value = v.ChassisNummer;
                     cmd.Parameters["@nummerplaat"].Value = v.Nummerplaat;
-                    
+
                     cmd.Parameters["@type"].Value = v.VoertuigType;
                     cmd.Parameters["@kleur"].Value = v.Kleur;
                     cmd.Parameters["@deuren"].Value = v.Aantaldeuren;
@@ -220,7 +220,7 @@ namespace Flapp_DAL.Repository
         {
             SqlConnection conn = new SqlConnection(_connString);
             string query = "USE [Project_Flapp_DB]; UPDATE [dbo].[Voertuig] WHERE voertuigid = @voertuigid AND merk = @merk AND model = @model" +
-                "AND chassisnummer = @chassisnummer AND nummerplaat = @nummerplaat AND type = @type"+
+                "AND chassisnummer = @chassisnummer AND nummerplaat = @nummerplaat AND type = @type" +
                 "AND kleur = @kleur AND deuren = @deuren;";
             using (SqlCommand cmd = conn.CreateCommand())
             {
@@ -250,7 +250,7 @@ namespace Flapp_DAL.Repository
                     cmd.Parameters["@kleur"].Value = v.Kleur;
                     cmd.Parameters["@deuren"].Value = v.Aantaldeuren;
                     //cmd.Parameters["@bestuurder_id"].Value = v.Bestuurder.Id;
-                    
+
 
                     cmd.ExecuteNonQuery();
                 }
