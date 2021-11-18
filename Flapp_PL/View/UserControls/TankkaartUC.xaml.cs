@@ -16,12 +16,13 @@ namespace Flapp_PL.View.UserControls
         private TankkaartManager _tankkaartManager;
         private string _connStringBurak = @"Data Source=LAPTOP-BURAQ\SQLEXPRESS;Initial Catalog=Project_Flapp_DB;Integrated Security=True";
         private string _connStringTiboDesktop = @"Data Source=DESKTOP-8JVOTB1\SQLEXPRESS;Initial Catalog=Project_Flapp_DB;Integrated Security=True";
+        private string _connStringTiboLaptop = @"Data Source=LAPTOP-GTB3LMSV\SQLEXPRESS;Initial Catalog=Project_Flapp_DB;Integrated Security=True";
         private string _connStringRaf = @"Data Source=LAPTOP-4QVTNHR0\SQLEXPRESS;Initial Catalog=Project_Flapp_DB;Integrated Security=True";
 
         public TankkaartUC()
         {
             InitializeComponent();
-            _tankkaartManager = new TankkaartManager(new TankkaartRepo(_connStringRaf));
+            _tankkaartManager = new TankkaartManager(new TankkaartRepo(_connStringTiboLaptop));
         }
 
         private void laadTankkaarten() {
