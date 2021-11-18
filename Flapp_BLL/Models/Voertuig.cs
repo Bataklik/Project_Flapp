@@ -49,6 +49,17 @@ namespace Flapp_BLL.Models
             ZetAantalDeuren(deuren);
         }
 
+        public Voertuig(string merk, string model, string chassisNummer, string nummerPlaat, List<Brandstof> brandstofType, string voertuigType, string kleur, int deuren)
+        {            
+            ZetMerk(merk);
+            ZetModel(model);
+            ZetChassisNummer(chassisNummer);
+            ZetNummerplaat(nummerPlaat);
+            ZetBrandstofTypeLijst(brandstofType);
+            ZetVoertuigType(voertuigType);
+            ZetKleur(kleur);
+            ZetAantalDeuren(deuren);
+        }
         // !
         public Voertuig(string merk, string model, string chassisNummer, string nummerplaat, List<Brandstof> brandstoftype, string voertuigType)
         {
@@ -194,10 +205,21 @@ namespace Flapp_BLL.Models
                 return false;
             }
         }
-
         public void VerwijderBestuurder()
         {
             Bestuurder = null;
+        }
+        public void voegBrandstofToe(Brandstof b)
+        {
+            //if (Brandstof.Count <= 0) throw new VoertuigException("Voeg brandstof toe - aantal");
+            if (Brandstof.Contains(b))
+            {
+                throw new VoertuigException("Voeg brandstof toe - Deze wagen beschikt al over deze brandstof");
+            }
+            else
+            {
+                Brandstof.Add(b);
+            }
         }
         #endregion
 

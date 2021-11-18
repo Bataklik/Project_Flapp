@@ -1,6 +1,7 @@
 ﻿using Flapp_BLL.Managers;
 using Flapp_BLL.Models;
 using Flapp_DAL.Repository;
+using Flapp_PL.View.Windows.VoertuigWindow;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,7 +45,7 @@ namespace Flapp_PL.View.UserControls
                 voertuigen = _voertuigManager.GeefAlleVoertuigen();
             }
             catch (Exception ex) { throw new Exception(ex.Message, ex); }
-            lstVoertuigen.ItemsSource = voertuigen;
+            //lstVoertuigen.ItemsSource = voertuigen;
         }
 
         private void laadBrandstoffen()
@@ -55,22 +56,45 @@ namespace Flapp_PL.View.UserControls
                 brandstoffen = _brandstofManager.GeefAlleBrandstoffen();
             }
             catch(Exception ex) { throw new Exception(ex.Message, ex); }
-            lstBrandstof.ItemsSource = brandstoffen;
+            //lstBrandstof.ItemsSource = brandstoffen;
         }
 
         private void btnVoegVoertuigToe_Click(object sender, RoutedEventArgs e)
         {
-            Voertuig v = new Voertuig(txtMerk.Text, txtModel.Text, txtChassis.Text, txtNummerplaat.Text, txtType.Text, txtKleur.Text, Convert.ToInt32(txtDeuren.Text));
-            try
-            {
-                _voertuigManager.VoegVoertuigToe(v);
-            }
-            catch (Exception ex) { throw new Exception(ex.Message, ex); }
+            //Voertuig v = new Voertuig(txtMerk.Text, txtModel.Text, txtChassis.Text, txtNummerplaat.Text, txtType.Text, txtKleur.Text, Convert.ToInt32(txtDeuren.Text));
+            //try
+            //{
+            //    _voertuigManager.VoegVoertuigToe(v);
+            //}
+            //catch (Exception ex) { throw new Exception(ex.Message, ex); }
         }
 
         private void lstBrandstof_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            txtChassis.Text = Convert.ToString(lstBrandstof.SelectedItem);
+            //txtChassis.Text = Convert.ToString(lstBrandstof.SelectedItem);
+        }
+        private void btnZoek_Click(object sender, RoutedEventArgs e)
+        {
+            Window myWindow = Window.GetWindow(this);
+            new BenzineToevoegen().Show();
+
+            myWindow.Close();
+        }
+
+        private void btnBrandstofSelecteren_Click(object sender, RoutedEventArgs e)
+        {
+            Window myWindow = Window.GetWindow(this);
+            new BenzineSelecteren().Show();
+
+            myWindow.Close();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Window myWindow = Window.GetWindow(this);
+            new VoertuigToevoegen().Show();
+
+            myWindow.Close();
         }
     }
 }

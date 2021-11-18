@@ -20,7 +20,7 @@ namespace Flapp_PL.View.UserControls
         public BestuurderUC()
         {
             InitializeComponent();
-            _bestuurderManager = new BestuurderManager(new BestuurderRepo(_connStringBurak));
+            _bestuurderManager = new BestuurderManager(new BestuurderRepo(_connStringRaf));
 
             laadBestuurders();
         }
@@ -28,7 +28,7 @@ namespace Flapp_PL.View.UserControls
         public BestuurderUC(string naam, string voornaam, DateTime datum)
         {
             InitializeComponent();
-            _bestuurderManager = new BestuurderManager(new BestuurderRepo(_connStringBurak));
+            _bestuurderManager = new BestuurderManager(new BestuurderRepo(_connStringRaf));
 
             laadBestuurders(naam, voornaam, datum);
         }
