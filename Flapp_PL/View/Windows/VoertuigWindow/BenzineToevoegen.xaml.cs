@@ -3,6 +3,7 @@ using Flapp_BLL.Models;
 using Flapp_DAL.Repository;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,12 +25,15 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
     {
         private BrandstofManager _brandstofManager;
         private string _connStringRaf = @"Data Source=LAPTOP-4QVTNHR0\SQLEXPRESS;Initial Catalog=Project_Flapp_DB;Integrated Security=True";
+        private string _connStringBurak = @"Data Source=LAPTOP-BURAQ\SQLEXPRESS;Initial Catalog=Project_Flapp_DB;Integrated Security=True";
+        private string _connStringTiboDesktop = @"Data Source=DESKTOP-8JVOTB1\SQLEXPRESS;Initial Catalog=Project_Flapp_DB;Integrated Security=True";
+
         public Brandstof br;
         public BenzineToevoegen()
         {
             InitializeComponent();
-            _brandstofManager = new BrandstofManager(new BrandstofRepo(_connStringRaf));
-                       
+            _brandstofManager = new BrandstofManager(new BrandstofRepo(ConfigurationManager.ConnectionStrings["connString"].ConnectionString));
+
         }
         private void btnToevoegen_Click(object sender, RoutedEventArgs e)
         {

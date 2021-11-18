@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Navigation;
 using System.Collections.ObjectModel;
+using System.Configuration;
 
 namespace Flapp_PL.View.Windows.VoertuigWindow
 {
@@ -31,8 +32,8 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
         public VoertuigToevoegen()
         {
             InitializeComponent();
-            _voertuigManager = new VoertuigManager(new VoertuigRepo(_connStringRaf));
-            _brandstofManager = new BrandstofManager(new BrandstofRepo(_connStringRaf));
+            _voertuigManager = new VoertuigManager(new VoertuigRepo(ConfigurationManager.ConnectionStrings["connString"].ConnectionString));
+            _brandstofManager = new BrandstofManager(new BrandstofRepo(ConfigurationManager.ConnectionStrings["connString"].ConnectionString));
         }
 
         private void btnZoek_Click(object sender, RoutedEventArgs e)
@@ -104,6 +105,6 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
                 MessageBox.Show(ex.Message, Title, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-        
+
     }
 }

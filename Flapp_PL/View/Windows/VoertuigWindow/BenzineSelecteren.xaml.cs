@@ -4,35 +4,24 @@ using Flapp_DAL.Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Configuration;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Flapp_PL.View.Windows.VoertuigWindow
 {
-    /// <summary>
-    /// Interaction logic for BenzineSelecteren.xaml
-    /// </summary>
     public partial class BenzineSelecteren : Window
     {
         List<Brandstof> _Brandstoffen = new();
         private BrandstofManager _brandstofManager;
         private string _connStringRaf = @"Data Source=LAPTOP-4QVTNHR0\SQLEXPRESS;Initial Catalog=Project_Flapp_DB;Integrated Security=True";
-        
+        private string _connStringBurak = @"Data Source=LAPTOP-BURAQ\SQLEXPRESS;Initial Catalog=Project_Flapp_DB;Integrated Security=True";
+        private string _connStringTiboDesktop = @"Data Source=DESKTOP-8JVOTB1\SQLEXPRESS;Initial Catalog=Project_Flapp_DB;Integrated Security=True";
+
         public BenzineSelecteren()
         {
             InitializeComponent();
-            _brandstofManager = new BrandstofManager(new BrandstofRepo(_connStringRaf));
-            
+            _brandstofManager = new BrandstofManager(new BrandstofRepo(ConfigurationManager.ConnectionStrings["connString"].ConnectionString));
+
             laadBrandstoffen();
         }
         private void laadBrandstoffen()
@@ -40,16 +29,16 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
             //IReadOnlyList<Brandstof> brandstoffen;
             try
             {
-                IReadOnlyList<Brandstof> brandstoffen =_brandstofManager.GeefAlleBrandstoffen();
+                IReadOnlyList<Brandstof> brandstoffen = _brandstofManager.GeefAlleBrandstoffen();
                 ObservableCollection<Brandstof> ts = new();
                 foreach (var brandstof in brandstoffen)
                 {
                     ts.Add(brandstof);
-                }                
+                }
                 lstBrandstof.ItemsSource = ts;
             }
             catch (Exception ex) { throw new Exception(ex.Message, ex); }
-            
+
         }
         private void btnSelecteren_Click(object sender, RoutedEventArgs e)
         {
@@ -58,7 +47,7 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
                 if (lstBrandstof.SelectedItem != null)
                 {
                     Brandstof b = (Brandstof)lstBrandstof.SelectedItem;
-                    
+
                     _Brandstoffen.Add(b);
                     Application.Current.Properties["Brandstof"] = _Brandstoffen;
 

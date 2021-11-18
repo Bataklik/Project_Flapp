@@ -4,6 +4,7 @@ using Flapp_DAL.Repository;
 using Flapp_PL.View.Windows;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,7 +21,7 @@ namespace Flapp_PL.View.UserControls
         public BestuurderUC()
         {
             InitializeComponent();
-            _bestuurderManager = new BestuurderManager(new BestuurderRepo(_connStringRaf));
+            _bestuurderManager = new BestuurderManager(new BestuurderRepo(ConfigurationManager.ConnectionStrings["connString"].ConnectionString));
 
             laadBestuurders();
         }
@@ -28,7 +29,7 @@ namespace Flapp_PL.View.UserControls
         public BestuurderUC(string naam, string voornaam, DateTime datum)
         {
             InitializeComponent();
-            _bestuurderManager = new BestuurderManager(new BestuurderRepo(_connStringRaf));
+            _bestuurderManager = new BestuurderManager(new BestuurderRepo(_connStringBurak));
 
             laadBestuurders(naam, voornaam, datum);
         }

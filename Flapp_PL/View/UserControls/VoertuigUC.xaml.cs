@@ -4,6 +4,7 @@ using Flapp_DAL.Repository;
 using Flapp_PL.View.Windows.VoertuigWindow;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,8 +32,8 @@ namespace Flapp_PL.View.UserControls
         public VoertuigUC()
         {
             InitializeComponent();
-            _voertuigManager = new VoertuigManager(new VoertuigRepo(_connStringRaf));
-            _brandstofManager = new BrandstofManager(new BrandstofRepo(_connStringRaf));
+            _voertuigManager = new VoertuigManager(new VoertuigRepo(ConfigurationManager.ConnectionStrings["connString"].ConnectionString));
+            _brandstofManager = new BrandstofManager(new BrandstofRepo(ConfigurationManager.ConnectionStrings["connString"].ConnectionString));
             laadVoertuigen();
             laadBrandstoffen();
         }
@@ -55,7 +56,7 @@ namespace Flapp_PL.View.UserControls
             {
                 brandstoffen = _brandstofManager.GeefAlleBrandstoffen();
             }
-            catch(Exception ex) { throw new Exception(ex.Message, ex); }
+            catch (Exception ex) { throw new Exception(ex.Message, ex); }
             //lstBrandstof.ItemsSource = brandstoffen;
         }
 
