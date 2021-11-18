@@ -25,11 +25,18 @@ namespace Flapp_BLL.Models
             ZetKaartnummer(kaartnummer);
             ZetGeldigheidsdatum(geldigheidsdatum);
         }
+
         public Tankkaart(int kaartnummer, DateTime geldigheidsdatum, bool isgeblokkeerd)
         {
             ZetKaartnummer(kaartnummer);
             ZetGeldigheidsdatum(geldigheidsdatum);
             ZetGeblokkeerd(isgeblokkeerd);
+        }
+
+        public Tankkaart(int kaartnummer, DateTime geldigheidsdatum, Brandstof brandstof){
+            ZetKaartnummer(kaartnummer);
+            ZetGeldigheidsdatum(geldigheidsdatum);
+            ZetBrandstof(brandstof);
         }
 
         public Tankkaart(int kaartnummer, DateTime geldigheidsdatum, string pincode, Brandstof brandstoftype, bool geblokkeerd) : this(kaartnummer, geldigheidsdatum)
@@ -106,9 +113,7 @@ namespace Flapp_BLL.Models
         #region Overrides
         public override string ToString()
         {
-            return $"\n---------------{GetType().Name}---------\n" +
-                $"{Kaartnummer}, {Geldigheidsdatum.ToShortDateString()}\n" +
-                $"--------------------------------\n";
+            return $"[{GetType().Name}] {Kaartnummer} {Geldigheidsdatum.ToShortDateString()} {Brandstof.Naam}";
         }
         public override bool Equals(object obj)
         {
