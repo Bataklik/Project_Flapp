@@ -14,9 +14,6 @@ namespace Flapp_PL.View.UserControls
     public partial class BestuurderUC : UserControl
     {
         private BestuurderManager _bestuurderManager;
-        private string _connStringBurak = @"Data Source=LAPTOP-BURAQ\SQLEXPRESS;Initial Catalog=Project_Flapp_DB;Integrated Security=True";
-        private string _connStringTiboDesktop = @"Data Source=DESKTOP-8JVOTB1\SQLEXPRESS;Initial Catalog=Project_Flapp_DB;Integrated Security=True";
-        private string _connStringRaf = @"Data Source=LAPTOP-4QVTNHR0\SQLEXPRESS;Initial Catalog=Project_Flapp_DB;Integrated Security=True";
 
         public BestuurderUC()
         {
@@ -29,7 +26,7 @@ namespace Flapp_PL.View.UserControls
         public BestuurderUC(string naam, string voornaam, DateTime datum)
         {
             InitializeComponent();
-            _bestuurderManager = new BestuurderManager(new BestuurderRepo(_connStringBurak));
+            _bestuurderManager = new BestuurderManager(new BestuurderRepo(ConfigurationManager.ConnectionStrings["connString"].ConnectionString));
 
             laadBestuurders(naam, voornaam, datum);
         }
