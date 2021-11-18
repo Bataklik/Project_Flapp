@@ -20,21 +20,17 @@ namespace Flapp_PL.View.UserControls
         {
             InitializeComponent();
             _tankkaartManager = new TankkaartManager(new TankkaartRepo(ConfigurationManager.ConnectionStrings["connString"].ConnectionString));
+            laadTankkaarten();
         }
 
         private void laadTankkaarten()
         {
-            List<Tankkaart> tankkaarten = new List<Tankkaart>();
             try
             {
-                //List<Tankkaart> sortTankkaarten = _tankkaartManager.GeefAlleTankkaarten().Where(b => (b.Kaartnummer == kaartnummer) && (b.Value.Voornaam == voornaam) && (b.Value.Geboortedatum.ToShortDateString() == datum.ToShortDateString())).Select(b => b.Value).ToList();
-                foreach (Tankkaart v in tankkaarten)
-                {
-                    tankkaarten.Add(v);
-                }
+                IReadOnlyList<Tankkaart> tankkaarten = _tankkaartManager.GeefAlleTankkaarten();
+                lstTankkaarten.ItemsSource = tankkaarten;
             }
             catch (Exception ex) { throw new Exception(ex.Message, ex); }
-            lstTankkaarten.ItemsSource = tankkaarten;
         }
 
         private void btnZoek_Click(object sender, System.Windows.RoutedEventArgs e)
