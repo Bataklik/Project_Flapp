@@ -13,15 +13,11 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
     {
         List<Brandstof> _Brandstoffen = new();
         private BrandstofManager _brandstofManager;
-        private string _connStringRaf = @"Data Source=LAPTOP-4QVTNHR0\SQLEXPRESS;Initial Catalog=Project_Flapp_DB;Integrated Security=True";
-        private string _connStringBurak = @"Data Source=LAPTOP-BURAQ\SQLEXPRESS;Initial Catalog=Project_Flapp_DB;Integrated Security=True";
-        private string _connStringTiboDesktop = @"Data Source=DESKTOP-8JVOTB1\SQLEXPRESS;Initial Catalog=Project_Flapp_DB;Integrated Security=True";
 
         public BenzineSelecteren()
         {
             InitializeComponent();
             _brandstofManager = new BrandstofManager(new BrandstofRepo(ConfigurationManager.ConnectionStrings["connString"].ConnectionString));
-
             laadBrandstoffen();
         }
         private void laadBrandstoffen()

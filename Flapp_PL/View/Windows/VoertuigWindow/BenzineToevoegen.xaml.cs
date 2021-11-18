@@ -24,9 +24,6 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
     public partial class BenzineToevoegen : Window
     {
         private BrandstofManager _brandstofManager;
-        private string _connStringRaf = @"Data Source=LAPTOP-4QVTNHR0\SQLEXPRESS;Initial Catalog=Project_Flapp_DB;Integrated Security=True";
-        private string _connStringBurak = @"Data Source=LAPTOP-BURAQ\SQLEXPRESS;Initial Catalog=Project_Flapp_DB;Integrated Security=True";
-        private string _connStringTiboDesktop = @"Data Source=DESKTOP-8JVOTB1\SQLEXPRESS;Initial Catalog=Project_Flapp_DB;Integrated Security=True";
 
         public Brandstof br;
         public BenzineToevoegen()

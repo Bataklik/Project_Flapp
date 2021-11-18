@@ -27,7 +27,6 @@ namespace Flapp_PL.View.UserControls
     {
         private VoertuigManager _voertuigManager;
         private BrandstofManager _brandstofManager;
-        private string _connStringRaf = @"Data Source=LAPTOP-4QVTNHR0\SQLEXPRESS;Initial Catalog=Project_Flapp_DB;Integrated Security=True";
 
         public VoertuigUC()
         {
