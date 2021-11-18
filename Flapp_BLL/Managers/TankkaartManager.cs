@@ -42,7 +42,7 @@ namespace Flapp_BLL.Managers
             }
             catch (Exception ex) { throw new TankkaartManagerException("TankkaartManager", ex); }
         }
-        IReadOnlyList<Tankkaart> GeefAlleTankkaarten()
+        public IReadOnlyList<Tankkaart> GeefAlleTankkaarten()
         {
             try { return _repo.GeefAlleTankkaarten(); }
             catch (Exception ex) { throw new TankkaartManagerException("TankkaartManager", ex); }
