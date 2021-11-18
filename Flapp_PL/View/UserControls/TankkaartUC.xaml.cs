@@ -19,18 +19,19 @@ namespace Flapp_PL.View.UserControls
         public TankkaartUC()
         {
             InitializeComponent();
-            _tankkaartManager = new TankkaartManager(new TankkaartRepo(ConfigurationManager.ConnectionStrings["connString"].ConnectionString));
+            _tankkaartManager = new TankkaartManager(new TankkaartRepo(ConfigurationManager.ConnectionStrings["connStringTL"].ConnectionString));
             laadTankkaarten();
         }
 
         private void laadTankkaarten()
         {
+            List<Tankkaart> tankkaarten = _tankkaartManager.GeefAlleTankkaarten().ToList();
             try
             {
-                IReadOnlyList<Tankkaart> tankkaarten = _tankkaartManager.GeefAlleTankkaarten();
-                lstTankkaarten.ItemsSource = tankkaarten;
+                
             }
             catch (Exception ex) { throw new Exception(ex.Message, ex); }
+            lstTankkaarten.ItemsSource = tankkaarten;
         }
 
         private void btnZoek_Click(object sender, System.Windows.RoutedEventArgs e)
