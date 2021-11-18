@@ -23,12 +23,14 @@ namespace Flapp_PL.View.UserControls
             laadTankkaarten();
         }
 
-        private void laadTankkaarten()
+        private void laadTankkaarten(int id, DateTime dt, string pin, Brandstof bs ,bool geblokkeerd)
         {
-            List<Tankkaart> tankkaarten = _tankkaartManager.GeefAlleTankkaarten().ToList();
-            try
-            {
-                
+            List<Tankkaart> tankkaarten = new List<Tankkaart>();
+            try {
+                List<Tankkaart> sortTankkaarten = _tankkaartManager.GeefAlleTankkaarten().OrderBy(x => x.Value.Kaartnummer).ToList();
+                foreach (Tankkaart v in sortTankkaarten) {
+                    tankkaarten.Add(v);
+                }
             }
             catch (Exception ex) { throw new Exception(ex.Message, ex); }
             lstTankkaarten.ItemsSource = tankkaarten;

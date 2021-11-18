@@ -101,29 +101,34 @@ namespace Flapp_DAL.Repository
             }
         }
 
-        public IReadOnlyList<Tankkaart> GeefAlleTankkaarten()
+        public Dictionary<int, Tankkaart> GeefAlleTankkaarten()
         {
             SqlConnection conn = new SqlConnection(_connString);
-            List<Tankkaart> tankkaarten = new List<Tankkaart>();
-            string query = "SELECT * FROM [Project_Flapp_DB].[dbo].[Tankkaart] INNER JOIN Brandstof_Tankkaart ON Tankkaart.tankkaartId = Brandstof_Tankkaart.tankkaartId INNER JOIN Brandstof ON Brandstof_Tankkaart.brandstofId = Brandstof.brandstofId;";
+            Dictionary<int, Tankkaart> tankkaarten = new Dictionary<int, Tankkaart>();
+            string query = "SELECT * FROM [dbo].[Tankkaart] LEFT JOIN Brandstof_Tankkaart ON Tankkaart.tankkaartId = Brandstof_Tankkaart.tankkaartId LEFT JOIN Brandstof ON Brandstof_Tankkaart.brandstofId = Brandstof.brandstofId;";
+            //string query = "SELECT * FROM [Project_Flapp_DB].[dbo].[Tankkaart];";
             using (SqlCommand cmd = conn.CreateCommand()) {
                 cmd.CommandText = query;
                 conn.Open();
                 try {
                     SqlDataReader r = cmd.ExecuteReader();
                     while (r.Read()) {
-                        int kaartnr = (int)r["tankkaartId"];
-                        DateTime datum = (DateTime)r["geldigheidsdatum"];
-                        string pincode = (string)r["pincode"];
-                        bool geblokkeerd = (bool)r["geblokkeerd"];
-                        Tankkaart tankkaart = new Tankkaart(kaartnr, datum);
-                        tankkaarten.Add(tankkaart);
+                        if (tankkaarten.ContainsKey((int)r["tankkaartId"])) {
+                            Tankkaart dicTankkaart = tankkaarten[(int)r["bestuurderId"]];
+                            Brandstof b = new Brandstof((string)r["naam"]);
+                            dicTankkaart.Brandstof.Naam += b.Naam;
+                        }
+                        else {
+                            Tankkaart tankkaart = new Tankkaart((int)r["tankkaartId"], (DateTime)r["geldigheidsdatum"], (string)r["pincode"], new Brandstof((string)r["naam"]), (bool)r["geblokkerd"]);
+                            tankkaarten.Add(tankkaart.Kaartnummer, tankkaart);
+                        }
+                        
                     }
-                }
-                catch (Exception ex) { throw new Exception(ex.Message); }
+                    r.Close();
+                    return tankkaarten;
+                } catch (Exception ex) { throw new Exception(ex.Message); }
                 finally { conn.Close(); }
             }
-            return tankkaarten;
         }
 
         public Tankkaart GeefTankkaart(int kaartnr)

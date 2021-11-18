@@ -7,7 +7,7 @@ namespace Flapp_BLL.Models
     {
         #region Props
         public int Id { get; private set; }
-        public string Naam { get; private set; }
+        public string Naam { get; set; }
         #endregion
 
         #region Constructors
