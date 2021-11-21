@@ -14,8 +14,9 @@ namespace Flapp_PL
 
         private void btnBestuurder_Click(object sender, RoutedEventArgs e)
         {
+            MainWindow main = this;
             wpUserControl.Children.Clear();
-            BestuurderUC bestuurderUc = new BestuurderUC();
+            BestuurderUC bestuurderUc = new BestuurderUC(main);
             wpUserControl.Children.Add(bestuurderUc);
         }
         private void btnVoertuig_Click(object sender, RoutedEventArgs e)
@@ -26,14 +27,10 @@ namespace Flapp_PL
         }
         private void btnTankkaart_Click(object sender, RoutedEventArgs e)
         {
+            MainWindow main = this;
             wpUserControl.Children.Clear();
-            TankkaartUC tankkaartUc = new TankkaartUC();
+            TankkaartUC tankkaartUc = new TankkaartUC(main);
             wpUserControl.Children.Add(tankkaartUc);
-        }
-
-        private void btnRijbewijs_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

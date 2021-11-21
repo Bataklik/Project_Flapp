@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
-        Title="Flapp: Dashboard" Height="500" Width="1100">
+        Title="Flapp: Dashboard" Height="400" Width="1100">
     <Window.Resources>
         <!-- Button Style-->
         <Style TargetType="Button">
@@ -113,30 +113,6 @@
                                              HorizontalAlignment="Left"
                                              Foreground="#F9F7F7"/>
                     <TextBlock Text="Tankkaart"
-                               Width="100"
-                               Margin="0,0,10,0"
-                               VerticalAlignment="Center"
-                               Foreground="#F9F7F7"
-                               FontSize="18" 
-                               TextAlignment="Left" 
-                               HorizontalAlignment="Left"/>
-                </StackPanel>
-            </Button>
-            <Button x:Name="btnRijbewijs"
-                    Click="btnRijbewijs_Click"
-                    Height="60"
-                    Grid.Column="0"
-                    Background="#112D4E"
-                    Margin="0,20"
-                    >
-                <StackPanel Orientation="Horizontal">
-                    <materialDesign:PackIcon Kind="DriversLicense"
-                                             Margin="0,0,50,0"
-                                             Width="50" 
-                                             Height="50"
-                                             HorizontalAlignment="Left"
-                                             Foreground="#F9F7F7"/>
-                    <TextBlock Text="Rijbewijs"
                                Width="100"
                                Margin="0,0,10,0"
                                VerticalAlignment="Center"

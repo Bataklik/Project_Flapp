@@ -6,17 +6,21 @@ namespace Flapp_PL.View.Windows
 {
     public partial class ZoekBestuurderWindow : Window
     {
-        public ZoekBestuurderWindow()
+        MainWindow main;
+        BestuurderUC bUC;
+        public ZoekBestuurderWindow(MainWindow main, BestuurderUC bUC)
         {
             InitializeComponent();
+            this.main = main;
+            this.bUC = bUC;
         }
 
         private void btnZoek_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow main = new MainWindow();
             if (!string.IsNullOrWhiteSpace(txtNaam.Text) && !string.IsNullOrWhiteSpace(txtVoornaam.Text) && dpGeboortedatum.SelectedDate != null)
             {
                 main.Show();
+                main.wpUserControl.Children.Remove(bUC);
                 main.wpUserControl.Children.Add(new BestuurderUC(txtNaam.Text, txtVoornaam.Text, (DateTime)dpGeboortedatum.SelectedDate));            
                 Close();
                 return;
@@ -26,8 +30,6 @@ namespace Flapp_PL.View.Windows
 
         private void btnAnnuleren_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow main = new MainWindow();
-            main.Show();
             Close();
         }
     }

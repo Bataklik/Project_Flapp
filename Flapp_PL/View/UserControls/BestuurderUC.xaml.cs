@@ -14,6 +14,7 @@ namespace Flapp_PL.View.UserControls
     public partial class BestuurderUC : UserControl
     {
         private BestuurderManager _bestuurderManager;
+        private MainWindow _main;
 
         public BestuurderUC()
         {
@@ -22,6 +23,14 @@ namespace Flapp_PL.View.UserControls
 
             laadBestuurders();
         }
+
+        public BestuurderUC(MainWindow main) {
+            InitializeComponent();
+            _bestuurderManager = new BestuurderManager(new BestuurderRepo(ConfigurationManager.ConnectionStrings["connStringTD"].ConnectionString));
+            _main = main;
+            laadBestuurders();
+        }
+
 
         public BestuurderUC(string naam, string voornaam, DateTime datum)
         {
@@ -44,6 +53,7 @@ namespace Flapp_PL.View.UserControls
             catch (Exception ex) { throw new Exception(ex.Message, ex); }
             lstbBestuurders.ItemsSource = bestuurders;
         }
+
         private void laadBestuurders(string naam, string voornaam, DateTime datum)
         {
             List<Bestuurder> bestuurders = new List<Bestuurder>();
@@ -61,10 +71,8 @@ namespace Flapp_PL.View.UserControls
 
         private void btnZoek_Click(object sender, RoutedEventArgs e)
         {
-            Window myWindow = Window.GetWindow(this);
-            new ZoekBestuurderWindow().Show();
-
-            myWindow.Close();
+            BestuurderUC bUC = this;
+            new ZoekBestuurderWindow(_main,bUC).Show();
         }
     }
 }
