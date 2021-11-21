@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Flapp_BLL.Interfaces;
 using Flapp_BLL.Models;
 using Flapp_BLL.Exceptions.ManagerExceptions;
@@ -49,14 +46,11 @@ namespace Flapp_BLL.Managers
         }
         public bool BestaatBestuurder(Bestuurder bestuurder)
         {
-            if (_repo.BestaatBestuurder(bestuurder))
+            try
             {
-                return true;
+                return _repo.BestaatBestuurder(bestuurder);
             }
-            else
-            {
-                return false;
-            }
+            catch (Exception ex) { throw new TankkaartManagerException("TankkaartManager", ex); }
         }
         public void VoegBestuurderToe(Bestuurder bestuurder)
         {

@@ -19,14 +19,15 @@ namespace Flapp_PL.View.UserControls
         public BestuurderUC()
         {
             InitializeComponent();
-            _bestuurderManager = new BestuurderManager(new BestuurderRepo(ConfigurationManager.ConnectionStrings["connStringTD"].ConnectionString));
+            _bestuurderManager = new BestuurderManager(new BestuurderRepo(ConfigurationManager.ConnectionStrings["connStringB"].ConnectionString));
 
             laadBestuurders();
         }
 
-        public BestuurderUC(MainWindow main) {
+        public BestuurderUC(MainWindow main)
+        {
             InitializeComponent();
-            _bestuurderManager = new BestuurderManager(new BestuurderRepo(ConfigurationManager.ConnectionStrings["connStringTD"].ConnectionString));
+            _bestuurderManager = new BestuurderManager(new BestuurderRepo(ConfigurationManager.ConnectionStrings["connStringB"].ConnectionString));
             _main = main;
             laadBestuurders();
         }
@@ -35,7 +36,7 @@ namespace Flapp_PL.View.UserControls
         public BestuurderUC(string naam, string voornaam, DateTime datum)
         {
             InitializeComponent();
-            _bestuurderManager = new BestuurderManager(new BestuurderRepo(ConfigurationManager.ConnectionStrings["connStringTD"].ConnectionString));
+            _bestuurderManager = new BestuurderManager(new BestuurderRepo(ConfigurationManager.ConnectionStrings["connStringB"].ConnectionString));
 
             laadBestuurders(naam, voornaam, datum);
         }
@@ -72,7 +73,7 @@ namespace Flapp_PL.View.UserControls
         private void btnZoek_Click(object sender, RoutedEventArgs e)
         {
             BestuurderUC bUC = this;
-            new ZoekBestuurderWindow(_main,bUC).Show();
+            new ZoekBestuurderWindow(_main, bUC).Show();
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
         public BenzineSelecteren()
         {
             InitializeComponent();
-            _brandstofManager = new BrandstofManager(new BrandstofRepo(ConfigurationManager.ConnectionStrings["connString"].ConnectionString));
+            _brandstofManager = new BrandstofManager(new BrandstofRepo(ConfigurationManager.ConnectionStrings["connStringB"].ConnectionString));
             laadBrandstoffen();
         }
         private void laadBrandstoffen()

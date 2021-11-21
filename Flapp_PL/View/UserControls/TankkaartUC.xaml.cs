@@ -22,30 +22,34 @@ namespace Flapp_PL.View.UserControls
         public TankkaartUC()
         {
             InitializeComponent();
-            _tankkaartManager = new TankkaartManager(new TankkaartRepo(ConfigurationManager.ConnectionStrings["connStringTD"].ConnectionString));
+            _tankkaartManager = new TankkaartManager(new TankkaartRepo(ConfigurationManager.ConnectionStrings["connStringB"].ConnectionString));
             laadTankkaarten();
         }
 
-        public TankkaartUC(string kaartnummer, DateTime datum) {
+        public TankkaartUC(string kaartnummer, DateTime datum)
+        {
             InitializeComponent();
-            _tankkaartManager = new TankkaartManager(new TankkaartRepo(ConfigurationManager.ConnectionStrings["connStringTD"].ConnectionString));
+            _tankkaartManager = new TankkaartManager(new TankkaartRepo(ConfigurationManager.ConnectionStrings["connStringB"].ConnectionString));
             laadTankkaarten(kaartnummer, datum);
         }
 
-        public TankkaartUC(string kaartnummer) {
+        public TankkaartUC(string kaartnummer)
+        {
             InitializeComponent();
-            _tankkaartManager = new TankkaartManager(new TankkaartRepo(ConfigurationManager.ConnectionStrings["connStringTD"].ConnectionString));
+            _tankkaartManager = new TankkaartManager(new TankkaartRepo(ConfigurationManager.ConnectionStrings["connStringB"].ConnectionString));
             laadTankkaarten(kaartnummer);
         }
 
-        public TankkaartUC(MainWindow main) {
+        public TankkaartUC(MainWindow main)
+        {
             InitializeComponent();
-            _tankkaartManager = new TankkaartManager(new TankkaartRepo(ConfigurationManager.ConnectionStrings["connStringTD"].ConnectionString));
+            _tankkaartManager = new TankkaartManager(new TankkaartRepo(ConfigurationManager.ConnectionStrings["connStringB"].ConnectionString));
             _main = main;
             laadTankkaarten();
         }
 
-        public TankkaartUC(DateTime datum) {
+        public TankkaartUC(DateTime datum)
+        {
             InitializeComponent();
             _tankkaartManager = new TankkaartManager(new TankkaartRepo(ConfigurationManager.ConnectionStrings["connStringTD"].ConnectionString));
             laadTankkaarten(datum);
@@ -54,9 +58,11 @@ namespace Flapp_PL.View.UserControls
         private void laadTankkaarten()
         {
             List<Tankkaart> tankkaarten = new List<Tankkaart>();
-            try {
+            try
+            {
                 List<Tankkaart> sortTankkaarten = _tankkaartManager.GeefAlleTankkaarten().OrderBy(x => x.Value.Kaartnummer).Select(x => x.Value).ToList();
-                foreach (Tankkaart v in sortTankkaarten) {
+                foreach (Tankkaart v in sortTankkaarten)
+                {
                     tankkaarten.Add(v);
                 }
             }
@@ -64,40 +70,53 @@ namespace Flapp_PL.View.UserControls
             lstTankkaarten.ItemsSource = tankkaarten;
         }
 
-        private void laadTankkaarten(string kaartnummer, DateTime datum) {
+        private void laadTankkaarten(string kaartnummer, DateTime datum)
+        {
             List<Tankkaart> tankkaarten = new List<Tankkaart>();
-            try {
+            try
+            {
                 List<Tankkaart> sortTankkaarten = _tankkaartManager.GeefAlleTankkaarten().Where(x => x.Value.Kaartnummer == int.Parse(kaartnummer) || x.Value.Geldigheidsdatum.ToShortDateString() == datum.ToShortDateString()).OrderBy(x => x.Value.Kaartnummer).Select(x => x.Value).ToList();
-                foreach (Tankkaart v in sortTankkaarten) {
+                foreach (Tankkaart v in sortTankkaarten)
+                {
                     tankkaarten.Add(v);
                 }
-            } catch (Exception ex) { throw new Exception(ex.Message, ex); }
+            }
+            catch (Exception ex) { throw new Exception(ex.Message, ex); }
             lstTankkaarten.ItemsSource = tankkaarten;
         }
 
-        private void laadTankkaarten(string kaartnummer) {
+        private void laadTankkaarten(string kaartnummer)
+        {
             List<Tankkaart> tankkaarten = new List<Tankkaart>();
-            try {
+            try
+            {
                 List<Tankkaart> sortTankkaarten = _tankkaartManager.GeefAlleTankkaarten().Where(x => x.Value.Kaartnummer == int.Parse(kaartnummer)).OrderBy(x => x.Value.Kaartnummer).Select(x => x.Value).ToList();
-                foreach (Tankkaart v in sortTankkaarten) {
+                foreach (Tankkaart v in sortTankkaarten)
+                {
                     tankkaarten.Add(v);
                 }
-            } catch (Exception ex) { throw new Exception(ex.Message, ex); }
+            }
+            catch (Exception ex) { throw new Exception(ex.Message, ex); }
             lstTankkaarten.ItemsSource = tankkaarten;
         }
 
-        private void laadTankkaarten(DateTime datum) {
+        private void laadTankkaarten(DateTime datum)
+        {
             List<Tankkaart> tankkaarten = new List<Tankkaart>();
-            try {
+            try
+            {
                 List<Tankkaart> sortTankkaarten = _tankkaartManager.GeefAlleTankkaarten().Where(x => x.Value.Geldigheidsdatum.ToShortDateString() == datum.ToShortDateString()).OrderBy(x => x.Value.Kaartnummer).Select(x => x.Value).ToList();
-                foreach (Tankkaart v in sortTankkaarten) {
+                foreach (Tankkaart v in sortTankkaarten)
+                {
                     tankkaarten.Add(v);
                 }
-            } catch (Exception ex) { throw new Exception(ex.Message, ex); }
+            }
+            catch (Exception ex) { throw new Exception(ex.Message, ex); }
             lstTankkaarten.ItemsSource = tankkaarten;
         }
 
-        private void btnZoek_Click(object sender, System.Windows.RoutedEventArgs e) {
+        private void btnZoek_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
             TankkaartUC tUC = this;
             new ZoekTankkaartWindow(_main, tUC).ShowDialog();
         }

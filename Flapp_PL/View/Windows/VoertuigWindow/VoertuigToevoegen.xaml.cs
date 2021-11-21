@@ -31,8 +31,8 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
         public VoertuigToevoegen()
         {
             InitializeComponent();
-            _voertuigManager = new VoertuigManager(new VoertuigRepo(ConfigurationManager.ConnectionStrings["connString"].ConnectionString));
-            _brandstofManager = new BrandstofManager(new BrandstofRepo(ConfigurationManager.ConnectionStrings["connString"].ConnectionString));
+            _voertuigManager = new VoertuigManager(new VoertuigRepo(ConfigurationManager.ConnectionStrings["connStringB"].ConnectionString));
+            _brandstofManager = new BrandstofManager(new BrandstofRepo(ConfigurationManager.ConnectionStrings["connStringB"].ConnectionString));
         }
 
         private void btnZoek_Click(object sender, RoutedEventArgs e)

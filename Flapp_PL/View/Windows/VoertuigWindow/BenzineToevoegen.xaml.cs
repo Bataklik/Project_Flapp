@@ -29,7 +29,7 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
         public BenzineToevoegen()
         {
             InitializeComponent();
-            _brandstofManager = new BrandstofManager(new BrandstofRepo(ConfigurationManager.ConnectionStrings["connString"].ConnectionString));
+            _brandstofManager = new BrandstofManager(new BrandstofRepo(ConfigurationManager.ConnectionStrings["connStringB"].ConnectionString));
 
         }
         private void btnToevoegen_Click(object sender, RoutedEventArgs e)
