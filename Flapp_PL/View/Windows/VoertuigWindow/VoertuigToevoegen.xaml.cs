@@ -78,12 +78,12 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
                 {
                     oc.Add(truitje);
                 }
-                DgvBrandstofTypes.ItemsSource = oc;
+                lstBrandtof.ItemsSource = oc;
                 //Price_Loaded(sender, e);
             }
             else
             {
-                DgvBrandstofTypes.ItemsSource = null;
+                lstBrandtof.ItemsSource = null;
             }
         }
 
@@ -91,7 +91,7 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
         {
             try
             {
-                var x = (Brandstof)DgvBrandstofTypes.CurrentItem;
+                Brandstof x = (Brandstof)lstBrandtof.SelectedItem;
                 int brandstof = x.Id;
                 _Brandstoffen.Remove(x);
                 Application.Current.Properties["Brandstoff"] = _Brandstoffen;

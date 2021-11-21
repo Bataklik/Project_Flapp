@@ -7,85 +7,116 @@
         mc:Ignorable="d"
         Title="VoertuigToevoegen" Height="450" Width="800">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <Label Content="Voertuig Toevoegen" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontSize="28" Margin="5"/>
-        <Label Grid.Row="1" Grid.Column="0" Content="Vehicle ID" Margin="5" FontSize="16"/>
-        <Label Grid.Row="2" Grid.Column="0" Content="Merk" Margin="5" FontSize="16"/>
-        <Label Grid.Row="3" Grid.Column="0" Content="Model" Margin="5" FontSize="16"/>
-        <Label Grid.Row="4" Grid.Column="0" Content="Chassisnummer" Margin="5" FontSize="16"/>
-        <Label Grid.Row="5" Grid.Column="0" Content="Nummerplaat" Margin="5" FontSize="16"/>
-        <Label Grid.Row="6" Grid.Column="0" Content="Type" Margin="5" FontSize="16"/>
-        <Label Grid.Row="7" Grid.Column="0" Content="Kleur" Margin="5" FontSize="16"/>
-        <Label Grid.Row="8" Grid.Column="0" Content="Aantal deuren" Margin="5" FontSize="16"/>
-        <Label Grid.Row="1" Grid.Column="2" Content="Bestuurder" Margin="5" FontSize="16"/>
-        <Label Grid.Row="2" Grid.Column="2" Content="Brandstoftypes" Margin="5" FontSize="16"/>
 
-        <TextBox Name="txtVehicleId" Grid.Row="1" Grid.Column="1"  Margin="5" VerticalAlignment="Center" FontSize="16" />
-        <TextBox Name="txtMerk" Grid.Row="2" Grid.Column="1"  Margin="5" VerticalAlignment="Center" FontSize="16" />
-        <TextBox Name="txtModel" Grid.Row="3" Grid.Column="1"  Margin="5" VerticalAlignment="Center" FontSize="16" />
-        <TextBox Name="txtChassis" Grid.Row="4" Grid.Column="1" Margin="5" VerticalAlignment="Center" FontSize="16" />
-        <TextBox Name="txtNummerplaat" Grid.Row="5" Grid.Column="1"  Margin="5" VerticalAlignment="Center" FontSize="16" />
-        <TextBox Name="txtType" Grid.Row="6" Grid.Column="1"  Margin="5" VerticalAlignment="Center" FontSize="16" />
-        <TextBox Name="txtKleur" Grid.Row="7" Grid.Column="1"  Margin="5" VerticalAlignment="Center" FontSize="16" />
-        <TextBox Name="txtDeuren" Grid.Row="8" Grid.Column="1"  Margin="5" VerticalAlignment="Center" FontSize="16" />
-        <TextBox Name="txtBestuurder" Grid.Row="1" Grid.Column="3"  Margin="5" VerticalAlignment="Center" FontSize="16" />
-        <Button Name="SelecteerBrandstof" Content="Selecteer Brandstoftype" Click="SelecteerBrandstof_Click" Grid.Row="3" Grid.Column="3" Margin="120,15,-9,15" Grid.RowSpan="2" RenderTransformOrigin="0.5,0.5">
-            <Button.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="90"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Button.RenderTransform>
-        </Button>
-        <DataGrid Name="DgvBrandstofTypes" Grid.Row="2" Margin="9,0,127,2" AutoGenerateColumns="False" Loaded="DgvBrandstofTypes_Loaded" Grid.Column="3" Grid.RowSpan="4">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Brandstof" Binding="{Binding Brandstof, Mode=OneWay}"/>
-                
-            </DataGrid.Columns>
-            <DataGrid.Resources>
-                <ContextMenu x:Key="ContextMenu" DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
-                    <MenuItem Name="VerwijderBrandstof" Header="Verwijder" Click="VerwijderBrandstof_Click"/>
-                </ContextMenu>
-            </DataGrid.Resources>
-            <DataGrid.RowStyle>
-                <Style TargetType="DataGridRow">
-                    <Setter Property="ContextMenu" Value="{StaticResource ContextMenu}"/>
-                </Style>
-            </DataGrid.RowStyle>
-        </DataGrid>
-        <StackPanel Grid.Row="7"
+        <StackPanel Grid.Column="0">
+            <Label Content="Voertuig Toevoegen"  FontSize="28" Margin="5"/>
+            <!--Merk Panel-->
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Merk" 
+                           FontSize="16"/>
+                    <TextBox Name="txtMerk" 
+                             Margin="20,5" 
+                             VerticalAlignment="Center" 
+                             HorizontalAlignment="Right"
+                             FontSize="16"
+                             Width="100"/>
+                </StackPanel>
+            </StackPanel>
+            <!--Model Panel-->
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Model" Margin="5" FontSize="16"/>
+                    <TextBox Name="txtModel" 
+                         Width="100"
+                         Margin="20,5"
+                         VerticalAlignment="Center" 
+                         FontSize="16" />
+                </StackPanel>
+            </StackPanel>
+            <!--Chassis Panel-->
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                <Label Grid.Row="4" Grid.Column="0" Content="Chassisnummer" Margin="5" FontSize="16"/>
+                <TextBox Name="txtChassis"
+                         Width="100"
+                         Margin="5" 
+                         VerticalAlignment="Center"
+                         FontSize="16" />
+            </StackPanel>
+            <!--Nummerplaat Panel-->
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                <Label Grid.Row="5" Grid.Column="0" Content="Nummerplaat" Margin="5" FontSize="16"/>
+                <TextBox Name="txtNummerplaat" Width="100" Margin="5" VerticalAlignment="Center" FontSize="16" />
+            </StackPanel>
+            <!--Type Panel-->
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                <Label Content="Type" Margin="5" FontSize="16"/>
+                <TextBox Name="txtType" Width="100"  Margin="5" VerticalAlignment="Center" FontSize="16" />
+            </StackPanel>
+            <!--Kleur Panel-->
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                <Label Content="Kleur" Margin="5" FontSize="16"/>
+                <TextBox Name="txtKleur" Width="100"  Margin="5" VerticalAlignment="Center" FontSize="16" />
+            </StackPanel>
+            <!--Deuren Panel-->
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                <Label Content="Aantal deuren" Margin="5" FontSize="16"/>
+                <TextBox Name="txtDeuren" Width="100" Margin="5" VerticalAlignment="Center" FontSize="16" />
+            </StackPanel>
+        </StackPanel>
+
+
+
+        <StackPanel Margin="0,20"
+                    Grid.Column="1">
+            <!--Bestuurder Panel-->
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                <Label Content="Bestuurder" Margin="5" FontSize="16"/>
+                <TextBox Name="txtBestuurder" Width="100" Margin="5" VerticalAlignment="Center" FontSize="16" />
+
+            </StackPanel>
+            <!--Brandstof Panel-->
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                <Label Content="Brandstoftypes" Margin="5" FontSize="16"/>
+                <Button Name="SelecteerBrandstof" Content="Selecteer Brandstoftype" Click="SelecteerBrandstof_Click" />
+            </StackPanel>
+
+            <ListBox x:Name="lstBrandtof"
+                     Width="200"
+                     Height="200"
+                     Margin="0,20"/>
+
+            <StackPanel Grid.Row="7"
                     HorizontalAlignment="Center"
                     Orientation="Horizontal" Grid.Column="3" Margin="0,41,0,0" Grid.RowSpan="2" Width="219">
-            <Button Content="Toevoegen"
+                <Button Content="Toevoegen"
                     x:Name="btnToevoegen"
                     Click="btnToevoegen_Click"
                     Margin="5"
                     Height="25"
                     Width="100"/>
-            <Button Content="Annuleren"
+                <Button Content="Annuleren"
                     x:Name="btnAnnuleren"
                     Click="btnAnnuleren_Click"
                     Margin="5"
                     Height="25"
                     Width="100"/>
+            </StackPanel>
         </StackPanel>
+
+
     </Grid>
 </Window>
