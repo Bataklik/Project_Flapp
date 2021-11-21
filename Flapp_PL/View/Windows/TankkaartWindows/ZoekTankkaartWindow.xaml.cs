@@ -29,20 +29,20 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
 
         private void btnZoek_Click(object sender, RoutedEventArgs e) {
             
-            if (!string.IsNullOrWhiteSpace(txtNaam.Text) ) {
+            if (!string.IsNullOrWhiteSpace(txtKaartnummer.Text) ) {
                 main.Show();
                 main.wpUserControl.Children.Remove(tUC);
-                main.wpUserControl.Children.Add(new TankkaartUC(txtNaam.Text));
+                main.wpUserControl.Children.Add(new TankkaartUC(txtKaartnummer.Text));
                 Close();
                 return;
-            } else if (dpGeboortedatum.SelectedDate != null) {
+            } else if (dpGeldigheidsdatum.SelectedDate != null) {
                 main.Show();
-                main.wpUserControl.Children.Add(new TankkaartUC((DateTime)dpGeboortedatum.SelectedDate));
+                main.wpUserControl.Children.Add(new TankkaartUC((DateTime)dpGeldigheidsdatum.SelectedDate));
                 Close();
                 return;
-            } else if (!string.IsNullOrWhiteSpace(txtNaam.Text) && dpGeboortedatum.SelectedDate != null) {
+            } else if (!string.IsNullOrWhiteSpace(txtKaartnummer.Text) && dpGeldigheidsdatum.SelectedDate != null) {
                 main.Show();
-                main.wpUserControl.Children.Add(new TankkaartUC(txtNaam.Text , (DateTime)dpGeboortedatum.SelectedDate));
+                main.wpUserControl.Children.Add(new TankkaartUC(txtKaartnummer.Text , (DateTime)dpGeldigheidsdatum.SelectedDate));
                 Close();
                 return;
             }
