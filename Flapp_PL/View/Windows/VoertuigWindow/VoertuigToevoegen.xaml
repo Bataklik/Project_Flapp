@@ -3,120 +3,100 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Flapp_PL.View.Windows.VoertuigWindow"
         mc:Ignorable="d"
-        Title="VoertuigToevoegen" Height="450" Width="800">
+        WindowStartupLocation="CenterScreen"
+        Title="VoertuigToevoegen" Height="400" Width="700">
+    <Window.Resources>
+        <!-- Button Style-->
+        <Style TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="borderButton" CornerRadius="5" Background="#112D4E" BorderThickness="0">
+                            <ContentPresenter x:Name="cpButton" Content="{TemplateBinding Content}" TextBlock.Foreground="#F9F7F7" VerticalAlignment="Center" HorizontalAlignment="Center"></ContentPresenter>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="borderButton" Property="Background" Value="#3F72AF"/>
+                                <Setter TargetName="cpButton" Property="TextBlock.Foreground" Value="#FFD369"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Column="0">
-            <Label Content="Voertuig Toevoegen"  FontSize="28" Margin="5"/>
-            <!--Merk Panel-->
-            <StackPanel Orientation="Horizontal"
-                        HorizontalAlignment="Center">
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Merk" 
-                           FontSize="16"/>
-                    <TextBox Name="txtMerk" 
-                             Margin="20,5" 
-                             VerticalAlignment="Center" 
-                             HorizontalAlignment="Right"
-                             FontSize="16"
-                             Width="100"/>
-                </StackPanel>
-            </StackPanel>
-            <!--Model Panel-->
-            <StackPanel Orientation="Horizontal"
-                        HorizontalAlignment="Center">
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Model" Margin="5" FontSize="16"/>
-                    <TextBox Name="txtModel" 
-                         Width="100"
-                         Margin="20,5"
-                         VerticalAlignment="Center" 
-                         FontSize="16" />
-                </StackPanel>
-            </StackPanel>
-            <!--Chassis Panel-->
-            <StackPanel Orientation="Horizontal"
-                        HorizontalAlignment="Center">
-                <Label Grid.Row="4" Grid.Column="0" Content="Chassisnummer" Margin="5" FontSize="16"/>
-                <TextBox Name="txtChassis"
-                         Width="100"
-                         Margin="5" 
-                         VerticalAlignment="Center"
-                         FontSize="16" />
-            </StackPanel>
-            <!--Nummerplaat Panel-->
-            <StackPanel Orientation="Horizontal"
-                        HorizontalAlignment="Center">
-                <Label Grid.Row="5" Grid.Column="0" Content="Nummerplaat" Margin="5" FontSize="16"/>
-                <TextBox Name="txtNummerplaat" Width="100" Margin="5" VerticalAlignment="Center" FontSize="16" />
-            </StackPanel>
-            <!--Type Panel-->
-            <StackPanel Orientation="Horizontal"
-                        HorizontalAlignment="Center">
-                <Label Content="Type" Margin="5" FontSize="16"/>
-                <TextBox Name="txtType" Width="100"  Margin="5" VerticalAlignment="Center" FontSize="16" />
-            </StackPanel>
-            <!--Kleur Panel-->
-            <StackPanel Orientation="Horizontal"
-                        HorizontalAlignment="Center">
-                <Label Content="Kleur" Margin="5" FontSize="16"/>
-                <TextBox Name="txtKleur" Width="100"  Margin="5" VerticalAlignment="Center" FontSize="16" />
-            </StackPanel>
-            <!--Deuren Panel-->
-            <StackPanel Orientation="Horizontal"
-                        HorizontalAlignment="Center">
-                <Label Content="Aantal deuren" Margin="5" FontSize="16"/>
-                <TextBox Name="txtDeuren" Width="100" Margin="5" VerticalAlignment="Center" FontSize="16" />
-            </StackPanel>
-        </StackPanel>
+        <TextBlock Text="Voertuig Toevoegen" Grid.ColumnSpan="4" FontSize="28" Grid.Row="0" Grid.Column="0"  Margin="0,0,-160,0" Background="#112D4E" Foreground="#F9F7F7" TextAlignment="Center"/>
+
+        <TextBlock Text="Merk:" Grid.Row="1" Grid.Column="0" FontSize="16" VerticalAlignment="Center" Margin="10,0"/>
+        <TextBlock Text="Model:" Grid.Row="2" Grid.Column="0" FontSize="16" VerticalAlignment="Center" Margin="10,0"/>
+        <TextBlock Text="Chassisnummer:" Grid.Row="3" Grid.Column="0" FontSize="16" VerticalAlignment="Center" Margin="10,0" />
+        <TextBlock Text="Nummerplaat:" Grid.Row="4" Grid.Column="0" FontSize="16" VerticalAlignment="Center" Margin="10,0" />
+        <TextBlock Text="Type:" Grid.Row="5" Grid.Column="0" FontSize="16" VerticalAlignment="Center" Margin="10,0"/>
+        <TextBlock Text="Kleur:" Grid.Row="6" Grid.Column="0" FontSize="16" VerticalAlignment="Center" Margin="10,0" />
+        <TextBlock Text="Aantal deuren:" Grid.Row="7" Grid.Column="0" FontSize="16" VerticalAlignment="Center" Margin="10,0" />
+
+        <TextBox Name="txtMerk" Grid.Row="1" Grid.Column="1" Width="130" Margin="5" Height="25" FontSize="16"/>
+        <TextBox Name="txtModel" Grid.Row="2" Grid.Column="1" Width="130" Margin="10,5,10,5" FontSize="16" />
+        <TextBox Name="txtChassis" Grid.Row="3" Grid.Column="1" Width="130" Margin="10,10,10,5" FontSize="16" />
+        <TextBox Name="txtNummerplaat" Grid.Row="4" Grid.Column="1" Width="130" Margin="10,10,10,10" FontSize="16" />
+        <TextBox Name="txtType" Grid.Row="5" Grid.Column="1" Width="130"  Margin="10,5,10,5" FontSize="16" />
+        <TextBox Name="txtKleur" Grid.Row="6" Grid.Column="1" Width="130"  Margin="10,5,10,5" FontSize="16" />
+        <TextBox Name="txtDeuren" Grid.Row="7" Grid.Column="1" Width="130" Margin="10,5,10,5" FontSize="16" />
 
 
+        <Label Content="Bestuurder" Margin="5" Grid.Row="1" Grid.Column="2" FontSize="16"/>
+        <Label Content="Brandstoftypes" Margin="5" Grid.Row="2" Grid.Column="2" FontSize="16"/>
 
-        <StackPanel Margin="0,20"
-                    Grid.Column="1">
-            <!--Bestuurder Panel-->
-            <StackPanel Orientation="Horizontal"
-                        HorizontalAlignment="Center">
-                <Label Content="Bestuurder" Margin="5" FontSize="16"/>
-                <TextBox Name="txtBestuurder" Width="100" Margin="5" VerticalAlignment="Center" FontSize="16" />
 
-            </StackPanel>
-            <!--Brandstof Panel-->
-            <StackPanel Orientation="Horizontal"
-                        HorizontalAlignment="Center">
-                <Label Content="Brandstoftypes" Margin="5" FontSize="16"/>
-                <Button Name="SelecteerBrandstof" Content="Selecteer Brandstoftype" Click="SelecteerBrandstof_Click" />
-            </StackPanel>
+        <TextBox Name="txtBestuurder" Width="130" Height="25" Grid.Row="1" Grid.Column="3" FontSize="16" />
+        <Button  Name="btnSelecteerBrandstof"  Grid.Row="2" Grid.Column="3" Content="kies Brandstof" Click="SelecteerBrandstof_Click"  />
 
-            <ListBox x:Name="lstBrandtof"
-                     Width="200"
-                     Height="200"
-                     Margin="0,20"/>
-
-            <StackPanel Grid.Row="7"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal" Grid.Column="3" Margin="0,41,0,0" Grid.RowSpan="2" Width="219">
-                <Button Content="Toevoegen"
+        <ListBox x:Name="lstBrandtof"
+                 Grid.Row="3"
+                 Grid.Column="2"
+                 Grid.ColumnSpan="2"
+                 Grid.RowSpan="5"
+                 Width="200"
+                 Height="150"
+                 Margin="0,10"/>
+        <Button Content="Toevoegen"
                     x:Name="btnToevoegen"
+                    VerticalAlignment="Top"
                     Click="btnToevoegen_Click"
+                    Grid.Row="8"
+                    Grid.Column="2"
                     Margin="5"
                     Height="25"
                     Width="100"/>
-                <Button Content="Annuleren"
+        <Button Content="Annuleren"
                     x:Name="btnAnnuleren"
+                    VerticalAlignment="Top"
+                    Grid.Row="8"
+                    Grid.Column="4"
                     Click="btnAnnuleren_Click"
                     Margin="5"
                     Height="25"
                     Width="100"/>
-            </StackPanel>
-        </StackPanel>
-
-
     </Grid>
 </Window>
