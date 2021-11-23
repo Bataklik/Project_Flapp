@@ -37,7 +37,13 @@ CREATE TABLE[dbo].[Tankkaart](
    [geblokkeerd] [bit] NOT NULL);
    SET DATEFORMAT DMY
 END
-
+-- voertuigType
+IF  NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[VoertuigType]') AND type in (N'U'))
+BEGIN
+CREATE TABLE[dbo].[VoertuigType](
+   [voertuigTypeId][int] IDENTITY(1, 1) PRIMARY KEY,
+   [typeNaam] [varchar](50) NOT NULL); 
+END
 -- Voertuig
 IF  NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Voertuig]') AND type in (N'U'))
 BEGIN
@@ -47,7 +53,7 @@ CREATE TABLE[dbo].[Voertuig](
    [model] [varchar](50) NOT NULL,
    [chassisnummer] [varchar](17) NOT NULL,
    [nummerplaat] [varchar](9) NOT NULL,
-   [type] [varchar](50) NOT NULL,
+   [type] [int] FOREIGN KEY REFERENCES dbo.VoertuigType(voertuigTypeId),
    [kleur] [varchar](50) NULL,
    [deuren] [int] NULL);
 END
