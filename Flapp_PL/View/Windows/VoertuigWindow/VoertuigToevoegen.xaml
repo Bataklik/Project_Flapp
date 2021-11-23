@@ -79,7 +79,14 @@
                  Grid.RowSpan="5"
                  Width="200"
                  Height="150"
-                 Margin="0,10"/>
+                 Margin="0,10"
+                 Loaded="lstBrandtof_Loaded">
+            <ListBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem x:Name="miVerwijder" Header="Verwijder" Click="miVerwijder_Click"/>
+                </ContextMenu>
+            </ListBox.ContextMenu>
+        </ListBox>
         <Button Content="Toevoegen"
                     x:Name="btnToevoegen"
                     VerticalAlignment="Top"

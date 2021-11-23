@@ -11,7 +11,7 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
 {
     public partial class BenzineSelecteren : Window
     {
-        List<Brandstof> _Brandstoffen = new();
+        ObservableCollection<Brandstof> _brandstoffen = new();
         private BrandstofManager _brandstofManager;
 
         public BenzineSelecteren()
@@ -43,14 +43,11 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
                 if (lstBrandstof.SelectedItem != null)
                 {
                     Brandstof b = (Brandstof)lstBrandstof.SelectedItem;
-
-                    _Brandstoffen.Add(b);
-                    Application.Current.Properties["Brandstof"] = _Brandstoffen;
-
-                    Window myWindow = Window.GetWindow(this);
+                    _brandstoffen.Add(b);
+                    Application.Current.Properties["Brandstof"] = _brandstoffen;
+                    //Window myWindow = GetWindow(this);
                     new VoertuigToevoegen().Show();
-
-                    myWindow.Close();
+                    Close();
                 }
                 else
                 {
@@ -64,17 +61,14 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
         }
         private void btnAnnuleren_Click(object sender, RoutedEventArgs e)
         {
-
-            Window myWindow = Window.GetWindow(this);
             new VoertuigToevoegen().Show();
-
-            myWindow.Close();
+            Close();
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             if (Application.Current.Properties["Brandstof"] != null)
             {
-                _Brandstoffen = (List<Brandstof>)Application.Current.Properties["Brandstof"];
+                _brandstoffen = (ObservableCollection<Brandstof>)Application.Current.Properties["Brandstof"]; ;
             }
         }
     }
