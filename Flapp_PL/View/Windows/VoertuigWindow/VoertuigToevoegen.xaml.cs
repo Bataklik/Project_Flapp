@@ -15,7 +15,7 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
         public VoertuigToevoegen()
         {
             InitializeComponent();
-            _voertuigManager = new VoertuigManager(new VoertuigRepo(ConfigurationManager.ConnectionStrings["connStringB"].ConnectionString));
+            _voertuigManager = new VoertuigManager(new VoertuigRepo(ConfigurationManager.ConnectionStrings["connStringR"].ConnectionString));
             if (Application.Current.Properties["Brandstof"] == null)
             {
                 Application.Current.Properties["Brandstof"] = new ObservableCollection<Brandstof>();

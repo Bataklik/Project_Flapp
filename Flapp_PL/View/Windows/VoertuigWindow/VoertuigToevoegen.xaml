@@ -83,7 +83,7 @@
                  Loaded="lstBrandtof_Loaded">
             <ListBox.ContextMenu>
                 <ContextMenu>
-                    <MenuItem x:Name="miVerwijder" Header="Verwijder" Click="miVerwijder_Click"/>
+                    <MenuItem x:Name="miVerwijder" Header="Verwijder" Click="VerwijderBrandstof_Click"/>
                 </ContextMenu>
             </ListBox.ContextMenu>
         </ListBox>

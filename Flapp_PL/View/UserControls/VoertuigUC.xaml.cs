@@ -31,8 +31,8 @@ namespace Flapp_PL.View.UserControls
         public VoertuigUC()
         {
             InitializeComponent();
-            _voertuigManager = new VoertuigManager(new VoertuigRepo(ConfigurationManager.ConnectionStrings["connStringB"].ConnectionString));
-            _brandstofManager = new BrandstofManager(new BrandstofRepo(ConfigurationManager.ConnectionStrings["connStringB"].ConnectionString));
+            _voertuigManager = new VoertuigManager(new VoertuigRepo(ConfigurationManager.ConnectionStrings["connStringR"].ConnectionString));
+            _brandstofManager = new BrandstofManager(new BrandstofRepo(ConfigurationManager.ConnectionStrings["connStringR"].ConnectionString));
             laadVoertuigen();
             laadBrandstoffen();
         }
