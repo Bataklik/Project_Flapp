@@ -2,9 +2,20 @@
 USE [Project_Flapp_DB]; INSERT INTO [dbo].[Adres] ([straat] ,[huisnummer] ,[stad] ,[postcode]) VALUES ('Keizerstraat' ,'1' ,'Gent' ,9000);
 USE [Project_Flapp_DB]; INSERT INTO [dbo].[Adres] ([straat] ,[huisnummer] ,[stad] ,[postcode]) VALUES ('Stationstraat' ,'1' ,'Eke-Nazareth' ,9810);
 
+-- VoertuigType Insert
+USE [Project_Flapp_DB]; INSERT INTO [dbo].[VoertuigType] ([typeNaam]) VALUES ('Cabriolet');
+USE [Project_Flapp_DB]; INSERT INTO [dbo].[VoertuigType] ([typeNaam]) VALUES ('Coupé');
+USE [Project_Flapp_DB]; INSERT INTO [dbo].[VoertuigType] ([typeNaam]) VALUES ('Hatchback');
+USE [Project_Flapp_DB]; INSERT INTO [dbo].[VoertuigType] ([typeNaam]) VALUES ('Limousine');
+USE [Project_Flapp_DB]; INSERT INTO [dbo].[VoertuigType] ([typeNaam]) VALUES ('Pick-up');
+USE [Project_Flapp_DB]; INSERT INTO [dbo].[VoertuigType] ([typeNaam]) VALUES ('Sedan');
+USE [Project_Flapp_DB]; INSERT INTO [dbo].[VoertuigType] ([typeNaam]) VALUES ('Stationwagen');
+USE [Project_Flapp_DB]; INSERT INTO [dbo].[VoertuigType] ([typeNaam]) VALUES ('SUV');
+USE [Project_Flapp_DB]; INSERT INTO [dbo].[VoertuigType] ([typeNaam]) VALUES ('Terreinwagen');
+
 -- Voertuig Insert
-USE [Project_Flapp_DB]; INSERT INTO [dbo].[Voertuig] ([merk] ,[model] ,[chassisnummer] ,[nummerplaat] ,[type] ,[kleur] ,[deuren]) VALUES ('BMW' ,'Berline' ,'3GCUKREC7FG207394' ,'1-LIN-003' ,'Vier persoonswagen' ,'Blauw' ,4);
-USE [Project_Flapp_DB]; INSERT INTO [dbo].[Voertuig] ([merk] ,[model] ,[chassisnummer] ,[nummerplaat] ,[type] ,[kleur] ,[deuren]) VALUES ('Tesla' ,'Model X' ,'JN1CA21D7ST071336' ,'1-ASN-010' ,'Vier persoonswagen' ,'Grijs' ,4);
+USE [Project_Flapp_DB]; INSERT INTO [dbo].[Voertuig] ([merk] ,[model] ,[chassisnummer] ,[nummerplaat] ,[type] ,[kleur] ,[deuren]) VALUES ('BMW' ,'Berline' ,'3GCUKREC7FG207394' ,'1-LIN-003' ,'2' ,'Blauw' ,4);
+USE [Project_Flapp_DB]; INSERT INTO [dbo].[Voertuig] ([merk] ,[model] ,[chassisnummer] ,[nummerplaat] ,[type] ,[kleur] ,[deuren]) VALUES ('Tesla' ,'Model X' ,'JN1CA21D7ST071336' ,'1-ASN-010' ,'4' ,'Grijs' ,4);
 
 -- Tankkaart Insert
 USE [Project_Flapp_DB]; INSERT INTO [dbo].[Tankkaart] ([geldigheidsdatum] ,[pincode] ,[geblokkeerd]) VALUES ('01/02/2025' ,'1232' ,0);
