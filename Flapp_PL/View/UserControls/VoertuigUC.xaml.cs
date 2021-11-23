@@ -45,7 +45,7 @@ namespace Flapp_PL.View.UserControls
                 voertuigen = _voertuigManager.GeefAlleVoertuigen();
             }
             catch (Exception ex) { throw new Exception(ex.Message, ex); }
-            //lstVoertuigen.ItemsSource = voertuigen;
+            lstVoertuigen.ItemsSource = voertuigen;
         }
 
         private void laadBrandstoffen()

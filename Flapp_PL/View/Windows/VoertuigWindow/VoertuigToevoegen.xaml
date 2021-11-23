@@ -26,7 +26,7 @@
             </Setter>
         </Style>
     </Window.Resources>
-    <Grid>
+    <Grid Loaded="Grid_Loaded">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="40"/>
@@ -59,8 +59,8 @@
         <TextBox Name="txtMerk" Grid.Row="1" Grid.Column="1" Width="130" Margin="5" Height="25" FontSize="16"/>
         <TextBox Name="txtModel" Grid.Row="2" Grid.Column="1" Width="130" Margin="10,5,10,5" FontSize="16" />
         <TextBox Name="txtChassis" Grid.Row="3" Grid.Column="1" Width="130" Margin="10,10,10,5" FontSize="16" />
-        <TextBox Name="txtNummerplaat" Grid.Row="4" Grid.Column="1" Width="130" Margin="10,10,10,10" FontSize="16" />
-        <TextBox Name="txtType" Grid.Row="5" Grid.Column="1" Width="130"  Margin="10,5,10,5" FontSize="16" />
+        <TextBox Name="txtNummerplaat" Grid.Row="4" Grid.Column="1" Width="130" Margin="10,10,10,6" FontSize="16" />
+        <ComboBox Name="cmbType" Grid.Row="5" Grid.Column="1" Width="130"  Margin="10,5,10,5" FontSize="16" />
         <TextBox Name="txtKleur" Grid.Row="6" Grid.Column="1" Width="130"  Margin="10,5,10,5" FontSize="16" />
         <TextBox Name="txtDeuren" Grid.Row="7" Grid.Column="1" Width="130" Margin="10,5,10,5" FontSize="16" />
 

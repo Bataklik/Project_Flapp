@@ -5,6 +5,7 @@ using System;
 using System.Windows;
 using System.Configuration;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
 
 namespace Flapp_PL.View.Windows.VoertuigWindow
 {
@@ -12,10 +13,12 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
     {
         private VoertuigManager _voertuigManager;
         private ObservableCollection<Brandstof> _brandstoffen;
+        private VoertuigTypeManager _voertuigTypeManager;
         public VoertuigToevoegen()
         {
             InitializeComponent();
             _voertuigManager = new VoertuigManager(new VoertuigRepo(ConfigurationManager.ConnectionStrings["connStringR"].ConnectionString));
+            _voertuigTypeManager = new VoertuigTypeManager(new VoertuigTypeRepo(ConfigurationManager.ConnectionStrings["connStringR"].ConnectionString));
             if (Application.Current.Properties["Brandstof"] == null)
             {
                 Application.Current.Properties["Brandstof"] = new ObservableCollection<Brandstof>();
@@ -26,7 +29,8 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
 
         private void btnToevoegen_Click(object sender, RoutedEventArgs e)
         {
-            Voertuig v = new Voertuig(txtMerk.Text, txtModel.Text, txtChassis.Text, txtNummerplaat.Text, txtType.Text, txtKleur.Text, Convert.ToInt32(txtDeuren.Text));
+            VoertuigType t = new VoertuigType(cmbType.SelectedIndex.ToString());
+            Voertuig v = new Voertuig(txtMerk.Text, txtModel.Text, txtChassis.Text, txtNummerplaat.Text, t, txtKleur.Text, Convert.ToInt32(txtDeuren.Text));
             try
             {
                 _voertuigManager.VoegVoertuigToe(v);
@@ -46,7 +50,7 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
 
         private void SelecteerBrandstof_Click(object sender, RoutedEventArgs e)
         {
-            new BenzineSelecteren().Show();
+            new BenzineSelecteren().ShowDialog();
             Close();
         }
 
@@ -83,6 +87,21 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
         private void miVerwijder_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void Grid_Loaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                IReadOnlyList<VoertuigType> types = _voertuigTypeManager.GeefAlleVoertuigen();
+                ObservableCollection<VoertuigType> ts = new();
+                foreach (var type in types)
+                {
+                    ts.Add(type);
+                }
+                cmbType.ItemsSource = ts;
+            }
+            catch (Exception ex) { throw new Exception(ex.Message, ex); }
         }
     }
 }

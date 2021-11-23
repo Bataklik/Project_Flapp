@@ -7,7 +7,18 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Margin="0,0,1,0">
-        <Button Content="Voertuig toevoegen" HorizontalAlignment="Left" Margin="47,25,0,0" VerticalAlignment="Top" Height="102" Width="193" Click="Button_Click"/>
+        <StackPanel Grid.Column="0" Margin="9,3,283,-3">
+            <ListBox x:Name="lstVoertuigen"
+                 Width="489"
+                 Height="431">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel HorizontalAlignment="Center"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+        </StackPanel>
+        <Button Content="Voertuig toevoegen" HorizontalAlignment="Left" Margin="557,86,0,0" VerticalAlignment="Top" Height="102" Width="222" Click="Button_Click"/>
 
     </Grid>
 </UserControl>

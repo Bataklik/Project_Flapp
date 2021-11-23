@@ -120,8 +120,9 @@ namespace Flapp_DAL.Repository
         public IReadOnlyList<Voertuig> GeefAlleVoertuigen()
         {
             SqlConnection conn = new SqlConnection(_connString);
-            List<Voertuig> voertuigen = new List<Voertuig>();
-            string query = "USE Project_Flapp_DB; SELECT * FROM[Project_Flapp_DB].[dbo].[Voertuig] INNER JOIN Brandstof_Voertuig ON Voertuig.voertuigId = Brandstof_Voertuig.voertuigId INNER JOIN Brandstof ON Brandstof_Voertuig.brandstofId = brandstof.brandstofId;";
+            List<Voertuig> voertuigen = new List<Voertuig>();            
+            string query = "USE Project_Flapp_DB; SELECT * FROM Voertuig LEFT JOIN Brandstof_Voertuig ON Voertuig.voertuigId = Brandstof_Voertuig.voertuigId LEFT JOIN Brandstof ON Brandstof_Voertuig.brandstofId = Brandstof.brandstofId LEFT JOIN VoertuigType ON Voertuig.type = VoertuigType.voertuigTypeId";
+            
             using (SqlCommand cmd = conn.CreateCommand())
             {
                 cmd.CommandText = query;
@@ -129,10 +130,10 @@ namespace Flapp_DAL.Repository
                 try
                 {
                     SqlDataReader r = cmd.ExecuteReader();
-                    while (r.Read())
                     {
-                        List<Brandstof> brandstof = new List<Brandstof> { new Brandstof((string)r["naam"]) };
-                        Voertuig voertuig = new Voertuig((int)r["voertuigId"], (string)r["merk"], (string)r["model"], (string)r["chassisnummer"], (string)r["nummerplaat"], brandstof, (string)r["type"], (string)r["kleur"], (int)r["deuren"]);
+                        List<Brandstof> brandstof = new List<Brandstof> {new Brandstof((string)r["naam"].ToString()) };
+                        VoertuigType vt = new VoertuigType((string)r["typeNaam"]);
+                        Voertuig voertuig = new Voertuig((int)r["voertuigId"], (string)r["merk"], (string)r["model"], (string)r["chassisnummer"], (string)r["nummerplaat"], brandstof, vt, (string)r["kleur"], (int)r["deuren"]);
 
                         voertuigen.Add(voertuig);
                     }
@@ -161,7 +162,8 @@ namespace Flapp_DAL.Repository
                     r.Read();
                     List<Brandstof> b = new List<Brandstof> { (null) };//_bRepo.GeefBrandstof((int)r["brandstof_id"]); // Mag null zijn
                     Bestuurder bs = null;// _bsRepo.GeefBestuurder((int)r["bestuurder_id"]); // Mag null zijn
-                    Voertuig voertuig = new Voertuig((int)r["VoertuigId"], (string)r["merk"], (string)r["model"], (string)r["chassisnummer"], (string)r["nummerplaat"], b, (string)r["voertuigType"], (string)r["kleur"], (int)r["deuren"], bs);
+                    VoertuigType vt = new VoertuigType((string)r["typeNaam"]);
+                    Voertuig voertuig = new Voertuig((int)r["VoertuigId"], (string)r["merk"], (string)r["model"], (string)r["chassisnummer"], (string)r["nummerplaat"], b, vt, (string)r["kleur"], (int)r["deuren"], bs);
                     return voertuig;
                 }
                 catch (Exception ex) { throw new Exception(ex.Message); }
