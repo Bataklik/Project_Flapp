@@ -19,8 +19,9 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
     /// Interaction logic for ZoekTankkaartWindow.xaml
     /// </summary>
     public partial class ZoekTankkaartWindow : Window {
-        MainWindow main;
-        TankkaartUC tUC;
+        private MainWindow main;
+        private TankkaartUC tUC;
+
         public ZoekTankkaartWindow(MainWindow main, TankkaartUC tUC) {
             this.main = main;
             this.tUC = tUC;
