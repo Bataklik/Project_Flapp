@@ -22,28 +22,28 @@ namespace Flapp_PL.View.UserControls
         public TankkaartUC()
         {
             InitializeComponent();
-            _tankkaartManager = new TankkaartManager(new TankkaartRepo(ConfigurationManager.ConnectionStrings["connStringB"].ConnectionString));
+            _tankkaartManager = new TankkaartManager(new TankkaartRepo(ConfigurationManager.ConnectionStrings["connStringTL"].ConnectionString));
             laadTankkaarten();
         }
 
         public TankkaartUC(string kaartnummer, DateTime datum)
         {
             InitializeComponent();
-            _tankkaartManager = new TankkaartManager(new TankkaartRepo(ConfigurationManager.ConnectionStrings["connStringB"].ConnectionString));
+            _tankkaartManager = new TankkaartManager(new TankkaartRepo(ConfigurationManager.ConnectionStrings["connStringTL"].ConnectionString));
             laadTankkaarten(kaartnummer, datum);
         }
 
         public TankkaartUC(string kaartnummer)
         {
             InitializeComponent();
-            _tankkaartManager = new TankkaartManager(new TankkaartRepo(ConfigurationManager.ConnectionStrings["connStringB"].ConnectionString));
+            _tankkaartManager = new TankkaartManager(new TankkaartRepo(ConfigurationManager.ConnectionStrings["connStringTL"].ConnectionString));
             laadTankkaarten(kaartnummer);
         }
 
         public TankkaartUC(MainWindow main)
         {
             InitializeComponent();
-            _tankkaartManager = new TankkaartManager(new TankkaartRepo(ConfigurationManager.ConnectionStrings["connStringB"].ConnectionString));
+            _tankkaartManager = new TankkaartManager(new TankkaartRepo(ConfigurationManager.ConnectionStrings["connStringTL"].ConnectionString));
             _main = main;
             laadTankkaarten();
         }
@@ -51,7 +51,7 @@ namespace Flapp_PL.View.UserControls
         public TankkaartUC(DateTime datum)
         {
             InitializeComponent();
-            _tankkaartManager = new TankkaartManager(new TankkaartRepo(ConfigurationManager.ConnectionStrings["connStringTD"].ConnectionString));
+            _tankkaartManager = new TankkaartManager(new TankkaartRepo(ConfigurationManager.ConnectionStrings["connStringTL"].ConnectionString));
             laadTankkaarten(datum);
         }
 
@@ -119,6 +119,11 @@ namespace Flapp_PL.View.UserControls
         {
             TankkaartUC tUC = this;
             new ZoekTankkaartWindow(_main, tUC).ShowDialog();
+        }
+
+        private void btnVoegToe_Click(object sender, RoutedEventArgs e) {
+            TankkaartUC tUC = this;
+            new TankkaartToevoegenWindow().ShowDialog();
         }
     }
 }

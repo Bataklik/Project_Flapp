@@ -13,3 +13,5 @@
 | 1u10 | Klaar rijksregistercontrole + maken geslacht.cs   |
 | 1u   | Maken nummerplaatcontrole                         |
 | 1u30 | Updaten BestuurderUC & TankkaartUC                |
+| 1u30 | Updaten BestuurderUC + ZoekTankkaartWindow        |
+| 1u30 | Update TankkaartUC + VoegTankkaartWindow          |

@@ -20,6 +20,11 @@ namespace Flapp_BLL.Models
         #endregion
 
         #region Constructors
+        public Tankkaart(string pincode, DateTime geldigheidsdatum) {
+            ZetPincode(pincode);
+            ZetGeldigheidsdatum(geldigheidsdatum);
+        }
+
         public Tankkaart(int kaartnummer, DateTime geldigheidsdatum)
         {
             ZetKaartnummer(kaartnummer);
