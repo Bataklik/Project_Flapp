@@ -15,4 +15,4 @@
 | 1u30 | Updaten BestuurderUC & TankkaartUC                |
 | 1u30 | Updaten BestuurderUC + ZoekTankkaartWindow        |
 | 1u30 | Update TankkaartUC + VoegTankkaartWindow          |
-| 2u   | Update TankkaartUC + Bestuurder + TankkaartUpdate |
+| 2u30 | Update TankkaartUC + Bestuurder + TankkaartUpdate |
