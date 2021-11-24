@@ -117,26 +117,22 @@ namespace Flapp_DAL.Repository
         #endregion
 
         #region GeefVoertuig(en) Method
-        public IReadOnlyList<Voertuig> GeefAlleVoertuigen()
-        {
+        public IReadOnlyList<Voertuig> GeefAlleVoertuigen(){
             SqlConnection conn = new SqlConnection(_connString);
             List<Voertuig> voertuigen = new List<Voertuig>();            
             string query = "SELECT * FROM Voertuig LEFT JOIN Brandstof_Voertuig ON Voertuig.voertuigId = Brandstof_Voertuig.voertuigId LEFT JOIN Brandstof ON Brandstof_Voertuig.brandstofId = Brandstof.brandstofId LEFT JOIN VoertuigType ON Voertuig.type = VoertuigType.voertuigTypeId";
-            
-            using (SqlCommand cmd = conn.CreateCommand())
-            {
+            using (SqlCommand cmd = conn.CreateCommand()){
                 cmd.CommandText = query;
                 conn.Open();
-                try
-                {
+                try {
                     SqlDataReader r = cmd.ExecuteReader();
-                    {
-                        List<Brandstof> brandstof = new List<Brandstof> {new Brandstof((string)r["naam"].ToString()) };
+                    while (r.Read()) {
+                        List<Brandstof> brandstof = new List<Brandstof> { new Brandstof((string)r["naam"]) };
                         VoertuigType vt = new VoertuigType((string)r["typeNaam"]);
                         Voertuig voertuig = new Voertuig((int)r["voertuigId"], (string)r["merk"], (string)r["model"], (string)r["chassisnummer"], (string)r["nummerplaat"], brandstof, vt, (string)r["kleur"], (int)r["deuren"]);
 
                         voertuigen.Add(voertuig);
-                    }
+                    }                                           
                 }
                 catch (Exception ex) { throw new Exception(ex.Message); }
                 finally { conn.Close(); }
