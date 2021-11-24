@@ -47,7 +47,9 @@
                            Margin="0,14,0,0" />
                 <TextBlock Text="Pincode:"
                            Margin="0,14,0,0" />
-                <TextBlock Text="Bestuurder"
+                <TextBlock Text="Bestuurder:"
+                           Margin="0,14,0,0" />
+                <TextBlock Text="Geblokkeerd:"
                            Margin="0,14,0,0" />
             </StackPanel>
         </StackPanel>
@@ -71,6 +73,10 @@
                          Height="20"
                          Margin="5"
                          x:Name="cbBestuurder"/>
+                <ComboBox Width="100"
+                         Height="20"
+                         Margin="5"
+                         x:Name="cbGeblokkeerd" SelectionChanged="cbGeblokkeerd_SelectionChanged"/>
             </StackPanel>
         </StackPanel>
 

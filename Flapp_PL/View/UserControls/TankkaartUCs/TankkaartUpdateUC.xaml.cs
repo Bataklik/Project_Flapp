@@ -39,13 +39,15 @@ namespace Flapp_PL.View.UserControls.TankkaartUCs {
             txtKaartnummer.Text = Convert.ToString(_tankkaart.Kaartnummer);
             dpGeldigheidsdatum.SelectedDate = _tankkaart.Geldigheidsdatum;
             txtPincode.Text = _tankkaart.Pincode;
-            if (_bestuurderManager.GeefAlleBestuurdersZonderTankkaarten() != null) {
-                cbBestuurder.ItemsSource = _bestuurderManager.GeefAlleBestuurdersZonderTankkaarten().Select(x => x.Voornaam);
-            } else {
-                cbBestuurder.ItemsSource = null;
-            }
-            
-            
+
+            if (_bestuurderManager.GeefAlleBestuurdersZonderTankkaarten() != null) { cbBestuurder.ItemsSource = _bestuurderManager.GeefAlleBestuurdersZonderTankkaarten()
+                                                                                                                                  .Select(x => x.Voornaam); } 
+            else { cbBestuurder.ItemsSource = null; }
+
+            string[] geblokkeerd = { "Ja", "Nee" };
+            cbGeblokkeerd.ItemsSource = geblokkeerd;
+            if (_tankkaart.Geblokkeerd) { cbGeblokkeerd.SelectedItem = geblokkeerd[0]; }
+            cbGeblokkeerd.SelectedItem = geblokkeerd[1];
         }
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e) {
@@ -54,6 +56,10 @@ namespace Flapp_PL.View.UserControls.TankkaartUCs {
 
         private void btnAnnuleren_Click(object sender, RoutedEventArgs e) {
             _main.wpUserControl.Children.Remove(this);
+        }
+
+        private void cbGeblokkeerd_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+
         }
     }
 }

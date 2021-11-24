@@ -63,9 +63,7 @@ namespace Flapp_PL.View.UserControls
             {
                 List<Tankkaart> sortTankkaarten = _tankkaartManager.GeefAlleTankkaarten().OrderBy(x => x.Value.Kaartnummer).Select(x => x.Value).ToList();
                 foreach (Tankkaart v in sortTankkaarten)
-                {
-                    tankkaarten.Add(v);
-                }
+                { tankkaarten.Add(v); }
             }
             catch (Exception ex) { throw new Exception(ex.Message, ex); }
             lstTankkaarten.ItemsSource = tankkaarten;
