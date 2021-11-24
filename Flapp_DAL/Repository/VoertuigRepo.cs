@@ -121,7 +121,7 @@ namespace Flapp_DAL.Repository
         {
             SqlConnection conn = new SqlConnection(_connString);
             List<Voertuig> voertuigen = new List<Voertuig>();            
-            string query = "USE Project_Flapp_DB; SELECT * FROM Voertuig LEFT JOIN Brandstof_Voertuig ON Voertuig.voertuigId = Brandstof_Voertuig.voertuigId LEFT JOIN Brandstof ON Brandstof_Voertuig.brandstofId = Brandstof.brandstofId LEFT JOIN VoertuigType ON Voertuig.type = VoertuigType.voertuigTypeId";
+            string query = "SELECT * FROM Voertuig LEFT JOIN Brandstof_Voertuig ON Voertuig.voertuigId = Brandstof_Voertuig.voertuigId LEFT JOIN Brandstof ON Brandstof_Voertuig.brandstofId = Brandstof.brandstofId LEFT JOIN VoertuigType ON Voertuig.type = VoertuigType.voertuigTypeId";
             
             using (SqlCommand cmd = conn.CreateCommand())
             {

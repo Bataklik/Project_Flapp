@@ -39,10 +39,12 @@ namespace Flapp_PL.View.UserControls
 
         private void laadVoertuigen()
         {
-            IReadOnlyList<Voertuig> voertuigen;
-            try
-            {
-                voertuigen = _voertuigManager.GeefAlleVoertuigen();
+            List<Voertuig> voertuigen = new List<Voertuig>();
+            try {
+                List<Voertuig> sortVoertuigen = _voertuigManager.GeefAlleVoertuigen().ToList();
+                foreach (Voertuig v in sortVoertuigen) {
+                    voertuigen.Add(v);
+                }
             }
             catch (Exception ex) { throw new Exception(ex.Message, ex); }
             lstVoertuigen.ItemsSource = voertuigen;
