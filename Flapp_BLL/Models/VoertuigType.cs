@@ -40,7 +40,7 @@ namespace Flapp_BLL.Models
         #region Overrides
         public override string ToString()
         {
-            return $"Type: {TypeWagen}";
+            return $"{TypeWagen}";
         }
         public override bool Equals(object obj)
         {

@@ -1,6 +1,7 @@
 ﻿using Flapp_BLL.Exceptions.ModelExpections;
 using Flapp_BLL.Checkers;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Flapp_BLL.Models
 {
@@ -50,7 +51,7 @@ namespace Flapp_BLL.Models
         }
 
         public Voertuig(string merk, string model, string chassisNummer, string nummerPlaat, List<Brandstof> brandstofType, VoertuigType voertuigType, string kleur, int deuren)
-        {            
+        {
             ZetMerk(merk);
             ZetModel(model);
             ZetChassisNummer(chassisNummer);
@@ -77,7 +78,7 @@ namespace Flapp_BLL.Models
             ZetModel(model);
             ZetChassisNummer(chassisNummer);
             ZetNummerplaat(nummerplaat);
-            
+
             ZetVoertuigType(voertuigType);
             ZetKleur(kleur);
             ZetAantalDeuren(deuren);
@@ -226,10 +227,11 @@ namespace Flapp_BLL.Models
         #region Overrides
         public override string ToString()
         {
-            return $"\n\t---------------{GetType().Name}---------\n" +
-                $"\t{Merk}, {Model}, {ChassisNummer}\n" +
-                $"\t{Brandstof}, {VoertuigType}\n" +
-                $"\t--------------------------------";
+            return $"\n---------------{GetType().Name}---------\n" +
+                $"{Merk}, {Model}, {ChassisNummer}\n" +
+                $"{string.Join(", ", Brandstof.OrderBy(b => b.Naam))}\n" +
+                $"{VoertuigType}\n" +
+                $"--------------------------------";
         }
         #endregion
     }
