@@ -127,7 +127,7 @@ namespace Flapp_DAL.Repository
                 try {
                     SqlDataReader r = cmd.ExecuteReader();
                     while (r.Read()) {
-                        List<Brandstof> brandstof = new List<Brandstof> { new Brandstof((string)r["naam"]) };
+                        List<Brandstof> brandstof = new List<Brandstof> { new Brandstof((string)r["brandstofnaam"]) };
                         VoertuigType vt = new VoertuigType((string)r["typeNaam"]);
                         Voertuig voertuig = new Voertuig((int)r["voertuigId"], (string)r["merk"], (string)r["model"], (string)r["chassisnummer"], (string)r["nummerplaat"], brandstof, vt, (string)r["kleur"], (int)r["deuren"]);
 
