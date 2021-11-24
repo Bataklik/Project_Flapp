@@ -197,10 +197,10 @@ namespace Flapp_BLL.Models
         #region Overrides
         public override string ToString()
         {
-            return $"\n---------------{GetType().Name}---------\n" +
-                $"{Naam}, {Voornaam}, {Geboortedatum.ToShortDateString()}\n" +
-                $"{Rijksregisternummer}, {string.Join(", ", RijbewijsType.OrderBy(r => r.Naam))}\n" +
-                $"--------------------------------";
+            return  $"\n---------------{GetType().Name}---------\n" +
+                    $"{Naam}, {Voornaam}, {Geboortedatum.ToShortDateString()}\n" +
+                    $"{Rijksregisternummer}, {string.Join(", ", RijbewijsType.OrderBy(r => r.Naam))}\n" +
+                    $"--------------------------------";
         }
 
         public override bool Equals(object obj)
