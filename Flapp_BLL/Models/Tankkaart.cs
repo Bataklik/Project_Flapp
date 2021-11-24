@@ -118,7 +118,9 @@ namespace Flapp_BLL.Models
         #region Overrides
         public override string ToString()
         {
-            return $"[{GetType().Name}] {Kaartnummer} {Geldigheidsdatum.ToShortDateString()} {Brandstof.Naam}";
+            return $"\n-------------{GetType().Name}-------------\n" +
+                    $"{Kaartnummer}, {Geldigheidsdatum.ToShortDateString()}, {Brandstof.Naam}\n" +
+                    $"------------------------------------";
         }
         public override bool Equals(object obj)
         {

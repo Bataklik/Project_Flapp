@@ -24,11 +24,13 @@ namespace Flapp_PL.View.UserControls.TankkaartUCs {
     public partial class TankkaartUpdateUC : UserControl {
         private Tankkaart _tankkaart;
         private BestuurderManager _bestuurderManager;
+        private MainWindow _main;
 
-        public TankkaartUpdateUC(Tankkaart t) {
+        public TankkaartUpdateUC(Tankkaart t, MainWindow main) {
             InitializeComponent();
             _tankkaart = t;
             _bestuurderManager = new BestuurderManager(new BestuurderRepo(ConfigurationManager.ConnectionStrings["connStringTD"].ConnectionString));
+            _main = main;
             laadWaarden();
         }
 
@@ -51,7 +53,7 @@ namespace Flapp_PL.View.UserControls.TankkaartUCs {
         }
 
         private void btnAnnuleren_Click(object sender, RoutedEventArgs e) {
-
+            _main.wpUserControl.Children.Remove(this);
         }
     }
 }
