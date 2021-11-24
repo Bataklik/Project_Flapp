@@ -22,14 +22,14 @@ namespace Flapp_PL.View.UserControls
         public TankkaartUC()
         {
             InitializeComponent();
-            _tankkaartManager = new TankkaartManager(new TankkaartRepo(ConfigurationManager.ConnectionStrings["connStringTL"].ConnectionString));
+            _tankkaartManager = new TankkaartManager(new TankkaartRepo(ConfigurationManager.ConnectionStrings["connStringTD"].ConnectionString));
             laadTankkaarten();
         }
 
         public TankkaartUC(string kaartnummer, DateTime datum)
         {
             InitializeComponent();
-            _tankkaartManager = new TankkaartManager(new TankkaartRepo(ConfigurationManager.ConnectionStrings["connStringTL"].ConnectionString));
+            _tankkaartManager = new TankkaartManager(new TankkaartRepo(ConfigurationManager.ConnectionStrings["connStringTD"].ConnectionString));
             laadTankkaarten(kaartnummer, datum);
         }
 
