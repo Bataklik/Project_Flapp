@@ -25,6 +25,13 @@ namespace Flapp_BLL.Models
         #endregion
 
         #region Constructors
+        public Bestuurder(int id, string naam, string voornaam, string geboortedatum) {
+            ZetId(id);
+            ZetNaam(naam);
+            ZetVoornaam(voornaam);
+            ZetGeboortedatum(geboortedatum);
+        }
+
         public Bestuurder(string naam, string voornaam, Geslacht geslacht, string geboortedatum, string rijksregisternummer, List<Rijbewijs> rijbewijs)
         {
             ZetNaam(naam);

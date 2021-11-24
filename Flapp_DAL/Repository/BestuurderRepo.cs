@@ -328,9 +328,24 @@ namespace Flapp_DAL.Repository
             }
             return bestuurders;
         }
+
         public IReadOnlyList<Bestuurder> GeefAlleBestuurdersZonderTankkaarten()
         {
-            throw new NotImplementedException();
+            SqlConnection conn = new SqlConnection(_connString);
+            List<Bestuurder> bestuurders = new List<Bestuurder>();
+            string query = "SELECT * FROM Bestuurder WHERE tankkaartId IS NULL";
+            using (SqlCommand cmd = conn.CreateCommand()) {
+                cmd.CommandText = query;
+                conn.Open();
+                try {
+                    SqlDataReader r = cmd.ExecuteReader();
+                    while (r.Read()) {
+                        Bestuurder b = new Bestuurder((int)r["bestuurderId"], (string)r["naam"], (string)r["voornaam"], Convert.ToDateTime(r["geboortedatum"]).ToString("dd/MM/yyyy"));
+                        bestuurders.Add(b);
+                    }
+                } catch (Exception ex) { throw new Exception(ex.Message); } finally { conn.Close(); }
+            }
+            return bestuurders;
         }
         #endregion
     }

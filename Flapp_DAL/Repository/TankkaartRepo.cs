@@ -115,16 +115,16 @@ namespace Flapp_DAL.Repository
                     while (r.Read()) {
                         if (tankkaarten.ContainsKey((int)r["tankkaartId"])) {
                             Tankkaart dicTankkaart = tankkaarten[(int)r["tankkaartId"]];
-                            Brandstof b = new Brandstof((string)r["naam"]);
+                            Brandstof b = new Brandstof((string)r["brandstofnaam"]);
                             dicTankkaart.Brandstof.Naam += $", {b.Naam}";
                         }
                         else {
                             Brandstof b = null;
-                            if (!r.IsDBNull(r.GetOrdinal("naam"))){
-                                b = new Brandstof((string)r["naam"]);
+                            if (!r.IsDBNull(r.GetOrdinal("brandstofnaam"))){
+                                b = new Brandstof((string)r["brandstofnaam"]);
                             }
-                            //Tankkaart tankkaart = new Tankkaart((int)r["tankkaartId"], (DateTime)r["geldigheidsdatum"], (string)r["pincode"], new Brandstof((string)r["naam"]), (bool)r["geblokkeerd"]);
-                            Tankkaart tankkaart = new Tankkaart((int)r["tankkaartId"], (DateTime)r["geldigheidsdatum"], b);
+                            Tankkaart tankkaart = new Tankkaart((int)r["tankkaartId"], (DateTime)r["geldigheidsdatum"], (string)r["pincode"], b, (bool)r["geblokkeerd"]);
+                            //Tankkaart tankkaart = new Tankkaart((int)r["tankkaartId"], (DateTime)r["geldigheidsdatum"], b);
                             tankkaarten.Add(tankkaart.Kaartnummer, tankkaart);
                         }
                         

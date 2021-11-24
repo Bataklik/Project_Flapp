@@ -125,6 +125,7 @@ namespace Flapp_BLL.Models
             return obj is Tankkaart tankkaart &&
                    Kaartnummer == tankkaart.Kaartnummer &&
                    Geldigheidsdatum == tankkaart.Geldigheidsdatum &&
+                   Pincode == tankkaart.Pincode &&
                    EqualityComparer<Bestuurder>.Default.Equals(Bestuurder, tankkaart.Bestuurder) &&
                    Geblokkeerd == tankkaart.Geblokkeerd;
         }
