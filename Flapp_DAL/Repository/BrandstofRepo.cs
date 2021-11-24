@@ -231,7 +231,7 @@ namespace Flapp_DAL.Repository
                 try {
                     SqlDataReader r = cmd.ExecuteReader();
                     while (r.Read()) {
-                        string brandstofnaam = (string)r["brandstofnaam"];
+                        string brandstofnaam = (string)r["naam"];
                         Brandstof brandstof = new Brandstof(brandstofnaam);
                         brandstoffen.Add(brandstof);
                     }
