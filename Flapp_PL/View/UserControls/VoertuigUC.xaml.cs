@@ -6,17 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Flapp_PL.View.UserControls
 {
@@ -31,8 +22,8 @@ namespace Flapp_PL.View.UserControls
         public VoertuigUC()
         {
             InitializeComponent();
-            _voertuigManager = new VoertuigManager(new VoertuigRepo(ConfigurationManager.ConnectionStrings["connStringTD"].ConnectionString));
-            _brandstofManager = new BrandstofManager(new BrandstofRepo(ConfigurationManager.ConnectionStrings["connStringTD"].ConnectionString));
+            _voertuigManager = new VoertuigManager(new VoertuigRepo(Application.Current.Properties["User"].ToString()));
+            _brandstofManager = new BrandstofManager(new BrandstofRepo(Application.Current.Properties["User"].ToString()));
             laadVoertuigen();
             laadBrandstoffen();
         }
@@ -40,9 +31,11 @@ namespace Flapp_PL.View.UserControls
         private void laadVoertuigen()
         {
             List<Voertuig> voertuigen = new List<Voertuig>();
-            try {
+            try
+            {
                 List<Voertuig> sortVoertuigen = _voertuigManager.GeefAlleVoertuigen().ToList();
-                foreach (Voertuig v in sortVoertuigen) {
+                foreach (Voertuig v in sortVoertuigen)
+                {
                     voertuigen.Add(v);
                 }
             }

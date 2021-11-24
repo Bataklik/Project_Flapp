@@ -19,7 +19,7 @@ namespace Flapp_PL.View.UserControls
         public BestuurderUC()
         {
             InitializeComponent();
-            _bestuurderManager = new BestuurderManager(new BestuurderRepo(ConfigurationManager.ConnectionStrings["connStringTD"].ConnectionString));
+            _bestuurderManager = new BestuurderManager(new BestuurderRepo(Application.Current.Properties["User"].ToString()));
 
             laadBestuurders();
         }
@@ -27,7 +27,7 @@ namespace Flapp_PL.View.UserControls
         public BestuurderUC(MainWindow main)
         {
             InitializeComponent();
-            _bestuurderManager = new BestuurderManager(new BestuurderRepo(ConfigurationManager.ConnectionStrings["connStringTD"].ConnectionString));
+            _bestuurderManager = new BestuurderManager(new BestuurderRepo(Application.Current.Properties["User"].ToString()));
             _main = main;
             laadBestuurders();
         }

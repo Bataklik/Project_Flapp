@@ -1,7 +1,7 @@
 USE[Project_Flapp_DB];
 -- ALLE TABLES MOETEN WEG ZIJN VOOR EEN TABLE TE MAKEN!
 -- Rijbewijs
-IF  NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Rijbewijs]') AND type in (N'U'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Rijbewijs]') AND type in (N'U'))
    BEGIN
 	   CREATE TABLE[dbo].[Rijbewijs](
 	   [rijbewijsId][int] IDENTITY(1, 1) PRIMARY KEY,
@@ -9,7 +9,7 @@ IF  NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[R
    END
    
 -- Adres
-IF  NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Adres]') AND type in (N'U'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Adres]') AND type in (N'U'))
 BEGIN
 CREATE TABLE[dbo].[Adres](
    [adresId][int] IDENTITY(1, 1) PRIMARY KEY,
@@ -20,7 +20,7 @@ CREATE TABLE[dbo].[Adres](
 END
 
 -- Brandstof
-IF  NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Brandstof]') AND type in (N'U'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Brandstof]') AND type in (N'U'))
 BEGIN
 CREATE TABLE[dbo].[Brandstof](
    [brandstofId][int] IDENTITY(1, 1) PRIMARY KEY,
@@ -28,7 +28,7 @@ CREATE TABLE[dbo].[Brandstof](
 END
 
 -- Tankkaart
-IF  NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Tankkaart]') AND type in (N'U'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Tankkaart]') AND type in (N'U'))
 BEGIN
 CREATE TABLE[dbo].[Tankkaart](
    [tankkaartId][int] IDENTITY(1, 1) PRIMARY KEY,
@@ -38,14 +38,14 @@ CREATE TABLE[dbo].[Tankkaart](
    SET DATEFORMAT DMY
 END
 -- voertuigType
-IF  NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[VoertuigType]') AND type in (N'U'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[VoertuigType]') AND type in (N'U'))
 BEGIN
 CREATE TABLE[dbo].[VoertuigType](
    [voertuigTypeId][int] IDENTITY(1, 1) PRIMARY KEY,
    [typeNaam] [varchar](50) NOT NULL); 
 END
 -- Voertuig
-IF  NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Voertuig]') AND type in (N'U'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Voertuig]') AND type in (N'U'))
 BEGIN
 CREATE TABLE[dbo].[Voertuig](
    [voertuigId][int] IDENTITY(1, 1) PRIMARY KEY,
@@ -59,7 +59,7 @@ CREATE TABLE[dbo].[Voertuig](
 END
 
 -- Bestuurder
-IF  NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Bestuurder]') AND type in (N'U'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Bestuurder]') AND type in (N'U'))
 BEGIN
 CREATE TABLE[dbo].[Bestuurder](
    [bestuurderId][int] IDENTITY(1, 1) PRIMARY KEY,
@@ -75,7 +75,7 @@ CREATE TABLE[dbo].[Bestuurder](
 END
 
 -- Rijbewijs_Bestuurder
-IF  NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Rijbewijs_Bestuurder]') AND type in (N'U'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Rijbewijs_Bestuurder]') AND type in (N'U'))
 BEGIN
 CREATE TABLE[dbo].[Rijbewijs_Bestuurder](
    [rijbewijsId][int] FOREIGN KEY REFERENCES Rijbewijs(rijbewijsId),
@@ -84,7 +84,7 @@ CREATE TABLE[dbo].[Rijbewijs_Bestuurder](
 END
 
 -- Brandstof_Voertuig
-IF  NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Brandstof_Voertuig]') AND type in (N'U'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Brandstof_Voertuig]') AND type in (N'U'))
 BEGIN
 CREATE TABLE[dbo].[Brandstof_Voertuig](
    [brandstofId][int] FOREIGN KEY REFERENCES Brandstof(brandstofId),
@@ -93,7 +93,7 @@ CREATE TABLE[dbo].[Brandstof_Voertuig](
 END
 
 -- Brandstof_Tankkaart
-IF  NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Brandstof_Tankkaart]') AND type in (N'U'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Brandstof_Tankkaart]') AND type in (N'U'))
 BEGIN
 CREATE TABLE[dbo].[Brandstof_Tankkaart](
    [brandstofId][int] FOREIGN KEY REFERENCES Brandstof(brandstofId),

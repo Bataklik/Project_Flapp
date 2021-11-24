@@ -107,31 +107,38 @@ namespace Flapp_DAL.Repository
             Dictionary<int, Tankkaart> tankkaarten = new Dictionary<int, Tankkaart>();
             string query = "SELECT * FROM [dbo].[Tankkaart] LEFT JOIN Brandstof_Tankkaart ON Tankkaart.tankkaartId = Brandstof_Tankkaart.tankkaartId LEFT JOIN Brandstof ON Brandstof_Tankkaart.brandstofId = Brandstof.brandstofId;";
             //string query = "SELECT * FROM [Project_Flapp_DB].[dbo].[Tankkaart];";
-            using (SqlCommand cmd = conn.CreateCommand()) {
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
                 cmd.CommandText = query;
                 conn.Open();
-                try {
+                try
+                {
                     SqlDataReader r = cmd.ExecuteReader();
-                    while (r.Read()) {
-                        if (tankkaarten.ContainsKey((int)r["tankkaartId"])) {
+                    while (r.Read())
+                    {
+                        if (tankkaarten.ContainsKey((int)r["tankkaartId"]))
+                        {
                             Tankkaart dicTankkaart = tankkaarten[(int)r["tankkaartId"]];
-                            Brandstof b = new Brandstof((string)r["brandstofnaam"]);
+                            Brandstof b = new Brandstof((string)r["naam"]);
                             dicTankkaart.Brandstof.Naam += $", {b.Naam}";
                         }
-                        else {
+                        else
+                        {
                             Brandstof b = null;
-                            if (!r.IsDBNull(r.GetOrdinal("brandstofnaam"))){
-                                b = new Brandstof((string)r["brandstofnaam"]);
+                            if (!r.IsDBNull(r.GetOrdinal("naam")))
+                            {
+                                b = new Brandstof((string)r["naam"]);
                             }
                             Tankkaart tankkaart = new Tankkaart((int)r["tankkaartId"], (DateTime)r["geldigheidsdatum"], (string)r["pincode"], b, (bool)r["geblokkeerd"]);
                             //Tankkaart tankkaart = new Tankkaart((int)r["tankkaartId"], (DateTime)r["geldigheidsdatum"], b);
                             tankkaarten.Add(tankkaart.Kaartnummer, tankkaart);
                         }
-                        
+
                     }
                     r.Close();
                     return tankkaarten;
-                } catch (Exception ex) { throw new Exception(ex.Message); }
+                }
+                catch (Exception ex) { throw new Exception(ex.Message); }
                 finally { conn.Close(); }
             }
         }

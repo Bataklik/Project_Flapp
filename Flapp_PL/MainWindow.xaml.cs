@@ -1,15 +1,15 @@
 ﻿using Flapp_PL.View.UserControls;
+using System.Collections.Generic;
+using System.Configuration;
 using System.Windows;
 namespace Flapp_PL
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
+            cbUsers.ItemsSource = new List<string> { "Raf", "TiboD", "TiboL", "Burak" };
         }
 
         private void btnBestuurder_Click(object sender, RoutedEventArgs e)
@@ -31,6 +31,26 @@ namespace Flapp_PL
             wpUserControl.Children.Clear();
             TankkaartUC tankkaartUc = new TankkaartUC(main);
             wpUserControl.Children.Add(tankkaartUc);
+        }
+
+        private void btnKies_Click(object sender, RoutedEventArgs e)
+        {
+            switch (cbUsers.SelectedItem)
+            {
+                case "Raf":
+                    Application.Current.Properties["User"] = ConfigurationManager.ConnectionStrings["connStringR"].ConnectionString;
+                    break;
+                case "TiboD":
+                    Application.Current.Properties["User"] = ConfigurationManager.ConnectionStrings["connStringTD"].ConnectionString;
+                    break;
+                case "TiboL":
+                    Application.Current.Properties["User"] = ConfigurationManager.ConnectionStrings["connStringTL"].ConnectionString;
+                    break;
+                case "Burak":
+                    Application.Current.Properties["User"] = ConfigurationManager.ConnectionStrings["connStringB"].ConnectionString;
+                    break;
+            }
+            MessageBox.Show("ConnectieString gekozen!");
         }
     }
 }

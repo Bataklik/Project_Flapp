@@ -50,6 +50,21 @@
                        VerticalAlignment="Center"
                        Foreground="#F9F7F7"/>
             </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                <Label Content="User:"
+                       Foreground="#F9F7F7"/>
+                <ComboBox Height="20"
+                          Width="100"
+                          x:Name="cbUsers"/>
+                <Button Content="Kies"
+                        Height="20"
+                        Width="40"
+                        Margin="10,0"
+                        Padding="10"
+                        x:Name="btnKies"
+                        Click="btnKies_Click"/>
+            </StackPanel>
             <!--Bestuurder button-->
             <Button x:Name="btnBestuurder"
                     Click="btnBestuurder_Click"
@@ -122,6 +137,8 @@
                                HorizontalAlignment="Left"/>
                 </StackPanel>
             </Button>
+            <!--User-->
+
         </StackPanel>
         <WrapPanel x:Name="wpUserControl" 
                    Grid.Column="1">
