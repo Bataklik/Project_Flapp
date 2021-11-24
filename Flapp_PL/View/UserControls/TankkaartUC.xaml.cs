@@ -106,7 +106,7 @@ namespace Flapp_PL.View.UserControls
 
         private void UpdateTankkaart_Click(object sender, RoutedEventArgs e) {
             Tankkaart t = (Tankkaart)lstTankkaarten.SelectedItem;
-            _main.wpUserControl.Children.Add(new TankkaartUpdateUC(t));
+            _main.wpUserControl.Children.Add(new TankkaartUpdateUC(t, _main));
         }
     }
 }
