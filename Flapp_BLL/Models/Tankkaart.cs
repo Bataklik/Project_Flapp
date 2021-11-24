@@ -44,8 +44,14 @@ namespace Flapp_BLL.Models
             ZetBrandstof(brandstof);
         }
 
-        public Tankkaart(int kaartnummer, DateTime geldigheidsdatum, string pincode, Brandstof brandstoftype, bool geblokkeerd) : this(kaartnummer, geldigheidsdatum)
+        public Tankkaart(int kaartnummer, DateTime geldigheidsdatum, string pincode, bool geblokkeerd) : this(kaartnummer, geldigheidsdatum)
         {
+            ZetKaartnummer(kaartnummer);
+            ZetPincode(pincode);
+            ZetGeblokkeerd(geblokkeerd);
+        }
+
+        public Tankkaart(int kaartnummer, DateTime geldigheidsdatum, string pincode, Brandstof brandstoftype, bool geblokkeerd) : this(kaartnummer, geldigheidsdatum) {
             ZetKaartnummer(kaartnummer);
             ZetPincode(pincode);
             ZetBrandstof(brandstoftype);

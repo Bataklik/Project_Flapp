@@ -199,8 +199,8 @@ namespace Flapp_DAL.Repository
         public void UpdateTankkaart(Tankkaart t)
         {
             SqlConnection conn = new SqlConnection(_connString);
-            string query = "USE [Project_Flapp_DB]; UPDATE [dbo].[Tankkaart] WHERE tankkaartId = @tankkaartId AND geldigheidsdatum = @geldigheidsdatum AND pincode = @pincode" +
-                "AND brandstoftype = @brandstoftype AND geblokkeerd = @geblokkeerd;";
+            string query = "UPDATE Tankkaart SET geldigheidsdatum = @geldigheidsdatum OR pincode = @pincode" +
+                "OR brandstoftype = @brandstoftype OR geblokkeerd = @geblokkeerd WHERE tankkaartId = @tankkaartId;";
             using (SqlCommand cmd = conn.CreateCommand())
             {
                 conn.Open();

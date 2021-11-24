@@ -49,6 +49,8 @@
                            Margin="0,14,0,0" />
                 <TextBlock Text="Bestuurder:"
                            Margin="0,14,0,0" />
+                <TextBlock Text="Brandstoftype:"
+                           Margin="0,14,0,0" />
                 <TextBlock Text="Geblokkeerd:"
                            Margin="0,14,0,0" />
             </StackPanel>
@@ -73,6 +75,10 @@
                          Height="20"
                          Margin="5"
                          x:Name="cbBestuurder"/>
+                <ComboBox Width="100"
+                         Height="20"
+                         Margin="5"
+                         x:Name="cbBrandstoftype"/>
                 <ComboBox Width="100"
                          Height="20"
                          Margin="5"

@@ -24,12 +24,16 @@ namespace Flapp_PL.View.UserControls.TankkaartUCs {
     public partial class TankkaartUpdateUC : UserControl {
         private Tankkaart _tankkaart;
         private BestuurderManager _bestuurderManager;
+        private TankkaartManager _tankkaartManager;
+        private BrandstofManager _brandstofManager;
         private MainWindow _main;
 
         public TankkaartUpdateUC(Tankkaart t, MainWindow main) {
             InitializeComponent();
             _tankkaart = t;
             _bestuurderManager = new BestuurderManager(new BestuurderRepo(ConfigurationManager.ConnectionStrings["connStringTD"].ConnectionString));
+            _tankkaartManager = new TankkaartManager(new TankkaartRepo(ConfigurationManager.ConnectionStrings["connStringTD"].ConnectionString));
+            _brandstofManager = new BrandstofManager(new BrandstofRepo(ConfigurationManager.ConnectionStrings["connStringTD"].ConnectionString));
             _main = main;
             laadWaarden();
         }
@@ -44,6 +48,8 @@ namespace Flapp_PL.View.UserControls.TankkaartUCs {
                                                                                                                                   .Select(x => x.Voornaam); } 
             else { cbBestuurder.ItemsSource = null; }
 
+            cbBrandstoftype.ItemsSource = _brandstofManager.GeefAlleBrandstoffen();
+
             string[] geblokkeerd = { "Ja", "Nee" };
             cbGeblokkeerd.ItemsSource = geblokkeerd;
             if (_tankkaart.Geblokkeerd) { cbGeblokkeerd.SelectedItem = geblokkeerd[0]; }
@@ -51,7 +57,14 @@ namespace Flapp_PL.View.UserControls.TankkaartUCs {
         }
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e) {
-
+            int kaartnummer = _tankkaart.Kaartnummer;
+            DateTime geldigheidsdatum = Convert.ToDateTime(dpGeldigheidsdatum.SelectedDate);
+            string pincode = txtPincode.Text;
+            Brandstof b = (Brandstof)cbBrandstoftype.SelectedItem;
+            bool geblokkeerd = false;
+            if (cbGeblokkeerd.SelectedItem.ToString() == "Ja") geblokkeerd = true;
+            Tankkaart t = new Tankkaart(kaartnummer, geldigheidsdatum, pincode, geblokkeerd);
+            _tankkaartManager.UpdateTankkaart(t);
         }
 
         private void btnAnnuleren_Click(object sender, RoutedEventArgs e) {
