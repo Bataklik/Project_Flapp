@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
-        Title="Flapp: Dashboard" Height="500" Width="1100">
+        Title="Flapp: Dashboard" Height="540" Width="1100">
     <Window.Resources>
         <!-- Button Style-->
         <Style TargetType="Button">
