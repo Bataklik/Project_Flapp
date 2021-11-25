@@ -1,4 +1,6 @@
-﻿using Flapp_PL.View.UserControls;
+﻿using Flapp_BLL.Managers;
+using Flapp_DAL.Repository;
+using Flapp_PL.View.UserControls;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Windows;
@@ -6,6 +8,7 @@ namespace Flapp_PL
 {
     public partial class MainWindow : Window
     {
+        ConnectionManager cm;
         public MainWindow()
         {
             InitializeComponent();
@@ -50,7 +53,10 @@ namespace Flapp_PL
                     Application.Current.Properties["User"] = ConfigurationManager.ConnectionStrings["connStringB"].ConnectionString;
                     break;
             }
-            MessageBox.Show("ConnectieString gekozen!");
+            cm = new ConnectionManager(new ConnectionRepo((string)Application.Current.Properties["User"]));
+            if (!cm.IsServerConnected()) { MessageBox.Show("Connection niet gelukt!"); }
+            else { MessageBox.Show("Connection gekozen!"); }
+
         }
     }
 }
