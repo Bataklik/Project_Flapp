@@ -11,8 +11,22 @@ namespace Flapp_PL
         ConnectionManager cm;
         public MainWindow()
         {
+            cm = new ConnectionManager(new ConnectionRepo((string)Application.Current.Properties["User"]));
+
             InitializeComponent();
             cbUsers.ItemsSource = new List<string> { "Raf", "TiboD", "TiboL", "Burak" };
+            if (!cm.IsServerConnected())
+            {
+                btnBestuurder.IsEnabled = false;
+                btnVoertuig.IsEnabled = false;
+                btnTankkaart.IsEnabled = false;
+            }
+            else
+            {
+                btnBestuurder.IsEnabled = true;
+                btnVoertuig.IsEnabled = true;
+                btnTankkaart.IsEnabled = true;
+            }
         }
 
         private void btnBestuurder_Click(object sender, RoutedEventArgs e)
@@ -54,8 +68,21 @@ namespace Flapp_PL
                     break;
             }
             cm = new ConnectionManager(new ConnectionRepo((string)Application.Current.Properties["User"]));
-            if (!cm.IsServerConnected()) { MessageBox.Show("Connection niet gelukt!"); }
-            else { MessageBox.Show("Connection gekozen!"); }
+            if (!cm.IsServerConnected())
+            {
+                btnBestuurder.IsEnabled = false;
+                btnVoertuig.IsEnabled = false;
+                btnTankkaart.IsEnabled = false;
+                wpUserControl.Children.Clear();
+                MessageBox.Show("Connection niet gelukt!");
+            }
+            else
+            {
+                btnBestuurder.IsEnabled = true;
+                btnVoertuig.IsEnabled = true;
+                btnTankkaart.IsEnabled = true;
+                MessageBox.Show("Connection gekozen!");
+            }
 
         }
     }
