@@ -52,7 +52,7 @@ namespace Flapp_PL.View.UserControls
         public TankkaartUC(DateTime datum)
         {
             InitializeComponent();
-            _tankkaartManager = new TankkaartManager(new TankkaartRepo(ConfigurationManager.ConnectionStrings["connStringTL"].ConnectionString));
+            _tankkaartManager = new TankkaartManager(new TankkaartRepo(Application.Current.Properties["User"].ToString()));
             laadTankkaarten(datum);
         }
 
