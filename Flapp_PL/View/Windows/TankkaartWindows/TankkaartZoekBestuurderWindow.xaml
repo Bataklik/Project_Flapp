@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Flapp_PL.View.Windows.TankkaartWindows"
         mc:Ignorable="d"
-        Title="TankkaartZoekBestuurderWindow" Height="200" Width="515">
+        ResizeMode="NoResize"
+        Title="TankkaartZoekBestuurderWindow" Height="250" Width="525">
     <Window.Resources>
         <!-- Button Style-->
         <Style TargetType="Button">
@@ -38,6 +39,7 @@
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
+            <RowDefinition Height="10"/>
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
 
@@ -46,8 +48,8 @@
         </StackPanel>
 
         <ListBox x:Name="lstBestuurders"
-                 Grid.RowSpan="5"
-                 Margin="5,-30,5,5"
+                 Grid.RowSpan="6"
+                 Margin="5,-45,5,5"
                  Width="200"
                  Height="140">
             <ListBox.ItemsPanel>
@@ -112,7 +114,19 @@
                  Width="130" 
                  Margin="10,5,10,5" 
                  FontSize="16" />
-        
-        <Butt
+
+        <Button Content="Zoek Bestuurder" x:Name="btnBestuurder" 
+                 Grid.Row="5" 
+                 Grid.Column="1" 
+                 Width="115" 
+                 Margin="10,5,10,5" 
+                 FontSize="13" Click="btnBestuurder_Click" />
+
+        <Button Content="Annuleer" x:Name="btnAnnuleer" 
+                 Grid.Row="5" 
+                 Grid.Column="2" 
+                 Width="115" 
+                 Margin="10,5,10,5" 
+                 FontSize="13" Click="btnAnnuleer_Click" />
     </Grid>
 </Window>
