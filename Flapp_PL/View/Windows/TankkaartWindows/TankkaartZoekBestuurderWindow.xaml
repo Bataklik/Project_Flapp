@@ -1,0 +1,118 @@
+﻿<Window x:Class="Flapp_PL.View.Windows.TankkaartWindows.TankkaartZoekBestuurderWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Flapp_PL.View.Windows.TankkaartWindows"
+        mc:Ignorable="d"
+        Title="TankkaartZoekBestuurderWindow" Height="200" Width="515">
+    <Window.Resources>
+        <!-- Button Style-->
+        <Style TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="borderButton" CornerRadius="5" Background="#112D4E" BorderThickness="0">
+                            <ContentPresenter x:Name="cpButton" Content="{TemplateBinding Content}" TextBlock.Foreground="#F9F7F7" VerticalAlignment="Center" HorizontalAlignment="Center"></ContentPresenter>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="borderButton" Property="Background" Value="#3F72AF"/>
+                                <Setter TargetName="cpButton" Property="TextBlock.Foreground" Value="#FFD369"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="150"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel>
+            
+        </StackPanel>
+
+        <ListBox x:Name="lstBestuurders"
+                 Grid.RowSpan="5"
+                 Margin="5,-30,5,5"
+                 Width="200"
+                 Height="140">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel HorizontalAlignment="Center"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
+
+        <TextBlock Text="Klantnummer:"  
+                   Grid.Column="1" 
+                   Grid.Row="0" 
+                   FontSize="16" 
+                   VerticalAlignment="Center" 
+                   Margin="10,0"/>
+
+        <TextBlock Text="Naam:"
+                   Grid.Row="1"
+                   Grid.Column="1" 
+                   FontSize="16" 
+                   VerticalAlignment="Center" 
+                   Margin="10,0"/>
+
+        <TextBlock Text="Voornaam:"
+                   Grid.Row="2"
+                   Grid.Column="1" 
+                   FontSize="16" 
+                   VerticalAlignment="Center" 
+                   Margin="10,0"/>
+
+        <TextBlock Text="Geboortedatum:"  
+                   Grid.Column="1" 
+                   Grid.Row="3" 
+                   FontSize="16" 
+                   VerticalAlignment="Center" 
+                   Margin="10,0"/>
+
+        <TextBox Name="txtKlantnummer" 
+                 Grid.Row="0" 
+                 Grid.Column="2" 
+                 Width="130" 
+                 Margin="10,5,10,5" 
+                 FontSize="16" />
+
+        <TextBox Name="txtNaam" 
+                 Grid.Row="1" 
+                 Grid.Column="2" 
+                 Width="130" 
+                 Margin="10,5,10,5" 
+                 FontSize="16" />
+
+        <TextBox Name="txtVoornaam" 
+                 Grid.Row="2" 
+                 Grid.Column="2" 
+                 Width="130" 
+                 Margin="10,5,10,5" 
+                 FontSize="16" />
+
+        <DatePicker Name="dpGeboortedatum" 
+                 Grid.Row="3" 
+                 Grid.Column="2" 
+                 Width="130" 
+                 Margin="10,5,10,5" 
+                 FontSize="16" />
+        
+        <Butt
+    </Grid>
+</Window>

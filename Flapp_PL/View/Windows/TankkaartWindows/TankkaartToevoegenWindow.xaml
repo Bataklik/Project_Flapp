@@ -3,11 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:Flapp_PL.View.Windows.TankkaartWindows"
         mc:Ignorable="d"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        Title="TankkaartToevoegenWindow" Height="200" Width="315">
+        Title="TankkaartToevoegenWindow" Height="325" Width="315">
     <Window.Resources>
         <!-- Button Style-->
         <Style TargetType="Button">
@@ -31,6 +32,9 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="45"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
@@ -62,12 +66,33 @@
                    VerticalAlignment="Center" 
                    Margin="10,0"/>
 
+        <TextBlock Text="Bestuurder:" Grid.Row="3" 
+                   Grid.Column="0" 
+                   FontSize="16" 
+                   VerticalAlignment="Center" 
+                   Margin="10,0"/>
+
+        <TextBlock Text="Brandstoftype:" Grid.Row="4" 
+                   Grid.Column="0" 
+                   FontSize="16" 
+                   VerticalAlignment="Center" 
+                   Margin="10,0"/>
+        
+        <TextBlock Text="Geblokkeerd:" Grid.Row="5" 
+                   Grid.Column="0" 
+                   FontSize="16" 
+                   VerticalAlignment="Center" 
+                   Margin="10,0"/>
+
         <DatePicker Name="dpGeldigheidsdatum" Grid.Row="1" 
                  Grid.Column="1" 
                  Width="130" 
                  Margin="5" 
                  Height="25" 
-                 FontSize="16"/>
+                 FontSize="16"
+                 DisplayDateEnd="{Binding Mode=OneWay,
+                    Source={x:Static
+                    System:DateTime.Today}}"/>   
 
         <TextBox Name="txtPincode" Grid.Row="2" 
                  Grid.Column="1" 
@@ -75,11 +100,33 @@
                  Margin="10,5,10,5" 
                  FontSize="16" />
 
+        <Button Content="Zoek Bestuurder" x:Name="btnBestuurder" 
+                 Grid.Row="3" 
+                 Grid.Column="1" 
+                 Width="130" 
+                 Margin="10,5,10,5" 
+                 FontSize="16" Click="btnBestuurder_Click" />
+
+        <ListBox Name="txtBrandstoftype" Grid.Row="4" 
+                 Grid.Column="1" 
+                 Width="130" 
+                 Margin="10,5,10,5" 
+                 FontSize="16" />
+
+        <ComboBox Name="cbGeblokkeerd" Grid.Row="5" 
+                 Grid.Column="1" 
+                 Width="130" 
+                 Margin="10,5,10,5" 
+                 FontSize="16">
+            <ComboBoxItem>Ja</ComboBoxItem>
+            <ComboBoxItem IsSelected="True">Nee</ComboBoxItem>
+        </ComboBox>
+
         <Button Content="Voeg toe"
                     x:Name="btnVoegtoe"
                     Click="btnVoegtoe_Click"
                     Grid.Column="0"
-                    Grid.Row="4"
+                    Grid.Row="6"
                     Margin="10,5,5,5"
                     Height="25"
                     Width="100"/>
@@ -88,7 +135,7 @@
                     x:Name="btnAnnuleer"
                     Click="btnAnnuleer_Click"
                     Grid.Column="1"
-                    Grid.Row="4"
+                    Grid.Row="6"
                     Margin="10,5,5,5"
                     Height="25"
                     Width="100"/>

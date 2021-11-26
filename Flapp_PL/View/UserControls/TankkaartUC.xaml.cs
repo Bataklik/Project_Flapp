@@ -24,18 +24,27 @@ namespace Flapp_PL.View.UserControls
             laadTankkaarten();
         }
 
-        public TankkaartUC(string kaartnummer, DateTime datum)
+        public TankkaartUC(string kaartnummer, DateTime datum, MainWindow main)
         {
             InitializeComponent();
             _tankkaartManager = new TankkaartManager(new TankkaartRepo(Application.Current.Properties["User"].ToString()));
+            _main = main;
             laadTankkaarten(kaartnummer, datum);
         }
 
-        public TankkaartUC(string kaartnummer)
+        public TankkaartUC(string kaartnummer, MainWindow main)
         {
             InitializeComponent();
             _tankkaartManager = new TankkaartManager(new TankkaartRepo(Application.Current.Properties["User"].ToString()));
+            _main = main;
             laadTankkaarten(kaartnummer);
+        }
+
+        public TankkaartUC(DateTime datum, MainWindow main) {
+            InitializeComponent();
+            _tankkaartManager = new TankkaartManager(new TankkaartRepo(Application.Current.Properties["User"].ToString()));
+            _main = main;
+            laadTankkaarten(datum);
         }
 
         public TankkaartUC(MainWindow main)
@@ -44,13 +53,6 @@ namespace Flapp_PL.View.UserControls
             _tankkaartManager = new TankkaartManager(new TankkaartRepo(Application.Current.Properties["User"].ToString()));
             _main = main;
             laadTankkaarten();
-        }
-
-        public TankkaartUC(DateTime datum)
-        {
-            InitializeComponent();
-            _tankkaartManager = new TankkaartManager(new TankkaartRepo(Application.Current.Properties["User"].ToString()));
-            laadTankkaarten(datum);
         }
 
         private void laadTankkaarten()
@@ -113,8 +115,7 @@ namespace Flapp_PL.View.UserControls
 
         private void btnZoek_Click(object sender, RoutedEventArgs e)
         {
-            TankkaartUC tUC = this;
-            new ZoekTankkaartWindow(_main, tUC).ShowDialog();
+            new ZoekTankkaartWindow(_main).ShowDialog();
         }
 
         private void btnVoegToe_Click(object sender, RoutedEventArgs e)

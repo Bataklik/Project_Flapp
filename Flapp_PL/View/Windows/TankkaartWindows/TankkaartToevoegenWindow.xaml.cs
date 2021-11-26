@@ -34,8 +34,11 @@ namespace Flapp_PL.View.Windows.TankkaartWindows
             catch (Exception) { throw new Exception(); }
         }
 
-        private void btnAnnuleer_Click(object sender, RoutedEventArgs e)
-        {
+        private void btnBestuurder_Click(object sender, RoutedEventArgs e) {
+            new TankkaartZoekBestuurderWindow().ShowDialog();
+        }
+
+        private void btnAnnuleer_Click(object sender, RoutedEventArgs e) {
             Close();
         }
     }

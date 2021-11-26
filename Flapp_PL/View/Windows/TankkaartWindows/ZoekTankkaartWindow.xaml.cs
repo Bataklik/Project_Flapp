@@ -20,11 +20,9 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
     /// </summary>
     public partial class ZoekTankkaartWindow : Window {
         private MainWindow main;
-        private TankkaartUC tUC;
 
-        public ZoekTankkaartWindow(MainWindow main, TankkaartUC tUC) {
+        public ZoekTankkaartWindow(MainWindow main) {
             this.main = main;
-            this.tUC = tUC;
             InitializeComponent();
         }
 
@@ -32,18 +30,20 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
             
             if (!string.IsNullOrWhiteSpace(txtKaartnummer.Text) ) {
                 main.Show();
-                main.wpUserControl.Children.Remove(tUC);
-                main.wpUserControl.Children.Add(new TankkaartUC(txtKaartnummer.Text));
+                main.wpUserControl.Children.Clear();
+                main.wpUserControl.Children.Add(new TankkaartUC(txtKaartnummer.Text, main));
                 Close();
                 return;
             } else if (dpGeldigheidsdatum.SelectedDate != null) {
                 main.Show();
-                main.wpUserControl.Children.Add(new TankkaartUC((DateTime)dpGeldigheidsdatum.SelectedDate));
+                main.wpUserControl.Children.Clear();
+                main.wpUserControl.Children.Add(new TankkaartUC(Convert.ToDateTime(dpGeldigheidsdatum.SelectedDate), main));
                 Close();
                 return;
             } else if (!string.IsNullOrWhiteSpace(txtKaartnummer.Text) && dpGeldigheidsdatum.SelectedDate != null) {
                 main.Show();
-                main.wpUserControl.Children.Add(new TankkaartUC(txtKaartnummer.Text , (DateTime)dpGeldigheidsdatum.SelectedDate));
+                main.wpUserControl.Children.Clear();
+                main.wpUserControl.Children.Add(new TankkaartUC(txtKaartnummer.Text , Convert.ToDateTime(dpGeldigheidsdatum.SelectedDate), main));
                 Close();
                 return;
             }

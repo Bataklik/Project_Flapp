@@ -333,17 +333,27 @@ namespace Flapp_DAL.Repository
         {
             SqlConnection conn = new SqlConnection(_connString);
             List<Bestuurder> bestuurders = new List<Bestuurder>();
-            string query = "SELECT * FROM Bestuurder WHERE tankkaartId IS NULL";
+            string query = "SELECT * FROM Bestuurder LEFT JOIN Rijbewijs_Bestuurder ON Bestuurder.bestuurderId = Rijbewijs_Bestuurder.bestuurderId LEFT JOIN Rijbewijs ON Rijbewijs_Bestuurder.rijbewijsId = Rijbewijs.rijbewijsId LEFT JOIN Adres ON Bestuurder.adresId = Adres.adresId WHERE tankkaartId IS NULL;";
             using (SqlCommand cmd = conn.CreateCommand()) {
                 cmd.CommandText = query;
                 conn.Open();
                 try {
                     SqlDataReader r = cmd.ExecuteReader();
                     while (r.Read()) {
-                        Bestuurder b = new Bestuurder((int)r["bestuurderId"], (string)r["naam"], (string)r["voornaam"], Convert.ToDateTime(r["geboortedatum"]).ToString("dd/MM/yyyy"));
-                        bestuurders.Add(b);
+                        // Bestuurder(int id, string naam, string voornaam, Geslacht geslacht, Adres adres, string geboortedatum, string rijksregisternummer, List<Rijbewijs> rijbewijs, Voertuig voertuig, Tankkaart tankkaart)
+                        Adres adres = null;
+                        if (!r.IsDBNull(r.GetOrdinal("adresId")) && !r.IsDBNull(r.GetOrdinal("straat")) && !r.IsDBNull(r.GetOrdinal("huisnummer")) && !r.IsDBNull(r.GetOrdinal("stad")) && !r.IsDBNull(r.GetOrdinal("postcode"))) {
+                            adres = new Adres((int)r["adresId"], (string)r["straat"], (string)r["huisnummer"], (string)r["stad"], (int)r["postcode"]);
+                        }
+
+                        Geslacht geslacht = (bool)r["geslacht"] ? Geslacht.M : Geslacht.V;
+                        List<Rijbewijs> rijbewijzen = new List<Rijbewijs> { new Rijbewijs(r[12].ToString()) };
+                        Bestuurder bestuurder = new Bestuurder((int)r["bestuurderId"], (string)r["naam"], (string)r["voornaam"], geslacht, adres, Convert.ToDateTime(r["geboortedatum"]).ToString("dd/MM/yyyy"), (string)r["rijksregister"], rijbewijzen, null, null);
+                        bestuurders.Add(bestuurder);
                     }
-                } catch (Exception ex) { throw new Exception(ex.Message); } finally { conn.Close(); }
+                }
+                catch (Exception ex) { throw new Exception(ex.Message); }
+                finally { conn.Close(); }
             }
             return bestuurders;
         }
