@@ -5,7 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Flapp_PL.View.Windows.VoertuigWindow"
         mc:Ignorable="d"
-        Title="BenzineSelecteren" Height="279" Width="287" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
+        Title="BenzineSelecteren" Height="279" 
+        Width="287" 
+        Loaded="Window_Loaded" 
+        WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <!-- Button Style-->
         <Style TargetType="Button">
@@ -52,7 +55,7 @@
                     HorizontalAlignment="Center"
                     Orientation="Horizontal">
             <Button Content="Selecteren"
-                    x:Name="btnZoek"
+                    x:Name="btnSelecteren"
                     Click="btnSelecteren_Click"
                     Margin="5"
                     Height="25"

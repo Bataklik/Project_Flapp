@@ -3,7 +3,6 @@ using Flapp_BLL.Models;
 using Flapp_DAL.Repository;
 using System;
 using System.Windows;
-using System.Configuration;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
 
@@ -39,20 +38,16 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
 
-            new MainWindow().Show();
-            Close();
         }
 
         private void btnAnnuleren_Click(object sender, RoutedEventArgs e)
         {
-            new MainWindow().Show();
             Close();
         }
 
         private void SelecteerBrandstof_Click(object sender, RoutedEventArgs e)
         {
             new BenzineSelecteren().ShowDialog();
-            Close();
         }
 
         private void VerwijderBrandstof_Click(object sender, RoutedEventArgs e)
@@ -62,7 +57,7 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
                 Brandstof x = (Brandstof)lstBrandtof.SelectedItem;
                 int brandstof = x.Id;
                 _brandstoffen.Remove(x);
-                Application.Current.Properties["Brandstoff"] = _brandstoffen;
+                Application.Current.Properties["Brandstof"] = _brandstoffen;
                 MessageBox.Show("Brandstof is verwijderd van de wagen", Title, MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
@@ -74,22 +69,13 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
         private void lstBrandtof_Loaded(object sender, RoutedEventArgs e)
         {
             if (_brandstoffen == null && _brandstoffen.Count == 0) { lstBrandtof.ItemsSource = null; return; }
-            if (_brandstoffen != null && _brandstoffen.Count != 0)
-            {
-                //ObservableCollection<Brandstof> oc = new();
-                //foreach (var b in _Brandstoffen)
-                //{
-                //    oc.Add(b);
-                //}
-                lstBrandtof.ItemsSource = _brandstoffen;
-            }
+            lstBrandtof.ItemsSource = _brandstoffen;
         }
 
         private void miVerwijder_Click(object sender, RoutedEventArgs e)
         {
 
         }
-
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
             try

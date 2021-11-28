@@ -6,19 +6,57 @@
              xmlns:local="clr-namespace:Flapp_PL.View.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Margin="0,0,1,0">
-        <StackPanel Grid.Column="0" Margin="9,3,283,-3">
+    <UserControl.Resources>
+        <!-- Button Style-->
+        <Style TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="borderButton" CornerRadius="10" Background="#112D4E" BorderThickness="0">
+                            <ContentPresenter x:Name="cpButton" Content="{TemplateBinding Content}" TextBlock.Foreground="#F9F7F7" VerticalAlignment="Center" HorizontalAlignment="Center"></ContentPresenter>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="borderButton" Property="Background" Value="#3F72AF"/>
+                                <Setter TargetName="cpButton" Property="TextBlock.Foreground" Value="#FFD369"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="0" >
             <ListBox x:Name="lstVoertuigen"
-                 Width="489"
-                 Height="431">
+                 Margin="10,10,10,20"
+                 Width="250"
+                 Height="300">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <StackPanel HorizontalAlignment="Center"/>
+                        <StackPanel HorizontalAlignment="Left"/>
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
             </ListBox>
+            <Button Content="Voertuig Zoeken"
+                    x:Name="btnVoertuigZoeken"
+                    Margin="10"
+                    Width="120"
+                    Height="35"
+                    Click="btnVoertuigZoeken_Click"/>
+            <Button Content="Voertuig toevoegen"
+                    x:Name="btnVoertuigToevoegen"
+                    Margin="10"
+                    Width="120"
+                    Height="35"
+                    Click="btnVoertuigToevoegen_Click"/>
         </StackPanel>
-        <Button Content="Voertuig toevoegen" HorizontalAlignment="Left" Margin="557,86,0,0" VerticalAlignment="Top" Height="102" Width="222" Click="Button_Click"/>
 
     </Grid>
 </UserControl>

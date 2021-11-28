@@ -20,7 +20,8 @@ namespace Flapp_BLL.Models
         #endregion
 
         #region Constructors
-        public Tankkaart(string pincode, DateTime geldigheidsdatum) {
+        public Tankkaart(string pincode, DateTime geldigheidsdatum)
+        {
             ZetPincode(pincode);
             ZetGeldigheidsdatum(geldigheidsdatum);
         }
@@ -38,7 +39,8 @@ namespace Flapp_BLL.Models
             ZetGeblokkeerd(isgeblokkeerd);
         }
 
-        public Tankkaart(int kaartnummer, DateTime geldigheidsdatum, Brandstof brandstof){
+        public Tankkaart(int kaartnummer, DateTime geldigheidsdatum, Brandstof brandstof)
+        {
             ZetKaartnummer(kaartnummer);
             ZetGeldigheidsdatum(geldigheidsdatum);
             ZetBrandstof(brandstof);
@@ -51,7 +53,8 @@ namespace Flapp_BLL.Models
             ZetGeblokkeerd(geblokkeerd);
         }
 
-        public Tankkaart(int kaartnummer, DateTime geldigheidsdatum, string pincode, Brandstof brandstoftype, bool geblokkeerd) : this(kaartnummer, geldigheidsdatum) {
+        public Tankkaart(int kaartnummer, DateTime geldigheidsdatum, string pincode, Brandstof brandstoftype, bool geblokkeerd) : this(kaartnummer, geldigheidsdatum)
+        {
             ZetKaartnummer(kaartnummer);
             ZetPincode(pincode);
             ZetBrandstof(brandstoftype);
@@ -124,8 +127,10 @@ namespace Flapp_BLL.Models
         #region Overrides
         public override string ToString()
         {
+            string bestuurderNaam = Bestuurder != null ? Bestuurder.Naam : "GEEN";
             return $"\n-------------{GetType().Name}-------------\n" +
                     $"{Kaartnummer}, {Geldigheidsdatum.ToShortDateString()}, {Brandstof.Naam}\n" +
+                    $"Bestuurder: {bestuurderNaam}\n" +
                     $"------------------------------------";
         }
         public override bool Equals(object obj)

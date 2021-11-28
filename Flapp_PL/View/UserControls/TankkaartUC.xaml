@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Flapp_PL.View.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="400" d:DesignWidth="800">
+             d:DesignHeight="540" 
+             d:DesignWidth="800">
     <UserControl.Resources>
         <!-- Button Style-->
         <Style TargetType="Button">
@@ -36,11 +37,11 @@
         <StackPanel Grid.Column="0">
             <ListBox x:Name="lstTankkaarten"
                  Margin="10"
-                 Width="200"
-                 Height="275">
+                 Width="250"
+                 Height="300">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <StackPanel HorizontalAlignment="Center"/>
+                        <StackPanel HorizontalAlignment="Left"/>
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
                 <ListBox.ContextMenu>
@@ -62,6 +63,6 @@
                     Width="110"
                     Height="35"/>
         </StackPanel>
-        
+
     </Grid>
 </UserControl>

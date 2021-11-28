@@ -84,12 +84,14 @@ namespace Flapp_PL.View.UserControls
             myWindow.Close();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void btnVoertuigToevoegen_Click(object sender, RoutedEventArgs e)
         {
-            Window myWindow = Window.GetWindow(this);
-            new VoertuigToevoegen().Show();
+            new VoertuigToevoegen().ShowDialog();
+        }
 
-            myWindow.Close();
+        private void btnVoertuigZoeken_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

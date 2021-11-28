@@ -22,54 +22,27 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
         }
         private void laadBrandstoffen()
         {
-            //IReadOnlyList<Brandstof> brandstoffen;
-            try
-            {
-                IReadOnlyList<Brandstof> brandstoffen = _brandstofManager.GeefAlleBrandstoffen();
-                ObservableCollection<Brandstof> ts = new();
-                foreach (var brandstof in brandstoffen)
-                {
-                    ts.Add(brandstof);
-                }
-                lstBrandstof.ItemsSource = ts;
-            }
+            try { lstBrandstof.ItemsSource = (List<Brandstof>)_brandstofManager.GeefAlleBrandstoffen(); }
             catch (Exception ex) { throw new Exception(ex.Message, ex); }
-
         }
         private void btnSelecteren_Click(object sender, RoutedEventArgs e)
         {
+            if (lstBrandstof.SelectedItem == null) { MessageBox.Show("Er is geen Brandstof geselecteerd", Title, MessageBoxButton.OK, MessageBoxImage.Warning); return; }
             try
             {
-                if (lstBrandstof.SelectedItem != null)
-                {
-                    Brandstof b = (Brandstof)lstBrandstof.SelectedItem;
-                    _brandstoffen.Add(b);
-                    Application.Current.Properties["Brandstof"] = _brandstoffen;
-                    //Window myWindow = GetWindow(this);
-                    new VoertuigToevoegen().Show();
-                    Close();
-                }
-                else
-                {
-                    MessageBox.Show("Er is geen Brandstof geselecteerd", Title, MessageBoxButton.OK, MessageBoxImage.Warning);
-                }
+                _brandstoffen.Add((Brandstof)lstBrandstof.SelectedItem);
+                Application.Current.Properties["Brandstof"] = _brandstoffen;
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, Title, MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, Title, MessageBoxButton.OK, MessageBoxImage.Error); }
+            Close();
         }
         private void btnAnnuleren_Click(object sender, RoutedEventArgs e)
         {
-            new VoertuigToevoegen().Show();
             Close();
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            if (Application.Current.Properties["Brandstof"] != null)
-            {
-                _brandstoffen = (ObservableCollection<Brandstof>)Application.Current.Properties["Brandstof"]; ;
-            }
+            if (Application.Current.Properties["Brandstof"] != null) { _brandstoffen = (ObservableCollection<Brandstof>)Application.Current.Properties["Brandstof"]; ; }
         }
     }
 }
