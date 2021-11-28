@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Flapp_PL.View.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="375" 
+             d:DesignHeight="540" 
              d:DesignWidth="800">
     <UserControl.Resources>
         <!-- Button Style-->
@@ -36,7 +36,7 @@
 
         <StackPanel Grid.Column="0">
             <ListBox x:Name="lstbBestuurders"
-                 Margin="10,10,10,20"
+                 Margin="10"
                  Width="250"
                  Height="300">
                 <ListBox.ItemsPanel>
@@ -48,8 +48,14 @@
             <Button x:Name="btnZoek" 
                     Click="btnZoek_Click"
                     Content="Zoek Bestuurder"
-                    Margin="10"
-                    Width="100"
+                    Margin="5"
+                    Width="130"
+                    Height="35"/>
+            <Button x:Name="btnVoegToe" 
+                    Click="btnVoegToe_Click"
+                    Content="Bestuurder toevoegen"
+                    Margin="5"
+                    Width="130"
                     Height="35"/>
         </StackPanel>
     </Grid>

@@ -31,14 +31,16 @@ namespace Flapp_PL.View.Windows.TankkaartWindows
                 else { MessageBox.Show("Velden zijn leeg!"); }
 
             }
-            catch (Exception) { throw new Exception(); }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
-        private void btnBestuurder_Click(object sender, RoutedEventArgs e) {
+        private void btnBestuurder_Click(object sender, RoutedEventArgs e)
+        {
             new TankkaartZoekBestuurderWindow().ShowDialog();
         }
 
-        private void btnAnnuleer_Click(object sender, RoutedEventArgs e) {
+        private void btnAnnuleer_Click(object sender, RoutedEventArgs e)
+        {
             Close();
         }
     }
