@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="ZoekTankkaartWindow"
         Height="200" 
-        Width="275"
+        Width="300"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         Background="#F9F7F7">
@@ -61,6 +61,7 @@
                 <DatePicker Width="100"
                             FontSize="11"
                             Margin="5"
+                            Height="20px"
                             x:Name="dpGeldigheidsdatum"/>
             </StackPanel>
         </StackPanel>

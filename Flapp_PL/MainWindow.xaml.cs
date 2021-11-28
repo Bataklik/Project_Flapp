@@ -74,14 +74,14 @@ namespace Flapp_PL
                 btnVoertuig.IsEnabled = false;
                 btnTankkaart.IsEnabled = false;
                 wpUserControl.Children.Clear();
-                MessageBox.Show("Connection niet gelukt!");
+                MessageBox.Show("Connectie niet gelukt!", "Connection Failed!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else
             {
                 btnBestuurder.IsEnabled = true;
                 btnVoertuig.IsEnabled = true;
                 btnTankkaart.IsEnabled = true;
-                MessageBox.Show("Connection gekozen!");
+                MessageBox.Show("Connectie gekozen!", "Connection Successful!", MessageBoxButton.OK, MessageBoxImage.Information);
             }
 
         }

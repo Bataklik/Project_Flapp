@@ -2,6 +2,7 @@
 using Flapp_BLL.Models;
 using Flapp_DAL.Repository;
 using Flapp_PL.View.Windows;
+using Flapp_PL.View.Windows.BestuurderWindows;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -74,6 +75,11 @@ namespace Flapp_PL.View.UserControls
         {
             BestuurderUC bUC = this;
             new ZoekBestuurderWindow(_main, bUC).Show();
+        }
+
+        private void btnVoegToe_Click(object sender, RoutedEventArgs e)
+        {
+            new VoegBestuurderToe().Show();
         }
     }
 }

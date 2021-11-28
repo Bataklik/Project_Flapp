@@ -35,7 +35,7 @@
 
         <StackPanel Grid.Column="0" >
             <ListBox x:Name="lstVoertuigen"
-                 Margin="10,10,10,20"
+                 Margin="10"
                  Width="250"
                  Height="300">
                 <ListBox.ItemsPanel>
@@ -46,14 +46,14 @@
             </ListBox>
             <Button Content="Voertuig Zoeken"
                     x:Name="btnVoertuigZoeken"
-                    Margin="10"
-                    Width="120"
+                    Margin="5"
+                    Width="130"
                     Height="35"
                     Click="btnVoertuigZoeken_Click"/>
             <Button Content="Voertuig toevoegen"
                     x:Name="btnVoertuigToevoegen"
-                    Margin="10"
-                    Width="120"
+                    Margin="5"
+                    Width="130"
                     Height="35"
                     Click="btnVoertuigToevoegen_Click"/>
         </StackPanel>

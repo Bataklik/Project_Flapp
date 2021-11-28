@@ -54,13 +54,13 @@
                     Click="btnZoek_Click"
                     Content="Zoek Tankkaart"
                     Margin="5"
-                    Width="110"
+                    Width="130"
                     Height="35"/>
             <Button x:Name="btnVoegToe" 
                     Click="btnVoegToe_Click"
-                    Content="Voeg Tankkaart Toe"
+                    Content="Tankkaart toevoegen"
                     Margin="5"
-                    Width="110"
+                    Width="130"
                     Height="35"/>
         </StackPanel>
 
