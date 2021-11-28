@@ -36,7 +36,9 @@ namespace Flapp_PL.View.Windows.TankkaartWindows
 
         private void btnBestuurder_Click(object sender, RoutedEventArgs e)
         {
-            new TankkaartZoekBestuurderWindow().ShowDialog();
+            TankkaartToevoegenWindow ttw = this;
+            
+            new TankkaartZoekBestuurderWindow(ttw).ShowDialog();
         }
 
         private void btnAnnuleer_Click(object sender, RoutedEventArgs e)

@@ -21,11 +21,13 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
     /// </summary>
     public partial class TankkaartZoekBestuurderWindow : Window {
         private BestuurderManager _bestuurderManager;
+        private TankkaartToevoegenWindow _ttw;
 
-        public TankkaartZoekBestuurderWindow() {
+        public TankkaartZoekBestuurderWindow(TankkaartToevoegenWindow ttw) {
             InitializeComponent();
             _bestuurderManager = new BestuurderManager(new BestuurderRepo(Application.Current.Properties["User"].ToString()));
             laadWaarden();
+            _ttw = ttw;
         }
 
         private void laadWaarden() {
@@ -34,7 +36,15 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
             }
             catch (Exception) { throw new Exception(); }
         }
-                
+
+        private void VoegBestuurderToe_Click(object sender, RoutedEventArgs e) {
+            List<Bestuurder> bestuurders = new List<Bestuurder>();
+            bestuurders.Add((Bestuurder)lstBestuurders.SelectedItem);
+
+            _ttw.lbBestuurder.ItemsSource = bestuurders;
+            Close();
+        }
+
         private void btnBestuurder_Click(object sender, RoutedEventArgs e) {
 
         }

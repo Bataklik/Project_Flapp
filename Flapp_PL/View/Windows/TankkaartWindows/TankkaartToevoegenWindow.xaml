@@ -9,7 +9,7 @@
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         Title="Flapp: Tankkaart Toevoegen" 
-        Height="325" 
+        Height="450" 
         Width="315">
     <Window.Resources>
         <!-- Button Style-->
@@ -36,7 +36,8 @@
             <RowDefinition Height="45"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="35"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
@@ -70,12 +71,12 @@
                    FontSize="16" 
                    VerticalAlignment="Center" 
                    Margin="10,0"/>
-        <TextBlock Text="Brandstoftype:" Grid.Row="4" 
+        <TextBlock Text="Brandstoftype:" Grid.Row="5" 
                    Grid.Column="0" 
                    FontSize="16" 
                    VerticalAlignment="Center" 
                    Margin="10,0"/>
-        <TextBlock Text="Geblokkeerd:" Grid.Row="5" 
+        <TextBlock Text="Geblokkeerd:" Grid.Row="6" 
                    Grid.Column="0" 
                    FontSize="16" 
                    VerticalAlignment="Center" 
@@ -96,20 +97,25 @@
                  Width="130" 
                  Margin="10,5,10,5" 
                  FontSize="16" />
-        <Button Content="Zoek Bestuurder" 
-                x:Name="btnBestuurder" 
-                Grid.Row="3" 
-                Grid.Column="1" 
-                Width="130" 
-                Margin="10,5,10,5" 
-                FontSize="16" Click="btnBestuurder_Click" />
-        <ListBox Name="txtBrandstoftype" 
-                 Grid.Row="4" 
+        <ListBox Name="lbBestuurder" Grid.Row="3" 
                  Grid.Column="1" 
                  Width="130" 
                  Margin="10,5,10,5" 
                  FontSize="16" />
-        <ComboBox Name="cbGeblokkeerd" Grid.Row="5" 
+        <Button Content="Zoek Bestuurder" 
+                x:Name="btnBestuurder" 
+                Grid.Row="4" 
+                Grid.Column="1" 
+                Width="130" 
+                Margin="10,5,10,5" 
+                FontSize="12" Click="btnBestuurder_Click" />
+        <ListBox Name="txtBrandstoftype" 
+                 Grid.Row="5" 
+                 Grid.Column="1" 
+                 Width="130" 
+                 Margin="10,5,10,5" 
+                 FontSize="16" />
+        <ComboBox Name="cbGeblokkeerd" Grid.Row="6" 
                   Grid.Column="1" 
                   Width="130" 
                   Margin="10,5,10,5" 
@@ -117,21 +123,22 @@
             <ComboBoxItem>Ja</ComboBoxItem>
             <ComboBoxItem IsSelected="True">Nee</ComboBoxItem>
         </ComboBox>
+        
         <!--Buttons End-->
         <Button Content="Voeg toe"
                 x:Name="btnVoegtoe"
                 Click="btnVoegtoe_Click"
                 Grid.Column="0"
-                Grid.Row="6"
-                Margin="10,5,5,5"
+                Grid.Row="7"
+                Margin="5,10,5,5"
                 Height="25"
                 Width="100"/>
         <Button Content="Annuleer"
                 x:Name="btnAnnuleer"
                 Click="btnAnnuleer_Click"
                 Grid.Column="1"
-                Grid.Row="6"
-                Margin="10,5,5,5"
+                Grid.Row="7"
+                Margin="5,10,5,5"
                 Height="25"
                 Width="100"/>
     </Grid>

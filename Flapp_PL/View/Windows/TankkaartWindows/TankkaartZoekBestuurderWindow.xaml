@@ -57,6 +57,11 @@
                     <StackPanel HorizontalAlignment="Center"/>
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
+            <ListBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem x:Name="itemVoegToe" Header="Voeg Toe" Click="VoegBestuurderToe_Click"/>
+                </ContextMenu>
+            </ListBox.ContextMenu>
         </ListBox>
 
         <TextBlock Text="Klantnummer:"  
