@@ -26,7 +26,7 @@
             </Setter>
         </Style>
     </Window.Resources>
-    <Grid Loaded="Grid_Loaded">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="40"/>
@@ -79,8 +79,7 @@
                  Grid.RowSpan="5"
                  Width="200"
                  Height="150"
-                 Margin="0,10"
-                 Loaded="lstBrandtof_Loaded">
+                 Margin="0,10">
             <ListBox.ContextMenu>
                 <ContextMenu>
                     <MenuItem x:Name="miVerwijder" Header="Verwijder" Click="VerwijderBrandstof_Click"/>

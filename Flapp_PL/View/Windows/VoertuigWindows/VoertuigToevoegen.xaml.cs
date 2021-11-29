@@ -13,7 +13,6 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
         private VoertuigManager _voertuigManager;
         private ObservableCollection<Brandstof> _brandstoffen;
         private VoertuigTypeManager _voertuigTypeManager;
-
         public VoertuigToevoegen()
         {
             InitializeComponent();
@@ -25,31 +24,30 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
                 _brandstoffen = (ObservableCollection<Brandstof>)Application.Current.Properties["Brandstof"]; ;
             }
             else { _brandstoffen = (ObservableCollection<Brandstof>)Application.Current.Properties["Brandstof"]; ; }
-        }
 
+            laadVoertuigtypes();
+            laadBrandstoftypes();
+        }
         private void btnToevoegen_Click(object sender, RoutedEventArgs e)
         {
-            VoertuigType t = new VoertuigType(cmbType.SelectedIndex.ToString());
-            Voertuig v = new Voertuig(txtMerk.Text, txtModel.Text, txtChassis.Text, txtNummerplaat.Text, t, txtKleur.Text, Convert.ToInt32(txtDeuren.Text));
+            string t = cmbType.SelectedIndex.ToString();
+            List<Brandstof> b = new List<Brandstof>(_brandstoffen);
+            Voertuig v = new Voertuig(txtMerk.Text, txtModel.Text, txtChassis.Text, txtNummerplaat.Text, b, t, txtKleur.Text, Convert.ToInt32(txtDeuren.Text));
             try
             {
                 _voertuigManager.VoegVoertuigToe(v);
                 MessageBox.Show("Voertuig is toegevoegd!");
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
-
         }
-
         private void btnAnnuleren_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
-
         private void SelecteerBrandstof_Click(object sender, RoutedEventArgs e)
         {
             new BenzineSelecteren().ShowDialog();
         }
-
         private void VerwijderBrandstof_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -64,24 +62,18 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
             {
                 MessageBox.Show(ex.Message, Title, MessageBoxButton.OK, MessageBoxImage.Error);
             }
-        }
-
-        private void lstBrandtof_Loaded(object sender, RoutedEventArgs e)
+        }             
+        private void laadBrandstoftypes()
         {
             if (_brandstoffen == null && _brandstoffen.Count == 0) { lstBrandtof.ItemsSource = null; return; }
             lstBrandtof.ItemsSource = _brandstoffen;
-        }
-
-        private void miVerwijder_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-        private void Grid_Loaded(object sender, RoutedEventArgs e)
+        }       
+        private void laadVoertuigtypes()
         {
             try
             {
-                IReadOnlyList<VoertuigType> types = _voertuigTypeManager.GeefAlleVoertuigen();
-                ObservableCollection<VoertuigType> ts = new();
+                IReadOnlyList<string> types = _voertuigTypeManager.GeefAlleVoertuigTypes();
+                ObservableCollection<string> ts = new();
                 foreach (var type in types)
                 {
                     ts.Add(type);

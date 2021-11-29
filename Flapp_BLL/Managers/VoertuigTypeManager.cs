@@ -16,7 +16,7 @@ namespace Flapp_BLL.Managers
         {
             _repo = repo;
         }
-        public IReadOnlyList<VoertuigType> GeefAlleVoertuigen()
+        public IReadOnlyList<string> GeefAlleVoertuigTypes()
         {
             try
             {

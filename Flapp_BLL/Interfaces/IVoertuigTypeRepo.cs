@@ -9,7 +9,7 @@ namespace Flapp_BLL.Interfaces
 {
     public interface IVoertuigTypeRepo
     {
-        IReadOnlyList<VoertuigType> GeefAlleVoertuigTypes();
+        IReadOnlyList<string> GeefAlleVoertuigTypes();
         //IReadOnlyList<Voertuig> ZoekVoertuigen(int? vehicleId, string brand, string model, string chassisNumber, string licensePlate, Brandstof fuelType, string vehicleType, string color, int doors, Bestuurder driver);
         //Voertuig GeefVoertuigTypeDoorID(int id);
         ////Voertuig ZoekVoertuig(int? vehicleId, string brand, string model, string chassisNumber, string licensePlate, Brandstof fuelType, string vehicleType, string color, int doors, Bestuurder driver);

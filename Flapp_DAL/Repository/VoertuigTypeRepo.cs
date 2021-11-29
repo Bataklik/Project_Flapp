@@ -17,10 +17,10 @@ namespace Flapp_DAL.Repository
         {
             _connString = connString;            
         }
-        public IReadOnlyList<VoertuigType> GeefAlleVoertuigTypes()
+        public IReadOnlyList<string> GeefAlleVoertuigTypes()
         {
             SqlConnection conn = new SqlConnection(_connString);
-            List<VoertuigType> voertuigen = new List<VoertuigType>();
+            List<string> voertuigen = new List<string>();
             string query = "USE Project_Flapp_DB; SELECT typeNaam FROM[Project_Flapp_DB].[dbo].[VoertuigType];";
             using (SqlCommand cmd = conn.CreateCommand())
             {
@@ -33,7 +33,7 @@ namespace Flapp_DAL.Repository
                     {
                         //List<Brandstof> brandstof = new List<Brandstof> { new Brandstof((string)r["naam"]) };
                         //Voertuig voertuig = new Voertuig((int)r["voertuigId"], (string)r["merk"], (string)r["model"], (string)r["chassisnummer"], (string)r["nummerplaat"], brandstof, (string)r["type"], (string)r["kleur"], (int)r["deuren"]);
-                        VoertuigType vt = new VoertuigType((string)r["typeNaam"]);
+                        string vt = (string)r["typeNaam"];
                         voertuigen.Add(vt);
                     }
                 }

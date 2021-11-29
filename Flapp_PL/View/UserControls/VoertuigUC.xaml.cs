@@ -2,6 +2,7 @@
 using Flapp_BLL.Models;
 using Flapp_DAL.Repository;
 using Flapp_PL.View.Windows.VoertuigWindow;
+using Flapp_PL.View.Windows.VoertuigWindows;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -24,16 +25,14 @@ namespace Flapp_PL.View.UserControls
             InitializeComponent();
             _voertuigManager = new VoertuigManager(new VoertuigRepo(Application.Current.Properties["User"].ToString()));
             _brandstofManager = new BrandstofManager(new BrandstofRepo(Application.Current.Properties["User"].ToString()));
-            laadVoertuigen();
-            laadBrandstoffen();
+            laadVoertuigen();       
         }
-
         private void laadVoertuigen()
         {
             List<Voertuig> voertuigen = new List<Voertuig>();
             try
             {
-                List<Voertuig> sortVoertuigen = _voertuigManager.GeefAlleVoertuigen().ToList();
+                List<Voertuig> sortVoertuigen = new List<Voertuig>(_voertuigManager.GeefAlleVoertuigen());
                 foreach (Voertuig v in sortVoertuigen)
                 {
                     voertuigen.Add(v);
@@ -41,57 +40,14 @@ namespace Flapp_PL.View.UserControls
             }
             catch (Exception ex) { throw new Exception(ex.Message, ex); }
             lstVoertuigen.ItemsSource = voertuigen;
-        }
-
-        private void laadBrandstoffen()
-        {
-            IReadOnlyList<Brandstof> brandstoffen;
-            try
-            {
-                brandstoffen = _brandstofManager.GeefAlleBrandstoffen();
-            }
-            catch (Exception ex) { throw new Exception(ex.Message, ex); }
-            //lstBrandstof.ItemsSource = brandstoffen;
-        }
-
-        private void btnVoegVoertuigToe_Click(object sender, RoutedEventArgs e)
-        {
-            //Voertuig v = new Voertuig(txtMerk.Text, txtModel.Text, txtChassis.Text, txtNummerplaat.Text, txtType.Text, txtKleur.Text, Convert.ToInt32(txtDeuren.Text));
-            //try
-            //{
-            //    _voertuigManager.VoegVoertuigToe(v);
-            //}
-            //catch (Exception ex) { throw new Exception(ex.Message, ex); }
-        }
-
-        private void lstBrandstof_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            //txtChassis.Text = Convert.ToString(lstBrandstof.SelectedItem);
-        }
-        private void btnZoek_Click(object sender, RoutedEventArgs e)
-        {
-            Window myWindow = Window.GetWindow(this);
-            new BenzineToevoegen().Show();
-
-            myWindow.Close();
-        }
-
-        private void btnBrandstofSelecteren_Click(object sender, RoutedEventArgs e)
-        {
-            Window myWindow = Window.GetWindow(this);
-            new BenzineSelecteren().Show();
-
-            myWindow.Close();
-        }
-
+        }        
         private void btnVoertuigToevoegen_Click(object sender, RoutedEventArgs e)
         {
             new VoertuigToevoegen().ShowDialog();
         }
-
         private void btnVoertuigZoeken_Click(object sender, RoutedEventArgs e)
         {
-
+            new VoertuigZoeken().ShowDialog();
         }
     }
 }
