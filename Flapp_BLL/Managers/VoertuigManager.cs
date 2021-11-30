@@ -54,5 +54,22 @@ namespace Flapp_BLL.Managers
             }
             catch (Exception ex) { throw new BestuurderManagerException("VoertuigManager: Geef alle voertuigen:", ex); }
         }
+        public IReadOnlyList<string> geefMerken()
+        {
+            try
+            {
+                return _repo.GeefMerken();
+            }
+            catch (Exception ex) { throw new VoertuigManagerException("VoertuigManager: Geef automerken:", ex); }
+        }
+        public IReadOnlyList<string> geefModellen(string merk)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(merk)) { throw new VoertuigManagerException("VoertuigManager: Geef modellen: Merk mag niet leeg zijn"); }
+                return _repo.GeefModellen(merk);
+            }
+            catch (Exception ex) { throw new VoertuigManagerException("VoertuigManager: Geef modellen:", ex); }
+        }
     }
 }

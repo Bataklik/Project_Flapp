@@ -278,5 +278,56 @@ namespace Flapp_DAL.Repository
             }
         }
         #endregion
+
+        #region geefMerk en geefModel
+        public IReadOnlyList<string> GeefMerken()
+        {
+            List<string> merken = new();
+            SqlConnection conn = new SqlConnection(_connString);
+            string query = "USE [Project_Flapp_DB]; SELECT DISTINCT merk FROM Voertuig ORDER BY merk";
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
+                cmd.CommandText = query;
+                conn.Open();
+                try
+                {
+                    SqlDataReader r = cmd.ExecuteReader();
+                    r.Read();
+                    string merk = (string)r["merk"];
+                    merken.Add(merk);
+                    return merken;
+                }
+                catch (Exception ex) { throw new Exception(ex.Message); }
+                finally { conn.Close(); }
+
+            }
+        }
+        public IReadOnlyList<string> GeefModellen(string merk)
+        {
+            List<string> modellen = new();
+            SqlConnection conn = new SqlConnection(_connString);
+            string query = "USE [Project_Flapp_DB]; SELECT DISTINCT model FROM Voertuig WHERE merk = @merk ORDER BY model";
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
+                cmd.Parameters.Add(new SqlParameter("@merk", SqlDbType.NVarChar));
+                cmd.CommandText = query;
+
+                cmd.Parameters["@merk"].Value = merk;
+                cmd.CommandText = query;
+                conn.Open();
+                try
+                {
+                    SqlDataReader r = cmd.ExecuteReader();
+                    r.Read();
+                    string model = (string)r["model"];
+                    modellen.Add(model);
+                    return modellen;
+                }
+                catch (Exception ex) { throw new Exception(ex.Message); }
+                finally { conn.Close(); }
+
+            }
+        }
+        #endregion
     }
 }
