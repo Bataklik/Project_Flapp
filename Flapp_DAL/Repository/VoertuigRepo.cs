@@ -281,10 +281,10 @@ namespace Flapp_DAL.Repository
 
         #region geefMerk en geefModel
         public IReadOnlyList<string> GeefMerken()
-        {
-            List<string> merken = new();
+        {            
             SqlConnection conn = new SqlConnection(_connString);
-            string query = "USE [Project_Flapp_DB]; SELECT DISTINCT merk FROM Voertuig ORDER BY merk";
+            List<string> merken = new List<string>();
+            string query = "SELECT DISTINCT merk FROM [dbo].[Voertuig]";
             using (SqlCommand cmd = conn.CreateCommand())
             {
                 cmd.CommandText = query;
@@ -292,15 +292,18 @@ namespace Flapp_DAL.Repository
                 try
                 {
                     SqlDataReader r = cmd.ExecuteReader();
-                    r.Read();
-                    string merk = (string)r["merk"];
-                    merken.Add(merk);
-                    return merken;
+                    while (r.Read())
+                    {                        
+                        string merknaam = (string)r["merk"];
+                        //Brandstof brandstof = new Brandstof(id, brandstofnaam);
+                        merken.Add(merknaam);
+                    }
                 }
                 catch (Exception ex) { throw new Exception(ex.Message); }
                 finally { conn.Close(); }
-
             }
+            return merken;
+            
         }
         public IReadOnlyList<string> GeefModellen(string merk)
         {
@@ -318,9 +321,11 @@ namespace Flapp_DAL.Repository
                 try
                 {
                     SqlDataReader r = cmd.ExecuteReader();
-                    r.Read();
-                    string model = (string)r["model"];
-                    modellen.Add(model);
+                    while (r.Read())
+                    {
+                        string model = (string)r["model"];
+                        modellen.Add(model);
+                    }                    
                     return modellen;
                 }
                 catch (Exception ex) { throw new Exception(ex.Message); }

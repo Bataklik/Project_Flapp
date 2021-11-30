@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Flapp_PL.View.Windows.VoertuigWindows"
         mc:Ignorable="d"
-        Title="VoertuigZoeken" Height="384" Width="315">
+        Title="VoertuigZoeken" Height="416" Width="315" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <!-- Button Style-->
         <Style TargetType="Button">
@@ -26,16 +26,16 @@
             </Setter>
         </Style>
     </Window.Resources>
-    <Grid Margin="0,0,-1,5">
+    <Grid Margin="0,0,-11,1">
         <Grid.RowDefinitions>
             <RowDefinition Height="45"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
-            <RowDefinition Height="80"/>
-            <RowDefinition Height="35"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="112"/>
+
+            <RowDefinition Height="34"/>
+            <RowDefinition Height="44"/>
+            <RowDefinition Height="34"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
@@ -55,74 +55,54 @@
                    Grid.Column="0" 
                    FontSize="16" 
                    VerticalAlignment="Center" 
-                   Margin="10,0"/>
-        <TextBlock Text="Chassisnummer:" Grid.Row="2" 
-                   Grid.Column="0" 
-                   FontSize="16" 
-                   VerticalAlignment="Center" 
-                   Margin="10,0"/>
+                   Margin="10,0,10,0" Height="22"/>
         <TextBlock Text="BrandstofType:" Grid.Row="3" 
                    Grid.Column="0" 
                    FontSize="16" 
                    VerticalAlignment="Center" 
-                   Margin="10,0"/>
-        <TextBlock Text="Merk:" Grid.Row="5" 
+                   Margin="10,0,10,0" Height="22"/>
+        <TextBlock Text="Merk:" Grid.Row="4" 
                    Grid.Column="0" 
                    FontSize="16" 
                    VerticalAlignment="Center" 
-                   Margin="10,0"/>
-        <TextBlock Text="Model:" Grid.Row="6" 
+                   Margin="10,0,10,0" Height="22"/>
+        <TextBlock Text="Model:" Grid.Row="5" 
                    Grid.Column="0" 
                    FontSize="16" 
                    VerticalAlignment="Center" 
-                   Margin="10,0"/>
+                   Margin="10,0,10,0" Height="22"/>
 
-        <!--Inputs Fields-->       
-                 
-        <TextBox Name="txtChassisnummer" Grid.Row="2" 
-                 Grid.Column="1" 
-                 Width="130" 
-                 Margin="10,5,10,5" 
-                 FontSize="16" />
+        <!--Inputs Fields-->
         <TextBox Name="txtNummerplaat" Grid.Row="1" 
                  Grid.Column="1" 
-                 Width="130" 
-                 Margin="10,5,10,5" 
+                 Margin="10,5,-13,5" 
                  FontSize="16" />
         <ListBox Name="lstBrandstoftype" Grid.Row="3" 
                  Grid.Column="1" 
-                 Width="130" 
-                 Margin="10,5,10,5" 
+                 Margin="10,5,-52,5" 
                  FontSize="16" />
         <ComboBox Name="cmbMerk" 
-                 Grid.Row="5" 
+                 Grid.Row="4" 
                  Grid.Column="1" 
-                 Width="130" 
-                 Margin="10,5,10,5" 
-                 FontSize="16" />
-        <ComboBox Name="cmbModel" Grid.Row="6" 
+                 Margin="10,5,-6,5" 
+                 FontSize="16" SelectionChanged="cmbMerk_SelectionChanged" />
+        <ComboBox Name="cmbModel" Grid.Row="5" 
                   Grid.Column="1" 
-                  Width="130" 
-                  Margin="10,5,10,5" 
-                  FontSize="16">            
-        </ComboBox>
+                  Margin="10,5,-8,5" 
+                  FontSize="16"/>
 
         <!--Buttons End-->
         <Button Content="Zoek"
                 x:Name="btnZoek"
                 Click="btnZoek_Click"
                 Grid.Column="0"
-                Grid.Row="7"
-                Margin="5,10,5,5"
-                Height="25"
-                Width="100"/>
+                Grid.Row="6"
+                Margin="17,10,17,0" Height="26" VerticalAlignment="Top"/>
         <Button Content="Annuleer"
                 x:Name="btnAnnuleer"
                 Click="btnAnnuleer_Click"
                 Grid.Column="1"
-                Grid.Row="7"
-                Margin="5,10,5,5"
-                Height="25"
-                Width="100"/>
+                Grid.Row="6"
+                Margin="25,10,32,-5"/>
     </Grid>
 </Window>

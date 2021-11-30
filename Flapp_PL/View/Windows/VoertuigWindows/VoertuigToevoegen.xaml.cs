@@ -30,9 +30,9 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
         }
         private void btnToevoegen_Click(object sender, RoutedEventArgs e)
         {
-            string t = cmbType.SelectedIndex.ToString();
+            string t = cmbType.SelectedItem.ToString().ToUpper();
             List<Brandstof> b = new List<Brandstof>(_brandstoffen);
-            Voertuig v = new Voertuig(txtMerk.Text, txtModel.Text, txtChassis.Text, txtNummerplaat.Text, b, t, txtKleur.Text, Convert.ToInt32(txtDeuren.Text));
+            Voertuig v = new Voertuig(txtMerk.Text.ToUpper(), txtModel.Text.ToUpper(), txtChassis.Text.ToUpper(), txtNummerplaat.Text.ToUpper(), b, t, txtKleur.Text.ToUpper(), Convert.ToInt32(txtDeuren.Text));
             try
             {
                 _voertuigManager.VoegVoertuigToe(v);
