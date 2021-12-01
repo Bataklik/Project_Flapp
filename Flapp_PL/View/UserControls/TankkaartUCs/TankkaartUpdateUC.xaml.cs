@@ -64,15 +64,14 @@ namespace Flapp_PL.View.UserControls.TankkaartUCs {
             bool geblokkeerd = false;
             if (cbGeblokkeerd.SelectedItem.ToString() == "Ja") geblokkeerd = true;
             Tankkaart t = new Tankkaart(kaartnummer, geldigheidsdatum, pincode, geblokkeerd);
-            _tankkaartManager.UpdateTankkaart(t);
+            try {
+                _tankkaartManager.UpdateTankkaart(t);
+                MessageBox.Show("Updaten gelukt!");
+            } catch (Exception) { throw; }
         }
 
         private void btnAnnuleren_Click(object sender, RoutedEventArgs e) {
             _main.wpUserControl.Children.Remove(this);
-        }
-
-        private void cbGeblokkeerd_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-
         }
     }
 }

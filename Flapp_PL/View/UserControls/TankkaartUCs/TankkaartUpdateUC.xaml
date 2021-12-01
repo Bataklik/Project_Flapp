@@ -82,7 +82,7 @@
                 <ComboBox Width="100"
                          Height="20"
                          Margin="5"
-                         x:Name="cbGeblokkeerd" SelectionChanged="cbGeblokkeerd_SelectionChanged"/>
+                         x:Name="cbGeblokkeerd"/>
             </StackPanel>
         </StackPanel>
 

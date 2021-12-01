@@ -115,17 +115,19 @@ namespace Flapp_PL.View.UserControls
 
         private void btnZoek_Click(object sender, RoutedEventArgs e)
         {
+            if (_main.wpUserControl.Children.Count > 1) _main.wpUserControl.Children.RemoveAt(_main.wpUserControl.Children.Count - 1);
             new ZoekTankkaartWindow(_main).ShowDialog();
         }
 
         private void btnVoegToe_Click(object sender, RoutedEventArgs e)
         {
-            TankkaartUC tUC = this;
+            if (_main.wpUserControl.Children.Count > 1) _main.wpUserControl.Children.RemoveAt(_main.wpUserControl.Children.Count - 1);
             new TankkaartToevoegenWindow().ShowDialog();
         }
 
         private void UpdateTankkaart_Click(object sender, RoutedEventArgs e)
         {
+
             Tankkaart t = (Tankkaart)lstTankkaarten.SelectedItem;
             _main.wpUserControl.Children.Add(new TankkaartUpdateUC(t, _main));
         }

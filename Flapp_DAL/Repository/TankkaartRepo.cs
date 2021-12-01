@@ -45,26 +45,21 @@ namespace Flapp_DAL.Repository
         public bool BestaatTankkaart(Tankkaart t)
         {
             SqlConnection conn = new SqlConnection(_connString);
-            string query = "USE [Project_Flapp_DB]; SELECT 1 FROM Tankkaart WHERE kaartnr = @kaartnr AND geldigheidsdatum = @geldigheidsdatum AND pincode = @pincode" +
-                "AND brandstoftype = @brandstoftype AND geblokkeerd = @geblokkeerd";
+            string query = "SELECT * FROM Tankkaart WHERE tankkaartid = @tankkaartid AND geldigheidsdatum = @geldigheidsdatum";
             using (SqlCommand cmd = conn.CreateCommand())
             {
                 conn.Open();
                 try
                 {
-                    cmd.Parameters.Add(new SqlParameter("@kaartnr", SqlDbType.Int));
+                    cmd.Parameters.Add(new SqlParameter("@tankkaartid", SqlDbType.Int));
                     cmd.Parameters.Add(new SqlParameter("@geldigheidsdatum", SqlDbType.Date));
-                    cmd.Parameters.Add(new SqlParameter("@pincode", SqlDbType.VarChar));
-                    cmd.Parameters.Add(new SqlParameter("@brandstoftype", SqlDbType.VarChar));
-                    cmd.Parameters.Add(new SqlParameter("@geblokkeerd", SqlDbType.Bit));
+                    
 
                     cmd.CommandText = query;
 
-                    cmd.Parameters["@kaartnr"].Value = t.Kaartnummer;
+                    cmd.Parameters["@tankkaartid"].Value = t.Kaartnummer;
                     cmd.Parameters["@geldigheidsdatum"].Value = t.Geldigheidsdatum;
-                    cmd.Parameters["@pincode"].Value = t.Pincode;
-                    cmd.Parameters["@brandstoftype"].Value = t.Brandstof;
-                    cmd.Parameters["@geblokkeerd"].Value = t.Geblokkeerd;
+                    
 
                     int tankkaartBestaat = Convert.ToInt32(cmd.ExecuteScalar());
 
@@ -199,8 +194,8 @@ namespace Flapp_DAL.Repository
         public void UpdateTankkaart(Tankkaart t)
         {
             SqlConnection conn = new SqlConnection(_connString);
-            string query = "UPDATE Tankkaart SET geldigheidsdatum = @geldigheidsdatum OR pincode = @pincode" +
-                "OR brandstoftype = @brandstoftype OR geblokkeerd = @geblokkeerd WHERE tankkaartId = @tankkaartId;";
+            string query = "UPDATE Tankkaart SET geldigheidsdatum = @geldigheidsdatum, pincode = @pincode" +
+                ", geblokkeerd = @geblokkeerd WHERE tankkaartId = @tankkaartId;";
             using (SqlCommand cmd = conn.CreateCommand())
             {
                 conn.Open();
@@ -208,14 +203,14 @@ namespace Flapp_DAL.Repository
                 {
                     cmd.Parameters.Add(new SqlParameter("@tankkaartId", SqlDbType.Int));
                     cmd.Parameters.Add(new SqlParameter("@geldigheidsdatum", SqlDbType.Date));
-                    cmd.Parameters.Add(new SqlParameter("@brandstoftype", SqlDbType.NVarChar));
+                    cmd.Parameters.Add(new SqlParameter("@pincode", SqlDbType.NVarChar));
                     cmd.Parameters.Add(new SqlParameter("@geblokkeerd", SqlDbType.Bit));
 
                     cmd.CommandText = query;
 
                     cmd.Parameters["@tankkaartId"].Value = t.Kaartnummer;
                     cmd.Parameters["@geldigheidsdatum"].Value = t.Geldigheidsdatum;
-                    cmd.Parameters["@brandstoftype"].Value = t.Brandstof;
+                    cmd.Parameters["@pincode"].Value = t.Pincode;
                     cmd.Parameters["@geblokkeerd"].Value = t.Geblokkeerd;
 
                     cmd.ExecuteNonQuery();
