@@ -96,7 +96,7 @@
                  Margin="30,5,-403,5" 
                  FontSize="16">
             <ListBox.ContextMenu>
-                <ContextMenu>
+                <ContextMenu DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
                     <MenuItem x:Name="itemUpdate" Header="Update" Click="UpdateVoertuig_Click"/>
                     <MenuItem x:Name="itemDelete" Header="Delete" Click="DeleteVoertuig_Click"/>
                 </ContextMenu>

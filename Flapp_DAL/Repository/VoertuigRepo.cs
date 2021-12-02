@@ -144,7 +144,7 @@ namespace Flapp_DAL.Repository
         public Voertuig GeefVoertuigDoorID(int vId)
         {
             SqlConnection conn = new SqlConnection(_connString);
-            string query = "USE [Project_Flapp_DB]; SELECT * FROM Voertuig WHERE id = @id";
+            string query = "USE [Project_Flapp_DB]; SELECT * FROM Voertuig WHERE voertuigId = @id";
             using (SqlCommand cmd = conn.CreateCommand())
             {
                 cmd.Parameters.Add(new SqlParameter("@id", SqlDbType.Int));
@@ -159,7 +159,7 @@ namespace Flapp_DAL.Repository
                     r.Read();
                     List<Brandstof> b = new List<Brandstof> { (null) };//_bRepo.GeefBrandstof((int)r["brandstof_id"]); // Mag null zijn
                     Bestuurder bs = null;// _bsRepo.GeefBestuurder((int)r["bestuurder_id"]); // Mag null zijn
-                    string vt = (string)r["typeNaam"];
+                    string vt = (string)r["type"];
                     Voertuig voertuig = new Voertuig((int)r["VoertuigId"], (string)r["merk"], (string)r["model"], (string)r["chassisnummer"], (string)r["nummerplaat"], b, vt, (string)r["kleur"], (int)r["deuren"], bs);
                     return voertuig;
                 }

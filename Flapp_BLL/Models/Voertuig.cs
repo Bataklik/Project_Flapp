@@ -184,7 +184,7 @@ namespace Flapp_BLL.Models
             }
             else
             {
-                throw new VoertuigException("Vehicle - SetDriver - Driver is null");
+                
             }
         }
 

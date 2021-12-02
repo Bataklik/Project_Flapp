@@ -55,6 +55,15 @@ namespace Flapp_BLL.Managers
             catch (Exception ex) { throw new BestuurderManagerException("VoertuigManager: Geef alle voertuigen:", ex); }
         }
 
+        public Voertuig GeefVoertuigDoorID(int id)
+        {
+            try
+            {
+                return _repo.GeefVoertuigDoorID(id);
+            }
+            catch (Exception ex) { throw new BestuurderManagerException("VoertuigManager: Geef voertuig door ID:", ex); }
+        }
+
         public List<Voertuig> VoertuigZoeken(string? nummerplaat, string? merk, string? model/*, Klant _klantSave*/)
         {
             try

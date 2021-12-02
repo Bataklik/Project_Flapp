@@ -26,20 +26,17 @@ namespace Flapp_PL.View.Windows.VoertuigWindows
     {
         private MainWindow main;
         private VoertuigManager _voertuigmanager;
-        private BrandstofManager _brandstofManager;
-        private string si;
-        public VoertuigZoeken()
-        {
-            InitializeComponent();
-        }
+        private BrandstofManager _brandstofManager;        
         public VoertuigZoeken(MainWindow main)
         {
-            InitializeComponent();
             this.main = main;
+                     
             _voertuigmanager = new VoertuigManager(new VoertuigRepo(Application.Current.Properties["User"].ToString()));
             _brandstofManager = new BrandstofManager(new BrandstofRepo(Application.Current.Properties["User"].ToString()));
+            InitializeComponent();   
             laadBrandstoffen();
             laadMerk();
+            
         }
         public void laadBrandstoffen()
         {
@@ -51,34 +48,39 @@ namespace Flapp_PL.View.Windows.VoertuigWindows
         string? model = null;
         private void btnZoek_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {                
-                if (!string.IsNullOrWhiteSpace(txtNummerplaat.Text))
-                {
-                    //nummerplaat = txtNummerplaat.Text;
-                }
-                if (cmbMerk.SelectedIndex != 0)
-                {
-                    //merk = cmbMerk.SelectedItem.ToString();
-                }
-                if (cmbModel.SelectedIndex != 0)
-                {
-                    //model = null;
-                    //model = cmbModel.SelectedItem.ToString();
-                }
-                //List<Voertuig> voertuigen = _voertuigmanager.VoertuigZoeken(nummerplaat, merk, model);
-                List<Voertuig> voertuigen = _voertuigmanager.VoertuigZoeken(txtNummerplaat.Text, cmbMerk.Text, cmbModel.Text);
-                ObservableCollection<Voertuig> ts = new();
-                foreach (Voertuig bestelling in voertuigen)
-                {
-                    ts.Add(bestelling);
-                }
-                lstVoertuigen.ItemsSource = ts;                
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, Title, MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            main = new();
+            main.wpUserControl.Children.Clear();
+            main.wpUserControl.Children.Add(new VoertuigUC(txtNummerplaat.Text, cmbMerk.SelectedItem.ToString(), cmbModel.SelectedItem.ToString(), main));
+            Close();
+            return;
+            //try
+            //{                
+            //    if (!string.IsNullOrWhiteSpace(txtNummerplaat.Text))
+            //    {
+            //        //nummerplaat = txtNummerplaat.Text;
+            //    }
+            //    if (cmbMerk.SelectedIndex != 0)
+            //    {
+            //        //merk = cmbMerk.SelectedItem.ToString();
+            //    }
+            //    if (cmbModel.SelectedIndex != 0)
+            //    {
+            //        //model = null;
+            //        //model = cmbModel.SelectedItem.ToString();
+            //    }
+            //    //List<Voertuig> voertuigen = _voertuigmanager.VoertuigZoeken(nummerplaat, merk, model);
+            //    List<Voertuig> voertuigen = _voertuigmanager.VoertuigZoeken(txtNummerplaat.Text, cmbMerk.Text, cmbModel.Text);
+            //    ObservableCollection<Voertuig> ts = new();
+            //    foreach (Voertuig bestelling in voertuigen)
+            //    {
+            //        ts.Add(bestelling);
+            //    }
+            //    lstVoertuigen.ItemsSource = ts;                
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message, Title, MessageBoxButton.OK, MessageBoxImage.Error);
+            //}
         }
         private void btnAnnuleer_Click(object sender, RoutedEventArgs e)
         {
@@ -111,7 +113,17 @@ namespace Flapp_PL.View.Windows.VoertuigWindows
         }
         private void UpdateVoertuig_Click(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+                 
+                Voertuig v = (Voertuig)lstVoertuigen.SelectedItem;
+                new VoertuigUpdaten(v.VoertuigID).ShowDialog();
+                //NavigationService.Navigate(new Uri("/Pages/Klant/KlantUpdatenPage.xaml", UriKind.Relative));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, Title, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
         private void DeleteVoertuig_Click(object sender, RoutedEventArgs e)
         {

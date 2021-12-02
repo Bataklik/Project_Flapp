@@ -43,6 +43,11 @@
                         <StackPanel HorizontalAlignment="Left"/>
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
+                <ListBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem x:Name="itemUpdate" Header="Update" Click="itemUpdate_Click"/>
+                    </ContextMenu>
+                </ListBox.ContextMenu>
             </ListBox>
             <Button Content="Voertuig Zoeken"
                     x:Name="btnVoertuigZoeken"
