@@ -24,7 +24,7 @@ namespace Flapp_PL.View.Windows.VoertuigWindows
     /// </summary>
     public partial class VoertuigZoeken : Window
     {
-        private MainWindow main;        
+        private MainWindow main;
         private VoertuigManager _voertuigmanager;
         private BrandstofManager _brandstofManager;
         private string si;
@@ -39,8 +39,8 @@ namespace Flapp_PL.View.Windows.VoertuigWindows
             _voertuigmanager = new VoertuigManager(new VoertuigRepo(Application.Current.Properties["User"].ToString()));
             _brandstofManager = new BrandstofManager(new BrandstofRepo(Application.Current.Properties["User"].ToString()));
             laadBrandstoffen();
-            laadMerk();            
-        }        
+            laadMerk();
+        }
         public void laadBrandstoffen()
         {
             try { lstBrandstoftype.ItemsSource = (List<Brandstof>)_brandstofManager.GeefAlleBrandstoffen(); }
@@ -49,31 +49,40 @@ namespace Flapp_PL.View.Windows.VoertuigWindows
         private void btnZoek_Click(object sender, RoutedEventArgs e)
         {
             main = new MainWindow();
-            if (cmbMerk.SelectedValue.ToString() != "<geen merk>") {
+            if (cmbMerk.SelectedValue.ToString() != "<geen merk>")
+            {
                 main.Show();
                 main.wpUserControl.Children.Clear();
                 main.wpUserControl.Children.Add(new VoertuigUC(cmbMerk.SelectedValue.ToString())); ;
                 Close();
                 return;
-            } if (!string.IsNullOrWhiteSpace(txtNummerplaat.Text)) { //<-- ALLEEN DEZE WERKT
+            }
+            if (!string.IsNullOrWhiteSpace(txtNummerplaat.Text))
+            { //<-- ALLEEN DEZE WERKT
                 main.Show();
                 main.wpUserControl.Children.Clear();
                 main.wpUserControl.Children.Add(new VoertuigUC(txtNummerplaat.Text.ToUpper()));
                 Close();
                 return;
-            } else if (cmbMerk.SelectedItem != null && cmbModel.SelectedItem != null) {
+            }
+            else if (cmbMerk.SelectedItem != null && cmbModel.SelectedItem != null)
+            {
                 main.Show();
                 main.wpUserControl.Children.Clear();
                 main.wpUserControl.Children.Add(new VoertuigUC(cmbMerk.SelectedItem.ToString(), cmbModel.SelectedItem.ToString()));
                 Close();
                 return;
-            } else if (!string.IsNullOrWhiteSpace(txtNummerplaat.Text) && cmbMerk.SelectedItem != null) {
+            }
+            else if (!string.IsNullOrWhiteSpace(txtNummerplaat.Text) && cmbMerk.SelectedItem != null)
+            {
                 main.Show();
                 main.wpUserControl.Children.Clear();
                 main.wpUserControl.Children.Add(new VoertuigUC(txtNummerplaat.Text, cmbMerk.SelectedItem.ToString()));
                 Close();
                 return;
-            } /*else*/if (!string.IsNullOrWhiteSpace(txtNummerplaat.Text) && cmbMerk.SelectedItem != null && cmbModel.SelectedItem != null) {
+            } /*else*/
+            if (!string.IsNullOrWhiteSpace(txtNummerplaat.Text) && cmbMerk.SelectedItem != null && cmbModel.SelectedItem != null)
+            {
                 main.Show();
                 main.wpUserControl.Children.Clear();
                 main.wpUserControl.Children.Add(new VoertuigUC(txtNummerplaat.Text.ToUpper(), cmbMerk.SelectedItem.ToString(), cmbModel.SelectedItem.ToString()/*, main*/));

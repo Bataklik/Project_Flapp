@@ -1,5 +1,6 @@
 ﻿using Flapp_BLL.Models;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Flapp_BLL.Interfaces
 {
@@ -7,7 +8,7 @@ namespace Flapp_BLL.Interfaces
     {
         Rijbewijs GeefRijbewijs(int id);
         Rijbewijs GeefRijbewijs(Rijbewijs rijbewijs);
-        IReadOnlyList<Rijbewijs> GeefAlleRijbewijzen();
+        public List<Rijbewijs> GeefAlleRijbewijzen();
         bool BestaatRijbewijs(int id);
         bool BestaatRijbewijs(Rijbewijs rijbewijs);
         void VoegRijbewijsToe(Rijbewijs rijbewijs);
