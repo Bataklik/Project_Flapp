@@ -168,6 +168,122 @@ namespace Flapp_DAL.Repository
 
             }
         }
+        public List<Voertuig> VoertuigZoeken(string? nummerplaat, string? merk, string? model/*, Klant _klantSave*/)
+        {
+            List<Voertuig> voertuigen = new();
+            bool isWhere = true;
+            bool isAnd = false;
+            string sql = "SELECT * FROM Voertuig LEFT JOIN Brandstof_Voertuig ON Voertuig.voertuigId = Brandstof_Voertuig.voertuigId " +
+                "LEFT JOIN Brandstof ON Brandstof_Voertuig.brandstofId = Brandstof.brandstofId";
+            
+            if (merk != "")
+            {
+                if (isWhere)
+                {
+                    sql += " WHERE ";
+                    isWhere = false;
+                }
+                if (isAnd)
+                {
+                    sql += " AND ";
+                }
+                else
+                {
+                    isAnd = true;
+                }
+                sql += "merk = @merk";
+            }
+            if (model != "")
+            {
+                if (isWhere)
+                {
+                    sql += " WHERE ";
+                    isWhere = false;
+                }
+                if (isAnd)
+                {
+                    sql += " AND ";
+                }
+                else
+                {
+                    isAnd = true;
+                }
+                sql += "model <= @model";
+            }if (nummerplaat !="")
+            {
+                if (isWhere)
+                {
+                    sql += " WHERE ";
+                    isWhere = false;
+                }
+                if (isAnd)
+                {
+                    sql += " AND ";
+                }
+                else
+                {
+                    isAnd = true;
+                }
+                sql += "nummerplaat = @nummerplaat";
+            }
+            //if (_klantSave != null)
+            //{
+            //    if (isWhere)
+            //    {
+            //        sql += " WHERE ";
+            //        isWhere = false;
+            //    }
+            //    if (isAnd)
+            //    {
+            //        sql += " AND ";
+            //    }
+            //    else
+            //    {
+            //        isAnd = true;
+            //    }
+            //    sql += "b.KlantID = @KlantId";
+            //}
+            SqlConnection connection = new SqlConnection(_connString);
+            SqlCommand command = new(sql, connection);
+            try
+            {
+                connection.Open();
+                if (nummerplaat != null)
+                {
+                    command.Parameters.AddWithValue("@nummerplaat", nummerplaat);
+                }
+                if (merk != null)
+                {
+                    command.Parameters.AddWithValue("@merk", merk);
+                }
+                if (model != null)
+                {
+                    command.Parameters.AddWithValue("@model", model);
+                }
+                //if (_klantSave != null)
+                //{
+                //    command.Parameters.AddWithValue("@KlantID", _klantSave.KlantId);
+                //}
+                SqlDataReader r = command.ExecuteReader();
+                while (r.Read())
+                {
+                    List<Brandstof> brandstof = new List<Brandstof> { new Brandstof((string)r["naam"]) };
+                    string vt = (string)r["type"];
+                    Voertuig voertuig = new Voertuig((int)r["voertuigId"], (string)r["merk"], (string)r["model"], (string)r["chassisnummer"], (string)r["nummerplaat"], brandstof, vt, (string)r["kleur"], (int)r["deuren"]);
+
+                    voertuigen.Add(voertuig);
+                }
+                return voertuigen;
+            }
+            catch (Exception ex)
+            {
+                throw new VoertuigException(ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
         #endregion
 
         #region VoegVoertuigToe Method

@@ -19,6 +19,7 @@ namespace Flapp_BLL.Interfaces
         void VerwijderVoertuig(Voertuig voertuig);
         IReadOnlyList<string> GeefMerken();
         IReadOnlyList<string> GeefModellen(string merk);
+        List<Voertuig> VoertuigZoeken(string? nummerplaat, string? merk, string? model);
         //bool HeeftBestuurder(Bestuurder bestuurder); Moet kunnen kijken of een voertuig een bestuurder heeft
         //IReadOnlyList<Voertuig> GeefAlleVoertuigenZonderBestuurder() Voor een lijst voor voertuigen zonder bestuurders;
     }

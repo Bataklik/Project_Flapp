@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Flapp_PL.View.Windows.VoertuigWindows"
         mc:Ignorable="d"
-        Title="VoertuigZoeken" Height="416" Width="315" WindowStartupLocation="CenterScreen">
+        Title="VoertuigZoeken" Height="425" Width="757" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <!-- Button Style-->
         <Style TargetType="Button">
@@ -26,30 +26,31 @@
             </Setter>
         </Style>
     </Window.Resources>
-    <Grid Margin="0,0,-11,1">
+    <Grid Margin="0,0,1,1">
         <Grid.RowDefinitions>
             <RowDefinition Height="45"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="112"/>
 
-            <RowDefinition Height="34"/>
             <RowDefinition Height="44"/>
-            <RowDefinition Height="34"/>
+            <RowDefinition Height="44"/>
+            <RowDefinition Height="58"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
         <!--TextBlocks-->
-        <TextBlock Text="Voertuig zoeken" Grid.ColumnSpan="2" 
+        <TextBlock Text="Voertuig zoeken" Grid.ColumnSpan="3" 
                    FontSize="28"
                    Grid.Row="0" 
                    Grid.Column="0" 
                    Background="#112D4E" 
                    Foreground="#F9F7F7" 
-                   TextAlignment="Center" Margin="0,0,-45,0"/>
+                   TextAlignment="Center" Margin="0,0,-433,0"/>
         <TextBlock Text="Nummerplaat:" 
                    Grid.Row="1" 
                    Grid.Column="0" 
@@ -75,34 +76,43 @@
         <!--Inputs Fields-->
         <TextBox Name="txtNummerplaat" Grid.Row="1" 
                  Grid.Column="1" 
-                 Margin="10,5,-13,5" 
-                 FontSize="16" />
+                 Margin="10,5,16,5" 
+                 FontSize="16" Grid.ColumnSpan="1" />
         <ListBox Name="lstBrandstoftype" Grid.Row="3" 
                  Grid.Column="1" 
-                 Margin="10,5,-52,5" 
-                 FontSize="16" />
+                 Margin="10,5,13,5" 
+                 FontSize="16" Grid.ColumnSpan="1" />
         <ComboBox Name="cmbMerk" 
                  Grid.Row="4" 
                  Grid.Column="1" 
-                 Margin="10,5,-6,5" 
-                 FontSize="16" SelectionChanged="cmbMerk_SelectionChanged" />
+                 Margin="10,5,12,5" 
+                 FontSize="16" SelectionChanged="cmbMerk_SelectionChanged" Grid.ColumnSpan="1" />
         <ComboBox Name="cmbModel" Grid.Row="5" 
                   Grid.Column="1" 
-                  Margin="10,5,-8,5" 
+                  Margin="10,5,12,5" 
                   FontSize="16"/>
+        <ListBox Name="lstVoertuigen" Grid.Row="1" Grid.RowSpan="6"
+                 Grid.Column="2" 
+                 Margin="30,5,-403,5" 
+                 FontSize="16">
+            <ListBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem x:Name="itemUpdate" Header="Update" Click="UpdateVoertuig_Click"/>
+                    <MenuItem x:Name="itemDelete" Header="Delete" Click="DeleteVoertuig_Click"/>
+                </ContextMenu>
+            </ListBox.ContextMenu> 
+        </ListBox>
 
         <!--Buttons End-->
         <Button Content="Zoek"
                 x:Name="btnZoek"
                 Click="btnZoek_Click"
-                Grid.Column="0"
-                Grid.Row="6"
-                Margin="17,10,17,0" Height="26" VerticalAlignment="Top"/>
+                Grid.Row="6" VerticalAlignment="Top" Margin="14.5,27,14.5,0" Height="31"/>
         <Button Content="Annuleer"
                 x:Name="btnAnnuleer"
                 Click="btnAnnuleer_Click"
                 Grid.Column="1"
                 Grid.Row="6"
-                Margin="25,10,32,-5"/>
+                Margin="40,27,41,-0" Height="31"/>
     </Grid>
 </Window>
