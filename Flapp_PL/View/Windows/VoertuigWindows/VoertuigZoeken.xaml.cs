@@ -24,7 +24,7 @@ namespace Flapp_PL.View.Windows.VoertuigWindows
     /// </summary>
     public partial class VoertuigZoeken : Window
     {
-        private MainWindow main;        
+        private MainWindow main;
         private VoertuigManager _voertuigmanager;
         private BrandstofManager _brandstofManager;
         private string si;
@@ -39,8 +39,8 @@ namespace Flapp_PL.View.Windows.VoertuigWindows
             _voertuigmanager = new VoertuigManager(new VoertuigRepo(Application.Current.Properties["User"].ToString()));
             _brandstofManager = new BrandstofManager(new BrandstofRepo(Application.Current.Properties["User"].ToString()));
             laadBrandstoffen();
-            laadMerk();            
-        }        
+            laadMerk();
+        }
         public void laadBrandstoffen()
         {
             try { lstBrandstoftype.ItemsSource = (List<Brandstof>)_brandstofManager.GeefAlleBrandstoffen(); }

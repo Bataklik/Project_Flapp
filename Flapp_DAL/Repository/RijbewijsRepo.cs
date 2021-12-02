@@ -2,6 +2,7 @@
 using Flapp_BLL.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -111,18 +112,21 @@ namespace Flapp_DAL.Repository
         #endregion
 
         #region GeefAlleRijbewijzen
-        public IReadOnlyList<Rijbewijs> GeefAlleRijbewijzen() {
+        public List<Rijbewijs> GeefAlleRijbewijzen()
+        {
             SqlConnection conn = new SqlConnection(_connString);
             List<Rijbewijs> rijbewijzen = new List<Rijbewijs>();
             string query = "SELECT * FROM [Project_Flapp_DB].[dbo].[Rijbewijs];";
-            using (SqlCommand cmd = conn.CreateCommand()) {
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
                 cmd.CommandText = query;
                 conn.Open();
-                try {
+                try
+                {
                     SqlDataReader r = cmd.ExecuteReader();
-                    while (r.Read()) {
-                        string naam = (string)r["naam"];
-                        Rijbewijs rijbewijs = new Rijbewijs(naam);
+                    while (r.Read())
+                    {
+                        Rijbewijs rijbewijs = new Rijbewijs((int)r["rijbewijsId"], (string)r["naam"]);
                         rijbewijzen.Add(rijbewijs);
                     }
                 }

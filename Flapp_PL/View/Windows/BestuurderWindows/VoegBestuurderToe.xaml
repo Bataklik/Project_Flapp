@@ -3,11 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:Flapp_PL.View.Windows.BestuurderWindows"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="Flapp: Bestuurder Toevoegen" 
-        Height="375" 
+        ResizeMode="NoResize"
+        Height="440" 
         Width="315">
     <Window.Resources>
         <!-- Button Style-->
@@ -38,7 +40,7 @@
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="80"/>
             <RowDefinition Height="40"/>
 
         </Grid.RowDefinitions>
@@ -110,7 +112,7 @@
         <ComboBox Name="cbGeslacht" 
                   Grid.Row="3" 
                   Grid.Column="1" 
-                  Width="130" 
+                  Width="130"                
                   Margin="10,5,10,5" 
                   FontSize="16">
             <ComboBoxItem IsSelected="True">Man</ComboBoxItem>
@@ -127,28 +129,66 @@
                  Grid.Row="5" 
                  Grid.Column="1" 
                  Width="130" 
-                 Margin="10,5,10,5" 
+                 Margin="10,5" 
                  FontSize="16" />
+        <StackPanel Grid.Row="6" 
+                    Grid.Column="1"
+                    Orientation="Horizontal"
+                    Margin="10,5"
+                    Height="auto">
+            <ComboBox Loaded="cbRijbewijzen_Loaded" x:Name="cbRijbewijzen"
+                 Width="80" 
+                 Height="30"
+                 Margin="0,0,5,0" 
+                 FontSize="14"/>
+            <Button x:Name="btnAddRijbewijs"
+                    Click="btnAddRijbewijs_Click"
+                    Height="20" 
+                    Width="20">
+                <materialDesign:PackIcon Kind="Add"
+                                         Width="10" 
+                                         Height="10"                                
+                                         Foreground="#F9F7F7"/>
+            </Button>
+            <Button x:Name="btnRemoveRijbewijs"
+                    Click="btnRemoveRijbewijs_Click"
+                    Height="20" 
+                    Width="20"
+                    Margin="1,0,0,0">
+                <materialDesign:PackIcon Kind="Minus"
+                                         Width="10" 
+                                         Height="10"                                
+                                         Foreground="#F9F7F7"/>
 
+            </Button>
+        </StackPanel>
+        <ListBox x:Name="lstRijbewijzen"                
+                 Grid.Row="7" 
+                 Grid.Column="1" 
+                 FontSize="14" 
+                 Margin="10,5"
+                 SelectionMode="Single"/>
 
         <!--Buttons End-->
         <Button Content="Voeg toe"
                 x:Name="btnVoegtoe"
                 Click="btnVoegtoe_Click"
                 Grid.Column="0"
-                Grid.Row="7"
+                Grid.Row="8"
                 Margin="10,5,5,5"
                 Height="25"
                 Width="130"
+                VerticalAlignment="Top"
                 HorizontalAlignment="Center"/>
         <Button Content="Annuleer"
                 x:Name="btnAnnuleer"
                 Click="btnAnnuleer_Click"
                 Grid.Column="1"
-                Grid.Row="7"
+                Grid.Row="8"
                 Margin="10,5,5,5"
                 Height="25"
                 Width="130"
+                VerticalAlignment="Top"
                 HorizontalAlignment="Center"/>
     </Grid>
 </Window>

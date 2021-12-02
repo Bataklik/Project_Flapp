@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Flapp_BLL.Interfaces;
 using Flapp_BLL.Models;
 using Flapp_BLL.Exceptions.ManagerExceptions;
+using System.Collections.ObjectModel;
 
 namespace Flapp_BLL.Managers
 {
@@ -38,6 +39,14 @@ namespace Flapp_BLL.Managers
             try
             {
                 return _repo.GeefRijbewijs(id); ;
+            }
+            catch (Exception ex) { throw new RijbewijsTypeManagerException("RijbewijsTypeManager", ex); }
+        }
+        public List<Rijbewijs> GeefAlleRijbewijzen()
+        {
+            try
+            {
+                return _repo.GeefAlleRijbewijzen();
             }
             catch (Exception ex) { throw new RijbewijsTypeManagerException("RijbewijsTypeManager", ex); }
         }
