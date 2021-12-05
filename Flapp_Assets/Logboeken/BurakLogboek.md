@@ -26,7 +26,9 @@
 | 2u   | Check Adres, Rijbewijs Toevoegen & Geven                   |
 | 3u   | Proberen van GeefAlleBestuurders te maken, maar datum wordt in andere format terug gegeven |
 | 2u   | Created ZoekBestuurderWindow with *Tibo*                   |
-| 1u   | Connection Mainscreen & User Test code                     |
+| 1u   | Connection Mainscreen                                      |
+| 1.3u | Work on Voeg bestuurder toe                                |
+
 
 
 
