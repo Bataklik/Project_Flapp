@@ -41,6 +41,7 @@
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
@@ -71,16 +72,17 @@
                    FontSize="16" 
                    VerticalAlignment="Center" 
                    Margin="10,0"/>
-        <TextBlock Text="Brandstoftype:" Grid.Row="5" 
+        <TextBlock Text="Geblokkeerd:" Grid.Row="5" 
                    Grid.Column="0" 
                    FontSize="16" 
                    VerticalAlignment="Center" 
                    Margin="10,0"/>
-        <TextBlock Text="Geblokkeerd:" Grid.Row="6" 
+        <TextBlock Text="Brandstoftype:" Grid.Row="6" 
                    Grid.Column="0" 
                    FontSize="16" 
                    VerticalAlignment="Center" 
                    Margin="10,0"/>
+        
 
         <!--Inputs Fields-->
         <DatePicker Name="dpGeldigheidsdatum" Grid.Row="1" 
@@ -89,7 +91,7 @@
                  Margin="5" 
                  Height="30" 
                  FontSize="16"
-                 DisplayDateEnd="{Binding Mode=OneWay,
+                 DisplayDateStart="{Binding Mode=OneWay,
                     Source={x:Static
                     System:DateTime.Today}}"/>
         <TextBox Name="txtPincode" Grid.Row="2" 
@@ -100,8 +102,8 @@
         <ListBox Name="lbBestuurder" Grid.Row="3" 
                  Grid.Column="1" 
                  Width="130" 
-                 Margin="10,5,10,5" 
-                 FontSize="16" />
+                 Margin="10,17,10,17" 
+                 FontSize="16" RenderTransformOrigin="0.526,-0.266" />
         <Button Content="Zoek Bestuurder" 
                 x:Name="btnBestuurder" 
                 Grid.Row="4" 
@@ -109,13 +111,7 @@
                 Width="130" 
                 Margin="10,5,10,5" 
                 FontSize="12" Click="btnBestuurder_Click" />
-        <ListBox Name="txtBrandstoftype" 
-                 Grid.Row="5" 
-                 Grid.Column="1" 
-                 Width="130" 
-                 Margin="10,5,10,5" 
-                 FontSize="16" />
-        <ComboBox Name="cbGeblokkeerd" Grid.Row="6" 
+        <ComboBox Name="cbGeblokkeerd" Grid.Row="5" 
                   Grid.Column="1" 
                   Width="130" 
                   Margin="10,5,10,5" 
@@ -123,23 +119,28 @@
             <ComboBoxItem>Ja</ComboBoxItem>
             <ComboBoxItem IsSelected="True">Nee</ComboBoxItem>
         </ComboBox>
-        
+        <ListBox Name="txtBrandstoftype" Grid.Row="6" 
+                 Grid.Column="1" 
+                 Width="130" 
+                 Margin="10,5,10,5" 
+                 FontSize="16" />
+
         <!--Buttons End-->
         <Button Content="Voeg toe"
                 x:Name="btnVoegtoe"
                 Click="btnVoegtoe_Click"
                 Grid.Column="0"
-                Grid.Row="7"
-                Margin="5,10,5,5"
+                Grid.Row="8"
+                Margin="5,5,5,5"
                 Height="25"
-                Width="100"/>
+                Width="130"/>
         <Button Content="Annuleer"
                 x:Name="btnAnnuleer"
                 Click="btnAnnuleer_Click"
                 Grid.Column="1"
-                Grid.Row="7"
-                Margin="5,10,5,5"
+                Grid.Row="8"
+                Margin="5,5,5,5"
                 Height="25"
-                Width="100"/>
+                Width="130"/>
     </Grid>
 </Window>

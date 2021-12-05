@@ -129,7 +129,8 @@ namespace Flapp_PL.View.UserControls
         {
 
             Tankkaart t = (Tankkaart)lstTankkaarten.SelectedItem;
-            _main.wpUserControl.Children.Add(new TankkaartUpdateUC(t, _main));
+            TankkaartUC tUC = this;
+            _main.wpUserControl.Children.Add(new TankkaartUpdateUC(t, _main, tUC));
         }
     }
 }

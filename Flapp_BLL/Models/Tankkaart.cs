@@ -128,10 +128,9 @@ namespace Flapp_BLL.Models
         public override string ToString()
         {
             string bestuurderNaam = Bestuurder != null ? Bestuurder.Naam : "GEEN";
-            return $"\n-------------{GetType().Name}-------------\n" +
+            return $"[{GetType().Name}]\n" +
                     $"{Kaartnummer}, {Geldigheidsdatum.ToShortDateString()}, {Brandstof.Naam}\n" +
-                    $"Bestuurder: {bestuurderNaam}\n" +
-                    $"------------------------------------";
+                    $"Bestuurder: {bestuurderNaam}";
         }
         public override bool Equals(object obj)
         {
