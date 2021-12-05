@@ -56,7 +56,7 @@ namespace Flapp_PL.View.UserControls.TankkaartUCs
                 _tankkaartManager.UpdateTankkaart(t);
                 MessageBox.Show("Updaten gelukt!");
                 _main.wpUserControl.Children.RemoveAt(_main.wpUserControl.Children.Count - 1);
-                _tUC.lstTankkaarten.ItemsSource = _tankkaartManager.GeefAlleTankkaarten().Select(x => x.Value).ToList();               
+                _tUC.lstTankkaarten.ItemsSource = _tankkaartManager.GeefAlleTankkaarten().ToList();               
             } catch (Exception) { throw; }
         }
 
