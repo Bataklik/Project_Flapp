@@ -14,8 +14,8 @@ USE [Project_Flapp_DB]; INSERT INTO [dbo].[VoertuigType] ([typeNaam]) VALUES ('S
 USE [Project_Flapp_DB]; INSERT INTO [dbo].[VoertuigType] ([typeNaam]) VALUES ('Terreinwagen');
 
 -- Voertuig Insert
-USE [Project_Flapp_DB]; INSERT INTO [dbo].[Voertuig] ([merk] ,[model] ,[chassisnummer] ,[nummerplaat] ,[type] ,[kleur] ,[deuren]) VALUES ('BMW' ,'Berline' ,'3GCUKREC7FG207394' ,'1-LIN-003' ,'2' ,'Blauw' ,4);
-USE [Project_Flapp_DB]; INSERT INTO [dbo].[Voertuig] ([merk] ,[model] ,[chassisnummer] ,[nummerplaat] ,[type] ,[kleur] ,[deuren]) VALUES ('Tesla' ,'Model X' ,'JN1CA21D7ST071336' ,'1-ASN-010' ,'4' ,'Grijs' ,4);
+USE [Project_Flapp_DB]; INSERT INTO [dbo].[Voertuig] ([merk] ,[model] ,[chassisnummer] ,[nummerplaat] ,[type] ,[kleur] ,[deuren]) VALUES ('BMW' ,'Berline' ,'3GCUKREC7FG207394' ,'1-LIN-003' ,'Hatchback' ,'Blauw' ,4);
+USE [Project_Flapp_DB]; INSERT INTO [dbo].[Voertuig] ([merk] ,[model] ,[chassisnummer] ,[nummerplaat] ,[type] ,[kleur] ,[deuren]) VALUES ('Tesla' ,'Model X' ,'JN1CA21D7ST071336' ,'1-ASN-010' ,'Sedan' ,'Grijs' ,4);
 
 -- Tankkaart Insert
 USE [Project_Flapp_DB]; INSERT INTO [dbo].[Tankkaart] ([geldigheidsdatum] ,[pincode] ,[geblokkeerd]) VALUES ('01/02/2025' ,'1232' ,0);
