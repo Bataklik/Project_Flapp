@@ -21,7 +21,7 @@ namespace Flapp_DAL.Repository
         {
             SqlConnection conn = new SqlConnection(_connString);
             string query = "USE [Project_Flapp_DB]; SELECT 1 FROM Bestuurder WHERE naam = @naam AND voornaam = @voornaam AND geboortedatum = @geboorte AND rijksregister = @rijksregister AND " +
-                "AND adresid = @adresid AND tankkaartid = @tankkaartid AND geslacht = @geslacht;";
+                "geslacht = @geslacht;";
             using (SqlCommand cmd = conn.CreateCommand())
             {
                 conn.Open();
@@ -31,8 +31,8 @@ namespace Flapp_DAL.Repository
                     cmd.Parameters.Add(new SqlParameter("@voornaam", SqlDbType.VarChar));
                     cmd.Parameters.Add(new SqlParameter("@geboorte", SqlDbType.Date));
                     cmd.Parameters.Add(new SqlParameter("@rijksregister", SqlDbType.VarChar));
-                    cmd.Parameters.Add(new SqlParameter("@adres_id", SqlDbType.Int));
-                    cmd.Parameters.Add(new SqlParameter("@tankkaart_id", SqlDbType.Int));
+                    //cmd.Parameters.Add(new SqlParameter("@adres_id", SqlDbType.Int));
+                    //cmd.Parameters.Add(new SqlParameter("@tankkaart_id", SqlDbType.Int));
                     cmd.Parameters.Add(new SqlParameter("@geslacht", SqlDbType.Bit));
 
                     cmd.CommandText = query;
@@ -41,8 +41,8 @@ namespace Flapp_DAL.Repository
                     cmd.Parameters["@voornaam"].Value = b.Voornaam;
                     cmd.Parameters["@geboorte"].Value = b.Geboortedatum;
                     cmd.Parameters["@rijksregister"].Value = b.Rijksregisternummer;
-                    cmd.Parameters["@adres_id"].Value = b.Adres.Id;
-                    cmd.Parameters["@tankkaart_id"].Value = b.Tankkaart.Kaartnummer;
+                    //cmd.Parameters["@adres_id"].Value = b.Adres.Id;
+                    //cmd.Parameters["@tankkaart_id"].Value = b.Tankkaart.Kaartnummer;
                     cmd.Parameters["@geslacht"].Value = b.Geslacht;
 
                     int bestuurderBestaat = Convert.ToInt32(cmd.ExecuteScalar());
@@ -84,7 +84,7 @@ namespace Flapp_DAL.Repository
         public void VoegBestuurderToe(Bestuurder b)
         {
             SqlConnection conn = new SqlConnection(_connString);
-            string query = "USE [Project_Flapp_DB] INSERT INTO [dbo].[Bestuurder] ([naam] ,[voornaam] ,[geboortedatum] ,[rijksregister] ,[adresid] ,[tankkaartid] ,[geslacht]) VALUES (@naam ,@voornaam ,@geboorte ,@rijksregister ,@adresid ,@tankkaartid ,@geslacht)";
+            string query = "USE [Project_Flapp_DB] INSERT INTO [dbo].[Bestuurder] ([naam] ,[voornaam] ,[geboortedatum] ,[rijksregister] ,[adresid] ,[geslacht]) VALUES (@naam ,@voornaam ,@geboorte ,@rijksregister ,@adresid  ,@geslacht)";
             using (SqlCommand cmd = conn.CreateCommand())
             {
                 conn.Open();
@@ -94,8 +94,8 @@ namespace Flapp_DAL.Repository
                     cmd.Parameters.Add(new SqlParameter("@voornaam", SqlDbType.VarChar));
                     cmd.Parameters.Add(new SqlParameter("@geboorte", SqlDbType.DateTime));
                     cmd.Parameters.Add(new SqlParameter("@rijksregister", SqlDbType.VarChar));
-                    cmd.Parameters.Add(new SqlParameter("@adres", SqlDbType.Int));
-                    cmd.Parameters.Add(new SqlParameter("@tankkaart", SqlDbType.Int));
+                    cmd.Parameters.Add(new SqlParameter("@adresid", SqlDbType.Int));
+                    //cmd.Parameters.Add(new SqlParameter("@tankkaart", SqlDbType.Int));
                     cmd.Parameters.Add(new SqlParameter("@geslacht", SqlDbType.Bit));
 
                     cmd.CommandText = query;
@@ -104,8 +104,8 @@ namespace Flapp_DAL.Repository
                     cmd.Parameters["@voornaam"].Value = b.Voornaam;
                     cmd.Parameters["@geboorte"].Value = b.Geboortedatum;
                     cmd.Parameters["@rijksregister"].Value = b.Rijksregisternummer;
-                    cmd.Parameters["@adres"].Value = b.Adres.Id;
-                    cmd.Parameters["@tankkaart"].Value = b.Tankkaart.Kaartnummer;
+                    cmd.Parameters["@adresid"].Value = b.Adres.Id;
+                    //cmd.Parameters["@tankkaart"].Value = null;
                     if (b.Geslacht == Geslacht.M) { cmd.Parameters["@geslacht"].Value = 1; }
                     else { cmd.Parameters["@geslacht"].Value = 0; }
 
@@ -334,15 +334,19 @@ namespace Flapp_DAL.Repository
             SqlConnection conn = new SqlConnection(_connString);
             List<Bestuurder> bestuurders = new List<Bestuurder>();
             string query = "SELECT * FROM Bestuurder LEFT JOIN Rijbewijs_Bestuurder ON Bestuurder.bestuurderId = Rijbewijs_Bestuurder.bestuurderId LEFT JOIN Rijbewijs ON Rijbewijs_Bestuurder.rijbewijsId = Rijbewijs.rijbewijsId LEFT JOIN Adres ON Bestuurder.adresId = Adres.adresId WHERE tankkaartId IS NULL;";
-            using (SqlCommand cmd = conn.CreateCommand()) {
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
                 cmd.CommandText = query;
                 conn.Open();
-                try {
+                try
+                {
                     SqlDataReader r = cmd.ExecuteReader();
-                    while (r.Read()) {
+                    while (r.Read())
+                    {
                         // Bestuurder(int id, string naam, string voornaam, Geslacht geslacht, Adres adres, string geboortedatum, string rijksregisternummer, List<Rijbewijs> rijbewijs, Voertuig voertuig, Tankkaart tankkaart)
                         Adres adres = null;
-                        if (!r.IsDBNull(r.GetOrdinal("adresId")) && !r.IsDBNull(r.GetOrdinal("straat")) && !r.IsDBNull(r.GetOrdinal("huisnummer")) && !r.IsDBNull(r.GetOrdinal("stad")) && !r.IsDBNull(r.GetOrdinal("postcode"))) {
+                        if (!r.IsDBNull(r.GetOrdinal("adresId")) && !r.IsDBNull(r.GetOrdinal("straat")) && !r.IsDBNull(r.GetOrdinal("huisnummer")) && !r.IsDBNull(r.GetOrdinal("stad")) && !r.IsDBNull(r.GetOrdinal("postcode")))
+                        {
                             adres = new Adres((int)r["adresId"], (string)r["straat"], (string)r["huisnummer"], (string)r["stad"], (int)r["postcode"]);
                         }
 

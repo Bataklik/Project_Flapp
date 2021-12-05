@@ -21,8 +21,8 @@ USE [Project_Flapp_DB]; INSERT INTO [dbo].[Voertuig] ([merk] ,[model] ,[chassisn
 USE [Project_Flapp_DB]; INSERT INTO [dbo].[Tankkaart] ([geldigheidsdatum] ,[pincode] ,[geblokkeerd]) VALUES ('01/02/2025' ,'1232' ,0);
 
 -- Bestuurder Insert
-USE [Project_Flapp_DB]; INSERT INTO [dbo].[Bestuurder] ([naam] ,[voornaam] ,[geboortedatum] ,[rijksregister] ,[adresId] ,[voertuigId] ,[tankkaartId] ,[geslacht]) VALUES ('Declerck' ,'Tibo' ,'08/06/1999' ,'99.08.06-289.17' ,NULL ,NULL ,NULL ,1);
-USE [Project_Flapp_DB]; INSERT INTO [dbo].[Bestuurder] ([naam] ,[voornaam] ,[geboortedatum] ,[rijksregister] ,[adresId] ,[voertuigId] ,[tankkaartId] ,[geslacht]) VALUES ('Balci' ,'Burak' ,'05/12/1999' ,'99.05.12-289.17' ,2 ,1 ,1 ,1);
+USE [Project_Flapp_DB]; SET DATEFORMAT dmy; INSERT INTO [dbo].[Bestuurder] ([naam] ,[voornaam] ,[geboortedatum] ,[rijksregister] ,[adresId] ,[voertuigId] ,[tankkaartId] ,[geslacht]) VALUES ('Declerck' ,'Tibo' ,'06/08/1999' ,'99.08.06-289.17' ,NULL ,NULL ,NULL ,1);
+USE [Project_Flapp_DB]; SET DATEFORMAT dmy; INSERT INTO [dbo].[Bestuurder] ([naam] ,[voornaam] ,[geboortedatum] ,[rijksregister] ,[adresId] ,[voertuigId] ,[tankkaartId] ,[geslacht]) VALUES ('Balci' ,'Burak' ,'12/05/1999' ,'99.05.12-289.17' ,2 ,1 ,1 ,1);
 
 -- Brandstof Insert
 USE [Project_Flapp_DB]; INSERT INTO [dbo].[Brandstof] ([naam]) VALUES ('Benzine'); 
