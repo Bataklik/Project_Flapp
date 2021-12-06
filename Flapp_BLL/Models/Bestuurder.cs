@@ -1,5 +1,5 @@
-﻿using Flapp_BLL.Exceptions.ModelExpections;
-using Flapp_BLL.Checkers;
+﻿using Flapp_BLL.Checkers;
+using Flapp_BLL.Exceptions.ModelExpections;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +25,8 @@ namespace Flapp_BLL.Models
         #endregion
 
         #region Constructors
-        public Bestuurder(int id, string naam, string voornaam, string geboortedatum) {
+        public Bestuurder(int id, string naam, string voornaam, string geboortedatum)
+        {
             ZetId(id);
             ZetNaam(naam);
             ZetVoornaam(voornaam);
@@ -78,6 +79,17 @@ namespace Flapp_BLL.Models
             ZetAdres(adres);
             ZetVoertuig(voertuig);
             ZetTankkaart(tankkaart);
+        }
+
+        public Bestuurder(string naam, string voornaam, Geslacht geslacht, Adres adres, string geboortedatum, string rijksregisternummer, List<Rijbewijs> rijbewijs) : this(naam, voornaam, geslacht, geboortedatum, rijksregisternummer, rijbewijs)
+        {
+            ZetNaam(naam);
+            ZetVoornaam(voornaam);
+            ZetGeslacht(geslacht);
+            ZetGeboortedatum(geboortedatum);
+            ZetRijksregisternummer(rijksregisternummer);
+            ZetRijbewijsLijst(rijbewijs);
+            ZetAdres(adres);
         }
         #endregion
 
@@ -192,12 +204,17 @@ namespace Flapp_BLL.Models
             if (rbt == null) { throw new BestuurderException("Rijbewijs is null!"); }
             RijbewijsType.Add(rbt);
         }
+
+        public string GeefNaam()
+        {
+            return $"{Voornaam} {Naam}";
+        }
         #endregion
 
         #region Overrides
         public override string ToString()
         {
-            return  $"\n---------------{GetType().Name}---------\n" +
+            return $"\n---------------{GetType().Name}---------\n" +
                     $"{Naam}, {Voornaam}, {Geboortedatum.ToShortDateString()}\n" +
                     $"{Rijksregisternummer}, {string.Join(", ", RijbewijsType.OrderBy(r => r.Naam))}\n" +
                     $"--------------------------------";

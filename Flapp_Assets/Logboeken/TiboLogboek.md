@@ -17,3 +17,4 @@
 | 1u30 | Update TankkaartUC + VoegTankkaartWindow          |
 | 2u30 | Update TankkaartUC + Bestuurder + TankkaartUpdate |
 | 1u   | Update TankkaartUC + VoegTankkaartWindow          |
+| 1u30 | Update TankkaartWPF                               |

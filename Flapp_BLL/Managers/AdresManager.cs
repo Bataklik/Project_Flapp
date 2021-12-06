@@ -14,6 +14,15 @@ namespace Flapp_BLL.Managers
             _repo = repo;
         }
 
+        public bool BestaatAdres(Adres adres)
+        {
+            try
+            {
+                return _repo.BestaatAdres(adres);
+            }
+            catch (Exception ex) { throw new AdresManagerException("AdresManager: BestaatAdres", ex); }
+        }
+
         public void VoegAdresToe(Adres adres)
         {
             if (_repo.BestaatAdres(adres)) { throw new AdresManagerException("AdresManager: VoegAdresToe: Adres bestaat al!"); }
@@ -21,7 +30,7 @@ namespace Flapp_BLL.Managers
             {
                 _repo.VoegAdresToe(adres);
             }
-            catch (Exception ex) { throw new AdresManagerException("AdresManager", ex); }
+            catch (Exception ex) { throw new AdresManagerException("AdresManager: VoegAdresToe", ex); }
         }
 
         public void VerwijderAdres(Adres adres)
@@ -31,7 +40,7 @@ namespace Flapp_BLL.Managers
             {
                 _repo.VerwijderAdres(adres);
             }
-            catch (Exception ex) { throw new AdresManagerException("AdresManager", ex); }
+            catch (Exception ex) { throw new AdresManagerException("AdresManager: VerwijderAdres", ex); }
         }
         public void UpdateAdres(Adres adres)
         {
@@ -40,7 +49,7 @@ namespace Flapp_BLL.Managers
             {
                 _repo.UpdateAdres(adres);
             }
-            catch (Exception ex) { throw new AdresManagerException("AdresManager", ex); }
+            catch (Exception ex) { throw new AdresManagerException("AdresManager: UpdateAdres", ex); }
         }
 
         public Adres GeefAdres(int id)
@@ -50,7 +59,7 @@ namespace Flapp_BLL.Managers
             {
                 return _repo.GeefAdres(id);
             }
-            catch (Exception ex) { throw new AdresManagerException("AdresManager", ex); }
+            catch (Exception ex) { throw new AdresManagerException("AdresManager: GeefAdres(id)", ex); }
         }
         public Adres GeefAdres(Adres adres)
         {
@@ -59,7 +68,7 @@ namespace Flapp_BLL.Managers
             {
                 return _repo.GeefAdres(adres);
             }
-            catch (Exception ex) { throw new AdresManagerException("AdresManager", ex); }
+            catch (Exception ex) { throw new AdresManagerException("AdresManager: GeefAdres(adres)", ex); }
         }
     }
 }

@@ -53,7 +53,7 @@ CREATE TABLE[dbo].[Voertuig](
    [model] [varchar](50) NOT NULL,
    [chassisnummer] [varchar](17) NOT NULL,
    [nummerplaat] [varchar](9) NOT NULL,
-   [type] [int] FOREIGN KEY REFERENCES dbo.VoertuigType(voertuigTypeId),
+   [type] [varchar](50) NOT NULL,
    [kleur] [varchar](50) NULL,
    [deuren] [int] NULL);
 END

@@ -14,14 +14,16 @@ namespace Flapp_PL.View.UserControls.TankkaartUCs
         private TankkaartManager _tankkaartManager;
         private BrandstofManager _brandstofManager;
         private MainWindow _main;
+        private TankkaartUC _tUC;
 
-        public TankkaartUpdateUC(Tankkaart t, MainWindow main) {
+        public TankkaartUpdateUC(Tankkaart t, MainWindow main, TankkaartUC tUC) {
             InitializeComponent();
             _tankkaart = t;
             _bestuurderManager = new BestuurderManager(new BestuurderRepo(Application.Current.Properties["User"].ToString()));
             _tankkaartManager = new TankkaartManager(new TankkaartRepo(Application.Current.Properties["User"].ToString()));
             _brandstofManager = new BrandstofManager(new BrandstofRepo(Application.Current.Properties["User"].ToString()));
             _main = main;
+            _tUC = tUC;
             laadWaarden();
         }
 
@@ -53,6 +55,8 @@ namespace Flapp_PL.View.UserControls.TankkaartUCs
             try {
                 _tankkaartManager.UpdateTankkaart(t);
                 MessageBox.Show("Updaten gelukt!");
+                _main.wpUserControl.Children.RemoveAt(_main.wpUserControl.Children.Count - 1);
+                _tUC.lstTankkaarten.ItemsSource = _tankkaartManager.GeefAlleTankkaarten().ToList();               
             } catch (Exception) { throw; }
         }
 

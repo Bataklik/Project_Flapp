@@ -60,7 +60,7 @@ namespace Flapp_PL.View.UserControls
             List<Tankkaart> tankkaarten = new List<Tankkaart>();
             try
             {
-                List<Tankkaart> sortTankkaarten = _tankkaartManager.GeefAlleTankkaarten().OrderBy(x => x.Value.Kaartnummer).Select(x => x.Value).ToList();
+                List<Tankkaart> sortTankkaarten = _tankkaartManager.GeefAlleTankkaarten().OrderBy(x => x.Kaartnummer).ToList();
                 foreach (Tankkaart v in sortTankkaarten)
                 { tankkaarten.Add(v); }
             }
@@ -73,7 +73,7 @@ namespace Flapp_PL.View.UserControls
             List<Tankkaart> tankkaarten = new List<Tankkaart>();
             try
             {
-                List<Tankkaart> sortTankkaarten = _tankkaartManager.GeefAlleTankkaarten().Where(x => x.Value.Kaartnummer == int.Parse(kaartnummer) || x.Value.Geldigheidsdatum.ToShortDateString() == datum.ToShortDateString()).OrderBy(x => x.Value.Kaartnummer).Select(x => x.Value).ToList();
+                List<Tankkaart> sortTankkaarten = _tankkaartManager.GeefAlleTankkaarten().Where(x => x.Kaartnummer == int.Parse(kaartnummer) || x.Geldigheidsdatum.ToShortDateString() == datum.ToShortDateString()).OrderBy(x => x.Kaartnummer).ToList();
                 foreach (Tankkaart v in sortTankkaarten)
                 {
                     tankkaarten.Add(v);
@@ -88,7 +88,7 @@ namespace Flapp_PL.View.UserControls
             List<Tankkaart> tankkaarten = new List<Tankkaart>();
             try
             {
-                List<Tankkaart> sortTankkaarten = _tankkaartManager.GeefAlleTankkaarten().Where(x => x.Value.Kaartnummer == int.Parse(kaartnummer)).OrderBy(x => x.Value.Kaartnummer).Select(x => x.Value).ToList();
+                List<Tankkaart> sortTankkaarten = _tankkaartManager.GeefAlleTankkaarten().Where(x => x.Kaartnummer == int.Parse(kaartnummer)).OrderBy(x => x.Kaartnummer).ToList();
                 foreach (Tankkaart v in sortTankkaarten)
                 {
                     tankkaarten.Add(v);
@@ -103,7 +103,7 @@ namespace Flapp_PL.View.UserControls
             List<Tankkaart> tankkaarten = new List<Tankkaart>();
             try
             {
-                List<Tankkaart> sortTankkaarten = _tankkaartManager.GeefAlleTankkaarten().Where(x => x.Value.Geldigheidsdatum.ToShortDateString() == datum.ToShortDateString()).OrderBy(x => x.Value.Kaartnummer).Select(x => x.Value).ToList();
+                List<Tankkaart> sortTankkaarten = _tankkaartManager.GeefAlleTankkaarten().Where(x => x.Geldigheidsdatum.ToShortDateString() == datum.ToShortDateString()).OrderBy(x => x.Kaartnummer).ToList();
                 foreach (Tankkaart v in sortTankkaarten)
                 {
                     tankkaarten.Add(v);
@@ -128,7 +128,8 @@ namespace Flapp_PL.View.UserControls
         private void UpdateTankkaart_Click(object sender, RoutedEventArgs e)
         {
             Tankkaart t = (Tankkaart)lstTankkaarten.SelectedItem;
-            _main.wpUserControl.Children.Add(new TankkaartUpdateUC(t, _main));
+            TankkaartUC tUC = this;
+            _main.wpUserControl.Children.Add(new TankkaartUpdateUC(t, _main, tUC));
         }
     }
 }
