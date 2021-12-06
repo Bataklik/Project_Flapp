@@ -46,7 +46,7 @@ namespace Flapp_BLL.Managers
             catch (Exception ex) { throw new VoertuigManagerException(ex.Message); }
         }
 
-        public IReadOnlyList<Voertuig> GeefAlleVoertuigen()
+        public Dictionary<int, Voertuig> GeefAlleVoertuigen()
         {
             try
             {
@@ -63,7 +63,18 @@ namespace Flapp_BLL.Managers
             }
             catch (Exception ex) { throw new BestuurderManagerException("VoertuigManager: Geef voertuig door ID:", ex); }
         }
+        public Dictionary<int, Voertuig> SearchVehicle(string brand, string model, string licensePlate)
+        {
+            try
+            {
+                return _repo.SearchVehicle(brand, model, licensePlate);
+            }
+            catch (Exception ex)
+            {
 
+                throw new Exception(ex.Message);
+            }
+        }
         public List<Voertuig> VoertuigZoeken(string? nummerplaat, string? merk, string? model/*, Klant _klantSave*/)
         {
             try

@@ -47,11 +47,10 @@ namespace Flapp_PL.View.UserControls
         {
             List<Voertuig> voertuigen = new List<Voertuig>();
             try
-            {
-                List<Voertuig> sortVoertuigen = new List<Voertuig>(_voertuigManager.GeefAlleVoertuigen());
-                foreach (Voertuig v in sortVoertuigen)
+            {                
+                foreach (KeyValuePair<int,Voertuig> v in _voertuigManager.GeefAlleVoertuigen())
                 {
-                    voertuigen.Add(v);
+                    voertuigen.Add(v.Value);
                 }
             }
             catch (Exception ex) { throw new Exception(ex.Message, ex); }

@@ -43,44 +43,40 @@ namespace Flapp_PL.View.Windows.VoertuigWindows
             try { lstBrandstoftype.ItemsSource = (List<Brandstof>)_brandstofManager.GeefAlleBrandstoffen(); }
             catch (Exception ex) { throw new Exception(ex.Message, ex); }
         }
-        string nummerplaat = null;
-        string? merk = null; 
-        string? model = null;
+        
         private void btnZoek_Click(object sender, RoutedEventArgs e)
-        {
-            main = new();
-            main.wpUserControl.Children.Clear();
-            main.wpUserControl.Children.Add(new VoertuigUC(txtNummerplaat.Text, cmbMerk.SelectedItem.ToString(), cmbModel.SelectedItem.ToString(), main));
-            Close();
-            return;
-            //try
-            //{                
-            //    if (!string.IsNullOrWhiteSpace(txtNummerplaat.Text))
-            //    {
-            //        //nummerplaat = txtNummerplaat.Text;
-            //    }
-            //    if (cmbMerk.SelectedIndex != 0)
-            //    {
-            //        //merk = cmbMerk.SelectedItem.ToString();
-            //    }
-            //    if (cmbModel.SelectedIndex != 0)
-            //    {
-            //        //model = null;
-            //        //model = cmbModel.SelectedItem.ToString();
-            //    }
-            //    //List<Voertuig> voertuigen = _voertuigmanager.VoertuigZoeken(nummerplaat, merk, model);
-            //    List<Voertuig> voertuigen = _voertuigmanager.VoertuigZoeken(txtNummerplaat.Text, cmbMerk.Text, cmbModel.Text);
-            //    ObservableCollection<Voertuig> ts = new();
-            //    foreach (Voertuig bestelling in voertuigen)
-            //    {
-            //        ts.Add(bestelling);
-            //    }
-            //    lstVoertuigen.ItemsSource = ts;                
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message, Title, MessageBoxButton.OK, MessageBoxImage.Error);
-            //}
+        {            
+            //main = new();
+            //main.wpUserControl.Children.Clear();
+            //main.wpUserControl.Children.Add(new VoertuigUC(txtNummerplaat.Text, cmbMerk.SelectedItem.ToString(), cmbModel.SelectedItem.ToString(), main));
+            //Close();
+            //return;
+            
+                //if (!string.IsNullOrWhiteSpace(txtNummerplaat.Text))
+                //{
+                //    nummerplaat = txtNummerplaat.Text;
+                //}
+                //if (cmbMerk.SelectedIndex != 0)
+                //{
+                //    merk = cmbMerk.SelectedItem.ToString();
+                //}
+                //if (cmbModel.SelectedIndex != 0)
+                //{
+                //    model = null;
+                //    model = cmbModel.SelectedItem.ToString();
+                //}
+                //List<Voertuig> voertuigen = _voertuigmanager.VoertuigZoeken(nummerplaat, merk, model);
+                List<Voertuig> voertuigen = new List<Voertuig>();
+                try
+                {
+                    foreach (KeyValuePair<int, Voertuig> vo in _voertuigmanager.SearchVehicle(cmbMerk.Text, cmbModel.Text, txtNummerplaat.Text))
+                    {
+                        voertuigen.Add(vo.Value);
+                    }
+                    lstVoertuigen.ItemsSource = voertuigen;
+                }
+                catch (Exception ex) { MessageBox.Show(ex.Message, Title, MessageBoxButton.OK, MessageBoxImage.Error); }          
+           
         }
         private void btnAnnuleer_Click(object sender, RoutedEventArgs e)
         {
@@ -102,7 +98,7 @@ namespace Flapp_PL.View.Windows.VoertuigWindows
                 modellen.Insert(0, "");
                 cmbModel.ItemsSource = modellen;
                 cmbModel.SelectedIndex = 0;
-                merk = cmbMerk.SelectedItem.ToString();
+                //merk = cmbMerk.SelectedItem.ToString();
                 //model = null;
             }
             else

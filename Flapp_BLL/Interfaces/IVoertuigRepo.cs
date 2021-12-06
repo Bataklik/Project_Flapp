@@ -9,7 +9,7 @@ namespace Flapp_BLL.Interfaces
 {
     public interface IVoertuigRepo
     {
-        IReadOnlyList<Voertuig> GeefAlleVoertuigen();
+        Dictionary<int,Voertuig> GeefAlleVoertuigen();
         //IReadOnlyList<Voertuig> ZoekVoertuigen(int? vehicleId, string brand, string model, string chassisNumber, string licensePlate, Brandstof fuelType, string vehicleType, string color, int doors, Bestuurder driver);
         Voertuig GeefVoertuigDoorID(int id);
         //Voertuig ZoekVoertuig(int? vehicleId, string brand, string model, string chassisNumber, string licensePlate, Brandstof fuelType, string vehicleType, string color, int doors, Bestuurder driver);
@@ -20,6 +20,7 @@ namespace Flapp_BLL.Interfaces
         IReadOnlyList<string> GeefMerken();
         IReadOnlyList<string> GeefModellen(string merk);
         List<Voertuig> VoertuigZoeken(string? nummerplaat, string? merk, string? model);
+        Dictionary<int, Voertuig> SearchVehicle(string brand, string model, string licensePlate);
         //bool HeeftBestuurder(Bestuurder bestuurder); Moet kunnen kijken of een voertuig een bestuurder heeft
         //IReadOnlyList<Voertuig> GeefAlleVoertuigenZonderBestuurder() Voor een lijst voor voertuigen zonder bestuurders;
     }

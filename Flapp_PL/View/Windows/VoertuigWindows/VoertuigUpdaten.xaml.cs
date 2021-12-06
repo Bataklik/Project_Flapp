@@ -49,5 +49,17 @@ namespace Flapp_PL.View.Windows.VoertuigWindows
             }
             lstBrandstoftypes.ItemsSource = _brandstoffen;
         }
+
+        private void btnUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            Voertuig v = new Voertuig(Convert.ToInt32(txtVoertuigId.Text), txtMerk.Text, txtModel.Text, txtChassisNummer.Text, txtNummerplaat.Text, new List<Brandstof>(), txtVoertuigtype.Text, txtKleur.Text, Convert.ToInt32(txtDeuren.Text));
+            try
+            {
+                _voertuigManager.UpdateVoertuig(v);
+                MessageBox.Show("Updaten Gelukt!");
+                Close();
+
+            }catch(Exception ex) { throw; }
+        }
     }
 }
