@@ -100,9 +100,10 @@ namespace Flapp_PL.View.UserControls
 
         private void itemUpdate_Click(object sender, RoutedEventArgs e)
         {
-            _main = new MainWindow();
+            MainWindow main = new MainWindow();
             Voertuig v = (Voertuig)lstVoertuigen.SelectedItem;
-            _main.wpUserControl.Children.Add(new VoertuigUpdatenUC(v, _main));
+            //main.wpUserControl.Children.Add(new VoertuigUpdatenUC(v, main));
+            new VoertuigUpdaten(v.VoertuigID).ShowDialog();
         }
     }
 }

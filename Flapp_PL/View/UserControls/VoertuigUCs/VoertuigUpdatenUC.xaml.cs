@@ -33,8 +33,7 @@ namespace Flapp_PL.View.UserControls.VoertuigUCs
         {
             InitializeComponent();
             _main = main;
-            voertuigid = v.VoertuigID;
-            
+            voertuigid = v.VoertuigID;            
             _voertuigManager = new VoertuigManager(new VoertuigRepo(Application.Current.Properties["User"].ToString()));
             laadGegevens();
         }

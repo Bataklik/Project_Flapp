@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Flapp_PL.View.Windows.VoertuigWindows"
         mc:Ignorable="d"
-        Title="VoertuigUpdaten" Height="450" Width="800">
+        Title="VoertuigUpdaten" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -37,14 +37,14 @@
         <Label Grid.Row="2" Grid.Column="2" Content="Fueltypes" Margin="5" FontSize="16"/>
 
         <TextBox Name="txtVoertuigId" Grid.Row="1" Grid.Column="1" Margin="5" VerticalAlignment="Center" FontSize="16" IsEnabled="False"/>
-        <TextBox Name="txtMerk" Grid.Row="2" Grid.Column="1" Margin="5" VerticalAlignment="Center" FontSize="16" IsEnabled="False"/>
-        <TextBox Name="txtModel" Grid.Row="3" Grid.Column="1" Margin="5" VerticalAlignment="Center" FontSize="16" IsEnabled="False"/>
-        <TextBox Name="txtChassisNummer" Grid.Row="4" Grid.Column="1" Margin="5" VerticalAlignment="Center" FontSize="16" IsEnabled="False"/>
-        <TextBox Name="txtNummerplaat" Grid.Row="5" Grid.Column="1" Margin="5" VerticalAlignment="Center" FontSize="16" IsEnabled="False"/>
-        <TextBox Name="txtVoertuigtype" Grid.Row="6" Grid.Column="1" Margin="5" VerticalAlignment="Center" FontSize="16" IsEnabled="False"/>
-        <TextBox Name="txtKleur" Grid.Row="7" Grid.Column="1" Margin="5" VerticalAlignment="Center" FontSize="16" IsEnabled="False"/>
-        <TextBox Name="txtDeuren" Grid.Row="8" Grid.Column="1" Margin="5" VerticalAlignment="Center" FontSize="16" IsEnabled="False"/>
-        <TextBox Name="txtBestuurder" Grid.Row="1" Grid.Column="3" Margin="5" VerticalAlignment="Center" FontSize="16" IsEnabled="False"/>
+        <TextBox Name="txtMerk" Grid.Row="2" Grid.Column="1" Margin="5" VerticalAlignment="Center" FontSize="16" />
+        <TextBox Name="txtModel" Grid.Row="3" Grid.Column="1" Margin="5" VerticalAlignment="Center" FontSize="16" />
+        <TextBox Name="txtChassisNummer" Grid.Row="4" Grid.Column="1" Margin="5" VerticalAlignment="Center" FontSize="16" />
+        <TextBox Name="txtNummerplaat" Grid.Row="5" Grid.Column="1" Margin="5" VerticalAlignment="Center" FontSize="16" />
+        <TextBox Name="txtVoertuigtype" Grid.Row="6" Grid.Column="1" Margin="5" VerticalAlignment="Center" FontSize="16" />
+        <TextBox Name="txtKleur" Grid.Row="7" Grid.Column="1" Margin="5" VerticalAlignment="Center" FontSize="16" />
+        <TextBox Name="txtDeuren" Grid.Row="8" Grid.Column="1" Margin="5" VerticalAlignment="Center" FontSize="16" />
+        <TextBox Name="txtBestuurder" Grid.Row="1" Grid.Column="3" Margin="5" VerticalAlignment="Center" FontSize="16"/>
         <ListBox Name="lstBrandstoftypes" Grid.Row="2" Grid.Column="3" Grid.RowSpan="4" Margin="5" SelectionMode="Single">
             <ListBox.ItemTemplate>
                 <DataTemplate>
