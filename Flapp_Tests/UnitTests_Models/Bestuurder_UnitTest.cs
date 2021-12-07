@@ -22,7 +22,7 @@ namespace Flapp_TESTS.UnitTests_Models
             Assert.Equal(Geslacht.M, b.Geslacht);
             Assert.Equal(DateTime.Parse("12/05/1999"), b.Geboortedatum);
             Assert.Equal("99.05.12-273.26", b.Rijksregisternummer);
-            Assert.Contains(new Rijbewijs("B"), b.RijbewijsType);
+            Assert.Contains(new Rijbewijs("B"), b.Rijbewijzen);
         }
         [Theory]
         [InlineData(null)]
@@ -75,7 +75,7 @@ namespace Flapp_TESTS.UnitTests_Models
             Assert.Equal(Geslacht.M, b.Geslacht);
             Assert.Equal(DateTime.Parse("12/05/1999"), b.Geboortedatum);
             Assert.Equal("99.05.12-273.26", b.Rijksregisternummer);
-            Assert.Contains(new Rijbewijs("B"), b.RijbewijsType);
+            Assert.Contains(new Rijbewijs("B"), b.Rijbewijzen);
             Assert.Equal(v, b.Voertuig);
             Assert.Equal(tk, b.Tankkaart);
         }

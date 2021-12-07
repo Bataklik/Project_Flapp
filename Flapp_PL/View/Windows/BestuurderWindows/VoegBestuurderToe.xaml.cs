@@ -42,15 +42,22 @@ namespace Flapp_PL.View.Windows.BestuurderWindows
                     }
                     bestuurder = new Bestuurder(txtNaam.Text, txtVoornaam.Text, s, a, dpGeboorte.Text, txtRijksregister.Text, lstRijbewijzen.Items.Cast<Rijbewijs>().ToList());
                     // Rijbewijs toevoegen aan DB
-                    _bestuurderManager.VoegBestuurderToe(bestuurder);
+                    bestuurder.ZetId(_bestuurderManager.VoegBestuurderToe(bestuurder));
                 }
                 else
                 {
                     bestuurder = new Bestuurder(txtNaam.Text, txtVoornaam.Text, s, dpGeboorte.Text, txtRijksregister.Text, lstRijbewijzen.Items.Cast<Rijbewijs>().ToList());
-                    _bestuurderManager.VoegBestuurderToeZonderAdres(bestuurder);
+                    bestuurder.ZetId(_bestuurderManager.VoegBestuurderToeZonderAdres(bestuurder));
                 }
+
+                if (bestuurder.Rijbewijzen.Count > 0)
+                {
+                    _rijbewijsManager.VoegRijbewijzenToeBestuurder(bestuurder.Id, bestuurder.Rijbewijzen);
+                }
+                MessageBox.Show("Bestuurder is Toegevoegd!", "Toevoegen gelukt!", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                ClearInputs();
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            catch (Exception ex) { MessageBox.Show(ex.Message, "Bestuurder Toevoegen.", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
 
         private void btnAnnuleer_Click(object sender, RoutedEventArgs e)
@@ -92,6 +99,22 @@ namespace Flapp_PL.View.Windows.BestuurderWindows
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void ClearInputs()
+        {
+            txtNaam.Text = string.Empty;
+            txtVoornaam.Text = string.Empty;
+            cbGeslacht.SelectedIndex = 0;
+            txtRijksregister.Text = string.Empty;
+            dpGeboorte.Text = string.Empty;
+            cbRijbewijzen.SelectedIndex = -1;
+            lstRijbewijzen.Items.Clear();
+
+            txtStraat.Text = string.Empty;
+            txtHuisnummer.Text = string.Empty;
+            txtStad.Text = string.Empty;
+            txtPostcode.Text = string.Empty;
         }
     }
 }

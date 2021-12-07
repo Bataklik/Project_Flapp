@@ -79,10 +79,10 @@ namespace Flapp_DAL.Repository
         #endregion
 
         #region VoegBestuurderToe Method
-        public void VoegBestuurderToe(Bestuurder b)
+        public int VoegBestuurderToe(Bestuurder b)
         {
             SqlConnection conn = new SqlConnection(_connString);
-            string query = "USE [Project_Flapp_DB] INSERT INTO [dbo].[Bestuurder] ([naam] ,[voornaam] ,[geboortedatum] ,[rijksregister] ,[adresid] ,[geslacht]) VALUES (@naam ,@voornaam ,@geboorte ,@rijksregister ,@adresid  ,@geslacht)";
+            string query = "USE [Project_Flapp_DB] INSERT INTO [dbo].[Bestuurder] ([naam] ,[voornaam] ,[geboortedatum] ,[rijksregister] ,[adresid] ,[geslacht]) output INSERTED.bestuurderId  VALUES (@naam ,@voornaam ,@geboorte ,@rijksregister ,@adresid  ,@geslacht)";
             using (SqlCommand cmd = conn.CreateCommand())
             {
                 conn.Open();
@@ -106,17 +106,18 @@ namespace Flapp_DAL.Repository
                     //cmd.Parameters["@tankkaart"].Value = null;
                     if (b.Geslacht == Geslacht.M) { cmd.Parameters["@geslacht"].Value = 1; }
                     else { cmd.Parameters["@geslacht"].Value = 0; }
-
-                    cmd.ExecuteNonQuery();
+                    int bestuurderId = (int)cmd.ExecuteScalar();
+                    return bestuurderId;
+                    //cmd.ExecuteNonQuery();
                 }
                 catch (Exception ex) { throw new Exception(ex.Message); }
                 finally { conn.Close(); }
             }
         }
-        public void VoegBestuurderToeZonderAdres(Bestuurder b)
+        public int VoegBestuurderToeZonderAdres(Bestuurder b)
         {
             SqlConnection conn = new SqlConnection(_connString);
-            string query = "USE [Project_Flapp_DB] INSERT INTO [dbo].[Bestuurder] ([naam] ,[voornaam] ,[geboortedatum] ,[rijksregister] ,[geslacht]) VALUES (@naam ,@voornaam ,@geboorte ,@rijksregister  ,@geslacht)";
+            string query = "USE [Project_Flapp_DB] INSERT INTO [dbo].[Bestuurder] ([naam] ,[voornaam] ,[geboortedatum] ,[rijksregister] ,[geslacht]) output INSERTED.bestuurderId VALUES (@naam ,@voornaam ,@geboorte ,@rijksregister  ,@geslacht)";
             using (SqlCommand cmd = conn.CreateCommand())
             {
                 conn.Open();
@@ -136,8 +137,8 @@ namespace Flapp_DAL.Repository
                     cmd.Parameters["@rijksregister"].Value = b.Rijksregisternummer;
                     if (b.Geslacht == Geslacht.M) { cmd.Parameters["@geslacht"].Value = 1; }
                     else { cmd.Parameters["@geslacht"].Value = 0; }
-
-                    cmd.ExecuteNonQuery();
+                    int bestuurderId = (int)cmd.ExecuteScalar();
+                    return bestuurderId;
                 }
                 catch (Exception ex) { throw new Exception(ex.Message); }
                 finally { conn.Close(); }
@@ -291,7 +292,7 @@ namespace Flapp_DAL.Repository
                         if (bestuurders.ContainsKey((int)r["bestuurderId"]))
                         {
                             Bestuurder dicBestuurder = bestuurders[(int)r["bestuurderId"]];
-                            dicBestuurder.RijbewijsType.Add(new Rijbewijs(r[12].ToString()));
+                            dicBestuurder.Rijbewijzen.Add(new Rijbewijs(r[12].ToString()));
                         }
                         else
                         {
@@ -333,7 +334,7 @@ namespace Flapp_DAL.Repository
                         if (bestuurders.ContainsKey((int)r["bestuurderId"]))
                         {
                             Bestuurder dicBestuurder = bestuurders[(int)r["bestuurderId"]];
-                            dicBestuurder.RijbewijsType.Add(new Rijbewijs(r[12].ToString()));
+                            dicBestuurder.Rijbewijzen.Add(new Rijbewijs(r[12].ToString()));
                         }
                         else
                         {

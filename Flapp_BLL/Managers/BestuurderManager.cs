@@ -15,21 +15,21 @@ namespace Flapp_BLL.Managers
             _repo = repo;
         }
 
-        public void VoegBestuurderToe(Bestuurder bestuurder)
+        public int VoegBestuurderToe(Bestuurder bestuurder)
         {
             if (_repo.BestaatBestuurder(bestuurder)) { throw new BestuurderManagerException("BestuurderManager: VoegBestuurderToe: Bestuurder bestaat al!"); }
             try
             {
-                _repo.VoegBestuurderToe(bestuurder);
+                return _repo.VoegBestuurderToe(bestuurder);
             }
             catch (Exception ex) { throw new BestuurderManagerException("BestuurderManager: VoegBestuurderToe", ex); }
         }
-        public void VoegBestuurderToeZonderAdres(Bestuurder bestuurder)
+        public int VoegBestuurderToeZonderAdres(Bestuurder bestuurder)
         {
             if (_repo.BestaatBestuurder(bestuurder)) { throw new BestuurderManagerException("BestuurderManager: VoegBestuurderToe: Bestuurder bestaat al!"); }
             try
             {
-                _repo.VoegBestuurderToeZonderAdres(bestuurder);
+                return _repo.VoegBestuurderToeZonderAdres(bestuurder);
             }
             catch (Exception ex) { throw new BestuurderManagerException("BestuurderManager: VoegBestuurderToeZonderAdres", ex); }
         }

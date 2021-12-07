@@ -15,7 +15,7 @@ namespace Flapp_BLL.Models
         public string Voornaam { get; private set; } // ! 
         public DateTime Geboortedatum { get; private set; } // !
         public string Rijksregisternummer { get; private set; } // !
-        public List<Rijbewijs> RijbewijsType { get; private set; }// !
+        public List<Rijbewijs> Rijbewijzen { get; private set; }// !
 
         public Adres Adres { get; private set; }
         public Voertuig Voertuig { get; private set; }
@@ -134,7 +134,7 @@ namespace Flapp_BLL.Models
         public void ZetRijbewijsLijst(List<Rijbewijs> rt)
         {
             if (rt == null) { throw new BestuurderException("Rijbewijs lijst is null!"); }
-            RijbewijsType = rt;
+            Rijbewijzen = rt;
         }
         public void ZetTankkaart(Tankkaart tk)
         {
@@ -202,7 +202,7 @@ namespace Flapp_BLL.Models
         public void VoegRijbewijsToe(Rijbewijs rbt)
         {
             if (rbt == null) { throw new BestuurderException("Rijbewijs is null!"); }
-            RijbewijsType.Add(rbt);
+            Rijbewijzen.Add(rbt);
         }
 
         public string GeefNaam()
@@ -216,7 +216,7 @@ namespace Flapp_BLL.Models
         {
             return $"\n---------------{GetType().Name}---------\n" +
                     $"{Naam}, {Voornaam}, {Geboortedatum.ToShortDateString()}\n" +
-                    $"{Rijksregisternummer}, {string.Join(", ", RijbewijsType.OrderBy(r => r.Naam))}\n" +
+                    $"{Rijksregisternummer}, {string.Join(", ", Rijbewijzen.OrderBy(r => r.Naam))}\n" +
                     $"--------------------------------";
         }
 

@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Flapp_BLL.Interfaces;
 using Flapp_BLL.Models;
 using Flapp_BLL.Exceptions.ManagerExceptions;
-using System.Collections.ObjectModel;
 
 namespace Flapp_BLL.Managers
 {
@@ -57,7 +53,16 @@ namespace Flapp_BLL.Managers
             {
                 _repo.VoegRijbewijsToe(rijbewijs);
             }
-            catch (Exception ex) { throw new RijbewijsTypeManagerException("RijbewijsTypeManager", ex); }
+            catch (Exception ex) { throw new RijbewijsTypeManagerException("RijbewijsTypeManager: VoegRijbewijsToe", ex); }
+        }
+
+        public void VoegRijbewijzenToeBestuurder(int id, List<Rijbewijs> rijbewijzen)
+        {
+            try
+            {
+                rijbewijzen.ForEach(r => _repo.VoegRijbewijsToeBestuurder(id, r.Id));
+            }
+            catch (Exception ex) { throw new RijbewijsTypeManagerException("RijbewijsTypeManager: VoegRijbewijzenToeBestuurder", ex); }
         }
     }
 }
