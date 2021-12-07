@@ -79,13 +79,13 @@
             HorizontalAlignment="Left"
             Orientation="Horizontal" Margin="40,41,0,0" Width="261" Grid.Column="3" Grid.Row="7" Grid.RowSpan="2">
             <Button Content="Update"
-                x:Name="btnUpdate1"
+                x:Name="btnUpdate"
                 Click="btnUpdate_Click"
                 Margin="5"
                 Height="25"
                 Width="100"/>
             <Button Content="Annuleren"
-                x:Name="btnAnnuleren1"
+                x:Name="btnAnnuleren"
                 Click="btnAnnuleren_Click"
                 Margin="5"
                 Height="25"

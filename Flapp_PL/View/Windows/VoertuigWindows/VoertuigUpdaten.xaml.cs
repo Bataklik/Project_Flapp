@@ -59,7 +59,13 @@ namespace Flapp_PL.View.Windows.VoertuigWindows
                 MessageBox.Show("Updaten Gelukt!");
                 Close();
 
-            }catch(Exception ex) { throw; }
+            }
+            catch (Exception ex) { throw; }
+        }
+
+        private void btnAnnuleren_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
