@@ -28,7 +28,7 @@
 | 2u   | Created ZoekBestuurderWindow with *Tibo*                   |
 | 1u   | Connection Mainscreen                                      |
 | 1.3u | Work on Voeg bestuurder toe                                |
-|2u    | Bestuurder toevoegen works now                             |
+| 2u    | Bestuurder toevoegen works now                             |
 
 
 
