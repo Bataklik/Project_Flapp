@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:Flapp_PL.View.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="540" 
@@ -39,6 +40,18 @@
                  Margin="10"
                  Width="250"
                  Height="300">
+                <ListBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem x:Name="UpdateBestuurder" 
+                                  Header="Update" 
+                                  Click="UpdateBestuurder_Click"
+                                  Icon="{materialDesign:PackIcon Kind=Edit}"/>
+                        <MenuItem x:Name="VerwijderBestuurder" 
+                                  Header="Verwijder" 
+                                  Click="VerwijderBestuurder_Click"
+                                  Icon="{materialDesign:PackIcon Kind=Remove}"/>
+                    </ContextMenu>
+                </ListBox.ContextMenu>
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel HorizontalAlignment="Left"/>

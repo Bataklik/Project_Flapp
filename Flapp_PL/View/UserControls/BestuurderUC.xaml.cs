@@ -81,5 +81,15 @@ namespace Flapp_PL.View.UserControls
         {
             new VoegBestuurderToe().Show();
         }
+
+        private void UpdateBestuurder_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void VerwijderBestuurder_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
