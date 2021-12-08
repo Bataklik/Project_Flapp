@@ -49,14 +49,14 @@ namespace Flapp_PL.View.UserControls.TankkaartUCs
             DateTime geldigheidsdatum = Convert.ToDateTime(dpGeldigheidsdatum.SelectedDate);
             string pincode = txtPincode.Text;
             Brandstof b = (Brandstof)cbBrandstoftype.SelectedItem;
-            bool geblokkeerd = false;
-            if (cbGeblokkeerd.SelectedItem.ToString() == "Ja") geblokkeerd = true;
+            bool geblokkeerd = true;
+            if (cbGeblokkeerd.SelectedIndex == 0) { geblokkeerd = true; }
+            else if (cbGeblokkeerd.SelectedIndex != 1) { geblokkeerd = false; }
             Tankkaart t = new Tankkaart(kaartnummer, geldigheidsdatum, pincode, geblokkeerd);
             try {
                 _tankkaartManager.UpdateTankkaart(t);
                 MessageBox.Show("Updaten gelukt!");
-                _main.wpUserControl.Children.RemoveAt(_main.wpUserControl.Children.Count - 1);
-                //_tUC.lstTankkaarten.ItemsSource = _tankkaartManager.GeefAlleTankkaarten().ToList();               
+                _main.wpUserControl.Children.RemoveAt(_main.wpUserControl.Children.Count - 1);           
             } catch (Exception) { throw; }
         }
 

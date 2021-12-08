@@ -34,9 +34,8 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
 
         private void btnZoek_Click(object sender, RoutedEventArgs e) {
             List<Tankkaart> tankkaarten = new List<Tankkaart>();
-            int kaartnummer = Convert.ToInt32(txtKaartnummer.Text);
             try {
-                foreach (KeyValuePair<int, Tankkaart> v in tankkaartManager.GeefAlleTankkaarten(kaartnummer, (DateTime)dpGeldigheidsdatum.SelectedDate)) {
+                foreach (KeyValuePair<int, Tankkaart> v in tankkaartManager.GeefAlleTankkaarten(txtKaartnummer.Text, dpGeldigheidsdatum.Text)) {
                     tankkaarten.Add(v.Value);
                 }
                 tUC.lstTankkaarten.ItemsSource = tankkaarten;

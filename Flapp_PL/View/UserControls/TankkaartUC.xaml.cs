@@ -4,6 +4,7 @@ using Flapp_DAL.Repository;
 using Flapp_PL.View.UserControls.TankkaartUCs;
 using Flapp_PL.View.Windows.TankkaartWindows;
 using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -28,7 +29,11 @@ namespace Flapp_PL.View.UserControls {
 
         private void laadTankkaarten() {
             try {
-                lstTankkaarten.ItemsSource = _tankkaartManager.GeefAlleTankkaarten().Select(x => x.Value);
+                ObservableCollection<Tankkaart> oc = new();
+                foreach (var v in _tankkaartManager.GeefAlleTankkaarten().Select(x => x.Value)) {
+                    oc.Add(v);
+                }
+                lstTankkaarten.ItemsSource = oc;
             }
             catch (Exception) { throw; }
         }
