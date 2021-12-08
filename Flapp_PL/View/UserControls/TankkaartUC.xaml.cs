@@ -1,7 +1,6 @@
 ﻿using Flapp_BLL.Managers;
 using Flapp_BLL.Models;
 using Flapp_DAL.Repository;
-using Flapp_PL.View.UserControls.TankkaartUCs;
 using Flapp_PL.View.Windows.TankkaartWindows;
 using System;
 using System.Linq;
@@ -46,8 +45,9 @@ namespace Flapp_PL.View.UserControls {
 
         private void UpdateTankkaart_Click(object sender, RoutedEventArgs e) {
             Tankkaart t = (Tankkaart)lstTankkaarten.SelectedItem;
-            TankkaartUC tUC = this;
-            _main.wpUserControl.Children.Add(new TankkaartUpdateUC(t, _main, tUC));
+
+            TankkaartUpdateWindow tuw = new TankkaartUpdateWindow();
+            tuw.ShowDialog();
         }
     }
 }

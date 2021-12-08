@@ -1,6 +1,7 @@
 ﻿using Flapp_BLL.Exceptions.ModelExpections;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Flapp_BLL.Models {
     public class Tankkaart {
@@ -12,7 +13,7 @@ namespace Flapp_BLL.Models {
 
         public string Pincode { get; private set; }
         // Tankkaart moet meerdere brandstoffen hebben.
-        public List<Brandstof> Brandstoffen { get; private set; }
+        public List<Brandstof> Brandstoffen { get; private set; } = new List<Brandstof>();
         public Bestuurder Bestuurder { get; private set; }
         public bool Geblokkeerd { get; private set; }
         #endregion
@@ -107,7 +108,7 @@ namespace Flapp_BLL.Models {
         public override string ToString() {
             string bestuurderNaam = Bestuurder != null ? Bestuurder.Naam : "GEEN";
             return $"[{GetType().Name}]\n" +
-                    $"{Kaartnummer}, {Geldigheidsdatum.ToShortDateString()}, {Brandstoffen[0].Naam}\n" +
+                    $"{Kaartnummer}, {Geldigheidsdatum.ToShortDateString()}, {string.Join(", ", Brandstoffen.OrderBy(r => r.Naam))}\n" +
                     $"Bestuurder: {bestuurderNaam}";
         }
         public override bool Equals(object obj) {
