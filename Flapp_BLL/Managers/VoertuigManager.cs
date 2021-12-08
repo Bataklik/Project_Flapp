@@ -28,7 +28,7 @@ namespace Flapp_BLL.Managers
 
         public void UpdateVoertuig(Voertuig voertuig)
         {
-            if (!_repo.BestaatVoertuig(voertuig)) { throw new VoertuigException("VoertuigManager: UpdateVoertuig: Voertuig bestaat niet!"); }
+            //if (!_repo.BestaatVoertuig(voertuig)) { throw new VoertuigException("VoertuigManager: UpdateVoertuig: Voertuig bestaat niet!"); }
             try
             {
                 _repo.UpdateVoertuig(voertuig);
@@ -38,7 +38,7 @@ namespace Flapp_BLL.Managers
 
         public void VerwijderVoertuig(Voertuig voertuig)
         {
-            if (!_repo.BestaatVoertuig(voertuig)) { throw new VoertuigException("VoertuigManager: VerwijderVoertuig: Voertuig bestaat niet!"); }
+            //if (!_repo.BestaatVoertuig(voertuig)) { throw new VoertuigException("VoertuigManager: VerwijderVoertuig: Voertuig bestaat niet!"); }
             try
             {
                 _repo.VerwijderVoertuig(voertuig);
@@ -63,30 +63,18 @@ namespace Flapp_BLL.Managers
             }
             catch (Exception ex) { throw new BestuurderManagerException("VoertuigManager: Geef voertuig door ID:", ex); }
         }
-        public Dictionary<int, Voertuig> SearchVehicle(string brand, string model, string licensePlate)
+        public Dictionary<int, Voertuig> ZoekVoertuig(string merk, string model, string nummerplaat)
         {
             try
             {
-                return _repo.SearchVehicle(brand, model, licensePlate);
+                return _repo.ZoekVoertuig(merk, model, nummerplaat);
             }
             catch (Exception ex)
             {
 
                 throw new Exception(ex.Message);
             }
-        }
-        public List<Voertuig> VoertuigZoeken(string? nummerplaat, string? merk, string? model/*, Klant _klantSave*/)
-        {
-            try
-            {
-                return _repo.VoertuigZoeken(nummerplaat, merk, model);
-            }
-            catch (Exception ex)
-            {
-
-                throw new Exception(ex.Message);
-            }
-        }
+        }        
         public IReadOnlyList<string> geefMerken()
         {
             try

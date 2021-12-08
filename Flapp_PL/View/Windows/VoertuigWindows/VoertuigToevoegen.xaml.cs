@@ -12,12 +12,14 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
     {
         private VoertuigManager _voertuigManager;
         private ObservableCollection<Brandstof> _brandstoffen;
+        private BrandstofManager _brandstofmanager;
         private VoertuigTypeManager _voertuigTypeManager;
         public VoertuigToevoegen()
         {
             InitializeComponent();
             _voertuigManager = new VoertuigManager(new VoertuigRepo(Application.Current.Properties["User"].ToString()));
             _voertuigTypeManager = new VoertuigTypeManager(new VoertuigTypeRepo(Application.Current.Properties["User"].ToString()));
+            _brandstofmanager = new BrandstofManager(new BrandstofRepo(Application.Current.Properties["User"].ToString()));
             if (Application.Current.Properties["Brandstof"] == null)
             {
                 Application.Current.Properties["Brandstof"] = new ObservableCollection<Brandstof>();
@@ -26,13 +28,14 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
             else { _brandstoffen = (ObservableCollection<Brandstof>)Application.Current.Properties["Brandstof"]; ; }
 
             laadVoertuigtypes();
-            laadBrandstoftypes();
+            //laadBrandstoftypes();
+            laadMerk();
         }
         private void btnToevoegen_Click(object sender, RoutedEventArgs e)
         {
             string t = cmbType.SelectedItem.ToString().ToUpper();
             List<Brandstof> b = new List<Brandstof>(_brandstoffen);
-            Voertuig v = new Voertuig(txtMerk.Text.ToUpper(), txtModel.Text.ToUpper(), txtChassis.Text.ToUpper(), txtNummerplaat.Text.ToUpper(), b, t, txtKleur.Text.ToUpper(), Convert.ToInt32(txtDeuren.Text));
+            Voertuig v = new Voertuig(cmbMerk.Text.ToUpper(), cmbModel.Text.ToUpper(), txtChassis.Text.ToUpper(), txtNummerplaat.Text.ToUpper(), b, t, txtKleur.Text.ToUpper(), Convert.ToInt32(txtDeuren.Text));
             try
             {
                 _voertuigManager.VoegVoertuigToe(v);
@@ -62,7 +65,15 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
             {
                 MessageBox.Show(ex.Message, Title, MessageBoxButton.OK, MessageBoxImage.Error);
             }
-        }             
+        }          
+        private void laadMerk()
+        {
+            ObservableCollection<string> merken = new(_voertuigManager.geefMerken());
+            merken.Insert(0, "");
+            //cmbMerk.SelectedIndex = 0;
+            cmbMerk.ItemsSource = merken;
+        }
+        
         private void laadBrandstoftypes()
         {
             if (_brandstoffen == null && _brandstoffen.Count == 0) { lstBrandtof.ItemsSource = null; return; }
@@ -81,6 +92,49 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
                 cmbType.ItemsSource = ts;
             }
             catch (Exception ex) { throw new Exception(ex.Message, ex); }
+        }
+
+        private void cmbMerk_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if(cmbMerk.Text == "")
+            {
+                //cmbModel.IsEnabled = false;
+                cmbModel.ItemsSource = null;
+            }
+            else
+            {
+                //cmbModel.IsEnabled = true;
+                ObservableCollection<string> modellen = new(_voertuigManager.geefModellen(cmbMerk.SelectedItem.ToString()));
+                modellen.Insert(0, "");
+                cmbModel.ItemsSource = modellen;
+                cmbModel.SelectedIndex = 0;
+                //merk = cmbMerk.SelectedItem.ToString();
+                //model = null;
+            }
+            
+        }
+
+        private void cmbBrandstoffen_Loaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                cmbBrandstoffen.ItemsSource = _brandstofmanager.GeefAlleBrandstoffen();
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+        }
+
+        private void btnAddBrandstof_Click(object sender, RoutedEventArgs e)
+        {
+            if ((Brandstof)cmbBrandstoffen.SelectedItem == null) { MessageBox.Show("U heeft geen brandstof aangeduid!"); return; }
+            if (lstBrandtof.Items.Contains((Brandstof)cmbBrandstoffen.SelectedItem)) { MessageBox.Show("Brandstof staat al op de lijst!"); return; }
+            lstBrandtof.Items.Add((Brandstof)cmbBrandstoffen.SelectedItem);
+        }
+
+        private void btnRemoveBrandstof_Click(object sender, RoutedEventArgs e)
+        {
+            if ((Brandstof)lstBrandtof.SelectedItem == null) { MessageBox.Show("U heeft geen brandstof aangeduid!"); return; }
+            if (!lstBrandtof.Items.Contains((Brandstof)lstBrandtof.SelectedItem)) { MessageBox.Show("Brandstof staat niet op de lijst!"); return; }
+            lstBrandtof.Items.Remove((Brandstof)cmbBrandstoffen.SelectedItem);
         }
     }
 }

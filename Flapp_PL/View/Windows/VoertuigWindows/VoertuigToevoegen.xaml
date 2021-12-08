@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="VoertuigToevoegen" Height="400" Width="700">
+        Title="VoertuigToevoegen" Height="409" Width="576">
     <Window.Resources>
         <!-- Button Style-->
         <Style TargetType="Button">
@@ -26,7 +26,7 @@
             </Setter>
         </Style>
     </Window.Resources>
-    <Grid>
+    <Grid Margin="0,0,-1,3">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="40"/>
@@ -44,9 +44,10 @@
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
+
         </Grid.ColumnDefinitions>
 
-        <TextBlock Text="Voertuig Toevoegen" Grid.ColumnSpan="4" FontSize="28" Grid.Row="0" Grid.Column="0"  Margin="0,0,-160,0" Background="#112D4E" Foreground="#F9F7F7" TextAlignment="Center"/>
+        <TextBlock Text="Voertuig Toevoegen" Grid.ColumnSpan="4" FontSize="28" Grid.Row="0" Grid.Column="0"  Margin="0,0,-31,0" Background="#112D4E" Foreground="#F9F7F7" TextAlignment="Center"/>
 
         <TextBlock Text="Merk:" Grid.Row="1" Grid.Column="0" FontSize="16" VerticalAlignment="Center" Margin="10,0"/>
         <TextBlock Text="Model:" Grid.Row="2" Grid.Column="0" FontSize="16" VerticalAlignment="Center" Margin="10,0"/>
@@ -56,13 +57,13 @@
         <TextBlock Text="Kleur:" Grid.Row="6" Grid.Column="0" FontSize="16" VerticalAlignment="Center" Margin="10,0" />
         <TextBlock Text="Aantal deuren:" Grid.Row="7" Grid.Column="0" FontSize="16" VerticalAlignment="Center" Margin="10,0" />
 
-        <TextBox Name="txtMerk" Grid.Row="1" Grid.Column="1" Width="130" Margin="5" Height="25" FontSize="16"/>
-        <TextBox Name="txtModel" Grid.Row="2" Grid.Column="1" Width="130" Margin="10,5,10,5" FontSize="16" />
-        <TextBox Name="txtChassis" Grid.Row="3" Grid.Column="1" Width="130" Margin="10,10,10,5" FontSize="16" />
-        <TextBox Name="txtNummerplaat" Grid.Row="4" Grid.Column="1" Width="130" Margin="10,10,10,6" FontSize="16" />
-        <ComboBox Name="cmbType" Grid.Row="5" Grid.Column="1" Width="130"  Margin="10,5,10,5" FontSize="16" />
-        <TextBox Name="txtKleur" Grid.Row="6" Grid.Column="1" Width="130"  Margin="10,5,10,5" FontSize="16" />
-        <TextBox Name="txtDeuren" Grid.Row="7" Grid.Column="1" Width="130" Margin="10,5,10,5" FontSize="16" />
+        <ComboBox Name="cmbMerk" Grid.Row="1" Grid.Column="1" Width="130" Margin="5" Height="30" FontSize="16" SelectionChanged="cmbMerk_SelectionChanged" IsEditable="True"/>
+        <ComboBox Name="cmbModel" Grid.Row="2" Grid.Column="1" Width="130" Margin="10,6,10,5" FontSize="16" IsEditable="True" />
+        <TextBox Name="txtChassis" Grid.Row="3" Grid.Column="1" Height ="30" Width="130" Margin="10,4,10,6" FontSize="16" />
+        <TextBox Name="txtNummerplaat" Grid.Row="4" Grid.Column="1" Height ="30" Width="130" Margin="10,6,10,4" FontSize="16" />
+        <ComboBox Name="cmbType" Grid.Row="5" Grid.Column="1" Height ="30" Width="130"  Margin="10,5,10,5" FontSize="16" />
+        <TextBox Name="txtKleur" Grid.Row="6" Grid.Column="1" Height ="30" Width="130"  Margin="10,5,10,5" FontSize="16" />
+        <TextBox Name="txtDeuren" Grid.Row="7" Grid.Column="1" Height ="30" Width="130" Margin="10,5,10,5" FontSize="16" />
 
 
         <Label Content="Bestuurder" Margin="5" Grid.Row="1" Grid.Column="2" FontSize="16"/>
@@ -70,16 +71,35 @@
 
 
         <TextBox Name="txtBestuurder" Width="130" Height="25" Grid.Row="1" Grid.Column="3" FontSize="16" />
-        <Button  Name="btnSelecteerBrandstof"  Grid.Row="2" Grid.Column="3" Content="kies Brandstof" Click="SelecteerBrandstof_Click"  />
+        <StackPanel Grid.Row="2" 
+                    Grid.Column="3"
+                    Orientation="Horizontal"
+                    Margin="10,5"
+                    Height="auto">
+            <ComboBox Loaded="cmbBrandstoffen_Loaded" 
+                      x:Name="cmbBrandstoffen"
+                      Width="81" 
+                      Height="30"
+                      Margin="0,0,5,0" 
+                      FontSize="14"/>
+            <Button x:Name="btnAddBrandstof"
+                    Click="btnAddBrandstof_Click"
+                    Height="20" 
+                    Width="20" Content="+">
+            </Button>
+            <Button x:Name="btnRemoveBrandstof"
+                    Click="btnRemoveBrandstof_Click"
+                    Height="20" 
+                    Width="20"
+                    Margin="1,0,0,0" Content="-">
+            </Button>
+        </StackPanel>
 
         <ListBox x:Name="lstBrandtof"
                  Grid.Row="3"
-                 Grid.Column="2"
-                 Grid.ColumnSpan="2"
-                 Grid.RowSpan="5"
-                 Width="200"
-                 Height="150"
-                 Margin="0,10">
+                 Grid.Column="3"
+                 Grid.RowSpan="3"
+                 Margin="11,2,47,25">
             <ListBox.ContextMenu>
                 <ContextMenu>
                     <MenuItem x:Name="miVerwijder" Header="Verwijder" Click="VerwijderBrandstof_Click"/>
@@ -99,7 +119,7 @@
                     x:Name="btnAnnuleren"
                     VerticalAlignment="Top"
                     Grid.Row="8"
-                    Grid.Column="4"
+                    Grid.Column="3"
                     Click="btnAnnuleren_Click"
                     Margin="5"
                     Height="25"
