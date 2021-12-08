@@ -84,20 +84,91 @@ namespace Flapp_DAL.Repository {
             }
         }
 
-        public IReadOnlyList<Tankkaart> GeefAlleTankkaarten() {
+        public Dictionary<int, Tankkaart> GeefAlleTankkaarten() {
             SqlConnection conn = new SqlConnection(_connString);
-            List<Tankkaart> tankkaarten = new List<Tankkaart>();
+            Dictionary<int, Tankkaart> tankkaarten = new Dictionary<int, Tankkaart>();
             string query = "SELECT * FROM [dbo].[Tankkaart] LEFT JOIN Brandstof_Tankkaart ON Tankkaart.tankkaartId = Brandstof_Tankkaart.tankkaartId LEFT JOIN Brandstof ON Brandstof_Tankkaart.brandstofId = Brandstof.brandstofId;";
+            using (SqlCommand cmd = conn.CreateCommand()) {
+                cmd.CommandText = query;
+                conn.Open();
+                try {
+                    SqlDataReader r = cmd.ExecuteReader();
+                    while (r.Read()) {
+                        if (tankkaarten.ContainsKey((int)r["tankkaartId"])) {
+                            Tankkaart dicTankkaart = tankkaarten[(int)r["tankkaartId"]];
+                            dicTankkaart.Brandstoffen.Add(new Brandstof((string)r["naam"]));
+                        }
+                        else {
+                            List<Brandstof> brandstof = new List<Brandstof> { new Brandstof((string)r["naam"]) };
+                            Tankkaart t = new Tankkaart((int)r["tankkaartId"], (DateTime)r["geldigheidsdatum"], (string)r["pincode"], (bool)r["geblokkeerd"]);
+
+                            tankkaarten.Add(t.Kaartnummer, t);
+                        }
+                    }
+                }
+                catch (Exception ex) { throw new Exception(ex.Message); }
+                finally { conn.Close(); }
+            }
+            return tankkaarten;
+        }
+
+        public Dictionary<int, Tankkaart> GeefAlleTankkaarten(int? kaartnummer, DateTime? geldigheidsdatum) {
+            Dictionary<int, Tankkaart> tankkaarten = new Dictionary<int, Tankkaart>();
+            List<string> subQuery = new List<string>();
+            int numberofparams = 0;
+
+            bool kaartnrIsNull = true;
+            if (kaartnummer > 0) {
+                kaartnrIsNull = false;
+                if (numberofparams > 0) {
+                    subQuery.Add(" AND ");
+                }
+                numberofparams++;
+                subQuery.Add("tankkaartId=@tankkaartId");
+            }
+
+            bool geldigheidsdatumIsNull = true;
+            if (geldigheidsdatum < DateTime.Now) {
+                geldigheidsdatumIsNull = false;
+                if (numberofparams > 0) {
+                    subQuery.Add(" AND ");
+                }
+                numberofparams++;
+                subQuery.Add("geldigheidsdatum=@geldigheidsdatum");
+            }
+
+            string query = "";
+            if (numberofparams > 0) {
+                query = $"SELECT * FROM [dbo].[Tankkaart] LEFT JOIN Brandstof_Tankkaart ON Tankkaart.tankkaartId = Brandstof_Tankkaart.tankkaartId LEFT JOIN Brandstof ON Brandstof_Tankkaart.brandstofId = Brandstof.brandstofId WHERE {String.Join("", subQuery)};";
+            }
+
+            SqlConnection conn = new SqlConnection(_connString);
+            
             using (SqlCommand cmd = conn.CreateCommand()) {
                 try {
                     conn.Open();
+
+                    if (!kaartnrIsNull) {
+                        cmd.Parameters.Add(new SqlParameter("@tankkaartId", SqlDbType.Int));
+                        cmd.Parameters["@tankkaartId"].Value = kaartnummer;
+                    }
+                    if (!geldigheidsdatumIsNull) {
+                        cmd.Parameters.Add(new SqlParameter("@geldigheidsdatum", SqlDbType.DateTime));
+                        cmd.Parameters["@geldigheidsdatum"].Value = geldigheidsdatum;
+                    }
+
                     cmd.CommandText = query;
                     SqlDataReader r = cmd.ExecuteReader();
-
                     while (r.Read()) {
-                        List<Brandstof> brandstoffen = new List<Brandstof> { new Brandstof((string)r["naam"]) };
-                        Tankkaart tankkaart = new Tankkaart((int)r["tankkaartId"], (DateTime)r["geldigheidsdatum"], (string)r["pincode"], brandstoffen, (bool)r["geblokkeerd"]);
-                        tankkaarten.Add(tankkaart);
+                        if (tankkaarten.ContainsKey((int)r["tankkaartId"])) {
+                            Tankkaart dicTankkaart = tankkaarten[(int)r["tankkaartId"]];
+                            dicTankkaart.Brandstoffen.Add(new Brandstof((string)r["naam"]));
+                        }
+                        else {
+                            List<Brandstof> brandstof = new List<Brandstof> { new Brandstof((string)r["naam"]) };
+                            Tankkaart t = new Tankkaart((int)r["tankkaartId"], (DateTime)r["geldigheidsdatum"], (string)r["pincode"], (bool)r["geblokkeerd"]);
+                            tankkaarten.Add(t.Kaartnummer, t);
+                        }
                     }
                 }
                 catch (Exception ex) { throw new Exception(ex.Message); }
