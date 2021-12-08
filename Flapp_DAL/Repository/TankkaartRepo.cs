@@ -100,7 +100,7 @@ namespace Flapp_DAL.Repository {
                         }
                         else {
                             List<Brandstof> brandstof = new List<Brandstof> { new Brandstof((string)r["naam"]) };
-                            Tankkaart t = new Tankkaart((int)r["tankkaartId"], (DateTime)r["geldigheidsdatum"], (string)r["pincode"], (bool)r["geblokkeerd"]);
+                            Tankkaart t = new Tankkaart((int)r["tankkaartId"], (DateTime)r["geldigheidsdatum"], (string)r["pincode"], brandstof ,(bool)r["geblokkeerd"]);
 
                             tankkaarten.Add(t.Kaartnummer, t);
                         }
