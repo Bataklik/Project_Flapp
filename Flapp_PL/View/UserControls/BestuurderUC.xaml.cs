@@ -24,7 +24,6 @@ namespace Flapp_PL.View.UserControls
 
             laadBestuurders();
         }
-
         public BestuurderUC(MainWindow main)
         {
             InitializeComponent();
@@ -32,8 +31,6 @@ namespace Flapp_PL.View.UserControls
             _main = main;
             laadBestuurders();
         }
-
-
         public BestuurderUC(string naam, string voornaam, DateTime datum)
         {
             InitializeComponent();
@@ -55,7 +52,6 @@ namespace Flapp_PL.View.UserControls
             catch (Exception ex) { throw new Exception(ex.Message, ex); }
             lstbBestuurders.ItemsSource = bestuurders;
         }
-
         private void laadBestuurders(string naam, string voornaam, DateTime datum)
         {
             List<Bestuurder> bestuurders = new List<Bestuurder>();
@@ -70,7 +66,6 @@ namespace Flapp_PL.View.UserControls
             catch (Exception ex) { throw new Exception(ex.Message, ex); }
             lstbBestuurders.ItemsSource = bestuurders;
         }
-
         private void btnZoek_Click(object sender, RoutedEventArgs e)
         {
             BestuurderUC bUC = this;
@@ -79,12 +74,12 @@ namespace Flapp_PL.View.UserControls
 
         private void btnVoegToe_Click(object sender, RoutedEventArgs e)
         {
-            new VoegBestuurderToe().Show();
+            new VoegBestuurderToe().ShowDialog();
         }
 
         private void UpdateBestuurder_Click(object sender, RoutedEventArgs e)
         {
-
+            new UpdateBestuurderWindow((Bestuurder)lstbBestuurders.SelectedItem).ShowDialog();
         }
 
         private void VerwijderBestuurder_Click(object sender, RoutedEventArgs e)
