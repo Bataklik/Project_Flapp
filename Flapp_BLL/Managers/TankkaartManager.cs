@@ -1,71 +1,60 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Flapp_BLL.Exceptions.ManagerExceptions;
 using Flapp_BLL.Interfaces;
 using Flapp_BLL.Models;
-using Flapp_BLL.Exceptions.ManagerExceptions;
+using System;
+using System.Collections.Generic;
 
-namespace Flapp_BLL.Managers
-{
-    public class TankkaartManager
-    {
+namespace Flapp_BLL.Managers {
+    public class TankkaartManager {
         private ITankkaartRepo _repo;
 
         public TankkaartManager(ITankkaartRepo repo) { _repo = repo; }
 
-        public void VoegTankkaartToe(Tankkaart tankkaart)
-        {
+        public void VoegTankkaartToe(Tankkaart tankkaart) {
             if (_repo.BestaatTankkaart(tankkaart)) { throw new Exception("TankkaartManager: VoegTankkaartToe: Tankkaart bestaat al!"); }
-            try
-            {
+            try {
                 _repo.VoegTankkaartToe(tankkaart);
             }
             catch (Exception ex) { throw new TankkaartManagerException("TankkaartManager", ex); }
         }
-        public void VerwijderTankkaart(Tankkaart tankkaart)
-        {
+        public void VerwijderTankkaart(Tankkaart tankkaart) {
             if (!_repo.BestaatTankkaart(tankkaart)) { throw new Exception("TankkaartManager: VerwijderTankkaart: Tankkaart bestaat niet!"); }
-            try
-            {
+            try {
                 _repo.VerwijderTankkaart(tankkaart);
             }
             catch (Exception ex) { throw new TankkaartManagerException("TankkaartManager", ex); }
         }
-        public void UpdateTankkaart(Tankkaart tankkaart)
-        {
+        public void UpdateTankkaart(Tankkaart tankkaart) {
             if (!_repo.BestaatTankkaart(tankkaart)) { throw new Exception("TankkaartManager: UpdateTankkaart: Tankkaart bestaat niet!"); }
-            try
-            {
+            try {
                 _repo.UpdateTankkaart(tankkaart);
             }
             catch (Exception ex) { throw new TankkaartManagerException("TankkaartManager", ex); }
         }
-        public IReadOnlyList<Tankkaart> GeefAlleTankkaarten()
-        {
+        public Dictionary<int, Tankkaart> GeefAlleTankkaarten(int kaartnummer, DateTime geldigheidsdatum) {
+            try { return _repo.GeefAlleTankkaarten(kaartnummer, geldigheidsdatum); }
+            catch (Exception ex) { throw new TankkaartManagerException("TankkaartManager", ex); }
+        }
+        public Dictionary<int, Tankkaart> GeefAlleTankkaarten() {
             try { return _repo.GeefAlleTankkaarten(); }
             catch (Exception ex) { throw new TankkaartManagerException("TankkaartManager", ex); }
         }
-        public bool BestaatBestuurder(Bestuurder bestuurder)
-        {
-            try
-            {
+        public bool BestaatBestuurder(Bestuurder bestuurder) {
+            try {
                 return _repo.BestaatBestuurder(bestuurder);
             }
             catch (Exception ex) { throw new TankkaartManagerException("TankkaartManager", ex); }
         }
-        public void VoegBestuurderToe(Bestuurder bestuurder)
-        {
+        public void VoegBestuurderToe(Bestuurder bestuurder) {
             if (_repo.BestaatBestuurder(bestuurder)) { throw new Exception("TankkaartManager: BestaatBestuurder: Bestuurder bestaat al!"); }
-            try
-            {
+            try {
                 //_repo.VoegBestuurderToe(bestuurder);
             }
             catch (Exception ex) { throw new TankkaartManagerException("TankkaartManager", ex); }
         }
-        public void VerwijderBestuurder(Bestuurder bestuurder)
-        {
+        public void VerwijderBestuurder(Bestuurder bestuurder) {
             if (!_repo.BestaatBestuurder(bestuurder)) { throw new TankkaartManagerException("TankkaartManager: VerwijderBestuurder: Bestuurder bestaat niet"); }
-            try
-            {
+            try {
                 //_repo.VerwijderBestuurder(bestuurder);
             }
             catch (Exception ex) { throw new TankkaartManagerException("TankkaartManager", ex); }
