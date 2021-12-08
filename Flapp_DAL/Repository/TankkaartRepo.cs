@@ -96,12 +96,11 @@ namespace Flapp_DAL.Repository {
                     while (r.Read()) {
                         if (tankkaarten.ContainsKey((int)r["tankkaartId"])) {
                             Tankkaart dicTankkaart = tankkaarten[(int)r["tankkaartId"]];
-                            string naam = (string)r["naam"];
-                            dicTankkaart.Brandstoffen.Add(new Brandstof(naam));
+                            dicTankkaart.Brandstoffen.Add(new Brandstof((string)r["naam"]));
                         }
                         else {
                             List<Brandstof> brandstof = new List<Brandstof> { new Brandstof((string)r["naam"]) };
-                            Tankkaart t = new Tankkaart((int)r["tankkaartId"], (DateTime)r["geldigheidsdatum"], (string)r["pincode"], brandstof ,(bool)r["geblokkeerd"]);
+                            Tankkaart t = new Tankkaart((int)r["tankkaartId"], (DateTime)r["geldigheidsdatum"], (string)r["pincode"], (bool)r["geblokkeerd"]);
 
                             tankkaarten.Add(t.Kaartnummer, t);
                         }
@@ -113,13 +112,13 @@ namespace Flapp_DAL.Repository {
             return tankkaarten;
         }
 
-        public Dictionary<int, Tankkaart> GeefAlleTankkaarten(string kaartnummer, string geldigheidsdatum) {
+        public Dictionary<int, Tankkaart> GeefAlleTankkaarten(int? kaartnummer, DateTime? geldigheidsdatum) {
             Dictionary<int, Tankkaart> tankkaarten = new Dictionary<int, Tankkaart>();
             List<string> subQuery = new List<string>();
             int numberofparams = 0;
 
             bool kaartnrIsNull = true;
-            if (!String.IsNullOrWhiteSpace(kaartnummer)) {
+            if (kaartnummer > 0) {
                 kaartnrIsNull = false;
                 if (numberofparams > 0) {
                     subQuery.Add(" AND ");
@@ -129,7 +128,7 @@ namespace Flapp_DAL.Repository {
             }
 
             bool geldigheidsdatumIsNull = true;
-            if (!String.IsNullOrWhiteSpace(geldigheidsdatum)) {
+            if (geldigheidsdatum < DateTime.Now) {
                 geldigheidsdatumIsNull = false;
                 if (numberofparams > 0) {
                     subQuery.Add(" AND ");
@@ -139,10 +138,7 @@ namespace Flapp_DAL.Repository {
             }
 
             string query = "";
-            if (numberofparams <= 0) {
-                //Lol
-            }
-            else {
+            if (numberofparams > 0) {
                 query = $"SELECT * FROM [dbo].[Tankkaart] LEFT JOIN Brandstof_Tankkaart ON Tankkaart.tankkaartId = Brandstof_Tankkaart.tankkaartId LEFT JOIN Brandstof ON Brandstof_Tankkaart.brandstofId = Brandstof.brandstofId WHERE {String.Join("", subQuery)};";
             }
 
@@ -154,11 +150,11 @@ namespace Flapp_DAL.Repository {
 
                     if (!kaartnrIsNull) {
                         cmd.Parameters.Add(new SqlParameter("@tankkaartId", SqlDbType.Int));
-                        cmd.Parameters["@tankkaartId"].Value = Int32.Parse(kaartnummer);
+                        cmd.Parameters["@tankkaartId"].Value = kaartnummer;
                     }
                     if (!geldigheidsdatumIsNull) {
                         cmd.Parameters.Add(new SqlParameter("@geldigheidsdatum", SqlDbType.DateTime));
-                        cmd.Parameters["@geldigheidsdatum"].Value = Convert.ToDateTime(geldigheidsdatum);
+                        cmd.Parameters["@geldigheidsdatum"].Value = geldigheidsdatum;
                     }
 
                     cmd.CommandText = query;
