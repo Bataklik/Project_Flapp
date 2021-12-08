@@ -3,6 +3,7 @@ using Flapp_BLL.Models;
 using Flapp_DAL.Repository;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,7 +13,7 @@ namespace Flapp_PL.View.Windows.BestuurderWindows
 {
     public partial class UpdateBestuurderWindow : Window
     {
-        public List<Rijbewijs> Rijbewijzen { get; set; } = new List<Rijbewijs>();
+        public ObservableCollection<Rijbewijs> Rijbewijzen { get; set; } = new ObservableCollection<Rijbewijs>();
 
 
         private BestuurderManager _bestuurderManager;
@@ -81,7 +82,7 @@ namespace Flapp_PL.View.Windows.BestuurderWindows
             dpGeboorte.DataContext = _bestuurder.Geboortedatum;
             txtRijksregister.Text = _bestuurder.Rijksregisternummer;
             lstRijbewijzen.ItemsSource = _bestuurder.Rijbewijzen;
-            Rijbewijzen = _bestuurder.Rijbewijzen; 
+            Rijbewijzen = new ObservableCollection<Rijbewijs>(_bestuurder.Rijbewijzen); 
 
             if (_bestuurder.Adres !=null) {
                 txtStraat.Text = _bestuurder.Adres.Straat;
