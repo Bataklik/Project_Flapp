@@ -41,8 +41,7 @@ namespace Flapp_BLL.Checkers
         public bool ControleEersteGroep(string r, DateTime gd)
         {
             DateTime datetime = gd;
-            string datum = datetime.ToString("dd/MM/y");
-
+            string datum = datetime.ToString("dd/MM/yy");
             string rijksnr = r;
 
             //dd/MM/jj
