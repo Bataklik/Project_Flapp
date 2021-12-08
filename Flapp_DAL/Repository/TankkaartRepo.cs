@@ -118,7 +118,7 @@ namespace Flapp_DAL.Repository {
             int numberofparams = 0;
 
             bool kaartnrIsNull = true;
-            if (kaartnummer > 0) {
+            if (kaartnummer != null) {
                 kaartnrIsNull = false;
                 if (numberofparams > 0) {
                     subQuery.Add(" AND ");
@@ -128,7 +128,7 @@ namespace Flapp_DAL.Repository {
             }
 
             bool geldigheidsdatumIsNull = true;
-            if (geldigheidsdatum < DateTime.Now) {
+            if (geldigheidsdatum != null) {
                 geldigheidsdatumIsNull = false;
                 if (numberofparams > 0) {
                     subQuery.Add(" AND ");

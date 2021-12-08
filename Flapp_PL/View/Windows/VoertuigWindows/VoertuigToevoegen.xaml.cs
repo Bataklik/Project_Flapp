@@ -5,6 +5,7 @@ using System;
 using System.Windows;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Flapp_PL.View.Windows.VoertuigWindow
 {
@@ -33,12 +34,18 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
         }
         private void btnToevoegen_Click(object sender, RoutedEventArgs e)
         {
-            string t = cmbType.SelectedItem.ToString().ToUpper();
-            List<Brandstof> b = new List<Brandstof>(_brandstoffen);
-            Voertuig v = new Voertuig(cmbMerk.Text.ToUpper(), cmbModel.Text.ToUpper(), txtChassis.Text.ToUpper(), txtNummerplaat.Text.ToUpper(), b, t, txtKleur.Text.ToUpper(), Convert.ToInt32(txtDeuren.Text));
+            
+            
             try
-            {
-                _voertuigManager.VoegVoertuigToe(v);
+            {                 
+                Voertuig v = new Voertuig(cmbMerk.Text.ToUpper(), cmbModel.Text.ToUpper(), txtChassis.Text.ToUpper(), txtNummerplaat.Text.ToUpper(), lstBrandtof.Items.Cast<Brandstof>().ToList(), cmbType.SelectedItem.ToString().ToUpper(), txtKleur.Text.ToUpper(), Convert.ToInt32(txtDeuren.Text));
+                v.ZetVoeruigID(_voertuigManager.VoegVoertuigToe(v));
+                //_voertuigManager.VoegVoertuigToe(v);
+                if (v.Brandstof.Count > 0)
+                {
+                    _brandstofmanager.VoegBrandstofToeAanVoertuig(v.VoertuigID, v.Brandstof);
+                }                
+                
                 MessageBox.Show("Voertuig is toegevoegd!");
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
@@ -72,13 +79,7 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
             merken.Insert(0, "");
             //cmbMerk.SelectedIndex = 0;
             cmbMerk.ItemsSource = merken;
-        }
-        
-        private void laadBrandstoftypes()
-        {
-            if (_brandstoffen == null && _brandstoffen.Count == 0) { lstBrandtof.ItemsSource = null; return; }
-            lstBrandtof.ItemsSource = _brandstoffen;
-        }       
+        }             
         private void laadVoertuigtypes()
         {
             try

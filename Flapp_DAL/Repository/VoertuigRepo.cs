@@ -98,21 +98,19 @@ namespace Flapp_DAL.Repository {
 
         public Voertuig GeefVoertuigDoorID(int vId) {
             SqlConnection conn = new SqlConnection(_connString);
-            string query = "USE [Project_Flapp_DB]; SELECT * FROM Voertuig WHERE voertuigId = @id";
+            string query = "SELECT * FROM Voertuig LEFT JOIN Brandstof_Voertuig ON Voertuig.voertuigId = Brandstof_Voertuig.voertuigId LEFT JOIN Brandstof ON Brandstof_Voertuig.brandstofId = Brandstof.brandstofId WHERE Voertuig.voertuigId = @voertuigId";
             using (SqlCommand cmd = conn.CreateCommand()) {
-                cmd.Parameters.Add(new SqlParameter("@id", SqlDbType.Int));
+                cmd.Parameters.Add(new SqlParameter("@voertuigId", SqlDbType.Int));
                 cmd.CommandText = query;
-
-                cmd.Parameters["@id"].Value = vId;
-
+                cmd.Parameters["@voertuigId"].Value = vId;
                 conn.Open();
                 try {
                     SqlDataReader r = cmd.ExecuteReader();
                     r.Read();
-                    List<Brandstof> b = new List<Brandstof> { (null) };//_bRepo.GeefBrandstof((int)r["brandstof_id"]); // Mag null zijn
+                    List<Brandstof> b = new List<Brandstof> { new Brandstof((string)r["naam"]) };//_bRepo.GeefBrandstof((int)r["brandstof_id"]); // Mag null zijn
                     Bestuurder bs = null;// _bsRepo.GeefBestuurder((int)r["bestuurder_id"]); // Mag null zijn
                     string vt = (string)r["type"];
-                    Voertuig voertuig = new Voertuig((int)r["VoertuigId"], (string)r["merk"], (string)r["model"], (string)r["chassisnummer"], (string)r["nummerplaat"], b, vt, (string)r["kleur"], (int)r["deuren"], bs);
+                    Voertuig voertuig = new Voertuig((int)r["voertuigId"], (string)r["merk"], (string)r["model"], (string)r["chassisnummer"], (string)r["nummerplaat"], b, vt, (string)r["kleur"], (int)r["deuren"], bs);
                     return voertuig;
                 }
                 catch (Exception ex) { throw new Exception(ex.Message); }
@@ -213,18 +211,18 @@ namespace Flapp_DAL.Repository {
         #endregion
 
         #region VoegVoertuigToe Method
-        public void VoegVoertuigToe(Voertuig v)
+        public int VoegVoertuigToe(Voertuig v)
         {
             int voertuigId;
-            var brandstoffen = v.geefBrandstoffen();
+            //var brandstoffen = v.geefBrandstoffen();
             string sql = "INSERT INTO [dbo].[Voertuig] (merk, model, chassisnummer, nummerplaat, type, kleur, deuren) VALUES (@merk, @model, @chassisnummer, @nummerplaat, @type, @kleur, @deuren) SELECT SCOPE_IDENTITY()";
             SqlConnection connection = new SqlConnection(_connString);
             SqlCommand command = new(sql, connection);
-            SqlTransaction transaction = connection.BeginTransaction();
+            
             try
             {
                 connection.Open();                
-                command.Transaction = transaction;
+                
                 command.Parameters.AddWithValue("@merk", v.Merk);
                 command.Parameters.AddWithValue("@model", v.Model);
                 command.Parameters.AddWithValue("@chassisnummer", v.ChassisNummer);
@@ -232,21 +230,15 @@ namespace Flapp_DAL.Repository {
                 command.Parameters.AddWithValue("@type", v.VoertuigType);
                 command.Parameters.AddWithValue("@kleur", v.Kleur);
                 command.Parameters.AddWithValue("@deuren", v.Aantaldeuren);
+                
+                command.ExecuteNonQuery();
                 voertuigId = Decimal.ToInt32((decimal)command.ExecuteScalar());
-                foreach (var brandstof in brandstoffen)
-                {
-                    string sql2 = "INSERT INTO [dbo].[Brandstof_Voertuig] (brandstofId, voertuigId) VALUES (@brandstofId, @voertuigId)";
-                    SqlCommand command2 = new(sql2, connection);
-                    command2.Transaction = transaction;
-                    command2.Parameters.AddWithValue("@brandstofId", brandstof.Id);
-                    command2.Parameters.AddWithValue("@voertuigId", voertuigId);
-                    command2.ExecuteNonQuery();
-                }
-                transaction.Commit();
+                //int bestuurderId = (int)command.ExecuteScalar();
+                return voertuigId;
             }
             catch (Exception ex)
             {
-                transaction.Rollback();
+                
                 throw new VoertuigException(ex.Message);
             }
             finally {
@@ -261,16 +253,11 @@ namespace Flapp_DAL.Repository {
             var brandstoffen = v.geefBrandstoffen();
             string query = "USE [Project_Flapp_DB]; UPDATE [dbo].[Voertuig] SET merk = @merk , model = @model" +
                 ", chassisnummer = @chassisnummer , nummerplaat = @nummerplaat , type = @type" +
-                ", kleur = @kleur , deuren = @deuren WHERE voertuigId = @voertuigId;";
-            string query2 = "INSERT INTO [dbo].[Brandstof_Voertuig] (brandstofId, voertuigId) VALUES (@brandstofId, @voertuigId)";
-            string query3 = "DELETE FROM [dbo].[Brandstof_Voertuig] WHERE voertuigID = @voertuigId";
+                ", kleur = @kleur , deuren = @deuren WHERE voertuigId = @voertuigId;";            
             SqlConnection conn = new SqlConnection(_connString);
-            SqlCommand command = new(query, conn);
-            SqlCommand command3 = new(query3, conn);            
-            conn.Open();
-            SqlTransaction transaction = conn.BeginTransaction();
-            command.Transaction = transaction;
-            command3.Transaction = transaction;
+            SqlCommand command = new(query, conn);                      
+            conn.Open();       
+            
             try
             {
                 command.Parameters.Add(new SqlParameter("@voertuigId", SqlDbType.Int));
@@ -294,20 +281,7 @@ namespace Flapp_DAL.Repository {
                 command.Parameters["@kleur"].Value = v.Kleur;
                 command.Parameters["@deuren"].Value = v.Aantaldeuren;
                 //cmd.Parameters["@bestuurder_id"].Value = v.Bestuurder.Id;
-                command.ExecuteNonQuery();
-                command3.Parameters.Add(new SqlParameter("@voertuigId", SqlDbType.Int));
-                command3.CommandText = query3;
-                command3.Parameters["@voertuigId"].Value = v.VoertuigID;
-                command3.ExecuteNonQuery();
-                foreach (var brandstof in brandstoffen)
-                {
-                    SqlCommand command2 = new(query2, conn);
-                    command2.Transaction = transaction;
-                    command2.Parameters.AddWithValue("@brandstofId", brandstof.Id);
-                    command2.Parameters.AddWithValue("@voertuigId", v.VoertuigID);
-                    command2.ExecuteNonQuery();
-                }
-                transaction.Commit();
+                command.ExecuteNonQuery();                
             }
             catch (Exception ex) { throw new Exception(ex.Message); }
             finally { conn.Close(); }

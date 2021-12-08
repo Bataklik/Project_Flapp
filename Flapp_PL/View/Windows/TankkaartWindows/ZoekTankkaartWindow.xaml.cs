@@ -34,14 +34,18 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
 
         private void btnZoek_Click(object sender, RoutedEventArgs e) {
             List<Tankkaart> tankkaarten = new List<Tankkaart>();
-            int kaartnummer = Convert.ToInt32(txtKaartnummer.Text);
-            try {
-                foreach (KeyValuePair<int, Tankkaart> v in tankkaartManager.GeefAlleTankkaarten(kaartnummer, (DateTime)dpGeldigheidsdatum.SelectedDate)) {
-                    tankkaarten.Add(v.Value);
+            //int kaartnummer = Convert.ToInt32(txtKaartnummer.Text);
+            if(dpGeldigheidsdatum.SelectedDate == null)
+            {
+                try {
+                    foreach (KeyValuePair<int, Tankkaart> v in tankkaartManager.GeefAlleTankkaarten(Convert.ToInt32(txtKaartnummer.Text), (DateTime)dpGeldigheidsdatum.SelectedDate)) {
+                        tankkaarten.Add(v.Value);
+                    }
+                    tUC.lstTankkaarten.ItemsSource = tankkaarten;
                 }
-                tUC.lstTankkaarten.ItemsSource = tankkaarten;
+                catch (Exception) { throw; }
             }
-            catch (Exception) { throw; }
+            
         }
 
         private void btnAnnuleren_Click(object sender, RoutedEventArgs e) {
