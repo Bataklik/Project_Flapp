@@ -213,12 +213,11 @@ namespace Flapp_DAL.Repository {
         #region VoegVoertuigToe Method
         public int VoegVoertuigToe(Voertuig v)
         {
-            int voertuigId;
+            //int voertuigId;
             //var brandstoffen = v.geefBrandstoffen();
-            string sql = "INSERT INTO [dbo].[Voertuig] (merk, model, chassisnummer, nummerplaat, type, kleur, deuren) VALUES (@merk, @model, @chassisnummer, @nummerplaat, @type, @kleur, @deuren) SELECT SCOPE_IDENTITY()";
+            string sql = "INSERT INTO [dbo].[Voertuig] (merk, model, chassisnummer, nummerplaat, type, kleur, deuren)output INSERTED.voertuigId VALUES (@merk, @model, @chassisnummer, @nummerplaat, @type, @kleur, @deuren)";
             SqlConnection connection = new SqlConnection(_connString);
-            SqlCommand command = new(sql, connection);
-            
+            SqlCommand command = new(sql, connection);            
             try
             {
                 connection.Open();                
@@ -232,13 +231,12 @@ namespace Flapp_DAL.Repository {
                 command.Parameters.AddWithValue("@deuren", v.Aantaldeuren);
                 
                 command.ExecuteNonQuery();
-                voertuigId = Decimal.ToInt32((decimal)command.ExecuteScalar());
+                int voertuigId = (int)command.ExecuteScalar();
                 //int bestuurderId = (int)command.ExecuteScalar();
                 return voertuigId;
             }
             catch (Exception ex)
-            {
-                
+            {                
                 throw new VoertuigException(ex.Message);
             }
             finally {

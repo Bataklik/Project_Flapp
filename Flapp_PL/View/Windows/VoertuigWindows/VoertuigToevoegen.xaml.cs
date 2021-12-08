@@ -33,18 +33,13 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
             laadMerk();
         }
         private void btnToevoegen_Click(object sender, RoutedEventArgs e)
-        {
-            
-            
+        {           
             try
-            {                 
-                Voertuig v = new Voertuig(cmbMerk.Text.ToUpper(), cmbModel.Text.ToUpper(), txtChassis.Text.ToUpper(), txtNummerplaat.Text.ToUpper(), lstBrandtof.Items.Cast<Brandstof>().ToList(), cmbType.SelectedItem.ToString().ToUpper(), txtKleur.Text.ToUpper(), Convert.ToInt32(txtDeuren.Text));
-                v.ZetVoeruigID(_voertuigManager.VoegVoertuigToe(v));
-                //_voertuigManager.VoegVoertuigToe(v);
-                if (v.Brandstof.Count > 0)
-                {
-                    _brandstofmanager.VoegBrandstofToeAanVoertuig(v.VoertuigID, v.Brandstof);
-                }                
+            {
+                Voertuig voertuig = null;
+                voertuig = new Voertuig(cmbMerk.Text.ToUpper(), cmbModel.Text.ToUpper(), txtChassis.Text.ToUpper(), txtNummerplaat.Text.ToUpper(), lstBrandtof.Items.Cast<Brandstof>().ToList(), cmbType.SelectedItem.ToString().ToUpper(), txtKleur.Text.ToUpper(), Convert.ToInt32(txtDeuren.Text));
+                voertuig.ZetVoeruigID(_voertuigManager.VoegVoertuigToe(voertuig));
+                _brandstofmanager.VoegBrandstofToeAanVoertuig(voertuig.VoertuigID, voertuig.Brandstof);                 
                 
                 MessageBox.Show("Voertuig is toegevoegd!");
             }
