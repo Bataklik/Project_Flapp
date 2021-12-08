@@ -1,4 +1,6 @@
 ﻿using Flapp_BLL.Managers;
+using Flapp_BLL.Models;
+using Flapp_DAL.Repository;
 using Flapp_PL.View.UserControls;
 using System;
 using System.Collections.Generic;
@@ -20,34 +22,26 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
     /// </summary>
     public partial class ZoekTankkaartWindow : Window {
         private MainWindow main;
+        private TankkaartUC tUC;
+        private TankkaartManager tankkaartManager;
 
-        public ZoekTankkaartWindow(MainWindow main) {
+        public ZoekTankkaartWindow(MainWindow main, TankkaartUC tUC) {
             this.main = main;
+            this.tUC = tUC;
+            tankkaartManager = new TankkaartManager(new TankkaartRepo(Application.Current.Properties["User"].ToString()));
             InitializeComponent();
         }
 
         private void btnZoek_Click(object sender, RoutedEventArgs e) {
-            
-            if (!string.IsNullOrWhiteSpace(txtKaartnummer.Text) ) {
-                main.Show();
-                main.wpUserControl.Children.Clear();
-                main.wpUserControl.Children.Add(new TankkaartUC(txtKaartnummer.Text, main));
-                Close();
-                return;
-            } else if (dpGeldigheidsdatum.SelectedDate != null) {
-                main.Show();
-                main.wpUserControl.Children.Clear();
-                main.wpUserControl.Children.Add(new TankkaartUC(Convert.ToDateTime(dpGeldigheidsdatum.SelectedDate), main));
-                Close();
-                return;
-            } else if (!string.IsNullOrWhiteSpace(txtKaartnummer.Text) && dpGeldigheidsdatum.SelectedDate != null) {
-                main.Show();
-                main.wpUserControl.Children.Clear();
-                main.wpUserControl.Children.Add(new TankkaartUC(txtKaartnummer.Text , Convert.ToDateTime(dpGeldigheidsdatum.SelectedDate), main));
-                Close();
-                return;
+            List<Tankkaart> tankkaarten = new List<Tankkaart>();
+            int kaartnummer = Convert.ToInt32(txtKaartnummer.Text);
+            try {
+                foreach (KeyValuePair<int, Tankkaart> v in tankkaartManager.GeefAlleTankkaarten(kaartnummer, (DateTime)dpGeldigheidsdatum.SelectedDate)) {
+                    tankkaarten.Add(v.Value);
+                }
+                tUC.lstTankkaarten.ItemsSource = tankkaarten;
             }
-            MessageBox.Show("Velden zijn leeg!");
+            catch (Exception) { throw; }
         }
 
         private void btnAnnuleren_Click(object sender, RoutedEventArgs e) {
