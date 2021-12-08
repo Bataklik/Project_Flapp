@@ -65,7 +65,7 @@ namespace Flapp_PL.View.Windows.VoertuigWindows
 
         private void btnAnnuleren_Click(object sender, RoutedEventArgs e)
         {
-
+            Close();
         }
     }
 }

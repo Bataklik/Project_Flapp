@@ -69,7 +69,7 @@ namespace Flapp_PL.View.Windows.VoertuigWindows
                 List<Voertuig> voertuigen = new List<Voertuig>();
                 try
                 {
-                    foreach (KeyValuePair<int, Voertuig> vo in _voertuigmanager.SearchVehicle(cmbMerk.Text, cmbModel.Text, txtNummerplaat.Text))
+                    foreach (KeyValuePair<int, Voertuig> vo in _voertuigmanager.ZoekVoertuig(cmbMerk.Text, cmbModel.Text, txtNummerplaat.Text))
                     {
                         voertuigen.Add(vo.Value);
                     }
@@ -123,6 +123,17 @@ namespace Flapp_PL.View.Windows.VoertuigWindows
         }
         private void DeleteVoertuig_Click(object sender, RoutedEventArgs e)
         {
+            if (MessageBox.Show("Bent u zeker dat u het voertuig wilt verwijdere?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+            {
+                
+            }
+            else
+            {
+                Voertuig v = (Voertuig)lstVoertuigen.SelectedItem;
+                _voertuigmanager.VerwijderVoertuig(v);
+                MessageBox.Show("Verwijderen Gelukt!");
+            }
+            
             
         }
     }

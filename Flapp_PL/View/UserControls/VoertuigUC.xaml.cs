@@ -58,34 +58,7 @@ namespace Flapp_PL.View.UserControls
         }       
         private void laadVoertuigen(string nummerplaat, string merk, string model)
         {
-            try
-            {
-                if (!string.IsNullOrWhiteSpace(nummerplaat))
-                {
-                    //nummerplaat = txtNummerplaat.Text;
-                }
-                if (!string.IsNullOrWhiteSpace(merk))
-                {
-                    //merk = cmbMerk.SelectedItem.ToString();
-                }
-                if (!string.IsNullOrWhiteSpace(model))
-                {
-                    //model = null;
-                    //model = cmbModel.SelectedItem.ToString();
-                }
-                //List<Voertuig> voertuigen = _voertuigmanager.VoertuigZoeken(nummerplaat, merk, model);
-                List<Voertuig> voertuigen = _voertuigManager.VoertuigZoeken(nummerplaat, merk, model);
-                ObservableCollection<Voertuig> ts = new();
-                foreach (Voertuig bestelling in voertuigen)
-                {
-                    ts.Add(bestelling);
-                }
-                lstVoertuigen.ItemsSource = ts;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message, ex);
-            }
+            
         }
         private void btnVoertuigToevoegen_Click(object sender, RoutedEventArgs e)
         {
