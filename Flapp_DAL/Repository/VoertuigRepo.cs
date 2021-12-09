@@ -230,7 +230,7 @@ namespace Flapp_DAL.Repository {
                 command.Parameters.AddWithValue("@kleur", v.Kleur);
                 command.Parameters.AddWithValue("@deuren", v.Aantaldeuren);
                 
-                command.ExecuteNonQuery();
+                //command.ExecuteNonQuery();
                 int voertuigId = (int)command.ExecuteScalar();
                 //int bestuurderId = (int)command.ExecuteScalar();
                 return voertuigId;
