@@ -215,33 +215,28 @@ namespace Flapp_DAL.Repository {
         {
             //int voertuigId;
             //var brandstoffen = v.geefBrandstoffen();
-            string sql = "INSERT INTO [dbo].[Voertuig] (merk, model, chassisnummer, nummerplaat, type, kleur, deuren)output INSERTED.voertuigId VALUES (@merk, @model, @chassisnummer, @nummerplaat, @type, @kleur, @deuren)";
-            SqlConnection connection = new SqlConnection(_connString);
-            SqlCommand command = new(sql, connection);            
+            string query = "INSERT INTO [dbo].[Voertuig] (merk, model, chassisnummer, nummerplaat, type, kleur, deuren)output INSERTED.voertuigId VALUES (@merk, @model, @chassisnummer, @nummerplaat, @type, @kleur, @deuren)";
+            SqlConnection conn = new SqlConnection(_connString);
+            SqlCommand cmd = new(query, conn);            
             try
             {
-                connection.Open();                
+                conn.Open();                
                 
-                command.Parameters.AddWithValue("@merk", v.Merk);
-                command.Parameters.AddWithValue("@model", v.Model);
-                command.Parameters.AddWithValue("@chassisnummer", v.ChassisNummer);
-                command.Parameters.AddWithValue("@nummerplaat", v.Nummerplaat);
-                command.Parameters.AddWithValue("@type", v.VoertuigType);
-                command.Parameters.AddWithValue("@kleur", v.Kleur);
-                command.Parameters.AddWithValue("@deuren", v.Aantaldeuren);
+                cmd.Parameters.AddWithValue("@merk", v.Merk);
+                cmd.Parameters.AddWithValue("@model", v.Model);
+                cmd.Parameters.AddWithValue("@chassisnummer", v.ChassisNummer);
+                cmd.Parameters.AddWithValue("@nummerplaat", v.Nummerplaat);
+                cmd.Parameters.AddWithValue("@type", v.VoertuigType);
+                cmd.Parameters.AddWithValue("@kleur", v.Kleur);
+                cmd.Parameters.AddWithValue("@deuren", v.Aantaldeuren);
                 
-                command.ExecuteNonQuery();
-                int voertuigId = (int)command.ExecuteScalar();
+                //command.ExecuteNonQuery();
+                int voertuigId = (int)cmd.ExecuteScalar();
                 //int bestuurderId = (int)command.ExecuteScalar();
                 return voertuigId;
             }
-            catch (Exception ex)
-            {                
-                throw new VoertuigException(ex.Message);
-            }
-            finally {
-                connection.Close();
-            }
+            catch (Exception ex){throw new VoertuigException(ex.Message);}
+            finally {conn.Close();}
         }
         #endregion
 
