@@ -113,7 +113,7 @@ namespace Flapp_PL.View.Windows.VoertuigWindows
             {
                  
                 Voertuig v = (Voertuig)lstVoertuigen.SelectedItem;
-                new VoertuigUpdaten(v.VoertuigID).ShowDialog();
+                new VoertuigUpdaten(v).ShowDialog();
                 //NavigationService.Navigate(new Uri("/Pages/Klant/KlantUpdatenPage.xaml", UriKind.Relative));
             }
             catch (Exception ex)

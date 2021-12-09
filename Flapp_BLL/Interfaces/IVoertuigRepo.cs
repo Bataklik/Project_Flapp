@@ -14,7 +14,7 @@ namespace Flapp_BLL.Interfaces
         Voertuig GeefVoertuigDoorID(int id);
         //Voertuig ZoekVoertuig(int? vehicleId, string brand, string model, string chassisNumber, string licensePlate, Brandstof fuelType, string vehicleType, string color, int doors, Bestuurder driver);
         bool BestaatVoertuig(Voertuig voertuig);
-        void VoegVoertuigToe(Voertuig voertuig);
+        int VoegVoertuigToe(Voertuig voertuig);
         void UpdateVoertuig(Voertuig voertuig);
         void VerwijderVoertuig(Voertuig voertuig);
         IReadOnlyList<string> GeefMerken();

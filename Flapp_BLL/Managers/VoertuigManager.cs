@@ -16,12 +16,12 @@ namespace Flapp_BLL.Managers
             _repo = repo;
         }
 
-        public void VoegVoertuigToe(Voertuig voertuig)
+        public int VoegVoertuigToe(Voertuig voertuig)
         {
-            if (_repo.BestaatVoertuig(voertuig)) { throw new VoertuigException("VoertuigManager: VoegVoertuigToe: Voertuig bestaat al!"); }
+            if (!_repo.BestaatVoertuig(voertuig)) { throw new VoertuigException("VoertuigManager: VoegVoertuigToe: Voertuig bestaat al!"); }
             try
             {
-                _repo.VoegVoertuigToe(voertuig);
+                return _repo.VoegVoertuigToe(voertuig);
             }
             catch (Exception ex) { throw new VoertuigManagerException(ex.Message); }
         }

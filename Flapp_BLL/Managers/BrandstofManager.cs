@@ -18,6 +18,19 @@ namespace Flapp_BLL.Managers
             this._repo = _repo;
         }
 
+        public void VoegBrandstofToeAanVoertuig(int voertuig, List<Brandstof> brandstof)
+        {
+            try 
+            { 
+                 brandstof.ForEach(b => _repo.VoegBrandstofToeAanVoertuig(voertuig, b.Id)); 
+            }
+            catch (Exception) { throw; }
+        }
+        public void VerwijderBrandstofBijVoertuig(int id)
+        {
+            try { _repo.VerwijderBrandstofBijVoertuig(id); }
+            catch (Exception) { throw; }
+        }
         public void GeefBrandstof(Brandstof brandstof)
         {
             if (!_repo.BestaatBrandstof(brandstof)) { throw new BrandstofManagerException("BrandstofManager: GeefBrandstof: BrandstofType bestaat niet!"); }
