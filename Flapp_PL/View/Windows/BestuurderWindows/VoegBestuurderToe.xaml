@@ -52,15 +52,26 @@
         </Grid.ColumnDefinitions>
 
         <!--TextBlocks Bestuurder-->
-        <TextBlock Text="Bestuurder Toevoegen" 
-                   Grid.ColumnSpan="4" 
-                   FontSize="26"
-                   Grid.Row="0" 
-                   Grid.Column="0" 
-                   Background="#112D4E" 
-                   Foreground="#F9F7F7" 
-                   TextAlignment="Center"
-                   Margin="0,0,-25,0" />
+        <DockPanel Grid.ColumnSpan="4"
+                    Grid.Column="0"
+                    Grid.Row="0"
+                    Background="#112D4E" Margin="0,0,-59,0">
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                <materialDesign:PackIcon Kind="Account"
+                                     Margin="0,0,5,0"
+                                     Width="25" 
+                                     Height="25"
+                                     Foreground="#F9F7F7"
+                                     HorizontalAlignment="Center"/>
+                <TextBlock Text="Bestuurder Toevoegen" 
+                   FontSize="20"
+                   Foreground="#F9F7F7"
+                   HorizontalAlignment="Center"/>
+            </StackPanel>
+        </DockPanel>
+
         <TextBlock Text="Naam:" 
                    Grid.Row="1" 
                    Grid.Column="0" 
@@ -98,31 +109,6 @@
                    VerticalAlignment="Center" 
                    Margin="10,0"/>
 
-        <!--TextBlocks Adres-->
-        <TextBlock Text="Straat:" 
-                   FontSize="16"
-                   Grid.Row="1" 
-                   Grid.Column="2" 
-                   TextAlignment="Left"
-                   VerticalAlignment="Center"/>
-        <TextBlock Text="Huisnummer:" 
-                   Grid.Row="2" 
-                   Grid.Column="2" 
-                   FontSize="16" 
-                   TextAlignment="Left"
-                   VerticalAlignment="Center"/>
-        <TextBlock Text="Stad:" 
-                   Grid.Row="3" 
-                   Grid.Column="2" 
-                   FontSize="16" 
-                   TextAlignment="Left"
-                   VerticalAlignment="Center"/>
-        <TextBlock Text="Postcode:" 
-                   Grid.Row="4" 
-                   Grid.Column="2" 
-                   FontSize="16" 
-                   TextAlignment="Left"
-                   VerticalAlignment="Center"/>
 
         <!--Input Fields Bestuurder-->
         <TextBox Name="txtNaam" 
@@ -196,58 +182,50 @@
                  Margin="10,5"
                  SelectionMode="Single"/>
 
-        <!--Input Fields Adres-->
-        <TextBox Name="txtStraat" 
-                 Grid.Row="1" 
-                 Grid.Column="3" 
-                 Width="130" 
-                 Margin="10,5,10,5" 
-                 FontSize="16"
-                 VerticalAlignment="Center" />
-        <TextBox Name="txtHuisnummer" 
-                 Grid.Row="2" 
-                 Grid.Column="3" 
-                 Width="130" 
-                 Margin="10,5,10,5" 
-                 FontSize="16" 
-                 VerticalAlignment="Center"/>
-        <TextBox Name="txtStad" 
-                 Grid.Row="3" 
-                 Grid.Column="3" 
-                 Width="130" 
-                 Margin="10,5,10,5" 
-                 FontSize="16" 
-                 VerticalAlignment="Center"/>
-        <TextBox Name="txtPostcode" 
-                 Grid.Row="4" 
-                 Grid.Column="3" 
-                 Width="130" 
-                 Margin="10,5,10,5" 
-                 FontSize="16"
-                 PreviewTextInput="txtPostcode_PreviewTextInput"
-                 MaxLength="4"
-                 VerticalAlignment="Center"/>
-
         <!--Buttons End-->
-        <Button Content="Voeg toe"
-                x:Name="btnVoegtoe"
+        <Button x:Name="btnVoegtoe"
                 Click="btnVoegtoe_Click"
                 Grid.Column="2"
                 Grid.Row="7"
                 Margin="10,5,5,5"
                 Height="45"
-                Width="130"
+                Width="120"
                 VerticalAlignment="Top"
-                HorizontalAlignment="Center"/>
-        <Button Content="Annuleer"
-                x:Name="btnAnnuleer"
+                HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Kind="AccountAdd"
+                                             Margin="0,0,5,0"
+                                             Width="20" 
+                                             Height="20"
+                                             HorizontalAlignment="Left"
+                                             Foreground="#F9F7F7"
+                                             VerticalAlignment="Center"/>
+                <TextBlock Text="Toevoegen"
+                           Foreground="#F9F7F7"
+                           VerticalAlignment="Center"/>
+            </StackPanel>
+        </Button>
+        <Button x:Name="btnAnnuleer"
                 Click="btnAnnuleer_Click"
                 Grid.Column="3"
                 Grid.Row="7"
                 Margin="10,5,5,5"
                 Height="45"
-                Width="130"
+                Width="120"
                 VerticalAlignment="Top"
-                HorizontalAlignment="Center"/>
+                HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Kind="AccountRemove"
+                                             Margin="0,0,5,0"
+                                             Width="20" 
+                                             Height="20"
+                                             HorizontalAlignment="Left"
+                                             Foreground="#F9F7F7"
+                                             VerticalAlignment="Center"/>
+                <TextBlock Text="Annuleren"
+                           Foreground="#F9F7F7"
+                           VerticalAlignment="Center"/>
+            </StackPanel>
+        </Button>
     </Grid>
 </Window>

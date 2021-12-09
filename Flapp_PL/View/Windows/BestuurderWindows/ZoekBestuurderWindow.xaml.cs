@@ -25,6 +25,16 @@ namespace Flapp_PL.View.Windows
                 Close();
                 return;
             }
+            else if (!string.IsNullOrWhiteSpace(txtNaam.Text) && string.IsNullOrWhiteSpace(txtVoornaam.Text) && dpGeboortedatum.SelectedDate == null)
+            {
+                main.Show();
+                bUC.LaadAlleBestuurdersOpNaam(txtNaam.Text);
+                //main.wpUserControl.Children.Remove(bUC);
+                //main.wpUserControl.Children.Add(new BestuurderUC(txtNaam.Text, txtVoornaam.Text, (DateTime)dpGeboortedatum.SelectedDate));
+                //Close();
+                Close();
+                return;
+            }
             MessageBox.Show("Velden zijn leeg!");
         }
 

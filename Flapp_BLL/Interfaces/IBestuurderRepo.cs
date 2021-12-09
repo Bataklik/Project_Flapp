@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Flapp_BLL.Models;
 
 namespace Flapp_BLL.Interfaces
@@ -10,6 +11,13 @@ namespace Flapp_BLL.Interfaces
 
         Dictionary<int, Bestuurder> GeefAlleBestuurders();
         Dictionary<int, Bestuurder> GeefAlleBestuurders(int top);
+        Dictionary<int, Bestuurder> GeefAlleBestuurdersOpNaam(string naam);
+        Dictionary<int, Bestuurder> GeefAlleBestuurdersOpVoornaam(string voornaam);
+        Dictionary<int, Bestuurder> GeefAlleBestuurdersOpDatum(DateTime geboorte);
+        Dictionary<int, Bestuurder> GeefAlleBestuurdersOpNaamVoornaam(string naam,string voornaam);
+        Dictionary<int, Bestuurder> GeefAlleBestuurdersOpNaamVoornaamDatum(string naam, string voornaam,DateTime geboorte);
+
+
         Bestuurder GeefBestuurder(Bestuurder bestuurder);
         IReadOnlyList<Bestuurder> GeefAlleBestuurdersZonderTankkaarten();
 
