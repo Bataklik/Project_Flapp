@@ -6,6 +6,7 @@ using System.Windows;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Flapp_PL.View.Windows.VoertuigWindow
 {
@@ -89,7 +90,6 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
             }
             catch (Exception ex) { throw new Exception(ex.Message, ex); }
         }
-
         private void cmbMerk_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             if(cmbMerk.Text == "")
@@ -118,7 +118,6 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
-
         private void btnAddBrandstof_Click(object sender, RoutedEventArgs e)
         {
             if ((Brandstof)cmbBrandstoffen.SelectedItem == null) { MessageBox.Show("U heeft geen brandstof aangeduid!"); return; }
@@ -131,6 +130,12 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
             if ((Brandstof)lstBrandtof.SelectedItem == null) { MessageBox.Show("U heeft geen brandstof aangeduid!"); return; }
             if (!lstBrandtof.Items.Contains((Brandstof)lstBrandtof.SelectedItem)) { MessageBox.Show("Brandstof staat niet op de lijst!"); return; }
             lstBrandtof.Items.Remove((Brandstof)cmbBrandstoffen.SelectedItem);
+        }
+
+        private void txtDeuren_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }

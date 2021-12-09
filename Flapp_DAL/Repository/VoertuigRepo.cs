@@ -311,7 +311,7 @@ namespace Flapp_DAL.Repository {
         }
         #endregion
 
-        #region geefMerk en geefModel
+        #region GeefMerk & GeefModel
         public IReadOnlyList<string> GeefMerken() {
             SqlConnection conn = new SqlConnection(_connString);
             List<string> merken = new List<string>();

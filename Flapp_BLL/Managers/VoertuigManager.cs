@@ -18,7 +18,7 @@ namespace Flapp_BLL.Managers
 
         public int VoegVoertuigToe(Voertuig voertuig)
         {
-            if (!_repo.BestaatVoertuig(voertuig)) { throw new VoertuigException("VoertuigManager: VoegVoertuigToe: Voertuig bestaat al!"); }
+            if (_repo.BestaatVoertuig(voertuig)) { throw new VoertuigException("VoertuigManager: VoegVoertuigToe: Voertuig bestaat al!"); }
             try
             {
                 return _repo.VoegVoertuigToe(voertuig);
