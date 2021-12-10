@@ -3,17 +3,20 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Flapp_PL.View.Windows.TankkaartWindows"
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
+        xmlns:local="clr-namespace:Flapp_PL.View.Windows.TankkaartWindows" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         ResizeMode="NoResize"
-        Title="TankkaartUpdateWindow" Height="309" Width="276">
+        Title="Flapp: Tankkaart Updaten" 
+        Height="570" 
+        Width="320">
     <Window.Resources>
         <!-- Button Style-->
         <Style TargetType="Button">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border x:Name="borderButton" CornerRadius="10" Background="#112D4E" BorderThickness="0">
+                        <Border x:Name="borderButton" CornerRadius="5" Background="#112D4E" BorderThickness="0">
                             <ContentPresenter x:Name="cpButton" Content="{TemplateBinding Content}" TextBlock.Foreground="#F9F7F7" VerticalAlignment="Center" HorizontalAlignment="Center"></ContentPresenter>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -27,82 +30,201 @@
             </Setter>
         </Style>
     </Window.Resources>
-
-    <Grid Margin="15">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-        </Grid.RowDefinitions>
+        <!--TextBlocks-->
+        <TextBlock Text="Tankkaart Updaten" Grid.ColumnSpan="2" 
+                   FontSize="28"
+                   Grid.Row="0" 
+                   Grid.Column="0" 
+                   Background="#112D4E" 
+                   Foreground="#F9F7F7" 
+                   TextAlignment="Center" Margin="0,0,-16,0"/>
+        <TextBlock Text="Kaartnummer:" 
+                   Grid.Row="1" 
+                   Grid.Column="0" 
+                   FontSize="16" 
+                   VerticalAlignment="Center" 
+                   Margin="10,0"/>
+        <TextBlock Text="Geldigheidsdatum:" 
+                   Grid.Row="2" 
+                   Grid.Column="0" 
+                   FontSize="16" 
+                   VerticalAlignment="Center" 
+                   Margin="10,0"/>
+        <TextBlock Text="Pincode:" 
+                   Grid.Row="3" 
+                   Grid.Column="0" 
+                   FontSize="16" 
+                   VerticalAlignment="Center" 
+                   Margin="10,0"/>
+        <TextBlock Text="Bestuurder:" 
+                   Grid.Row="4" 
+                   Grid.Column="0" 
+                   FontSize="16" 
+                   VerticalAlignment="Center" 
+                   Margin="10,0"/>
+        <TextBlock Text="Geblokkeerd:"
+                   Grid.Row="6" 
+                   Grid.Column="0" 
+                   FontSize="16" 
+                   VerticalAlignment="Center" 
+                   Margin="10,0"/>
+        <TextBlock Text="Brandstoftype:" Grid.Row="7" 
+                   Grid.Column="0" 
+                   FontSize="16" 
+                   VerticalAlignment="Center" 
+                   Margin="10,0"/>
 
-        <StackPanel Grid.Column="0"
-                    Grid.Row="0">
-            <StackPanel Margin="10">
-                <TextBlock Text="Voertuig ID:" 
-                            Margin="0,10,0,0" />
-                <TextBlock Text="Merk:"
-                           Margin="0,14,0,0" />
-                <TextBlock Text="Model:"
-                           Margin="0,14,0,0" />
-                <TextBlock Text="Nummerplaat:"
-                           Margin="0,14,0,0" />
-                <TextBlock Text="Chassisnummer:"
-                           Margin="0,14,0,0" />
-                <TextBlock Text="VoertuigType:"
-                           Margin="0,14,0,0" />
+
+        <!--Inputs Fields-->
+        <TextBox Name="txtKaartnummer" Grid.Row="1" 
+                 Grid.Column="1" 
+                 Width="130" 
+                 Margin="10,5,10,5" 
+                 FontSize="16" />
+        <DatePicker Name="dpGeldigheidsdatum" Grid.Row="2" 
+                 Grid.Column="1" 
+                 Width="130" 
+                 Margin="5" 
+                 Height="30" 
+                 FontSize="16"
+                 DisplayDateStart="{Binding Mode=OneWay,
+                    Source={x:Static
+                    System:DateTime.Today}}"/>
+        <TextBox Name="txtPincode" Grid.Row="3" 
+                 Grid.Column="1" 
+                 Width="130" 
+                 Margin="10,5,10,5" 
+                 FontSize="16" />
+        <ListBox Name="lbBestuurder" Grid.Row="4" 
+                 Grid.Column="1" 
+                 Width="130" 
+                 Margin="10,17,10,17" 
+                 FontSize="16" RenderTransformOrigin="0.526,-0.266" />
+        <Button x:Name="btnBestuurder" 
+                Grid.Row="5" 
+                Grid.Column="1" 
+                Width="130" 
+                Margin="10,5,10,5" 
+                FontSize="13" 
+                Click="btnBestuurder_Click">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Kind="Search"
+                                             Margin="0,0,5,0"
+                                             Width="20" 
+                                             Height="20"
+                                             HorizontalAlignment="Left"
+                                             Foreground="#F9F7F7"
+                                             VerticalAlignment="Center"/>
+                <TextBlock Text="Zoek Bestuurder"
+                           Foreground="#F9F7F7"
+                           VerticalAlignment="Center"/>
             </StackPanel>
-        </StackPanel>
+        </Button>
+        <ComboBox Name="cbGeblokkeerd" Grid.Row="6" 
+                  Grid.Column="1" 
+                  Width="130" 
+                  Margin="10,5,10,5" 
+                  FontSize="16">
+            <ComboBoxItem>Ja</ComboBoxItem>
+            <ComboBoxItem IsSelected="True">Nee</ComboBoxItem>
+        </ComboBox>
+        <StackPanel Grid.Row="7" 
+                    Grid.Column="1"
+                    Orientation="Horizontal"
+                    Margin="10,5"
+                    Height="auto">
+            <ComboBox x:Name="cbBrandstoffen"
+                 Width="80" 
+                 Height="30"
+                 Margin="0,0,10,0" 
+                 FontSize="12"/>
+            <Button x:Name="btnVoegBrandstofToe"
+                    Click="btnVoegBrandstofToe_Click"
+                    Height="20" 
+                    Width="20">
+                <materialDesign:PackIcon Kind="Add"
+                                         Width="10" 
+                                         Height="10"                                
+                                         Foreground="#F9F7F7"/>
+            </Button>
+            <Button x:Name="btnVerwijderBrandstof"
+                    Click="btnVerwijderBrandstof_Click"
+                    Height="20" 
+                    Width="20"
+                    Margin="1,0,0,0">
+                <materialDesign:PackIcon Kind="Minus"
+                                         Width="10" 
+                                         Height="10"                                
+                                         Foreground="#F9F7F7"/>
 
-        <StackPanel Grid.Column="1"
-                    Grid.Row="0">
-            <StackPanel Margin="10">
-                <TextBox Width="100"
-                         Height="20"
-                         Margin="5"
-                         x:Name="txtVoertuigID"/>
-                <TextBox Width="100"
-                            FontSize="11"
-                            Margin="5"
-                            x:Name="txtMerk"/>
-                <TextBox Width="100"
-                         Height="20"
-                         Margin="5"
-                         x:Name="txtModel"/>
-                <TextBox Width="100"
-                         Height="20"
-                         Margin="5"
-                         x:Name="txtNummerplaat"/>
-                <TextBox Width="100"
-                         Height="20"
-                         Margin="5"
-                         x:Name="txtChassisnummer"/>
-                <TextBox Width="100"
-                         Height="20"
-                         Margin="5"
-                         x:Name="txtVoertuigType"/>
+            </Button>
+        </StackPanel>
+        <ListBox Name="lbBrandstof" Grid.Row="8" 
+                 Grid.Column="1" 
+                 Width="130" 
+                 Margin="10,7,11,10" 
+                 FontSize="16"/>
+
+        <!--Buttons End-->
+        <Button x:Name="btnUpdate"
+                Click="btnUpdate_Click"
+                Grid.Column="0"
+                Grid.Row="9"
+                Margin="5,5,5,5"
+                FontSize="15"
+                Height="40"
+                Width="130">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Kind="Update"
+                                             Margin="0,0,5,0"
+                                             Width="20" 
+                                             Height="20"
+                                             HorizontalAlignment="Left"
+                                             Foreground="#F9F7F7"
+                                             VerticalAlignment="Center"/>
+                <TextBlock Text="Update"
+                           Foreground="#F9F7F7"
+                           VerticalAlignment="Center"/>
+            </StackPanel>       
+        </Button>
+        <Button x:Name="btnAnnuleer"
+                Click="btnAnnuleer_Click"
+                Grid.Column="1"
+                Grid.Row="9"
+                Margin="5,5,5,5"
+                FontSize="15"
+                Height="40"
+                Width="130">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Kind="Cancel"
+                                             Margin="0,0,5,0"
+                                             Width="20" 
+                                             Height="20"
+                                             HorizontalAlignment="Left"
+                                             Foreground="#F9F7F7"
+                                             VerticalAlignment="Center"/>
+                <TextBlock Text="Annuleren"
+                           Foreground="#F9F7F7"
+                           VerticalAlignment="Center"/>
             </StackPanel>
-        </StackPanel>
-
-        <StackPanel Grid.Row="1"
-                    Grid.ColumnSpan="2"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-            <Button Content="Update"
-                    x:Name="btnUpdate"
-                    Click="btnUpdate_Click"
-                    Margin="5"
-                    Height="25"
-                    Width="100"/>
-            <Button Content="Annuleren"
-                    x:Name="btnAnnuleren"
-                    Click="btnAnnuleren_Click"
-                    Margin="5"
-                    Height="25"
-                    Width="100"/>
-        </StackPanel>
+        </Button>
     </Grid>
 </Window>

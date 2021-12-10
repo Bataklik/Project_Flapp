@@ -3,10 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Flapp_PL.View.Windows.TankkaartWindows"
+        xmlns:local="clr-namespace:Flapp_PL.View.Windows.TankkaartWindows" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         ResizeMode="NoResize"
-        Title="TankkaartZoekBestuurderWindow" Height="200" Width="525">
+        Title="Flapp: Tankkaart - Zoek Bestuurder" Height="200" Width="525">
     <Window.Resources>
         <!-- Button Style-->
         <Style TargetType="Button">
@@ -33,7 +33,6 @@
             <ColumnDefinition Width="150"/>
             <ColumnDefinition Width="150"/>
         </Grid.ColumnDefinitions>
-
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
@@ -41,10 +40,7 @@
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
 
-        <StackPanel>
-
-        </StackPanel>
-
+        <!--ListBox-->
         <ListBox x:Name="lstBestuurders"
                  Grid.RowSpan="3"
                  Margin="5,9,5,0"
@@ -61,20 +57,19 @@
             </ListBox.ContextMenu>
         </ListBox>
 
+        <!--TextBlocks-->
         <TextBlock Text="Naam:"
                    Grid.Row="0"
                    Grid.Column="1" 
                    FontSize="16" 
                    VerticalAlignment="Center" 
                    Margin="10,0"/>
-
         <TextBlock Text="Voornaam:"
                    Grid.Row="1"
                    Grid.Column="1" 
                    FontSize="16" 
                    VerticalAlignment="Center" 
                    Margin="10,0"/>
-
         <TextBlock Text="Geboortedatum:"  
                    Grid.Column="1" 
                    Grid.Row="2" 
@@ -82,20 +77,19 @@
                    VerticalAlignment="Center" 
                    Margin="10,0"/>
 
+        <!--Input fields-->
         <TextBox Name="txtNaam" 
                  Grid.Row="0" 
                  Grid.Column="2" 
                  Width="130" 
                  Margin="10,5,10,5" 
                  FontSize="16" />
-
         <TextBox Name="txtVoornaam" 
                  Grid.Row="1" 
                  Grid.Column="2" 
                  Width="130" 
                  Margin="10,5,10,5" 
                  FontSize="16" />
-
         <DatePicker Name="dpGeboortedatum" 
                  Grid.Row="2" 
                  Grid.Column="2" 
@@ -103,18 +97,44 @@
                  Margin="10,5,10,5" 
                  FontSize="16" />
 
-        <Button Content="Zoek Bestuurder" x:Name="btnZoekBestuurder" 
+        <!--End buttons-->
+        <Button  x:Name="btnZoekBestuurder" 
                  Grid.Row="3" 
                  Grid.Column="1" 
-                 Width="115" 
+                 Width="130" 
                  Margin="10,5,10,5" 
-                 FontSize="13" Click="btnZoekBestuurder_Click" />
-
-        <Button Content="Annuleer" x:Name="btnAnnuleer" 
+                 FontSize="13" Click="btnZoekBestuurder_Click">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Kind="Search"
+                                             Margin="0,0,5,0"
+                                             Width="20" 
+                                             Height="20"
+                                             HorizontalAlignment="Left"
+                                             Foreground="#F9F7F7"
+                                             VerticalAlignment="Center"/>
+                <TextBlock Text="Zoek Bestuurder"
+                           Foreground="#F9F7F7"
+                           VerticalAlignment="Center"/>
+            </StackPanel>
+        </Button>
+        <Button  x:Name="btnAnnuleer" 
                  Grid.Row="3" 
                  Grid.Column="2" 
-                 Width="115" 
+                 Width="130" 
                  Margin="10,5,10,5" 
-                 FontSize="13" Click="btnAnnuleer_Click" />
+                 FontSize="13" Click="btnAnnuleer_Click">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Kind="Cancel"
+                                             Margin="0,0,5,0"
+                                             Width="20" 
+                                             Height="20"
+                                             HorizontalAlignment="Left"
+                                             Foreground="#F9F7F7"
+                                             VerticalAlignment="Center"/>
+                <TextBlock Text="Annuleren"
+                           Foreground="#F9F7F7"
+                           VerticalAlignment="Center"/>
+            </StackPanel>
+        </Button>
     </Grid>
 </Window>

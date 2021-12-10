@@ -21,11 +21,25 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
             InitializeComponent();
         }
 
+        private void btnBestuurder_Click(object sender, RoutedEventArgs e) {
+            TankkaartUpdateWindow tuw = this;
+            TankkaartZoekBestuurderWindow tzbw = new TankkaartZoekBestuurderWindow(tuw);
+            tzbw.ShowDialog();
+        }
+
+        private void btnVoegBrandstofToe_Click(object sender, RoutedEventArgs e) {
+
+        }
+
+        private void btnVerwijderBrandstof_Click(object sender, RoutedEventArgs e) {
+
+        }
+
         private void btnUpdate_Click(object sender, RoutedEventArgs e) {
 
         }
 
-        private void btnAnnuleren_Click(object sender, RoutedEventArgs e) {
+        private void btnAnnuleer_Click(object sender, RoutedEventArgs e) {
 
         }
     }

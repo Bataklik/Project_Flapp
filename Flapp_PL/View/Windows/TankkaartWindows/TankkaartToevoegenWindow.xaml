@@ -9,7 +9,7 @@
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         Title="Flapp: Tankkaart Toevoegen" 
-        Height="500" 
+        Height="520" 
         Width="320">
     <Window.Resources>
         <!-- Button Style-->
@@ -37,11 +37,11 @@
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="80"/>
-            <RowDefinition Height="35"/>
+            <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="100"/>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
@@ -104,13 +104,26 @@
                  Width="130" 
                  Margin="10,17,10,17" 
                  FontSize="16" RenderTransformOrigin="0.526,-0.266" />
-        <Button Content="Zoek Bestuurder" 
-                x:Name="btnBestuurder" 
+        <Button x:Name="btnBestuurder" 
                 Grid.Row="4" 
                 Grid.Column="1" 
                 Width="130" 
                 Margin="10,5,10,5" 
-                FontSize="12" Click="btnBestuurder_Click" />
+                FontSize="13" 
+                Click="btnBestuurder_Click">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Kind="Search"
+                                             Margin="0,0,5,0"
+                                             Width="20" 
+                                             Height="20"
+                                             HorizontalAlignment="Left"
+                                             Foreground="#F9F7F7"
+                                             VerticalAlignment="Center"/>
+                <TextBlock Text="Zoek Bestuurder"
+                           Foreground="#F9F7F7"
+                           VerticalAlignment="Center"/>
+            </StackPanel>
+        </Button>
         <ComboBox Name="cbGeblokkeerd" Grid.Row="5" 
                   Grid.Column="1" 
                   Width="130" 
@@ -157,21 +170,47 @@
                  FontSize="16"/>
 
         <!--Buttons End-->
-        <Button Content="Voeg toe"
-                x:Name="btnVoegtoe"
+        <Button x:Name="btnVoegtoe"
                 Click="btnVoegtoe_Click"
                 Grid.Column="0"
                 Grid.Row="8"
                 Margin="5,5,5,5"
-                Height="25"
-                Width="130"/>
-        <Button Content="Annuleer"
-                x:Name="btnAnnuleer"
+                FontSize="15"
+                Height="40"
+                Width="130">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Kind="Add"
+                                             Margin="0,0,5,0"
+                                             Width="20" 
+                                             Height="20"
+                                             HorizontalAlignment="Left"
+                                             Foreground="#F9F7F7"
+                                             VerticalAlignment="Center"/>
+                <TextBlock Text="Voeg Toe"
+                           Foreground="#F9F7F7"
+                           VerticalAlignment="Center"/>
+            </StackPanel>
+        </Button>
+        <Button x:Name="btnAnnuleer"
                 Click="btnAnnuleer_Click"
                 Grid.Column="1"
                 Grid.Row="8"
                 Margin="5,5,5,5"
-                Height="25"
-                Width="130"/>
+                FontSize="15"
+                Height="40"
+                Width="130">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Kind="Cancel"
+                                             Margin="0,0,5,0"
+                                             Width="20" 
+                                             Height="20"
+                                             HorizontalAlignment="Left"
+                                             Foreground="#F9F7F7"
+                                             VerticalAlignment="Center"/>
+                <TextBlock Text="Annuleren"
+                           Foreground="#F9F7F7"
+                           VerticalAlignment="Center"/>
+            </StackPanel>
+        </Button>
     </Grid>
 </Window>
