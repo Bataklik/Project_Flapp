@@ -49,5 +49,10 @@ namespace Flapp_PL.View.UserControls {
             TankkaartUpdateWindow tuw = new TankkaartUpdateWindow();
             tuw.ShowDialog();
         }
+
+        private void VerwijderBestuurder_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

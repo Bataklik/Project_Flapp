@@ -77,5 +77,10 @@ namespace Flapp_PL.View.UserControls
             //main.wpUserControl.Children.Add(new VoertuigUpdatenUC(v, main));
             new VoertuigUpdaten(v).ShowDialog();
         }
+
+        private void VerwijderBestuurder_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

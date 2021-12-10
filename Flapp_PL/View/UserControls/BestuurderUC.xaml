@@ -6,7 +6,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:Flapp_PL.View.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="540" 
+             d:DesignHeight="520" 
              d:DesignWidth="600">
     <UserControl.Resources>
         <!-- Button Style-->
@@ -29,12 +29,12 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid Margin="10">
-        <StackPanel Grid.Column="0">
+    <Grid>
+        <StackPanel Margin="5">
             <ListBox x:Name="lstbBestuurders"
                  Margin="10"
-                 Width="530"
-                 Height="300">
+                 Width="300"
+                 Height="400">
                 <ListBox.ContextMenu>
                     <ContextMenu>
                         <MenuItem x:Name="UpdateBestuurder" 
