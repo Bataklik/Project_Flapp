@@ -66,11 +66,34 @@
         <TextBox Name="txtKleur" Grid.Row="7" Grid.Column="1" Margin="5,0,5,0" VerticalAlignment="Center" FontSize="16" Height="23" />
         <TextBox Name="txtDeuren" Grid.Row="8" Grid.Column="1" Margin="5,0,5,0" VerticalAlignment="Center" FontSize="16" Height="23" />
         <TextBox Name="txtBestuurder" Grid.Row="1" Grid.Column="3" Margin="5,0,50,0" VerticalAlignment="Center" FontSize="16" Height="24"/>
-        <ListBox Name="lstBrandstoftypes" Grid.Row="2" Grid.Column="3" Grid.RowSpan="4" Margin="5,5,50,5" SelectionMode="Single">
+        <StackPanel Grid.Row="2" 
+                    Grid.Column="3"
+                    Orientation="Horizontal"
+                    Margin="5,5"
+                    Height="auto">
+            <ComboBox Loaded="cmbBrandstoffen_Loaded" 
+                      x:Name="cmbBrandstoffen"
+                      Width="128" 
+                      Height="30"
+                      Margin="0,0,5,0" 
+                      FontSize="14"/>
+            <Button x:Name="btnAddBrandstof"
+                    Click="btnAddBrandstof_Click"
+                    Height="20" 
+                    Width="20" Content="+">
+            </Button>
+            <Button x:Name="btnRemoveBrandstof"
+                    Click="btnRemoveBrandstof_Click"
+                    Height="20" 
+                    Width="20"
+                    Margin="1,0,0,0" Content="-">
+            </Button>
+        </StackPanel>
+        <ListBox Name="lstBrandstoftypes" Grid.Row="3" Grid.Column="3" Grid.RowSpan="3" Margin="5,4,137,5" SelectionMode="Single">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Vertical">
-                        <TextBlock Text="{Binding Path=Brandstof}" />
+                        <TextBlock Text="{Binding Path=Naam}" />
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>

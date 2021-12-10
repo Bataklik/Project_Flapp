@@ -3,7 +3,6 @@ using Flapp_BLL.Models;
 using Flapp_DAL.Repository;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,6 +14,8 @@ namespace Flapp_PL.View.Windows.BestuurderWindows
         private BestuurderManager _bestuurderManager;
         private RijbewijsManager _rijbewijsManager;
         private AdresManager _adresManager;
+
+        private Bestuurder _bestuurder;
         public VoegBestuurderToe()
         {
             InitializeComponent();
@@ -27,28 +28,29 @@ namespace Flapp_PL.View.Windows.BestuurderWindows
         {
             if (string.IsNullOrEmpty(txtNaam.Text) || string.IsNullOrEmpty(txtVoornaam.Text) || cbGeslacht.SelectedItem == null || dpGeboorte.SelectedDate == null || string.IsNullOrWhiteSpace(txtRijksregister.Text)) { MessageBox.Show("Er zijn velden niet ingevuld!", "Velden leeg!", MessageBoxButton.OK, MessageBoxImage.Error); return; }
             Geslacht s = cbGeslacht.SelectedItem.ToString() == "Man" ? Geslacht.M : Geslacht.V;
+            Adres a = null;
+            Bestuurder bestuurder = null;
             try
             {
-                Adres a = null;
-                Bestuurder bestuurder = null;
-                if (!string.IsNullOrWhiteSpace(txtStraat.Text) || !string.IsNullOrWhiteSpace(txtHuisnummer.Text) || !string.IsNullOrWhiteSpace(txtStad.Text) || !string.IsNullOrWhiteSpace(txtPostcode.Text))
-                {
-                    a = new Adres(txtStraat.Text, txtHuisnummer.Text, txtStad.Text, int.Parse(txtPostcode.Text));
-                    if (_adresManager.BestaatAdres(a)) { a = _adresManager.GeefAdres(a); }
-                    else
-                    {
-                        _adresManager.VoegAdresToe(a);
-                        a = _adresManager.GeefAdres(a);
-                    }
-                    bestuurder = new Bestuurder(txtNaam.Text, txtVoornaam.Text, s, a, dpGeboorte.Text, txtRijksregister.Text, lstRijbewijzen.Items.Cast<Rijbewijs>().ToList());
-                    // Rijbewijs toevoegen aan DB
-                    bestuurder.ZetId(_bestuurderManager.VoegBestuurderToe(bestuurder));
-                }
-                else
-                {
-                    bestuurder = new Bestuurder(txtNaam.Text, txtVoornaam.Text, s, dpGeboorte.Text, txtRijksregister.Text, lstRijbewijzen.Items.Cast<Rijbewijs>().ToList());
-                    bestuurder.ZetId(_bestuurderManager.VoegBestuurderToeZonderAdres(bestuurder));
-                }
+
+                //if (!string.IsNullOrWhiteSpace(txtStraat.Text) || !string.IsNullOrWhiteSpace(txtHuisnummer.Text) || !string.IsNullOrWhiteSpace(txtStad.Text) || !string.IsNullOrWhiteSpace(txtPostcode.Text))
+                //{
+                //    a = new Adres(txtStraat.Text.Trim(), txtHuisnummer.Text.Trim(), txtStad.Text.Trim(), int.Parse(txtPostcode.Text.Trim()));
+                //    if (_adresManager.BestaatAdres(a)) { a = _adresManager.GeefAdres(a); }
+                //    else
+                //    {
+                //        _adresManager.VoegAdresToe(a);
+                //        a = _adresManager.GeefAdres(a);
+                //    }
+                //    bestuurder = new Bestuurder(txtNaam.Text.Trim(), txtVoornaam.Text.Trim(), s, a, dpGeboorte.Text, txtRijksregister.Text.Trim(), lstRijbewijzen.Items.Cast<Rijbewijs>().ToList());
+                //    // Rijbewijs toevoegen aan DB
+                //    bestuurder.ZetId(_bestuurderManager.VoegBestuurderToe(bestuurder));
+                //}
+                //else
+                //{
+                //    bestuurder = new Bestuurder(txtNaam.Text, txtVoornaam.Text, s, dpGeboorte.Text, txtRijksregister.Text, lstRijbewijzen.Items.Cast<Rijbewijs>().ToList());
+                //    bestuurder.ZetId(_bestuurderManager.VoegBestuurderToeZonderAdres(bestuurder));
+                //}
 
                 if (bestuurder.Rijbewijzen.Count > 0)
                 {
@@ -110,11 +112,6 @@ namespace Flapp_PL.View.Windows.BestuurderWindows
             dpGeboorte.Text = string.Empty;
             cbRijbewijzen.SelectedIndex = -1;
             lstRijbewijzen.Items.Clear();
-
-            txtStraat.Text = string.Empty;
-            txtHuisnummer.Text = string.Empty;
-            txtStad.Text = string.Empty;
-            txtPostcode.Text = string.Empty;
         }
     }
 }

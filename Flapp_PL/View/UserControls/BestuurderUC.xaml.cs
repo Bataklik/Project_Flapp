@@ -22,69 +22,63 @@ namespace Flapp_PL.View.UserControls
             InitializeComponent();
             _bestuurderManager = new BestuurderManager(new BestuurderRepo(Application.Current.Properties["User"].ToString()));
 
-            laadBestuurders();
+            LaadBestuurders();
         }
-
         public BestuurderUC(MainWindow main)
         {
             InitializeComponent();
             _bestuurderManager = new BestuurderManager(new BestuurderRepo(Application.Current.Properties["User"].ToString()));
             _main = main;
-            laadBestuurders();
+            LaadBestuurders();
         }
-
-
         public BestuurderUC(string naam, string voornaam, DateTime datum)
         {
             InitializeComponent();
             _bestuurderManager = new BestuurderManager(new BestuurderRepo(ConfigurationManager.ConnectionStrings["connStringTD"].ConnectionString));
-
-            laadBestuurders(naam, voornaam, datum);
+            LaadBestuurders();
         }
 
-        private void laadBestuurders()
+        public void LaadBestuurders()
         {
             List<Bestuurder> bestuurders = new List<Bestuurder>();
             try
             {
-                foreach (KeyValuePair<int, Bestuurder> v in _bestuurderManager.GeefAlleBestuurders(10))
+                foreach (KeyValuePair<int, Bestuurder> v in _bestuurderManager.GeefAlleBestuurders(20))
                 {
                     bestuurders.Add(v.Value);
                 }
             }
-            catch (Exception ex) { throw new Exception(ex.Message, ex); }
+            catch (Exception ex) { MessageBox.Show(ex.Message); return; }
             lstbBestuurders.ItemsSource = bestuurders;
         }
-
-        private void laadBestuurders(string naam, string voornaam, DateTime datum)
+        public void LaadAlleBestuurdersOpNaam(string naam)
         {
             List<Bestuurder> bestuurders = new List<Bestuurder>();
             try
             {
-                List<Bestuurder> sortBestuurder = _bestuurderManager.GeefAlleBestuurders().Where(b => (b.Value.Naam == naam) && (b.Value.Voornaam == voornaam) && (b.Value.Geboortedatum.ToShortDateString() == datum.ToShortDateString())).Select(b => b.Value).ToList();
-                foreach (Bestuurder v in sortBestuurder)
+                foreach (Bestuurder v in _bestuurderManager.GeefAlleBestuurdersOpNaam(naam).Values.ToList())
                 {
                     bestuurders.Add(v);
                 }
             }
-            catch (Exception ex) { throw new Exception(ex.Message, ex); }
+            catch (Exception ex) { MessageBox.Show(ex.Message); return; }
             lstbBestuurders.ItemsSource = bestuurders;
         }
 
         private void btnZoek_Click(object sender, RoutedEventArgs e)
         {
             BestuurderUC bUC = this;
-            new ZoekBestuurderWindow(_main, bUC).Show();
+            new ZoekBestuurderWindow(_main, bUC).ShowDialog();
         }
 
         private void btnVoegToe_Click(object sender, RoutedEventArgs e)
         {
-            new VoegBestuurderToe().Show();
+            new VoegBestuurderToe().ShowDialog();
         }
 
         private void UpdateBestuurder_Click(object sender, RoutedEventArgs e)
         {
-
+            new UpdateBestuurderWindow((Bestuurder)lstbBestuurders.SelectedItem).ShowDialog();
         }
 
         private void VerwijderBestuurder_Click(object sender, RoutedEventArgs e)

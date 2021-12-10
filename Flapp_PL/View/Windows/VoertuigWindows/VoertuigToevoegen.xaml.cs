@@ -5,6 +5,8 @@ using System;
 using System.Windows;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Flapp_PL.View.Windows.VoertuigWindow
 {
@@ -32,13 +34,14 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
             laadMerk();
         }
         private void btnToevoegen_Click(object sender, RoutedEventArgs e)
-        {
-            string t = cmbType.SelectedItem.ToString().ToUpper();
-            List<Brandstof> b = new List<Brandstof>(_brandstoffen);
-            Voertuig v = new Voertuig(cmbMerk.Text.ToUpper(), cmbModel.Text.ToUpper(), txtChassis.Text.ToUpper(), txtNummerplaat.Text.ToUpper(), b, t, txtKleur.Text.ToUpper(), Convert.ToInt32(txtDeuren.Text));
+        {           
             try
             {
-                _voertuigManager.VoegVoertuigToe(v);
+                Voertuig voertuig = null;
+                voertuig = new Voertuig(cmbMerk.Text.ToUpper(), cmbModel.Text.ToUpper(), txtChassis.Text.ToUpper(), txtNummerplaat.Text.ToUpper(), lstBrandtof.Items.Cast<Brandstof>().ToList(), cmbType.SelectedItem.ToString().ToUpper(), txtKleur.Text.ToUpper(), Convert.ToInt32(txtDeuren.Text));
+                voertuig.ZetVoeruigID(_voertuigManager.VoegVoertuigToe(voertuig));
+                _brandstofmanager.VoegBrandstofToeAanVoertuig(voertuig.VoertuigID, voertuig.Brandstof);                 
+                
                 MessageBox.Show("Voertuig is toegevoegd!");
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
@@ -72,13 +75,7 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
             merken.Insert(0, "");
             //cmbMerk.SelectedIndex = 0;
             cmbMerk.ItemsSource = merken;
-        }
-        
-        private void laadBrandstoftypes()
-        {
-            if (_brandstoffen == null && _brandstoffen.Count == 0) { lstBrandtof.ItemsSource = null; return; }
-            lstBrandtof.ItemsSource = _brandstoffen;
-        }       
+        }             
         private void laadVoertuigtypes()
         {
             try
@@ -93,7 +90,6 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
             }
             catch (Exception ex) { throw new Exception(ex.Message, ex); }
         }
-
         private void cmbMerk_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             if(cmbMerk.Text == "")
@@ -122,7 +118,6 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
-
         private void btnAddBrandstof_Click(object sender, RoutedEventArgs e)
         {
             if ((Brandstof)cmbBrandstoffen.SelectedItem == null) { MessageBox.Show("U heeft geen brandstof aangeduid!"); return; }
@@ -135,6 +130,12 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
             if ((Brandstof)lstBrandtof.SelectedItem == null) { MessageBox.Show("U heeft geen brandstof aangeduid!"); return; }
             if (!lstBrandtof.Items.Contains((Brandstof)lstBrandtof.SelectedItem)) { MessageBox.Show("Brandstof staat niet op de lijst!"); return; }
             lstBrandtof.Items.Remove((Brandstof)cmbBrandstoffen.SelectedItem);
+        }
+
+        private void txtDeuren_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }
