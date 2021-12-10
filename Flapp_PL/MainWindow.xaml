@@ -11,7 +11,7 @@
         ResizeMode="NoResize"
         Title="Flapp: Dashboard" 
         Height="540" 
-        Width="1100">
+        Width="900">
     <Window.Resources>
         <!-- Button Style-->
         <Style TargetType="Button">

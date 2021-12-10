@@ -77,8 +77,38 @@ namespace Flapp_BLL.Managers
             }
             catch (Exception ex) { throw new BestuurderManagerException("BestuurderManager: GeefAlleBestuurdersOpNaam", ex); }
         }
-
-
+        public Dictionary<int,Bestuurder> GeefAlleBestuurdersOpVoornaam(string voornaam)
+        {
+            try
+            {
+                return _repo.GeefAlleBestuurdersOpVoornaam(voornaam);
+            }
+            catch (Exception ex) { throw new BestuurderManagerException("BestuurderManager: GeefAlleBestuurdersOpVoornaam", ex); }
+        }
+        public Dictionary<int, Bestuurder> GeefAlleBestuurdersOpDatum(DateTime date)
+        {
+            try
+            {
+                return _repo.GeefAlleBestuurdersOpDatum(date);
+            }
+            catch (Exception ex) { throw new BestuurderManagerException("BestuurderManager: GeefAlleBestuurdersOpDatum", ex); }
+        }
+        public Dictionary<int, Bestuurder> GeefAlleBestuurdersOpNaamVoornaam(string naam, string voornaam)
+        {
+            try
+            {
+                return _repo.GeefAlleBestuurdersOpNaamVoornaam(naam,voornaam);
+            }
+            catch (Exception ex) { throw new BestuurderManagerException("BestuurderManager: GeefAlleBestuurdersOpDatum", ex); }
+        }
+        public Dictionary<int, Bestuurder> GeefAlleBestuurdersOpNaamVoornaamDate(string naam, string voornaam, DateTime date)
+        {
+            try
+            {
+                return _repo.GeefAlleBestuurdersOpNaamVoornaamDatum(naam, voornaam,date);
+            }
+            catch (Exception ex) { throw new BestuurderManagerException("BestuurderManager: GeefAlleBestuurdersOpNaamVoornaamDate", ex); }
+        }
 
         public IReadOnlyList<Bestuurder> GeefAlleBestuurdersZonderTankkaarten()
         {

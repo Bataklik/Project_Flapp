@@ -17,25 +17,53 @@ namespace Flapp_PL.View.Windows
 
         private void btnZoek_Click(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(txtNaam.Text) && !string.IsNullOrWhiteSpace(txtVoornaam.Text) && dpGeboortedatum.SelectedDate != null)
+            if (string.IsNullOrWhiteSpace(txtNaam.Text) && string.IsNullOrWhiteSpace(txtVoornaam.Text) && dpGeboortedatum.SelectedDate == null)
             {
                 main.Show();
-                main.wpUserControl.Children.Remove(bUC);
-                main.wpUserControl.Children.Add(new BestuurderUC(txtNaam.Text, txtVoornaam.Text, (DateTime)dpGeboortedatum.SelectedDate));            
+                bUC.LaadBestuurders();
                 Close();
                 return;
             }
+            // Naam Voornaam Date
+            else if (!string.IsNullOrWhiteSpace(txtNaam.Text) && !string.IsNullOrWhiteSpace(txtVoornaam.Text) && dpGeboortedatum.SelectedDate != null)
+            {
+                main.Show();
+                bUC.LaadAlleBestuurdersOpNaamVoornaamDate(txtNaam.Text, txtVoornaam.Text, (DateTime)dpGeboortedatum.SelectedDate);
+                Close();
+                return;
+            }
+            // Naam Voornaam
+            else if (!string.IsNullOrWhiteSpace(txtNaam.Text) && !string.IsNullOrWhiteSpace(txtVoornaam.Text) && dpGeboortedatum.SelectedDate == null)
+            {
+                main.Show();
+                bUC.LaadAlleBestuurdersOpNaamVoornaam(txtNaam.Text,txtVoornaam.Text);
+                Close();
+                return;
+            }
+            // Naam
             else if (!string.IsNullOrWhiteSpace(txtNaam.Text) && string.IsNullOrWhiteSpace(txtVoornaam.Text) && dpGeboortedatum.SelectedDate == null)
             {
                 main.Show();
                 bUC.LaadAlleBestuurdersOpNaam(txtNaam.Text);
-                //main.wpUserControl.Children.Remove(bUC);
-                //main.wpUserControl.Children.Add(new BestuurderUC(txtNaam.Text, txtVoornaam.Text, (DateTime)dpGeboortedatum.SelectedDate));
-                //Close();
                 Close();
                 return;
             }
-            MessageBox.Show("Velden zijn leeg!");
+            // Voornaam
+            else if (string.IsNullOrWhiteSpace(txtNaam.Text) && !string.IsNullOrWhiteSpace(txtVoornaam.Text) && dpGeboortedatum.SelectedDate == null)
+            {
+                main.Show();
+                bUC.LaadAlleBestuurdersOpVoornaam(txtVoornaam.Text);
+                Close();
+                return;
+            }
+            // Date
+            else if (string.IsNullOrWhiteSpace(txtNaam.Text) && string.IsNullOrWhiteSpace(txtVoornaam.Text) && dpGeboortedatum.SelectedDate != null)
+            {
+                main.Show();
+                bUC.LaadAlleBestuurdersOpDatum((DateTime)dpGeboortedatum.SelectedDate);
+                Close();
+                return;
+            }
         }
 
         private void btnAnnuleren_Click(object sender, RoutedEventArgs e)

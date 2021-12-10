@@ -429,22 +429,175 @@ namespace Flapp_DAL.Repository
 
         public Dictionary<int, Bestuurder> GeefAlleBestuurdersOpVoornaam(string voornaam)
         {
-            throw new NotImplementedException();
+            SqlConnection conn = new SqlConnection(_connString);
+            Dictionary<int, Bestuurder> bestuurders = new Dictionary<int, Bestuurder>();
+            string query = "USE Project_Flapp_DB; SELECT TOP (20) * FROM Bestuurder LEFT JOIN Rijbewijs_Bestuurder ON Bestuurder.bestuurderId = Rijbewijs_Bestuurder.bestuurderId LEFT JOIN Rijbewijs ON Rijbewijs_Bestuurder.rijbewijsId = Rijbewijs.rijbewijsId LEFT JOIN Adres ON Bestuurder.adresId = Adres.adresId WHERE Bestuurder.voornaam LIKE @voornaam";
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
+                cmd.Parameters.Add(new SqlParameter("@voornaam", SqlDbType.VarChar));
+                cmd.CommandText = query;
+                cmd.Parameters["@voornaam"].Value = $"{voornaam}%";
+                conn.Open();
+                try
+                {
+                    SqlDataReader r = cmd.ExecuteReader();
+                    while (r.Read())
+                    {
+                        if (bestuurders.ContainsKey((int)r["bestuurderId"]))
+                        {
+                            Bestuurder dicBestuurder = bestuurders[(int)r["bestuurderId"]];
+                            dicBestuurder.Rijbewijzen.Add(new Rijbewijs(r[12].ToString()));
+                        }
+                        else
+                        {
+                            Adres adres = null;
+                            if (!r.IsDBNull(r.GetOrdinal("adresId")) && !r.IsDBNull(r.GetOrdinal("straat")) && !r.IsDBNull(r.GetOrdinal("huisnummer")) && !r.IsDBNull(r.GetOrdinal("stad")) && !r.IsDBNull(r.GetOrdinal("postcode")))
+                            {
+                                adres = new Adres((int)r["adresId"], (string)r["straat"], (string)r["huisnummer"], (string)r["stad"], (int)r["postcode"]);
+                            }
+                            Geslacht geslacht = (bool)r["geslacht"] ? Geslacht.M : Geslacht.V;
+                            List<Rijbewijs> rijbewijzen = new List<Rijbewijs> { new Rijbewijs(r[12].ToString()) };
+                            Bestuurder bestuurder = new Bestuurder((int)r["bestuurderId"], (string)r["naam"], (string)r["voornaam"], geslacht, adres, Convert.ToDateTime(r["geboortedatum"]).ToString("dd/MM/yyyy"), (string)r["rijksregister"], rijbewijzen, null, null);
+                            bestuurders.Add(bestuurder.Id, bestuurder);
+                        }
+                    }
+                }
+                catch (Exception ex) { throw new Exception(ex.Message); }
+                finally { conn.Close(); }
+            }
+            return bestuurders;
         }
 
         public Dictionary<int, Bestuurder> GeefAlleBestuurdersOpDatum(DateTime geboorte)
         {
-            throw new NotImplementedException();
+            SqlConnection conn = new SqlConnection(_connString);
+            Dictionary<int, Bestuurder> bestuurders = new Dictionary<int, Bestuurder>();
+            string query = "USE Project_Flapp_DB; SELECT TOP (20) * FROM Bestuurder LEFT JOIN Rijbewijs_Bestuurder ON Bestuurder.bestuurderId = Rijbewijs_Bestuurder.bestuurderId LEFT JOIN Rijbewijs ON Rijbewijs_Bestuurder.rijbewijsId = Rijbewijs.rijbewijsId LEFT JOIN Adres ON Bestuurder.adresId = Adres.adresId WHERE Bestuurder.geboortedatum = @date";
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
+                cmd.Parameters.Add(new SqlParameter("@date", SqlDbType.Date));
+                cmd.CommandText = query;
+                cmd.Parameters["@date"].Value = geboorte;
+                conn.Open();
+                try
+                {
+                    SqlDataReader r = cmd.ExecuteReader();
+                    while (r.Read())
+                    {
+                        if (bestuurders.ContainsKey((int)r["bestuurderId"]))
+                        {
+                            Bestuurder dicBestuurder = bestuurders[(int)r["bestuurderId"]];
+                            dicBestuurder.Rijbewijzen.Add(new Rijbewijs(r[12].ToString()));
+                        }
+                        else
+                        {
+                            Adres adres = null;
+                            if (!r.IsDBNull(r.GetOrdinal("adresId")) && !r.IsDBNull(r.GetOrdinal("straat")) && !r.IsDBNull(r.GetOrdinal("huisnummer")) && !r.IsDBNull(r.GetOrdinal("stad")) && !r.IsDBNull(r.GetOrdinal("postcode")))
+                            {
+                                adres = new Adres((int)r["adresId"], (string)r["straat"], (string)r["huisnummer"], (string)r["stad"], (int)r["postcode"]);
+                            }
+                            Geslacht geslacht = (bool)r["geslacht"] ? Geslacht.M : Geslacht.V;
+                            List<Rijbewijs> rijbewijzen = new List<Rijbewijs> { new Rijbewijs(r[12].ToString()) };
+                            Bestuurder bestuurder = new Bestuurder((int)r["bestuurderId"], (string)r["naam"], (string)r["voornaam"], geslacht, adres, Convert.ToDateTime(r["geboortedatum"]).ToString("dd/MM/yyyy"), (string)r["rijksregister"], rijbewijzen, null, null);
+                            bestuurders.Add(bestuurder.Id, bestuurder);
+                        }
+                    }
+                }
+                catch (Exception ex) { throw new Exception(ex.Message); }
+                finally { conn.Close(); }
+            }
+            return bestuurders;
         }
 
         public Dictionary<int, Bestuurder> GeefAlleBestuurdersOpNaamVoornaam(string naam, string voornaam)
         {
-            throw new NotImplementedException();
+            SqlConnection conn = new SqlConnection(_connString);
+            Dictionary<int, Bestuurder> bestuurders = new Dictionary<int, Bestuurder>();
+            string query = "USE Project_Flapp_DB; SELECT TOP (20) * FROM Bestuurder LEFT JOIN Rijbewijs_Bestuurder ON Bestuurder.bestuurderId = Rijbewijs_Bestuurder.bestuurderId LEFT JOIN Rijbewijs ON Rijbewijs_Bestuurder.rijbewijsId = Rijbewijs.rijbewijsId LEFT JOIN Adres ON Bestuurder.adresId = Adres.adresId WHERE Bestuurder.naam LIKE @naam AND Bestuurder.voornaam LIKE @voornaam;";
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
+                cmd.Parameters.Add(new SqlParameter("@naam", SqlDbType.VarChar));
+                cmd.Parameters.Add(new SqlParameter("@voornaam", SqlDbType.VarChar));
+                cmd.CommandText = query;
+                cmd.Parameters["@naam"].Value = $"{naam}%";
+                cmd.Parameters["@voornaam"].Value = $"{voornaam}%";
+
+                conn.Open();
+                try
+                {
+                    SqlDataReader r = cmd.ExecuteReader();
+                    while (r.Read())
+                    {
+                        if (bestuurders.ContainsKey((int)r["bestuurderId"]))
+                        {
+                            Bestuurder dicBestuurder = bestuurders[(int)r["bestuurderId"]];
+                            dicBestuurder.Rijbewijzen.Add(new Rijbewijs(r[12].ToString()));
+                        }
+                        else
+                        {
+                            Adres adres = null;
+                            if (!r.IsDBNull(r.GetOrdinal("adresId")) && !r.IsDBNull(r.GetOrdinal("straat")) && !r.IsDBNull(r.GetOrdinal("huisnummer")) && !r.IsDBNull(r.GetOrdinal("stad")) && !r.IsDBNull(r.GetOrdinal("postcode")))
+                            {
+                                adres = new Adres((int)r["adresId"], (string)r["straat"], (string)r["huisnummer"], (string)r["stad"], (int)r["postcode"]);
+                            }
+                            Geslacht geslacht = (bool)r["geslacht"] ? Geslacht.M : Geslacht.V;
+                            List<Rijbewijs> rijbewijzen = new List<Rijbewijs> { new Rijbewijs(r[12].ToString()) };
+                            Bestuurder bestuurder = new Bestuurder((int)r["bestuurderId"], (string)r["naam"], (string)r["voornaam"], geslacht, adres, Convert.ToDateTime(r["geboortedatum"]).ToString("dd/MM/yyyy"), (string)r["rijksregister"], rijbewijzen, null, null);
+                            bestuurders.Add(bestuurder.Id, bestuurder);
+                        }
+                    }
+                }
+                catch (Exception ex) { throw new Exception(ex.Message); }
+                finally { conn.Close(); }
+            }
+            return bestuurders;
         }
 
         public Dictionary<int, Bestuurder> GeefAlleBestuurdersOpNaamVoornaamDatum(string naam, string voornaam, DateTime geboorte)
         {
-            throw new NotImplementedException();
+            SqlConnection conn = new SqlConnection(_connString);
+            Dictionary<int, Bestuurder> bestuurders = new Dictionary<int, Bestuurder>();
+            string query = "USE Project_Flapp_DB; SELECT TOP (20) * FROM Bestuurder LEFT JOIN Rijbewijs_Bestuurder ON Bestuurder.bestuurderId = Rijbewijs_Bestuurder.bestuurderId LEFT JOIN Rijbewijs ON Rijbewijs_Bestuurder.rijbewijsId = Rijbewijs.rijbewijsId LEFT JOIN Adres ON Bestuurder.adresId = Adres.adresId WHERE Bestuurder.naam LIKE @naam AND Bestuurder.voornaam LIKE @voornaam AND Bestuurder.geboortedatum = @date;";
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
+                cmd.Parameters.Add(new SqlParameter("@naam", SqlDbType.VarChar));
+                cmd.Parameters.Add(new SqlParameter("@voornaam", SqlDbType.VarChar));
+                cmd.Parameters.Add(new SqlParameter("@date", SqlDbType.Date));
+                cmd.CommandText = query;
+                cmd.Parameters["@naam"].Value = $"{naam}%";
+                cmd.Parameters["@voornaam"].Value = $"{voornaam}%";
+                cmd.Parameters["@date"].Value = geboorte;
+
+
+                conn.Open();
+                try
+                {
+                    SqlDataReader r = cmd.ExecuteReader();
+                    while (r.Read())
+                    {
+                        if (bestuurders.ContainsKey((int)r["bestuurderId"]))
+                        {
+                            Bestuurder dicBestuurder = bestuurders[(int)r["bestuurderId"]];
+                            dicBestuurder.Rijbewijzen.Add(new Rijbewijs(r[12].ToString()));
+                        }
+                        else
+                        {
+                            Adres adres = null;
+                            if (!r.IsDBNull(r.GetOrdinal("adresId")) && !r.IsDBNull(r.GetOrdinal("straat")) && !r.IsDBNull(r.GetOrdinal("huisnummer")) && !r.IsDBNull(r.GetOrdinal("stad")) && !r.IsDBNull(r.GetOrdinal("postcode")))
+                            {
+                                adres = new Adres((int)r["adresId"], (string)r["straat"], (string)r["huisnummer"], (string)r["stad"], (int)r["postcode"]);
+                            }
+                            Geslacht geslacht = (bool)r["geslacht"] ? Geslacht.M : Geslacht.V;
+                            List<Rijbewijs> rijbewijzen = new List<Rijbewijs> { new Rijbewijs(r[12].ToString()) };
+                            Bestuurder bestuurder = new Bestuurder((int)r["bestuurderId"], (string)r["naam"], (string)r["voornaam"], geslacht, adres, Convert.ToDateTime(r["geboortedatum"]).ToString("dd/MM/yyyy"), (string)r["rijksregister"], rijbewijzen, null, null);
+                            bestuurders.Add(bestuurder.Id, bestuurder);
+                        }
+                    }
+                }
+                catch (Exception ex) { throw new Exception(ex.Message); }
+                finally { conn.Close(); }
+            }
+            return bestuurders;
         }
 
 
