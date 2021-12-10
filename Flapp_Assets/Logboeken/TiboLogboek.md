@@ -19,3 +19,4 @@
 | 1u   | Update TankkaartUC + VoegTankkaartWindow          |
 | 1u30 | Update TankkaartWPF                               |
 | 1u30 | Update TankkaartWPF                               |
+| 1u00 | Update TankkaartWPF (Material icons)              |
