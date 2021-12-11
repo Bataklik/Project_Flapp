@@ -28,8 +28,9 @@
 | 2u   | Created ZoekBestuurderWindow with *Tibo*                   |
 | 1u   | Connection Mainscreen                                      |
 | 1.3u | Work on Voeg bestuurder toe                                |
-| 2u    | Bestuurder toevoegen works now                            |
-| 1u    | Bestuurder Zoeken on name.                                |
+| 2u   | Bestuurder toevoegen works now                             |
+| 1u   | Bestuurder Zoeken on name.                                 |
+| 1u   | Bestuurder UC ListBox Changed to ListView + Styles         |
 
 
 
