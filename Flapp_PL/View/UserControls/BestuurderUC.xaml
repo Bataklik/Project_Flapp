@@ -7,7 +7,7 @@
              xmlns:local="clr-namespace:Flapp_PL.View.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="520" 
-             d:DesignWidth="600">
+             d:DesignWidth="450">
     <UserControl.Resources>
         <!-- Button Style-->
         <Style TargetType="Button">
@@ -27,16 +27,32 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <!--ListView Header Style-->
+        <Style x:Key="GridViewColumnHeaderStyle" TargetType="{x:Type GridViewColumnHeader}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
+                        <Border BorderThickness="1" BorderBrush="Gray" Background="Transparent">
+                            <TextBlock x:Name="ContentHeader" Text="{TemplateBinding Content}" Padding="5,5,5,0" Width="{TemplateBinding Width}" TextAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="FontSize" Value="12" />
+        </Style>
     </UserControl.Resources>
 
     <Grid>
         <StackPanel Margin="5">
-            <ListView  x:Name="lstbBestuurders"
+            <ListView x:Name="lstbBestuurders"
                  Margin="10"
-                 Width="300"
+                 Width="330"
                  Height="400">
                 <ListView.View>
-                    <GridView>
+                    <GridView ColumnHeaderContainerStyle="{StaticResource GridViewColumnHeaderStyle}">
                         <GridViewColumn Header="Naam" Width="70" DisplayMemberBinding="{Binding Naam}" />
                         <GridViewColumn Header="Voornaam" Width="70" DisplayMemberBinding="{Binding Voornaam}" />
                         <GridViewColumn Header="Geboortedatum" Width="90" DisplayMemberBinding="{Binding Path=Geboortedatum, StringFormat='dd/MM/yyyy'}"/>
@@ -55,6 +71,18 @@
                                   Icon="{materialDesign:PackIcon Kind=Remove}"/>
                     </ContextMenu>
                 </ListView.ContextMenu>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#F9F7F7" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="#DBE2EF" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListView.ItemContainerStyle>
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel HorizontalAlignment="Left"/>
@@ -63,12 +91,14 @@
             </ListView>
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Center">
-                <Button x:Name="btnZoek" 
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="btnZoek" 
                     Click="btnZoek_Click"
-                    Content="Zoek Bestuurder"
+                    Content="Zoek"
                     Margin="5"
                     Width="130"
-                    Height="35"/>
+                    Height="40"/>
+                </StackPanel>
                 <Button x:Name="btnVoegToe" 
                     Click="btnVoegToe_Click"
                     Content="Bestuurder toevoegen"
