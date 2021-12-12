@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Flapp_BLL.Managers;
+using Flapp_BLL.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,14 +19,30 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
     /// Interaction logic for TankkaartUpdateWindow.xaml
     /// </summary>
     public partial class TankkaartUpdateWindow : Window {
-        public TankkaartUpdateWindow() {
+        private Tankkaart tankkaart;
+        private BestuurderManager bestuurderManager;
+        private BrandstofManager brandstofManager;
+
+        public TankkaartUpdateWindow(Tankkaart t) {
             InitializeComponent();
+            tankkaart = t;
+            laadWaarden();
         }
 
         private void btnBestuurder_Click(object sender, RoutedEventArgs e) {
             TankkaartUpdateWindow tuw = this;
             TankkaartZoekBestuurderWindow tzbw = new TankkaartZoekBestuurderWindow(tuw);
             tzbw.ShowDialog();
+        }
+
+        private void laadWaarden() {
+            txtKaartnummer.Text = Convert.ToString(tankkaart.Kaartnummer);
+            dpGeldigheidsdatum.SelectedDate = tankkaart.Geldigheidsdatum;
+            txtPincode.Text = tankkaart.Pincode;
+            if (tankkaart.Bestuurder != null) lbBestuurder.ItemsSource = bestuurderManager.GeefAlleBestuurdersOpNaam(tankkaart.Bestuurder.Naam); //Nog veranderen
+            if (tankkaart.Geblokkeerd) cbGeblokkeerd.SelectedIndex = 0;
+            cbGeblokkeerd.SelectedIndex = 1;
+            lbBrandstof.ItemsSource = tankkaart.Brandstoffen;
         }
 
         private void btnVoegBrandstofToe_Click(object sender, RoutedEventArgs e) {

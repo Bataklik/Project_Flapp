@@ -43,14 +43,13 @@ namespace Flapp_PL.View.UserControls {
             new TankkaartToevoegenWindow().ShowDialog();
         }
 
-        private void UpdateTankkaart_Click(object sender, RoutedEventArgs e) {
+        private void Update_Click(object sender, RoutedEventArgs e) {
             Tankkaart t = (Tankkaart)lstTankkaarten.SelectedItem;
 
-            TankkaartUpdateWindow tuw = new TankkaartUpdateWindow();
-            tuw.ShowDialog();
+            new TankkaartUpdateWindow(t).ShowDialog();
         }
 
-        private void VerwijderBestuurder_Click(object sender, RoutedEventArgs e)
+        private void Verwijder_Click(object sender, RoutedEventArgs e)
         {
 
         }

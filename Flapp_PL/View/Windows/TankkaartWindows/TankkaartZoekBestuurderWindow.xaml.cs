@@ -14,7 +14,6 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
         private BestuurderManager _bestuurderManager;
         private TankkaartToevoegenWindow _ttw;
         private TankkaartUpdateWindow _tuw;
-        private Bestuurder _bestuurder;
 
         public TankkaartZoekBestuurderWindow(TankkaartToevoegenWindow ttw) {
             InitializeComponent();

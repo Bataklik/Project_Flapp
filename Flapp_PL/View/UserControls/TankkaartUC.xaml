@@ -27,46 +27,104 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <!--ListView Header Style-->
+        <Style TargetType="{x:Type GridViewColumnHeader}">
+            <Setter Property="IsEnabled" Value="False"/>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="TextElement.Foreground" Value="Black"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
 
     <Grid>
         <StackPanel Margin="5">
-            <ListBox x:Name="lstTankkaarten"
+            <ListView x:Name="lstTankkaarten"
                  Margin="10"
-                 Width="300"
+                 Width="330"
                  Height="400">
-                <ListBox.ItemsPanel>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Geldigheidsdatum" Width="120" DisplayMemberBinding="{Binding Path=Geldigheidsdatum, StringFormat='dd/MM/yyyy'}" />
+                        <GridViewColumn Header="Bestuurder" Width="100" DisplayMemberBinding="{Binding Bestuurder, TargetNullValue=Geen}"/>
+                        <GridViewColumn Header="Geblokkeerd" Width="100" DisplayMemberBinding="{Binding Geblokkeerd}"/>
+                    </GridView>
+                </ListView.View>
+                <ListView.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem x:Name="Update" 
+                                  Header="Update" 
+                                  Click="Update_Click"
+                                  Icon="{materialDesign:PackIcon Kind=Edit}"/>
+                        <MenuItem x:Name="Verwijder" 
+                                  Header="Verwijder" 
+                                  Click="Verwijder_Click"
+                                  Icon="{materialDesign:PackIcon Kind=Remove}"/>
+                    </ContextMenu>
+                </ListView.ContextMenu>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Setter Property="Foreground" Value="Black"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#F9F7F7" />
+                                <Setter Property="BorderBrush" Value="#DBE2EF"/>
+                                <Setter Property="BorderThickness" Value="1"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="#DBE2EF" />
+                                <Setter Property="BorderBrush" Value="#DBE2EF"/>
+                                <Setter Property="BorderThickness" Value="1"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel HorizontalAlignment="Left"/>
                     </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
-                <ListBox.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem x:Name="itemUpdate" 
-                                  Header="Update" 
-                                  Click="UpdateTankkaart_Click"
-                                  Icon="{materialDesign:PackIcon Kind=Edit}"/>
-                        <MenuItem x:Name="VerwijderBestuurder" 
-                                  Header="Verwijder" 
-                                  Click="VerwijderBestuurder_Click"
-                                  Icon="{materialDesign:PackIcon Kind=Remove}"/>
-                    </ContextMenu>
-                </ListBox.ContextMenu>
-            </ListBox>
+                </ListView.ItemsPanel>
+            </ListView>
+
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Center">
                 <Button x:Name="btnZoek" 
                     Click="btnZoek_Click"
-                    Content="Zoek Tankkaart"
                     Margin="5"
-                    Width="130"
-                    Height="35"/>
+                    Width="100"
+                    Height="35">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Search"
+                                             Margin="0,0,5,0"
+                                             Width="20" 
+                                             Height="20"
+                                             VerticalAlignment="Center"
+                                             Foreground="#F9F7F7"/>
+                        <TextBlock Text="Zoeken"
+                                   VerticalAlignment="Center"
+                                   Foreground="#F9F7F7"/>
+
+                    </StackPanel>
+                </Button>
                 <Button x:Name="btnVoegToe" 
-                    Click="btnVoegToe_Click"
-                    Content="Tankkaart toevoegen"
+                    Click="btnVoegToe_Click"             
                     Margin="5"
-                    Width="130"
-                    Height="35"/>
+                    Width="100"
+                    Height="35">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="PersonAdd"
+                                             Margin="0,0,5,0"
+                                             Width="20" 
+                                             Height="20"
+                                             VerticalAlignment="Center"
+                                             Foreground="#F9F7F7"/>
+                        <TextBlock Text="Toevoegen"
+                                   VerticalAlignment="Center"
+                                   Foreground="#F9F7F7"/>
+
+                    </StackPanel>
+                </Button>
             </StackPanel>
         </StackPanel>
     </Grid>
