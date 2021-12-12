@@ -28,20 +28,13 @@
             </Setter>
         </Style>
         <!--ListView Header Style-->
-        <Style x:Key="GridViewColumnHeaderStyle" TargetType="{x:Type GridViewColumnHeader}">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
-                        <Border BorderThickness="0,0,0.2,.2" BorderBrush="LightGray" Background="Transparent">
-                            <TextBlock x:Name="ContentHeader" Text="{TemplateBinding Content}" Padding="5,5,5,5" Width="{TemplateBinding Width}" TextAlignment="Center" />
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="OverridesDefaultStyle" Value="True" />
-            <Setter Property="Foreground" Value="Black" />
-            <Setter Property="FontFamily" Value="Segoe UI" />
-            <Setter Property="FontSize" Value="14" />
+        <Style TargetType="{x:Type GridViewColumnHeader}">
+            <Setter Property="IsEnabled" Value="False"/>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="TextElement.Foreground" Value="Black"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
     </UserControl.Resources>
 
@@ -52,7 +45,7 @@
                  Width="330"
                  Height="400">
                 <ListView.View>
-                    <GridView ColumnHeaderContainerStyle="{StaticResource GridViewColumnHeaderStyle}">
+                    <GridView>
                         <GridViewColumn Header="Naam" Width="70" DisplayMemberBinding="{Binding Naam}" />
                         <GridViewColumn Header="Voornaam" Width="70" DisplayMemberBinding="{Binding Voornaam}" />
                         <GridViewColumn Header="Geboortedatum" Width="90" DisplayMemberBinding="{Binding Path=Geboortedatum, StringFormat='dd/MM/yyyy'}"/>
