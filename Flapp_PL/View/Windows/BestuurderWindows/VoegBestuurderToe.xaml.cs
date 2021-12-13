@@ -3,6 +3,7 @@ using Flapp_BLL.Models;
 using Flapp_DAL.Repository;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -32,25 +33,8 @@ namespace Flapp_PL.View.Windows.BestuurderWindows
             Bestuurder bestuurder = null;
             try
             {
-
-                //if (!string.IsNullOrWhiteSpace(txtStraat.Text) || !string.IsNullOrWhiteSpace(txtHuisnummer.Text) || !string.IsNullOrWhiteSpace(txtStad.Text) || !string.IsNullOrWhiteSpace(txtPostcode.Text))
-                //{
-                //    a = new Adres(txtStraat.Text.Trim(), txtHuisnummer.Text.Trim(), txtStad.Text.Trim(), int.Parse(txtPostcode.Text.Trim()));
-                //    if (_adresManager.BestaatAdres(a)) { a = _adresManager.GeefAdres(a); }
-                //    else
-                //    {
-                //        _adresManager.VoegAdresToe(a);
-                //        a = _adresManager.GeefAdres(a);
-                //    }
-                //    bestuurder = new Bestuurder(txtNaam.Text.Trim(), txtVoornaam.Text.Trim(), s, a, dpGeboorte.Text, txtRijksregister.Text.Trim(), lstRijbewijzen.Items.Cast<Rijbewijs>().ToList());
-                //    // Rijbewijs toevoegen aan DB
-                //    bestuurder.ZetId(_bestuurderManager.VoegBestuurderToe(bestuurder));
-                //}
-                //else
-                //{
-                //    bestuurder = new Bestuurder(txtNaam.Text, txtVoornaam.Text, s, dpGeboorte.Text, txtRijksregister.Text, lstRijbewijzen.Items.Cast<Rijbewijs>().ToList());
-                //    bestuurder.ZetId(_bestuurderManager.VoegBestuurderToeZonderAdres(bestuurder));
-                //}
+                bestuurder = new Bestuurder(txtNaam.Text, txtVoornaam.Text, s, dpGeboorte.Text, txtRijksregister.Text, lstRijbewijzen.Items.Cast<Rijbewijs>().ToList());
+                bestuurder.ZetId(_bestuurderManager.VoegBestuurderToeZonderAdres(bestuurder));
 
                 if (bestuurder.Rijbewijzen.Count > 0)
                 {

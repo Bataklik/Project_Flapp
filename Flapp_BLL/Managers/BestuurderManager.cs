@@ -77,7 +77,7 @@ namespace Flapp_BLL.Managers
             }
             catch (Exception ex) { throw new BestuurderManagerException("BestuurderManager: GeefAlleBestuurdersOpNaam", ex); }
         }
-        public Dictionary<int,Bestuurder> GeefAlleBestuurdersOpVoornaam(string voornaam)
+        public Dictionary<int, Bestuurder> GeefAlleBestuurdersOpVoornaam(string voornaam)
         {
             try
             {
@@ -97,7 +97,7 @@ namespace Flapp_BLL.Managers
         {
             try
             {
-                return _repo.GeefAlleBestuurdersOpNaamVoornaam(naam,voornaam);
+                return _repo.GeefAlleBestuurdersOpNaamVoornaam(naam, voornaam);
             }
             catch (Exception ex) { throw new BestuurderManagerException("BestuurderManager: GeefAlleBestuurdersOpDatum", ex); }
         }
@@ -105,7 +105,7 @@ namespace Flapp_BLL.Managers
         {
             try
             {
-                return _repo.GeefAlleBestuurdersOpNaamVoornaamDatum(naam, voornaam,date);
+                return _repo.GeefAlleBestuurdersOpNaamVoornaamDatum(naam, voornaam, date);
             }
             catch (Exception ex) { throw new BestuurderManagerException("BestuurderManager: GeefAlleBestuurdersOpNaamVoornaamDate", ex); }
         }

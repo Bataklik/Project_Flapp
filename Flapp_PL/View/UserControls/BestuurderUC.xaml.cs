@@ -89,7 +89,7 @@ namespace Flapp_PL.View.UserControls
             List<Bestuurder> bestuurders = new List<Bestuurder>();
             try
             {
-                foreach (Bestuurder v in _bestuurderManager.GeefAlleBestuurdersOpNaamVoornaam(naam,voornaam).Values.ToList())
+                foreach (Bestuurder v in _bestuurderManager.GeefAlleBestuurdersOpNaamVoornaam(naam, voornaam).Values.ToList())
                 {
                     bestuurders.Add(v);
                 }
@@ -102,7 +102,7 @@ namespace Flapp_PL.View.UserControls
             List<Bestuurder> bestuurders = new List<Bestuurder>();
             try
             {
-                foreach (Bestuurder v in _bestuurderManager.GeefAlleBestuurdersOpNaamVoornaamDate(naam, voornaam,date).Values.ToList())
+                foreach (Bestuurder v in _bestuurderManager.GeefAlleBestuurdersOpNaamVoornaamDate(naam, voornaam, date).Values.ToList())
                 {
                     bestuurders.Add(v);
                 }
@@ -124,7 +124,7 @@ namespace Flapp_PL.View.UserControls
 
         private void UpdateBestuurder_Click(object sender, RoutedEventArgs e)
         {
-            if ((Bestuurder)lstbBestuurders.SelectedItem == null) { MessageBox.Show("U heeft geen bestuurder gekozen!","Geen bestuurder!",MessageBoxButton.OK,MessageBoxImage.Error);return; }
+            if ((Bestuurder)lstbBestuurders.SelectedItem == null) { MessageBox.Show("U heeft geen bestuurder gekozen!", "Geen bestuurder!", MessageBoxButton.OK, MessageBoxImage.Error); return; }
             new UpdateBestuurderWindow((Bestuurder)lstbBestuurders.SelectedItem).ShowDialog();
         }
 
@@ -133,6 +133,7 @@ namespace Flapp_PL.View.UserControls
             if ((Bestuurder)lstbBestuurders.SelectedItem == null) { MessageBox.Show("U heeft geen bestuurder gekozen!", "Geen bestuurder!", MessageBoxButton.OK, MessageBoxImage.Error); return; }
             try { _bestuurderManager.VerwijderBestuurder((Bestuurder)lstbBestuurders.SelectedItem); }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
+            finally { LaadBestuurders(); }
         }
     }
 }

@@ -11,7 +11,8 @@ namespace Flapp_CNS
         static void Main(string[] args)
         {
             string connStringBurak = @"Data Source=LAPTOP-BURAQ\SQLEXPRESS;Initial Catalog=Project_Flapp_DB;Integrated Security=True"; ;
-
+            BestuurderRepo repo = new BestuurderRepo(connStringBurak);
+            var b = repo.GeefBestuurder(2);
             //Geven
             //RijbewijsGevenId(connStringBurak);
             //RijbewijsGevenObj(connStringBurak);
