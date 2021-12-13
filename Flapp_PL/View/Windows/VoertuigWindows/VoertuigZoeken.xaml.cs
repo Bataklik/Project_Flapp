@@ -24,19 +24,19 @@ namespace Flapp_PL.View.Windows.VoertuigWindows
     /// </summary>
     public partial class VoertuigZoeken : Window
     {
-        private MainWindow main;
+        private MainWindow ain;
         private VoertuigManager _voertuigmanager;
-        private BrandstofManager _brandstofManager;        
-        public VoertuigZoeken(MainWindow main)
+        private BrandstofManager _brandstofManager;
+        private VoertuigUC vUC;
+        public VoertuigZoeken(MainWindow main, VoertuigUC vUC)
         {
-            this.main = main;
-                     
+            ain = main;
+            this.vUC = vUC;
             _voertuigmanager = new VoertuigManager(new VoertuigRepo(Application.Current.Properties["User"].ToString()));
             _brandstofManager = new BrandstofManager(new BrandstofRepo(Application.Current.Properties["User"].ToString()));
             InitializeComponent();   
             laadBrandstoffen();
-            laadMerk();
-            
+            laadMerk();            
         }
         public void laadBrandstoffen()
         {
@@ -46,34 +46,15 @@ namespace Flapp_PL.View.Windows.VoertuigWindows
         
         private void btnZoek_Click(object sender, RoutedEventArgs e)
         {            
-            //main = new();
-            //main.wpUserControl.Children.Clear();
-            //main.wpUserControl.Children.Add(new VoertuigUC(txtNummerplaat.Text, cmbMerk.SelectedItem.ToString(), cmbModel.SelectedItem.ToString(), main));
-            //Close();
-            //return;
-            
-                //if (!string.IsNullOrWhiteSpace(txtNummerplaat.Text))
-                //{
-                //    nummerplaat = txtNummerplaat.Text;
-                //}
-                //if (cmbMerk.SelectedIndex != 0)
-                //{
-                //    merk = cmbMerk.SelectedItem.ToString();
-                //}
-                //if (cmbModel.SelectedIndex != 0)
-                //{
-                //    model = null;
-                //    model = cmbModel.SelectedItem.ToString();
-                //}
-                //List<Voertuig> voertuigen = _voertuigmanager.VoertuigZoeken(nummerplaat, merk, model);
-                List<Voertuig> voertuigen = new List<Voertuig>();
+            List<Voertuig> voertuigen = new List<Voertuig>();
                 try
                 {
                     foreach (KeyValuePair<int, Voertuig> vo in _voertuigmanager.ZoekVoertuig(cmbMerk.Text, cmbModel.Text, txtNummerplaat.Text))
                     {
                         voertuigen.Add(vo.Value);
                     }
-                    lstVoertuigen.ItemsSource = voertuigen;
+                    vUC.lstVoertuigen.ItemsSource = voertuigen;
+                this.Close();
                 }
                 catch (Exception ex) { MessageBox.Show(ex.Message, Title, MessageBoxButton.OK, MessageBoxImage.Error); }          
            
@@ -107,34 +88,7 @@ namespace Flapp_PL.View.Windows.VoertuigWindows
                 //cmbModel.ItemsSource = null;
             }
         }
-        private void UpdateVoertuig_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                 
-                Voertuig v = (Voertuig)lstVoertuigen.SelectedItem;
-                new VoertuigUpdaten(v).ShowDialog();
-                //NavigationService.Navigate(new Uri("/Pages/Klant/KlantUpdatenPage.xaml", UriKind.Relative));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, Title, MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-        private void DeleteVoertuig_Click(object sender, RoutedEventArgs e)
-        {
-            if (MessageBox.Show("Bent u zeker dat u het voertuig wilt verwijdere?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
-            {
-                
-            }
-            else
-            {
-                Voertuig v = (Voertuig)lstVoertuigen.SelectedItem;
-                _voertuigmanager.VerwijderVoertuig(v);
-                MessageBox.Show("Verwijderen Gelukt!");
-            }
-            
-            
-        }
+        
+        
     }
 }

@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Flapp_PL.View.Windows.VoertuigWindows;
 
 namespace Flapp_PL.View.Windows.VoertuigWindow
 {
@@ -14,20 +15,30 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
     {
         private VoertuigManager _voertuigManager;
         private ObservableCollection<Brandstof> _brandstoffen;
+        private ObservableCollection<Bestuurder> _bestuurders;
         private BrandstofManager _brandstofmanager;
         private VoertuigTypeManager _voertuigTypeManager;
+        private BestuurderManager _bestuurderManager;
         public VoertuigToevoegen()
         {
             InitializeComponent();
             _voertuigManager = new VoertuigManager(new VoertuigRepo(Application.Current.Properties["User"].ToString()));
             _voertuigTypeManager = new VoertuigTypeManager(new VoertuigTypeRepo(Application.Current.Properties["User"].ToString()));
             _brandstofmanager = new BrandstofManager(new BrandstofRepo(Application.Current.Properties["User"].ToString()));
+            _bestuurderManager = new BestuurderManager(new BestuurderRepo(Application.Current.Properties["User"].ToString()));
             if (Application.Current.Properties["Brandstof"] == null)
             {
                 Application.Current.Properties["Brandstof"] = new ObservableCollection<Brandstof>();
                 _brandstoffen = (ObservableCollection<Brandstof>)Application.Current.Properties["Brandstof"]; ;
             }
             else { _brandstoffen = (ObservableCollection<Brandstof>)Application.Current.Properties["Brandstof"]; ; }
+
+            if (Application.Current.Properties["Bestuurder"] == null)
+            {
+                Application.Current.Properties["Bestuurder"] = new ObservableCollection<Bestuurder>();
+                _bestuurders = (ObservableCollection<Bestuurder>)Application.Current.Properties["Bestuurder"]; ;
+            }
+            else { _bestuurders = (ObservableCollection<Bestuurder>)Application.Current.Properties["Bestuurder"]; ; }
 
             laadVoertuigtypes();
             //laadBrandstoftypes();
@@ -136,6 +147,18 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void cmbBestuurder_Loaded(object sender, RoutedEventArgs e)
+        {
+            lstBestuurder.ItemsSource = _bestuurders;
+        }
+
+        private void btnBestuurder_Click(object sender, RoutedEventArgs e)
+        {
+            VoertuigToevoegen ttw = this;
+
+            new VoertuigZoekBestuurder().ShowDialog();
         }
     }
 }

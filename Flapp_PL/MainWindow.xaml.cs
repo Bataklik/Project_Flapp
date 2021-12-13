@@ -38,8 +38,9 @@ namespace Flapp_PL
         }
         private void btnVoertuig_Click(object sender, RoutedEventArgs e)
         {
+            MainWindow main = this;
             wpUserControl.Children.Clear();
-            VoertuigUC voertuigUc = new VoertuigUC();
+            VoertuigUC voertuigUc = new VoertuigUC(main);
             wpUserControl.Children.Add(voertuigUc);
         }
         private void btnTankkaart_Click(object sender, RoutedEventArgs e)

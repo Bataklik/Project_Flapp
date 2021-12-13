@@ -24,47 +24,47 @@ namespace Flapp_PL.View.Windows.VoertuigWindows
     public partial class VoertuigUpdaten : Window
     {
         private VoertuigManager _voertuigManager;
-        private BrandstofManager _brandstofmanager;
-        private List<Brandstof> _brandstoffen = new List<Brandstof>();
-        private ObservableCollection<Brandstof> fuelTypes;// = new ObservableCollection<Brandstof>();
+        private BrandstofManager _brandstofmanager;        
+        private Voertuig _voertuig;
+        public ObservableCollection<Brandstof> Brandstoffen { get; set; } = new ObservableCollection<Brandstof>();       
         public VoertuigUpdaten(Voertuig v)
-        {
+        {            
             InitializeComponent();
+            _voertuig = v;
+            laadVoertuig();
             _brandstofmanager = new BrandstofManager(new BrandstofRepo(Application.Current.Properties["User"].ToString()));
-            _voertuigManager = new VoertuigManager(new VoertuigRepo(Application.Current.Properties["User"].ToString()));
-            Voertuig voertuig = _voertuigManager.GeefVoertuigDoorID(v.VoertuigID);
-
-            //fuelTypes = new ObservableCollection<Brandstof>(voertuig.geefBrandstoffen());
-            //foreach (var b in fuelTypes)
-            //{
-            //    lstBrandstoftypes.Items.Add(b);
-            //}
-            
-            txtVoertuigId.Text = $"{voertuig.VoertuigID}";
-            txtMerk.Text = voertuig.Merk;
-            txtModel.Text = voertuig.Model;
-            txtChassisNummer.Text = voertuig.ChassisNummer;
-            txtVoertuigtype.Text = voertuig.VoertuigType;
-            txtNummerplaat.Text = voertuig.Nummerplaat;
-            txtKleur.Text = voertuig.Kleur;
-            txtDeuren.Text = $"{voertuig.Aantaldeuren}";
-            if (voertuig.Bestuurder != null)
+            _voertuigManager = new VoertuigManager(new VoertuigRepo(Application.Current.Properties["User"].ToString()));            
+        }
+        public void laadVoertuig()
+        {
+            //Voertuig voertuig = _voertuigManager.GeefVoertuigDoorID(_voertuig.VoertuigID);
+            lstBrandstoftypes.ItemsSource = _voertuig.Brandstof;
+            Brandstoffen = new ObservableCollection<Brandstof>(_voertuig.Brandstof);
+            txtVoertuigId.Text = $"{_voertuig.VoertuigID}";
+            txtMerk.Text = _voertuig.Merk;
+            txtModel.Text = _voertuig.Model;
+            txtChassisNummer.Text = _voertuig.ChassisNummer;
+            txtVoertuigtype.Text = _voertuig.VoertuigType;
+            txtNummerplaat.Text = _voertuig.Nummerplaat;
+            txtKleur.Text = _voertuig.Kleur;
+            txtDeuren.Text = $"{_voertuig.Aantaldeuren}";
+            if (_voertuig.Bestuurder != null)
             {
-                txtBestuurder.Text = $"{voertuig.Bestuurder.Naam}";
+                txtBestuurder.Text = $"{_voertuig.Bestuurder.Naam}";
             }
             else
             {
                 txtBestuurder.Text = "none";
             }
-            //lstBrandstoftypes.ItemsSource = v.Brandstof;
         }
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
-            List<Brandstof> b = new List<Brandstof>(lstBrandstoftypes.Items.Cast<Brandstof>().ToList());
-            Voertuig v = new Voertuig(Convert.ToInt32(txtVoertuigId.Text), txtMerk.Text, txtModel.Text, txtChassisNummer.Text, txtNummerplaat.Text, b, txtVoertuigtype.Text, txtKleur.Text, Convert.ToInt32(txtDeuren.Text));
+            //List<Brandstof> b = new List<Brandstof>(lstBrandstoftypes.Items.Cast<Brandstof>().ToList());
+            
             try
             {
+                Voertuig v = new Voertuig(Convert.ToInt32(txtVoertuigId.Text), txtMerk.Text, txtModel.Text, txtChassisNummer.Text, txtNummerplaat.Text, lstBrandstoftypes.Items.Cast<Brandstof>().ToList(), txtVoertuigtype.Text, txtKleur.Text, Convert.ToInt32(txtDeuren.Text));
                 _voertuigManager.UpdateVoertuig(v);
                 _brandstofmanager.VerwijderBrandstofBijVoertuig(v.VoertuigID);
                 _brandstofmanager.VoegBrandstofToeAanVoertuig(v.VoertuigID, v.Brandstof);
@@ -92,14 +92,16 @@ namespace Flapp_PL.View.Windows.VoertuigWindows
         {
             if ((Brandstof)cmbBrandstoffen.SelectedItem == null) { MessageBox.Show("U heeft geen brandstof aangeduid!"); return; }
             if (lstBrandstoftypes.Items.Contains((Brandstof)cmbBrandstoffen.SelectedItem)) { MessageBox.Show("Brandstof staat al op de lijst!"); return; }
-            lstBrandstoftypes.Items.Add((Brandstof)cmbBrandstoffen.SelectedItem);
+            Brandstoffen.Add((Brandstof)cmbBrandstoffen.SelectedItem);
+            lstBrandstoftypes.ItemsSource = Brandstoffen;
         }
 
         private void btnRemoveBrandstof_Click(object sender, RoutedEventArgs e)
         {
             if ((Brandstof)lstBrandstoftypes.SelectedItem == null) { MessageBox.Show("U heeft geen brandstof aangeduid!"); return; }
             if (!lstBrandstoftypes.Items.Contains((Brandstof)lstBrandstoftypes.SelectedItem)) { MessageBox.Show("Brandstof staat niet op de lijst!"); return; }
-            lstBrandstoftypes.Items.Remove((Brandstof)cmbBrandstoffen.SelectedItem);
+            Brandstoffen.Remove((Brandstof)lstBrandstoftypes.SelectedItem);
+            lstBrandstoftypes.ItemsSource = Brandstoffen;
         }
     }
 }

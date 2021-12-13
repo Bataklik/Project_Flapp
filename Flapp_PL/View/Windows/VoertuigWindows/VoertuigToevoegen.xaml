@@ -86,11 +86,17 @@
 
 
         <Label Content="Bestuurder" Margin="5" Grid.Row="1" Grid.Column="2" FontSize="16"/>
-        <Label Content="Brandstoftypes" Margin="5" Grid.Row="2" Grid.Column="2" FontSize="16"/>
+        <Label Content="Brandstoftypes" Margin="5" Grid.Row="3" Grid.Column="2" FontSize="16"/>
 
 
-        <TextBox Name="txtBestuurder" Width="130" Height="25" Grid.Row="1" Grid.Column="3" FontSize="16" />
-        <StackPanel Grid.Row="2" 
+        <ListBox Name="lstBestuurder" Width="130" Height="64" Grid.Row="1" Grid.Column="3" FontSize="16" Loaded="cmbBestuurder_Loaded" Margin="9,8,8,0" VerticalAlignment="Top" Grid.RowSpan="2" />
+        <Button Content="Zoek Bestuurder" 
+                x:Name="btnBestuurder" 
+                Grid.Row="2" 
+                Grid.Column="2" 
+                Margin="23,5,6,11" 
+                FontSize="12" Click="btnBestuurder_Click" />
+        <StackPanel Grid.Row="3" 
                     Grid.Column="3"
                     Orientation="Horizontal"
                     Margin="10,5"
@@ -115,7 +121,7 @@
         </StackPanel>
 
         <ListBox x:Name="lstBrandtof"
-                 Grid.Row="3"
+                 Grid.Row="4"
                  Grid.Column="3"
                  Grid.RowSpan="3"
                  Margin="11,2,47,25">

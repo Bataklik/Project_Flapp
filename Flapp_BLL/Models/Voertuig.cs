@@ -232,11 +232,13 @@ namespace Flapp_BLL.Models
         #region Overrides
         public override string ToString()
         {
-            return $"\n---------------{GetType().Name}---------\n" +
-                $"{Merk}, {Model}, {ChassisNummer}\n" +
+            return $"\n---------------{GetType().Name}----------\n" +
+                $"{Nummerplaat} \n" +
+                $"{Merk}, {Model} \n" +
+                $"{ChassisNummer} \n" +
                 $"{string.Join(", ", Brandstof.OrderBy(b => b.Naam))}\n" +
-                $"{VoertuigType}\n" +
-                $"--------------------------------";
+                $"{VoertuigType}\n";
+               // $"----------------------------------";
         }
         #endregion
     }

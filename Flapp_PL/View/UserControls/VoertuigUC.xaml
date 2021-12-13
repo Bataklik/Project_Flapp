@@ -31,42 +31,90 @@
 
     <Grid>
         <StackPanel Margin="5">
-            <ListBox x:Name="lstVoertuigen"
+            <ListView x:Name="lstVoertuigen"
                  Margin="10"
-                 Width="300"
+                 Width="253"
                  Height="400">
-                <ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel HorizontalAlignment="Left"/>
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
-                <ListBox.ContextMenu>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Nummerplaat" Width="90" DisplayMemberBinding="{Binding Nummerplaat}" />
+                        <GridViewColumn Header="Merk" Width="70" DisplayMemberBinding="{Binding Merk}" />
+                        <GridViewColumn Header="Model" Width="90" DisplayMemberBinding="{Binding Model}"/>                        
+                    </GridView>
+                </ListView.View>
+                <ListView.ContextMenu>
                     <ContextMenu>
-                        <MenuItem x:Name="itemUpdate" 
+                        <MenuItem x:Name="UpdateVoertuig" 
                                   Header="Update" 
                                   Click="itemUpdate_Click"
                                   Icon="{materialDesign:PackIcon Kind=Edit}"/>
-                        <MenuItem x:Name="VerwijderBestuurder" 
+                        <MenuItem x:Name="btnVerwijderVoertuig" 
                                   Header="Verwijder" 
-                                  Click="VerwijderBestuurder_Click"
+                                  Click="btnVerwijderVoertuig_Click"
                                   Icon="{materialDesign:PackIcon Kind=Remove}"/>
                     </ContextMenu>
-                </ListBox.ContextMenu>
-            </ListBox>
+                </ListView.ContextMenu>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Setter Property="Foreground" Value="Black"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#F9F7F7" />
+                                <Setter Property="BorderBrush" Value="#DBE2EF"/>
+                                <Setter Property="BorderThickness" Value="1"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="#DBE2EF" />
+                                <Setter Property="BorderBrush" Value="#DBE2EF"/>
+                                <Setter Property="BorderThickness" Value="1"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel HorizontalAlignment="Left"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+            </ListView>
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Center">
-                <Button Content="Voertuig Zoeken"
-                    x:Name="btnVoertuigZoeken"
+                <Button x:Name="btnZoek" 
+                    Click="btnZoek_Click"
                     Margin="5"
-                    Width="130"
-                    Height="35"
-                    Click="btnVoertuigZoeken_Click"/>
-                <Button Content="Voertuig toevoegen"
-                    x:Name="btnVoertuigToevoegen"
+                    Width="100"
+                    Height="35">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Search"
+                                             Margin="0,0,5,0"
+                                             Width="20" 
+                                             Height="20"
+                                             VerticalAlignment="Center"
+                                             Foreground="#F9F7F7"/>
+                        <TextBlock Text="Zoeken"
+                                   VerticalAlignment="Center"
+                                   Foreground="#F9F7F7"/>
+
+                    </StackPanel>
+                </Button>
+                <Button x:Name="btnVoegToe" 
+                    Click="btnVoegToe_Click"             
                     Margin="5"
-                    Width="130"
-                    Height="35"
-                    Click="btnVoertuigToevoegen_Click"/>
+                    Width="100"
+                    Height="35">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="PersonAdd"
+                                             Margin="0,0,5,0"
+                                             Width="20" 
+                                             Height="20"
+                                             VerticalAlignment="Center"
+                                             Foreground="#F9F7F7"/>
+                        <TextBlock Text="Toevoegen"
+                                   VerticalAlignment="Center"
+                                   Foreground="#F9F7F7"/>
+
+                    </StackPanel>
+                </Button>
             </StackPanel>
  </StackPanel>
 

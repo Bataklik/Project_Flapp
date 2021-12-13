@@ -32,12 +32,12 @@ namespace Flapp_PL.View.UserControls
             _voertuigManager = new VoertuigManager(new VoertuigRepo(Application.Current.Properties["User"].ToString()));
             laadVoertuigen();
         }
-        public VoertuigUC(string nummerplaat, string merk, string model, MainWindow mainw)
+        public VoertuigUC(MainWindow mainw)
         {
             InitializeComponent();
             _voertuigManager = new VoertuigManager(new VoertuigRepo(Application.Current.Properties["User"].ToString()));
             _main = mainw;
-            laadVoertuigen(nummerplaat, merk, model);
+            laadVoertuigen();
         }
         
         #endregion
@@ -60,14 +60,18 @@ namespace Flapp_PL.View.UserControls
         {
             
         }
-        private void btnVoertuigToevoegen_Click(object sender, RoutedEventArgs e)
+        private void btnZoek_Click(object sender, RoutedEventArgs e)
+        {            
+            //new VoertuigZoeken(_main).ShowDialog();
+            VoertuigUC vUC = this;
+            if (_main.wpUserControl.Children.Count > 1) _main.wpUserControl.Children.RemoveAt(_main.wpUserControl.Children.Count - 1);
+            new VoertuigZoeken(_main, vUC).ShowDialog();
+        }
+        private void btnVoegToe_Click(object sender, RoutedEventArgs e)
         {
             new VoertuigToevoegen().ShowDialog();            
         }
-        private void btnVoertuigZoeken_Click(object sender, RoutedEventArgs e)
-        {            
-            new VoertuigZoeken(_main).ShowDialog();           
-        }
+        
         #endregion
 
         private void itemUpdate_Click(object sender, RoutedEventArgs e)
@@ -78,9 +82,24 @@ namespace Flapp_PL.View.UserControls
             new VoertuigUpdaten(v).ShowDialog();
         }
 
-        private void VerwijderBestuurder_Click(object sender, RoutedEventArgs e)
+        private void btnVerwijderVoertuig_Click(object sender, RoutedEventArgs e)
         {
+            if (MessageBox.Show("Bent u zeker dat u het voertuig wilt verwijdere?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+            {
 
+            }
+            else
+            {
+                if ((Voertuig)lstVoertuigen.SelectedItem == null) { MessageBox.Show("U heeft geen voertuig gekozen!", "Geen voertuig!", MessageBoxButton.OK, MessageBoxImage.Error); return; }
+                try { _voertuigManager.VerwijderVoertuig((Voertuig)lstVoertuigen.SelectedItem); MessageBox.Show("Verwijderen Gelukt!"); }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            
         }
+
+        
     }
 }
