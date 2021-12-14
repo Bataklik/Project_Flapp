@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Flapp_PL.View.Windows.TankkaartWindows" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
         Title="Flapp: Tankkaart - Zoek Bestuurder" 
         Height="250" 
         Width="525">
@@ -110,7 +111,7 @@
                                      Height="25"
                                      Foreground="#F9F7F7"
                                      HorizontalAlignment="Center"/>
-                <TextBlock Text="Tankkaart - Bestuurder Zoeken" 
+                <TextBlock Text="Tankkaart - Zoek Bestuurder" 
                    FontSize="20"
                    Foreground="#F9F7F7"
                    HorizontalAlignment="Center"/>

@@ -1,5 +1,6 @@
 ﻿using Flapp_BLL.Managers;
 using Flapp_BLL.Models;
+using Flapp_DAL.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,12 +21,14 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
     /// </summary>
     public partial class TankkaartUpdateWindow : Window {
         private Tankkaart tankkaart;
-        private BestuurderManager bestuurderManager;
-        private BrandstofManager brandstofManager;
+        private BestuurderManager _bestuurderManager;
+        private BrandstofManager _brandstofManager;
 
         public TankkaartUpdateWindow(Tankkaart t) {
             InitializeComponent();
             tankkaart = t;
+            _bestuurderManager = new BestuurderManager(new BestuurderRepo(Application.Current.Properties["User"].ToString()));
+            _brandstofManager = new BrandstofManager(new BrandstofRepo(Application.Current.Properties["User"].ToString()));
             laadWaarden();
         }
 
@@ -37,11 +40,13 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
 
         private void laadWaarden() {
             txtKaartnummer.Text = Convert.ToString(tankkaart.Kaartnummer);
+            txtKaartnummer.IsEnabled = false;
             dpGeldigheidsdatum.SelectedDate = tankkaart.Geldigheidsdatum;
             txtPincode.Text = tankkaart.Pincode;
-            if (tankkaart.Bestuurder != null) lbBestuurder.ItemsSource = bestuurderManager.GeefAlleBestuurdersOpNaam(tankkaart.Bestuurder.Naam); //Nog veranderen
+            if (tankkaart.Bestuurder != null) lbBestuurder.ItemsSource = _bestuurderManager.GeefAlleBestuurdersOpNaam(tankkaart.Bestuurder.Naam); //Nog veranderen
             if (tankkaart.Geblokkeerd) cbGeblokkeerd.SelectedIndex = 0;
             cbGeblokkeerd.SelectedIndex = 1;
+            cbBrandstoffen.ItemsSource = _brandstofManager.GeefAlleBrandstoffen();
             lbBrandstof.ItemsSource = tankkaart.Brandstoffen;
         }
 
