@@ -49,9 +49,11 @@ namespace Flapp_PL.View.UserControls {
             new TankkaartUpdateWindow(t).ShowDialog();
         }
 
-        private void Verwijder_Click(object sender, RoutedEventArgs e)
-        {
-
+        private void Verwijder_Click(object sender, RoutedEventArgs e) {
+            if ((Tankkaart)lstTankkaarten.SelectedItem == null) { MessageBox.Show("U heeft geen tankkaart gekozen!", "Geen tankkaart!", MessageBoxButton.OK, MessageBoxImage.Error); return; }
+            if (MessageBox.Show("Bent u zeker?", "Opgelet!", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes) {
+                _tankkaartManager.VerwijderTankkaart((Tankkaart)lstTankkaarten.SelectedItem);
+            }
         }
     }
 }

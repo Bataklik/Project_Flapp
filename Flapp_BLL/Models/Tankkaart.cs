@@ -62,6 +62,11 @@ namespace Flapp_BLL.Models {
             ZetGeblokkeerd(geblokkeerd);
         }
 
+        public Tankkaart(DateTime? geldigheidsdatum, string pincode, bool geblokkeerd, List<Brandstof> brandstoffen) {
+            Pincode = pincode;
+            Geblokkeerd = geblokkeerd;
+        }
+
         #endregion
 
         #region ZetMethods

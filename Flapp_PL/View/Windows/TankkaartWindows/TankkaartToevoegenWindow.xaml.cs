@@ -2,33 +2,42 @@
 using Flapp_BLL.Models;
 using Flapp_DAL.Repository;
 using System;
-using System.Configuration;
+using System.Collections.Generic;
 using System.Windows;
 
-namespace Flapp_PL.View.Windows.TankkaartWindows
-{
+namespace Flapp_PL.View.Windows.TankkaartWindows {
 
-    public partial class TankkaartToevoegenWindow : Window
-    {
+    public partial class TankkaartToevoegenWindow : Window {
         private TankkaartManager _tankkaartManager;
         private BrandstofManager _brandstofManager;
 
-        public TankkaartToevoegenWindow()
-        {
+        public TankkaartToevoegenWindow() {
             InitializeComponent();
             _tankkaartManager = new TankkaartManager(new TankkaartRepo(Application.Current.Properties["User"].ToString()));
             _brandstofManager = new BrandstofManager(new BrandstofRepo(Application.Current.Properties["User"].ToString()));
+            laadWaarden();
         }
 
-        private void btnVoegtoe_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                if (dpGeldigheidsdatum.SelectedDate != null && !string.IsNullOrWhiteSpace(txtPincode.Text))
-                {
-                    Tankkaart t = new Tankkaart(txtPincode.Text, Convert.ToDateTime(dpGeldigheidsdatum.SelectedDate));
-                    //_tankkaartManager.VoegTankkaartToe(t);
+        private void laadWaarden() {
+            dpGeldigheidsdatum.SelectedDate = DateTime.Now.AddYears(2);
+            dpGeldigheidsdatum.IsEnabled = false;
+        }
+
+        private void btnVoegtoe_Click(object sender, RoutedEventArgs e) {
+            try {
+                if (dpGeldigheidsdatum.SelectedDate != null && !string.IsNullOrWhiteSpace(txtPincode.Text) && lbBrandstof.Items.Count > 0) {
+                    DateTime? geldigheidsdatum = dpGeldigheidsdatum.SelectedDate;
+                    string pincode = txtPincode.Text;
+                    bool geblokkeerd = false;
+                    if (cbGeblokkeerd.SelectedIndex == 0) { geblokkeerd = true; }
+                    List<Brandstof> brandstoffen = new List<Brandstof>();
+                    foreach (var v in lbBrandstof.Items) {
+                        brandstoffen.Add((Brandstof)v);
+                    }
+                    Tankkaart t = new Tankkaart(geldigheidsdatum, pincode, geblokkeerd, brandstoffen);
+                    _tankkaartManager.VoegTankkaartToe(t);
                     MessageBox.Show("Tankkaart toegevoegd!");
+                    Close();
                 }
                 else { MessageBox.Show("Velden zijn leeg!"); }
 
@@ -36,15 +45,13 @@ namespace Flapp_PL.View.Windows.TankkaartWindows
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
-        private void btnBestuurder_Click(object sender, RoutedEventArgs e)
-        {
+        private void btnBestuurder_Click(object sender, RoutedEventArgs e) {
             TankkaartToevoegenWindow ttw = this;
-            
+
             new TankkaartZoekBestuurderWindow(ttw).ShowDialog();
         }
 
-        private void btnAnnuleer_Click(object sender, RoutedEventArgs e)
-        {
+        private void btnAnnuleer_Click(object sender, RoutedEventArgs e) {
             Close();
         }
 

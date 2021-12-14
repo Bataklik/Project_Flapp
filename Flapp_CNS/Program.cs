@@ -11,8 +11,12 @@ namespace Flapp_CNS
         static void Main(string[] args)
         {
             string connStringBurak = @"Data Source=LAPTOP-BURAQ\SQLEXPRESS;Initial Catalog=Project_Flapp_DB;Integrated Security=True"; ;
-            BestuurderRepo repo = new BestuurderRepo(connStringBurak);
-            var b = repo.GeefBestuurder(2);
+            string Tibo = @"Data Source=LAPTOP-GTB3LMSV\SQLEXPRESS;Initial Catalog=Project_Flapp_DB;Integrated Security=True";
+            //BestuurderRepo repo = new BestuurderRepo(connStringBurak);
+            TankkaartRepo repo_ = new TankkaartRepo(Tibo);
+            //var b = repo.GeefBestuurder(2);
+            var t = repo_.GeefTankkaart(2);
+            Console.WriteLine(repo_.BestaatTankkaart(t.Kaartnummer));
             //Geven
             //RijbewijsGevenId(connStringBurak);
             //RijbewijsGevenObj(connStringBurak);
