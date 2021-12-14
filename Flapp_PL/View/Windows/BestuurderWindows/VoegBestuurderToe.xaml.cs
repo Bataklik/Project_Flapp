@@ -1,6 +1,7 @@
 ﻿using Flapp_BLL.Managers;
 using Flapp_BLL.Models;
 using Flapp_DAL.Repository;
+using Flapp_PL.View.Windows.BestuurderWindows.BeheerWindows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,8 @@ namespace Flapp_PL.View.Windows.BestuurderWindows
         private RijbewijsManager _rijbewijsManager;
         private AdresManager _adresManager;
 
-        private Bestuurder _bestuurder;
+        private Adres _adres = null;
+
         public VoegBestuurderToe()
         {
             InitializeComponent();
@@ -96,6 +98,17 @@ namespace Flapp_PL.View.Windows.BestuurderWindows
             dpGeboorte.Text = string.Empty;
             cbRijbewijzen.SelectedIndex = -1;
             lstRijbewijzen.Items.Clear();
+        }
+
+        private void lstAdres_Loaded(object sender, RoutedEventArgs e)
+        {
+            lstAdres.Items.Clear();
+            if (_adres != null) { lstAdres.Items.Add(_adres); }
+        }
+
+        private void btnAdresbeheer_Click(object sender, RoutedEventArgs e)
+        {
+            new Adresbeheer(_adres).ShowDialog();
         }
     }
 }

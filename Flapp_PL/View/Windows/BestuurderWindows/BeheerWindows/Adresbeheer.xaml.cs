@@ -1,14 +1,12 @@
-﻿using System.Text.RegularExpressions;
+﻿using Flapp_BLL.Models;
+using System.Text.RegularExpressions;
 using System.Windows;
 
 namespace Flapp_PL.View.Windows.BestuurderWindows.BeheerWindows
 {
-    /// <summary>
-    /// Interaction logic for Adresbeheer.xaml
-    /// </summary>
     public partial class Adresbeheer : Window
     {
-        public Adresbeheer()
+        public Adresbeheer(Adres _adres)
         {
             InitializeComponent();
         }
