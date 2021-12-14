@@ -31,6 +31,7 @@
 | 2u   | Bestuurder toevoegen works now                             |
 | 1u   | Bestuurder Zoeken on name.                                 |
 | 1u   | Bestuurder UC ListBox Changed to ListView + Styles         |
+| 2u   | Adresbeheer & BestuurderToevoegen window Update            |
 
 
 
