@@ -1,6 +1,7 @@
 ﻿using Flapp_BLL.Interfaces;
 using Flapp_BLL.Models;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -126,7 +127,6 @@ namespace Flapp_DAL.Repository
                 finally { conn.Close(); }
             }
         }
-
         public Adres GeefAdres(Adres adres)
         {
             SqlConnection conn = new SqlConnection(_connString);
@@ -157,6 +157,31 @@ namespace Flapp_DAL.Repository
                 finally { conn.Close(); }
             }
         }
+
+        public List<Adres> GeefAdressen()
+        {
+            SqlConnection conn = new SqlConnection(_connString);
+            List<Adres> adressen = new List<Adres>();
+            string query = "SELECT TOP(20) * FROM Adres ORDER BY stad;";
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
+                cmd.CommandText = query;
+                conn.Open();
+                try
+                {
+                    SqlDataReader r = cmd.ExecuteReader();
+                    while (r.Read())
+                    {
+                        Adres adres = new Adres((int)r["adresId"], (string)r["straat"], (string)r["huisnummer"], (string)r["stad"], (int)r["postcode"]);
+                        adressen.Add(adres);
+                    }
+
+                    return adressen;
+                }
+                catch (Exception ex) { throw new Exception(ex.Message); }
+                finally { conn.Close(); }
+            }
+        }
         #endregion
 
         #region VerwijderAdres Method
@@ -164,9 +189,11 @@ namespace Flapp_DAL.Repository
         {
             SqlConnection conn = new SqlConnection(_connString);
             string query = "USE [Project_Flapp_DB]; DELETE FROM [dbo].[Adres] WHERE adresid = @adresid;";
-            using (SqlCommand cmd = conn.CreateCommand()) {
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
                 conn.Open();
-                try {
+                try
+                {
                     cmd.Parameters.Add(new SqlParameter("@adresid", SqlDbType.Int));
 
                     cmd.CommandText = query;
@@ -174,7 +201,9 @@ namespace Flapp_DAL.Repository
                     cmd.Parameters["@adresid"].Value = a.Id;
 
                     cmd.ExecuteNonQuery();
-                } catch (Exception ex) { throw new Exception(ex.Message); } finally { conn.Close(); }
+                }
+                catch (Exception ex) { throw new Exception(ex.Message); }
+                finally { conn.Close(); }
             }
         }
         #endregion
@@ -185,9 +214,11 @@ namespace Flapp_DAL.Repository
             SqlConnection conn = new SqlConnection(_connString);
             string query = "USE [Project_Flapp_DB]; UPDATE [dbo].[Adres] WHERE adresid = @adresid AND straat = @straat AND huisnummer = @huisnummer" +
                 "AND stad = @stad AND postcode = @postcode";
-            using (SqlCommand cmd = conn.CreateCommand()) {
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
                 conn.Open();
-                try {
+                try
+                {
                     cmd.Parameters.Add(new SqlParameter("@adresid", SqlDbType.Int));
                     cmd.Parameters.Add(new SqlParameter("@straat", SqlDbType.NVarChar));
                     cmd.Parameters.Add(new SqlParameter("@huisnummer", SqlDbType.NVarChar));
@@ -203,7 +234,9 @@ namespace Flapp_DAL.Repository
                     cmd.Parameters["@postcode"].Value = a.Postcode;
 
                     cmd.ExecuteNonQuery();
-                } catch (Exception ex) { throw new Exception(ex.Message); } finally { conn.Close(); }
+                }
+                catch (Exception ex) { throw new Exception(ex.Message); }
+                finally { conn.Close(); }
             }
         }
         #endregion

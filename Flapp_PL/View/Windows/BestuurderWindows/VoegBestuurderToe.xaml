@@ -40,6 +40,16 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <!--  ListView Header Style  -->
+        <Style TargetType="{x:Type ListView}" />
+        <Style TargetType="{x:Type GridViewColumnHeader}">
+            <Setter Property="IsEnabled" Value="False" />
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="TextElement.Foreground" Value="Black" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -233,7 +243,8 @@
                     Width="250"
                     Height="40"
                     Margin="0,5"
-                    Loaded="lstAdres_Loaded">
+                    Loaded="lstAdres_Loaded"
+                    SelectionMode="Single">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn DisplayMemberBinding="{Binding Postcode}" Header="Postcode" />
@@ -258,8 +269,8 @@
                     Height="25"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Content="Adresbeheer"
-                    Click="btnAdresbeheer_Click"/>
+                    Click="btnAdresbeheer_Click"
+                    Content="Adresbeheer" />
             </StackPanel>
         </StackPanel>
 

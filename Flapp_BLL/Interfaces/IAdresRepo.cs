@@ -1,4 +1,5 @@
 ﻿using Flapp_BLL.Models;
+using System.Collections.Generic;
 
 namespace Flapp_BLL.Interfaces
 {
@@ -11,5 +12,6 @@ namespace Flapp_BLL.Interfaces
         void UpdateAdres(Adres adres);
         Adres GeefAdres(int id);
         Adres GeefAdres(Adres adres);
+        List<Adres> GeefAdressen();
     }
 }

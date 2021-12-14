@@ -7,7 +7,7 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Flapp: Adresbeheer"
-    Width="500"
+    Width="550"
     Height="300"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
@@ -39,12 +39,21 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <!--  ListView Header Style  -->
+        <Style TargetType="{x:Type GridViewColumnHeader}">
+            <Setter Property="IsEnabled" Value="False" />
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="TextElement.Foreground" Value="Black" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
-    <Grid>
+    <Grid Margin="5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
-            <ColumnDefinition />
-            <ColumnDefinition />
+            <ColumnDefinition Width="130" />
+            <ColumnDefinition Width="130" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height=".9*" />
@@ -77,14 +86,77 @@
         </DockPanel>
         <StackPanel
             Grid.Row="1"
-            Grid.RowSpan="3"
+            Grid.RowSpan="6"
             Grid.Column="0"
-            Margin="0,10">
-            <ListBox
+            Margin="10,5,10,0">
+            <ListView
                 x:Name="lstAdressen"
                 Width="auto"
-                Height="200"
-                Margin="1" />
+                Height="150"
+                Margin="1"
+                Loaded="lstAdressen_Loaded"
+                SelectionMode="Single">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn DisplayMemberBinding="{Binding Postcode}" Header="Postcode" />
+                        <GridViewColumn
+                            Width="50"
+                            DisplayMemberBinding="{Binding Stad}"
+                            Header="Stad" />
+                        <GridViewColumn
+                            Width="50"
+                            DisplayMemberBinding="{Binding Straat}"
+                            Header="Straat" />
+                        <GridViewColumn
+                            Width="50"
+                            DisplayMemberBinding="{Binding Huisnummer}"
+                            Header="Huisnummer" />
+                    </GridView>
+                </ListView.View>
+
+            </ListView>
+            <StackPanel Orientation="Horizontal">
+                <!--  AdresSelecteren Button  -->
+                <Button
+                    x:Name="btnSelecteer"
+                    Width="100"
+                    Height="35"
+                    Margin="0,5"
+                    Click="btnSelecteer_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                            Width="20"
+                            Height="20"
+                            Margin="0,0,5,0"
+                            Foreground="#F9F7F7"
+                            Kind="Select" />
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="#F9F7F7"
+                            Text="Selecteren" />
+                    </StackPanel>
+                </Button>
+                <Button
+                    x:Name="btnVerwijderen"
+                    Width="100"
+                    Height="35"
+                    Margin="5,5"
+                    Click="btnVerwijderen_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                            Width="20"
+                            Height="20"
+                            Margin="0,0,5,0"
+                            Foreground="#F9F7F7"
+                            Kind="Remove" />
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="#F9F7F7"
+                            Text="Verwijderen" />
+                    </StackPanel>
+                </Button>
+
+            </StackPanel>
         </StackPanel>
         <!--  TextBlocks Adres  -->
         <TextBlock
@@ -150,16 +222,17 @@
             FontSize="16"
             MaxLength="4"
             PreviewTextInput="txtPostcode_PreviewTextInput" />
-        <!--  Buttons End  -->
+        <!--  AdresToevoegen Button  -->
         <Button
             x:Name="btnVoegtoe"
             Grid.Row="5"
             Grid.Column="3"
-            Width="130"
+            Width="100"
             Height="35"
             Margin="10,5,5,5"
             HorizontalAlignment="Center"
-            VerticalAlignment="Top">
+            VerticalAlignment="Top"
+            Click="btnVoegtoe_Click">
             <StackPanel Orientation="Horizontal">
                 <materialDesign:PackIcon
                     Width="20"
@@ -168,11 +241,12 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Foreground="#F9F7F7"
-                    Kind="House" />
+                    Kind="Add" />
                 <TextBlock
                     VerticalAlignment="Center"
+                    FontSize="11"
                     Foreground="#F9F7F7"
-                    Text="Adres toevoegen" />
+                    Text="Toevoegen" />
             </StackPanel>
         </Button>
     </Grid>

@@ -2,6 +2,8 @@
 using Flapp_BLL.Interfaces;
 using Flapp_BLL.Models;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Flapp_BLL.Managers
 {
@@ -42,6 +44,16 @@ namespace Flapp_BLL.Managers
             }
             catch (Exception ex) { throw new AdresManagerException("AdresManager: VerwijderAdres", ex); }
         }
+
+        public List<Adres> GeefAdressen()
+        {
+            try
+            {
+                return _repo.GeefAdressen();
+            }
+            catch (Exception ex) { throw new AdresManagerException("AdresManager: GeefAdressen", ex); }
+        }
+
         public void UpdateAdres(Adres adres)
         {
             if (!_repo.BestaatAdres(adres)) { throw new AdresManagerException("AdresManager: UpdateAdres: Adres bestaat niet!"); }
