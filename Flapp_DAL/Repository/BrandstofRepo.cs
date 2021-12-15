@@ -176,7 +176,7 @@ namespace Flapp_DAL.Repository
         }
         public void VoegBrandstofToeAanTankkaart(int brandstofid, int tankkaartid) {
             SqlConnection conn = new SqlConnection(_connString);
-            string query = "INSERT INTO [dbo].[Brandstof_Tankkaart] ([brandstofId] ,[tankkaartId]) VALUES(@brandstofId,@tankkaartId);";
+            string query = "INSERT INTO [dbo].[Brandstof_Tankkaart] ([brandstofId] ,[tankkaartId]) VALUES(@brandstofId, @tankkaartId);";
             using (SqlCommand cmd = conn.CreateCommand()) {
                 conn.Open();
                 try {
