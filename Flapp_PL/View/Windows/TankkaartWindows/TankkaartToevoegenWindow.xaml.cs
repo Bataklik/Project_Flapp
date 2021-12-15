@@ -3,6 +3,7 @@ using Flapp_BLL.Models;
 using Flapp_DAL.Repository;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 
 namespace Flapp_PL.View.Windows.TankkaartWindows {
@@ -21,21 +22,24 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
         private void laadWaarden() {
             dpGeldigheidsdatum.SelectedDate = DateTime.Now.AddYears(2);
             dpGeldigheidsdatum.IsEnabled = false;
+            try {
+                cbBrandstoffen.ItemsSource = _brandstofManager.GeefAlleBrandstoffen();
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
         private void btnVoegtoe_Click(object sender, RoutedEventArgs e) {
             try {
                 if (dpGeldigheidsdatum.SelectedDate != null && !string.IsNullOrWhiteSpace(txtPincode.Text) && lbBrandstof.Items.Count > 0) {
-                    DateTime? geldigheidsdatum = dpGeldigheidsdatum.SelectedDate;
+                    Tankkaart t = null;
+                    DateTime geldigheidsdatum = (DateTime)dpGeldigheidsdatum.SelectedDate;
                     string pincode = txtPincode.Text;
                     bool geblokkeerd = false;
                     if (cbGeblokkeerd.SelectedIndex == 0) { geblokkeerd = true; }
-                    List<Brandstof> brandstoffen = new List<Brandstof>();
-                    foreach (var v in lbBrandstof.Items) {
-                        brandstoffen.Add((Brandstof)v);
-                    }
-                    Tankkaart t = new Tankkaart(geldigheidsdatum, pincode, geblokkeerd, brandstoffen);
-                    _tankkaartManager.VoegTankkaartToe(t);
+                    List<Brandstof> brandstoffen = lbBrandstof.Items.Cast<Brandstof>().ToList();
+                    t = new Tankkaart(geldigheidsdatum, pincode, geblokkeerd, brandstoffen);
+                    t.ZetKaartnummer(_tankkaartManager.VoegTankkaartToe(t));
+                    _brandstofManager.VoegBrandstofToeAanTankkaart(t.Kaartnummer, t.Brandstoffen);
                     MessageBox.Show("Tankkaart toegevoegd!");
                     Close();
                 }
@@ -43,12 +47,6 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
 
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
-        }
-
-        private void btnBestuurder_Click(object sender, RoutedEventArgs e) {
-            TankkaartToevoegenWindow ttw = this;
-
-            new TankkaartZoekBestuurderWindow(ttw).ShowDialog();
         }
 
         private void btnAnnuleer_Click(object sender, RoutedEventArgs e) {
@@ -65,13 +63,6 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
             if ((Brandstof)cbBrandstoffen.SelectedItem == null) { MessageBox.Show("U heeft geen brandstof aangeduid!"); return; }
             if (lbBrandstof.Items.Contains((Brandstof)cbBrandstoffen.SelectedItem)) { MessageBox.Show("Brandstof staat al op de lijst!"); return; }
             lbBrandstof.Items.Remove((Brandstof)cbBrandstoffen.SelectedItem);
-        }
-
-        private void cbBrandstoffen_Loaded(object sender, RoutedEventArgs e) {
-            try {
-                cbBrandstoffen.ItemsSource = _brandstofManager.GeefAlleBrandstoffen();
-            }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
     }
 }

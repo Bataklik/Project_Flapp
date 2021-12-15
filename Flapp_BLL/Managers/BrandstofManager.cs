@@ -1,82 +1,70 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Flapp_BLL.Exceptions.ManagerExceptions;
 using Flapp_BLL.Interfaces;
 using Flapp_BLL.Models;
-using Flapp_BLL.Exceptions.ManagerExceptions;
+using System;
+using System.Collections.Generic;
 
-namespace Flapp_BLL.Managers
-{
-    public class BrandstofManager
-    {
+namespace Flapp_BLL.Managers {
+    public class BrandstofManager {
         private IBrandstofRepo _repo;
 
-        public BrandstofManager(IBrandstofRepo _repo)
-        {
+        public BrandstofManager(IBrandstofRepo _repo) {
             this._repo = _repo;
         }
 
-        public void VoegBrandstofToeAanVoertuig(int voertuig, List<Brandstof> brandstof)
-        {
-            try 
-            { 
-                 brandstof.ForEach(b => _repo.VoegBrandstofToeAanVoertuig(voertuig, b.Id)); 
+        public void VoegBrandstofToeAanVoertuig(int voertuig, List<Brandstof> brandstof) {
+            try {
+                brandstof.ForEach(b => _repo.VoegBrandstofToeAanVoertuig(voertuig, b.Id));
             }
             catch (Exception) { throw; }
         }
-        public void VerwijderBrandstofBijVoertuig(int id)
-        {
+
+        public void VoegBrandstofToeAanTankkaart(int tankkaartId, List<Brandstof> brandstof) {
+            try {
+                brandstof.ForEach(b => _repo.VoegBrandstofToeAanTankkaart(tankkaartId, b.Id));
+            }
+            catch (Exception) { throw; }
+        }
+        public void VerwijderBrandstofBijVoertuig(int id) {
             try { _repo.VerwijderBrandstofBijVoertuig(id); }
             catch (Exception) { throw; }
         }
-        public void GeefBrandstof(Brandstof brandstof)
-        {
+        public void GeefBrandstof(Brandstof brandstof) {
             if (!_repo.BestaatBrandstof(brandstof)) { throw new BrandstofManagerException("BrandstofManager: GeefBrandstof: BrandstofType bestaat niet!"); }
 
             try { _repo.GeefBrandstof(brandstof); }
             catch (Exception ex) { throw new BrandstofManagerException("BrandstofManager", ex); }
         }
-        public void GeefBrandstof(int id)
-        {
+        public void GeefBrandstof(int id) {
             if (!_repo.BestaatBrandstof(id)) { throw new BrandstofManagerException("BrandstofManager: GeefBrandstof: BrandstofType bestaat niet!"); }
 
             try { _repo.GeefBrandstof(id); }
             catch (Exception ex) { throw new BrandstofManagerException("BrandstofManager", ex); }
         }
-        public void VoegBrandstofToe(Brandstof brandstof)
-        {
+        public void VoegBrandstofToe(Brandstof brandstof) {
             if (_repo.BestaatBrandstof(brandstof)) { throw new BrandstofManagerException("BrandstofManager: VoegBrandstofToe: BrandstofType bestaat al!"); }
-            try
-            {
+            try {
                 _repo.VoegBrandstofToe(brandstof);
             }
             catch (Exception ex) { throw new BrandstofManagerException("BrandstofManager", ex); }
         }
-        public void UpdateBrandstof(Brandstof brandstof)
-        {
+        public void UpdateBrandstof(Brandstof brandstof) {
             if (_repo.BestaatBrandstof(brandstof)) { throw new BrandstofManagerException("BrandstofManager: UpdateBrandstof: BrandstofType bestaat al!"); }
-            try
-            {
+            try {
                 _repo.UpdateBrandstof(brandstof);
             }
             catch (Exception ex) { throw new BrandstofManagerException("BrandstofManager", ex); }
         }
-        public void VerwijderBrandstof(int id)
-        {
+        public void VerwijderBrandstof(int id) {
             if (!_repo.BestaatBrandstof(id)) { throw new BrandstofManagerException("BrandstofManager: VerwijderBrandstof: BrandstofType bestaat niet!"); }
             _repo.VerwijderBrandstof(id);
         }
-        public void VerwijderBrandstof(string naam)
-        {
+        public void VerwijderBrandstof(string naam) {
             if (!_repo.BestaatBrandstof(naam)) { throw new BrandstofManagerException("BrandstofManager: VerwijderBrandstof: BrandstofType bestaat niet!"); }
             _repo.VerwijderBrandstof(naam);
         }
-        public IReadOnlyList<Brandstof> GeefAlleBrandstoffen()
-        {
-            try
-            {
+        public IReadOnlyList<Brandstof> GeefAlleBrandstoffen() {
+            try {
                 return _repo.GeefAlleBrandstoffen();
             }
             catch (Exception ex) { throw new BestuurderManagerException("VoertuigManager: Geef alle Brandstoffen:", ex); }

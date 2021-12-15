@@ -8,7 +8,7 @@ namespace Flapp_BLL.Interfaces
     {
         bool BestaatTankkaart(Tankkaart tankkaart);
         bool BestaatTankkaart(int kaart);
-        void VoegTankkaartToe(Tankkaart tankkaart);
+        int VoegTankkaartToe(Tankkaart tankkaart);
         void VerwijderTankkaart(Tankkaart tankkaart);
         void UpdateTankkaart(Tankkaart tankkaart);
 

@@ -10,15 +10,15 @@ namespace Flapp_BLL.Managers {
 
         public TankkaartManager(ITankkaartRepo repo) { _repo = repo; }
 
-        public void VoegTankkaartToe(Tankkaart tankkaart) {
+        public int VoegTankkaartToe(Tankkaart tankkaart) {
             if (_repo.BestaatTankkaart(tankkaart)) { throw new Exception("TankkaartManager: VoegTankkaartToe: Tankkaart bestaat al!"); }
             try {
-                _repo.VoegTankkaartToe(tankkaart);
+                return _repo.VoegTankkaartToe(tankkaart);
             }
             catch (Exception ex) { throw new TankkaartManagerException("TankkaartManager", ex); }
         }
         public void VerwijderTankkaart(Tankkaart tankkaart) {
-            if (!_repo.BestaatTankkaart(tankkaart)) { throw new Exception("TankkaartManager: VerwijderTankkaart: Tankkaart bestaat niet!"); }
+            if (!_repo.BestaatTankkaart(tankkaart.Kaartnummer)) { throw new Exception("TankkaartManager: VerwijderTankkaart: Tankkaart bestaat niet!"); }
             try {
                 _repo.VerwijderTankkaart(tankkaart);
             }

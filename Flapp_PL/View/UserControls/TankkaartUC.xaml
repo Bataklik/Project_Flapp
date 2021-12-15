@@ -42,13 +42,14 @@
         <StackPanel Margin="5">
             <ListView x:Name="lstTankkaarten"
                  Margin="10"
-                 Width="330"
+                 Width="362"
                  Height="400">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Geldigheidsdatum" Width="120" DisplayMemberBinding="{Binding Path=Geldigheidsdatum, StringFormat='dd/MM/yyyy'}" />
-                        <GridViewColumn Header="Bestuurder" Width="100" DisplayMemberBinding="{Binding Bestuurder, TargetNullValue=Geen}"/>
-                        <GridViewColumn Header="Geblokkeerd" Width="100" DisplayMemberBinding="{Binding Geblokkeerd}"/>
+                        <GridViewColumn Header="Kaartnummer" Width="85" DisplayMemberBinding="{Binding Kaartnummer}" />
+                        <GridViewColumn Header="Geldigheidsdatum" Width="110" DisplayMemberBinding="{Binding Path=Geldigheidsdatum, StringFormat='dd/MM/yyyy'}" />
+                        <GridViewColumn Header="Bestuurder" Width="80" DisplayMemberBinding="{Binding Bestuurder, TargetNullValue=Geen}"/>
+                        <GridViewColumn Header="Geblokkeerd" Width="80" DisplayMemberBinding="{Binding Geblokkeerd}"/>
                     </GridView>
                 </ListView.View>
                 <ListView.ContextMenu>
