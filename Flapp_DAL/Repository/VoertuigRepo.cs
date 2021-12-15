@@ -16,8 +16,108 @@ namespace Flapp_DAL.Repository {
             _bRepo = new BestuurderRepo(connString);
         }
 
-        #region zoekvoertuigen
-        
+        #region Zoekvoertuig Method
+        public Dictionary<int, Voertuig> ZoekVoertuig(string merk, string model, string nplaat)
+        {
+            Dictionary<int, Voertuig> voertuigen = new Dictionary<int, Voertuig>();
+            List<string> subquerylist = new List<string>();
+            int numberofparams = 0;
+            bool merkIsNull = true;
+            if (!String.IsNullOrWhiteSpace(merk))
+            {
+                merkIsNull = false;
+                if (numberofparams > 0)
+                {
+                    subquerylist.Add(" AND ");
+                }
+                numberofparams++;
+                subquerylist.Add("merk=@merk");
+            }
+            bool modelisNull = true;
+            if (!String.IsNullOrWhiteSpace(model))
+            {
+                modelisNull = false;
+                if (numberofparams > 0)
+                {
+                    subquerylist.Add(" AND ");
+                }
+                numberofparams++;
+                subquerylist.Add("model=@model");
+            }
+            bool nummerplaatIssNull = true;
+            if (!String.IsNullOrWhiteSpace(nplaat))
+            {
+                nummerplaatIssNull = false;
+                if (numberofparams > 0)
+                {
+                    subquerylist.Add(" AND ");
+                }
+                numberofparams++;
+                subquerylist.Add("nummerplaat=@nummerplaat");
+
+            }
+
+            string query = $"SELECT * FROM Voertuig LEFT JOIN Brandstof_Voertuig ON Voertuig.voertuigId = Brandstof_Voertuig.voertuigId LEFT JOIN Brandstof ON Brandstof_Voertuig.brandstofId = Brandstof.brandstofId WHERE {String.Join("", subquerylist)}";
+
+            SqlConnection cn = new SqlConnection(_connString);
+            using (SqlCommand cmd = cn.CreateCommand())
+            {
+                cn.Open();
+                try
+                {
+                    if (!merkIsNull)
+                    {
+                        cmd.Parameters.Add(new SqlParameter("@merk", SqlDbType.NVarChar));
+                        cmd.Parameters["@merk"].Value = merk;
+                    }
+                    if (!modelisNull)
+                    {
+                        cmd.Parameters.Add(new SqlParameter("@model", SqlDbType.NVarChar));
+                        cmd.Parameters["@model"].Value = model;
+                    }
+                    if (!nummerplaatIssNull)
+                    {
+                        cmd.Parameters.Add(new SqlParameter("@nummerplaat", SqlDbType.NVarChar));
+                        cmd.Parameters["@nummerplaat"].Value = nplaat;
+                    }
+                    cmd.CommandText = query;
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        if (voertuigen.ContainsKey((int)reader["voertuigId"]))
+                        {
+                            Voertuig dicVoertuig = voertuigen[(int)reader["voertuigId"]];
+                            dicVoertuig.Brandstof.Add(new Brandstof(reader["naam"].ToString()));
+                        }
+                        else
+                        {
+                            int voertuigId = (int)reader["voertuigId"];
+                            string merkr = (string)reader["merk"];
+                            string modelr = (string)reader["model"];
+                            string cnummer = (string)reader["chassisNummer"];
+                            string nplaatr = (string)reader["nummerplaat"];
+                            List<Brandstof> brandstof = new List<Brandstof> { new Brandstof((string)reader["naam"]) };
+                            string type = (string)reader["type"];
+                            string kleur = (string)reader["kleur"];
+                            int deuren = (int)reader["deuren"];
+                            Voertuig v = new Voertuig(voertuigId, merkr, modelr, cnummer, nplaatr, brandstof, type, kleur, deuren);
+                            voertuigen.Add(v.VoertuigID, v);
+                        }
+
+                    }
+                    return voertuigen;
+                }
+                catch (Exception ex)
+                {
+
+                    throw new Exception(ex.Message);
+                }
+                finally
+                {
+                    cn.Close();
+                }
+            }
+        }
         #endregion
 
         #region BestaatVoertuig Method
@@ -117,96 +217,6 @@ namespace Flapp_DAL.Repository {
                 finally { conn.Close(); }
 
             }
-        }        
-        public Dictionary<int, Voertuig> ZoekVoertuig(string merk, string model, string nplaat)
-        {
-            Dictionary<int, Voertuig> voertuigen = new Dictionary<int, Voertuig>();
-            List<string> subquerylist = new List<string>();
-            int numberofparams = 0;
-            bool merkIsNull = true;
-            if (!String.IsNullOrWhiteSpace(merk))
-            {
-                merkIsNull = false;
-                if (numberofparams > 0) {
-                    subquerylist.Add(" AND ");
-                }
-                numberofparams++;
-                subquerylist.Add("merk=@merk");
-            }
-            bool modelisNull = true;
-            if (!String.IsNullOrWhiteSpace(model)) {
-                modelisNull = false;
-                if (numberofparams > 0) {
-                    subquerylist.Add(" AND ");
-                }
-                numberofparams++;
-                subquerylist.Add("model=@model");
-            }
-            bool nummerplaatIssNull = true;
-            if (!String.IsNullOrWhiteSpace(nplaat))
-            {
-                nummerplaatIssNull = false;
-                if (numberofparams > 0) {
-                    subquerylist.Add(" AND ");
-                }
-                numberofparams++;
-                subquerylist.Add("nummerplaat=@nummerplaat");
-
-            }       
-            
-            string query = $"SELECT * FROM Voertuig LEFT JOIN Brandstof_Voertuig ON Voertuig.voertuigId = Brandstof_Voertuig.voertuigId LEFT JOIN Brandstof ON Brandstof_Voertuig.brandstofId = Brandstof.brandstofId WHERE {String.Join("", subquerylist)}";
-            
-            SqlConnection cn = new SqlConnection(_connString);
-            using (SqlCommand cmd = cn.CreateCommand()) {
-                cn.Open();
-                try {
-                    if (!merkIsNull) {
-                        cmd.Parameters.Add(new SqlParameter("@merk", SqlDbType.NVarChar));
-                        cmd.Parameters["@merk"].Value = merk;
-                    }
-                    if (!modelisNull) {
-                        cmd.Parameters.Add(new SqlParameter("@model", SqlDbType.NVarChar));
-                        cmd.Parameters["@model"].Value = model;
-                    }
-                    if (!nummerplaatIssNull) {
-                        cmd.Parameters.Add(new SqlParameter("@nummerplaat", SqlDbType.NVarChar));
-                        cmd.Parameters["@nummerplaat"].Value = nplaat;
-                    }
-                    cmd.CommandText = query;
-                    SqlDataReader reader = cmd.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        if (voertuigen.ContainsKey((int)reader["voertuigId"]))
-                        {
-                            Voertuig dicVoertuig = voertuigen[(int)reader["voertuigId"]];
-                            dicVoertuig.Brandstof.Add(new Brandstof(reader["naam"].ToString()));
-                        }
-                        else
-                        {
-                            int voertuigId = (int)reader["voertuigId"];
-                            string merkr = (string)reader["merk"];
-                            string modelr = (string)reader["model"];
-                            string cnummer = (string)reader["chassisNummer"];
-                            string nplaatr = (string)reader["nummerplaat"];
-                            List<Brandstof> brandstof = new List<Brandstof> { new Brandstof((string)reader["naam"]) };
-                            string type = (string)reader["type"];
-                            string kleur = (string)reader["kleur"];
-                            int deuren = (int)reader["deuren"];
-                            Voertuig v = new Voertuig(voertuigId, merkr, modelr, cnummer, nplaatr, brandstof, type, kleur, deuren);
-                            voertuigen.Add(v.VoertuigID, v);
-                        }
-
-                    }
-                    return voertuigen; 
-                }
-                catch (Exception ex) {
-
-                    throw new Exception(ex.Message);
-                }
-                finally {
-                    cn.Close();
-                }
-            }            
         }        
         #endregion
 
@@ -311,7 +321,7 @@ namespace Flapp_DAL.Repository {
         }
         #endregion
 
-        #region GeefMerk & GeefModel
+        #region GeefMerk Method
         public IReadOnlyList<string> GeefMerken() {
             SqlConnection conn = new SqlConnection(_connString);
             List<string> merken = new List<string>();
@@ -333,20 +343,27 @@ namespace Flapp_DAL.Repository {
             return merken;
 
         }
-        public IReadOnlyList<string> GeefModellen(string merk) {
+        #endregion
+
+        #region GeefModellen Method
+        public IReadOnlyList<string> GeefModellen(string merk)
+        {
             List<string> modellen = new();
             SqlConnection conn = new SqlConnection(_connString);
             string query = "USE [Project_Flapp_DB]; SELECT DISTINCT model FROM Voertuig WHERE merk = @merk ORDER BY model";
-            using (SqlCommand cmd = conn.CreateCommand()) {
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
                 cmd.Parameters.Add(new SqlParameter("@merk", SqlDbType.NVarChar));
                 cmd.CommandText = query;
 
                 cmd.Parameters["@merk"].Value = merk;
                 cmd.CommandText = query;
                 conn.Open();
-                try {
+                try
+                {
                     SqlDataReader r = cmd.ExecuteReader();
-                    while (r.Read()) {
+                    while (r.Read())
+                    {
                         string model = (string)r["model"];
                         modellen.Add(model);
                     }
@@ -357,6 +374,7 @@ namespace Flapp_DAL.Repository {
 
             }
         }
+
         #endregion
     }
 }
