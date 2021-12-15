@@ -12,7 +12,6 @@ namespace Flapp_PL
         public MainWindow()
         {
             cm = new ConnectionManager(new ConnectionRepo((string)Application.Current.Properties["User"]));
-
             InitializeComponent();
             cbUsers.ItemsSource = new List<string> { "Raf", "TiboD", "TiboL", "Burak" };
             if (!cm.IsServerConnected())
@@ -35,10 +34,12 @@ namespace Flapp_PL
             wpUserControl.Children.Clear();
             BestuurderUC bestuurderUc = new BestuurderUC(main);
             wpUserControl.Children.Add(bestuurderUc);
+            main.Width = 750;
         }
         private void btnVoertuig_Click(object sender, RoutedEventArgs e)
         {
             MainWindow main = this;
+
             wpUserControl.Children.Clear();
             VoertuigUC voertuigUc = new VoertuigUC(main);
             wpUserControl.Children.Add(voertuigUc);
