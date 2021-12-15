@@ -38,13 +38,10 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
                 List<Bestuurder> bestuurders = new List<Bestuurder>();
                 bestuurders.Add((Bestuurder)lstBestuurders.SelectedItem);
 
-                if (_ttw != null) {
-                    _ttw.lbBestuurder.ItemsSource = bestuurders;
-                }
-                else {
-                    _tuw.lbBestuurder.ItemsSource = bestuurders;
-                }
-                
+
+                _tuw.lbBestuurder.ItemsSource = bestuurders;
+
+
                 Close();
             }
             catch (Exception) { throw; }

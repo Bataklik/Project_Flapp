@@ -9,7 +9,7 @@
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         Title="Flapp: Tankkaart Toevoegen" 
-        Height="520" 
+        Height="400" 
         Width="320">
     <Window.Resources>
         <!-- Button Style-->
@@ -44,8 +44,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="45"/>
             <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="80"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
@@ -88,17 +86,12 @@
                    FontSize="16" 
                    VerticalAlignment="Center" 
                    Margin="10,0"/>
-        <TextBlock Text="Bestuurder:" Grid.Row="3" 
+        <TextBlock Text="Geblokkeerd:" Grid.Row="3" 
                    Grid.Column="0" 
                    FontSize="16" 
                    VerticalAlignment="Center" 
                    Margin="10,0"/>
-        <TextBlock Text="Geblokkeerd:" Grid.Row="5" 
-                   Grid.Column="0" 
-                   FontSize="16" 
-                   VerticalAlignment="Center" 
-                   Margin="10,0"/>
-        <TextBlock Text="Brandstoftype:" Grid.Row="6" 
+        <TextBlock Text="Brandstoftype:" Grid.Row="4" 
                    Grid.Column="0" 
                    FontSize="16" 
                    VerticalAlignment="Center" 
@@ -120,61 +113,7 @@
                  Width="130" 
                  Margin="10,5,10,5" 
                  FontSize="16" />
-        <ListView x:Name="lbBestuurder" Grid.Row="3" 
-                 Grid.Column="1" 
-                 Width="130" 
-                 Margin="10,10,11,10" 
-                 FontSize="10" RenderTransformOrigin="0.526,-0.266" >
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Naam" Width="55" DisplayMemberBinding="{Binding Naam}" />
-                    <GridViewColumn Header="Voornaam" Width="65" DisplayMemberBinding="{Binding Voornaam}" />
-                </GridView>
-            </ListView.View>
-            <ListView.ItemContainerStyle>
-                <Style TargetType="{x:Type ListViewItem}">
-                    <Setter Property="Foreground" Value="Black"/>
-                    <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="#F9F7F7" />
-                            <Setter Property="BorderBrush" Value="#DBE2EF"/>
-                            <Setter Property="BorderThickness" Value="1"/>
-                        </Trigger>
-                        <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Background" Value="#DBE2EF" />
-                            <Setter Property="BorderBrush" Value="#DBE2EF"/>
-                            <Setter Property="BorderThickness" Value="1"/>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </ListView.ItemContainerStyle>
-            <ListView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel HorizontalAlignment="Left"/>
-                </ItemsPanelTemplate>
-            </ListView.ItemsPanel>
-        </ListView>
-        <Button x:Name="btnBestuurder" 
-                Grid.Row="4" 
-                Grid.Column="1" 
-                Width="130" 
-                Margin="10,5,10,5" 
-                FontSize="13" 
-                Click="btnBestuurder_Click">
-            <StackPanel Orientation="Horizontal">
-                <materialDesign:PackIcon Kind="Search"
-                                             Margin="0,0,5,0"
-                                             Width="20" 
-                                             Height="20"
-                                             HorizontalAlignment="Left"
-                                             Foreground="#F9F7F7"
-                                             VerticalAlignment="Center"/>
-                <TextBlock Text="Zoek Bestuurder"
-                           Foreground="#F9F7F7"
-                           VerticalAlignment="Center"/>
-            </StackPanel>
-        </Button>
-        <ComboBox Name="cbGeblokkeerd" Grid.Row="5" 
+        <ComboBox Name="cbGeblokkeerd" Grid.Row="3" 
                   Grid.Column="1" 
                   Width="130" 
                   Margin="10,5,10,5" 
@@ -182,12 +121,12 @@
             <ComboBoxItem>Ja</ComboBoxItem>
             <ComboBoxItem IsSelected="True">Nee</ComboBoxItem>
         </ComboBox>
-        <StackPanel Grid.Row="6" 
+        <StackPanel Grid.Row="4" 
                     Grid.Column="1"
                     Orientation="Horizontal"
                     Margin="10,5"
                     Height="auto">
-            <ComboBox Loaded="cbBrandstoffen_Loaded" x:Name="cbBrandstoffen"
+            <ComboBox x:Name="cbBrandstoffen"
                  Width="80" 
                  Height="30"
                  Margin="0,0,10,0" 
@@ -213,7 +152,7 @@
 
             </Button>
         </StackPanel>
-        <ListBox Name="lbBrandstof" Grid.Row="7" 
+        <ListBox Name="lbBrandstof" Grid.Row="5" 
                  Grid.Column="1" 
                  Width="130" 
                  Margin="10,7,11,10" 

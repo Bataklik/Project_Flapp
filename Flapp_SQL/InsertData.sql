@@ -19,6 +19,7 @@ USE [Project_Flapp_DB]; INSERT INTO [dbo].[Voertuig] ([merk] ,[model] ,[chassisn
 
 -- Tankkaart Insert
 USE [Project_Flapp_DB]; INSERT INTO [dbo].[Tankkaart] ([geldigheidsdatum] ,[pincode] ,[geblokkeerd]) VALUES ('01/02/2025' ,'1232' ,0);
+USE [Project_Flapp_DB]; INSERT INTO [dbo].[Tankkaart] ([geldigheidsdatum] ,[pincode] ,[geblokkeerd]) VALUES ('01/02/2030' ,'9000' ,0);
 
 -- Bestuurder Insert
 USE [Project_Flapp_DB]; SET DATEFORMAT dmy; INSERT INTO [dbo].[Bestuurder] ([naam] ,[voornaam] ,[geboortedatum] ,[rijksregister] ,[adresId] ,[voertuigId] ,[tankkaartId] ,[geslacht]) VALUES ('Declerck' ,'Tibo' ,'06/08/1999' ,'99.08.06-289.17' ,NULL ,NULL ,NULL ,1);
@@ -39,6 +40,7 @@ USE [Project_Flapp_DB]; INSERT INTO [dbo].[Rijbewijs_Bestuurder] ([rijbewijsId] 
 -- Brandstof_Tankkaart Insert
 USE [Project_Flapp_DB]; INSERT INTO [dbo].[Brandstof_Tankkaart] ([brandstofId] ,[tankkaartId]) VALUES (1 ,1);
 USE [Project_Flapp_DB]; INSERT INTO [dbo].[Brandstof_Tankkaart] ([brandstofId] ,[tankkaartId]) VALUES (2 ,1);
+USE [Project_Flapp_DB]; INSERT INTO [dbo].[Brandstof_Tankkaart] ([brandstofId] ,[tankkaartId]) VALUES (1 ,2);
 
 -- Brandstof_Voertuig Insert
 USE [Project_Flapp_DB]; INSERT INTO [dbo].[Brandstof_Voertuig] ([brandstofId] ,[voertuigId]) VALUES (1 ,1);

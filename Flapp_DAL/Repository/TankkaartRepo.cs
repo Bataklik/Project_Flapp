@@ -1,4 +1,5 @@
-﻿using Flapp_BLL.Interfaces;
+﻿using Flapp_BLL.Exceptions.ModelExpections;
+using Flapp_BLL.Interfaces;
 using Flapp_BLL.Models;
 using System;
 using System.Collections.Generic;
@@ -323,29 +324,49 @@ namespace Flapp_DAL.Repository {
         //    }
         //}
 
-        public void VoegTankkaartToe(Tankkaart t) {
+        //public void VoegTankkaartToe(Tankkaart t) {
+        //    SqlConnection conn = new SqlConnection(_connString);
+        //    string query = "INSERT INTO [dbo].[Tankkaart] ([tankkaartId] ,[geldigheidsdatum] ,[brandstoftype] ,[geblokkeerd]) VALUES (@tankkaartId ,@geldigheidsdatum ,@brandstoftype ,@geblokkeerd);";
+        //    using (SqlCommand cmd = conn.CreateCommand()) {
+        //        conn.Open();
+        //        try {
+        //            cmd.Parameters.Add(new SqlParameter("@tankkaartId", SqlDbType.Int));
+        //            cmd.Parameters.Add(new SqlParameter("@geldigheidsdatum", SqlDbType.Date));
+        //            cmd.Parameters.Add(new SqlParameter("@brandstoftype", SqlDbType.NVarChar));
+        //            cmd.Parameters.Add(new SqlParameter("@geblokkeerd", SqlDbType.Bit));
+
+        //            cmd.CommandText = query;
+
+        //            cmd.Parameters["@tankkaartId"].Value = t.Kaartnummer;
+        //            cmd.Parameters["@geldigheidsdatum"].Value = t.Geldigheidsdatum;
+        //            cmd.Parameters["@brandstoftype"].Value = t.Bestuurder;
+        //            cmd.Parameters["@geblokkeerd"].Value = t.Geblokkeerd;
+
+        //            cmd.ExecuteNonQuery();
+        //        }
+        //        catch (Exception ex) { throw new Exception(ex.Message); }
+        //        finally { conn.Close(); }
+        //    }
+        //}
+        
+        public int VoegTankkaartToe(Tankkaart t) {
+            string query = "INSERT INTO [dbo].[Tankkaart] ([geldigheidsdatum], [pincode], [geblokkeerd]) output INSERTED.tankkaartId  VALUES (@geldigheidsdatum ,@pincode ,@geblokkeerd)";
             SqlConnection conn = new SqlConnection(_connString);
-            string query = "INSERT INTO [dbo].[Tankkaart] ([tankkaartId] ,[geldigheidsdatum] ,[brandstoftype] ,[geblokkeerd]) VALUES (@tankkaartId ,@geldigheidsdatum ,@brandstoftype ,@geblokkeerd);";
-            using (SqlCommand cmd = conn.CreateCommand()) {
+            SqlCommand cmd = new(query, conn);
+            try {
                 conn.Open();
-                try {
-                    cmd.Parameters.Add(new SqlParameter("@tankkaartId", SqlDbType.Int));
-                    cmd.Parameters.Add(new SqlParameter("@geldigheidsdatum", SqlDbType.Date));
-                    cmd.Parameters.Add(new SqlParameter("@brandstoftype", SqlDbType.NVarChar));
-                    cmd.Parameters.Add(new SqlParameter("@geblokkeerd", SqlDbType.Bit));
 
-                    cmd.CommandText = query;
+                cmd.Parameters.AddWithValue("@geldigheidsdatum", t.Geldigheidsdatum);
+                cmd.Parameters.AddWithValue("@pincode", t.Pincode);
+                if (t.Geblokkeerd) { cmd.Parameters.AddWithValue("@geblokkeerd", 1); }
+                else { cmd.Parameters.AddWithValue("@geblokkeerd", 0); }
 
-                    cmd.Parameters["@tankkaartId"].Value = t.Kaartnummer;
-                    cmd.Parameters["@geldigheidsdatum"].Value = t.Geldigheidsdatum;
-                    cmd.Parameters["@brandstoftype"].Value = t.Bestuurder;
-                    cmd.Parameters["@geblokkeerd"].Value = t.Geblokkeerd;
+                int tankkaartId = (int)cmd.ExecuteScalar();
 
-                    cmd.ExecuteNonQuery();
-                }
-                catch (Exception ex) { throw new Exception(ex.Message); }
-                finally { conn.Close(); }
+                return tankkaartId;
             }
+            catch (Exception ex) { throw new TankkaartException(ex.Message); }
+            finally { conn.Close(); }
         }
     }
 }
