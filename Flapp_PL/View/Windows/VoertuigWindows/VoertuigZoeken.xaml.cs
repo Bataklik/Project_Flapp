@@ -36,7 +36,7 @@ namespace Flapp_PL.View.Windows.VoertuigWindows
             _brandstofManager = new BrandstofManager(new BrandstofRepo(Application.Current.Properties["User"].ToString()));
             InitializeComponent();   
             laadBrandstoffen();
-            laadMerk();            
+            //laadMerk();            
         }
         public void laadBrandstoffen()
         {
@@ -65,10 +65,7 @@ namespace Flapp_PL.View.Windows.VoertuigWindows
         }
         void laadMerk()
         {
-            ObservableCollection<string> merken = new(_voertuigmanager.geefMerken());
-            merken.Insert(0, "");
-            //cmbMerk.SelectedIndex = 0;
-            cmbMerk.ItemsSource = merken;
+            
         }
         private void cmbMerk_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -88,7 +85,13 @@ namespace Flapp_PL.View.Windows.VoertuigWindows
                 //cmbModel.ItemsSource = null;
             }
         }
-        
-        
+
+        private void cmbMerk_Loaded(object sender, RoutedEventArgs e)
+        {
+            ObservableCollection<string> merken = new(_voertuigmanager.geefMerken());
+            merken.Insert(0, "");
+            //cmbMerk.SelectedIndex = 0;
+            cmbMerk.ItemsSource = merken;
+        }
     }
 }

@@ -86,7 +86,7 @@
                  Grid.Row="4" 
                  Grid.Column="1" 
                  Margin="10,5,12,5" 
-                 FontSize="16" SelectionChanged="cmbMerk_SelectionChanged" Grid.ColumnSpan="1" />
+                 FontSize="16" SelectionChanged="cmbMerk_SelectionChanged" Grid.ColumnSpan="1" Loaded="cmbMerk_Loaded" />
         <ComboBox Name="cmbModel" Grid.Row="5" 
                   Grid.Column="1" 
                   Margin="10,5,12,5" 
