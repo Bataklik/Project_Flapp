@@ -21,31 +21,25 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
     /// Interaction logic for ZoekTankkaartWindow.xaml
     /// </summary>
     public partial class ZoekTankkaartWindow : Window {
-        private MainWindow main;
-        private TankkaartUC tUC;
-        private TankkaartManager tankkaartManager;
+        private MainWindow _main;
+        private TankkaartUC _tUC;
+        private TankkaartManager _tankkaartManager;
 
         public ZoekTankkaartWindow(MainWindow main, TankkaartUC tUC) {
-            this.main = main;
-            this.tUC = tUC;
-            tankkaartManager = new TankkaartManager(new TankkaartRepo(Application.Current.Properties["User"].ToString()));
+            _main = main;
+            _tUC = tUC;
+            _tankkaartManager = new TankkaartManager(new TankkaartRepo(Application.Current.Properties["User"].ToString()));
             InitializeComponent();
         }
 
         private void btnZoek_Click(object sender, RoutedEventArgs e) {
-            List<Tankkaart> tankkaarten = new List<Tankkaart>();
-            //int kaartnummer = Convert.ToInt32(txtKaartnummer.Text);
-            if(dpGeldigheidsdatum.SelectedDate == null)
-            {
-                try {
-                    foreach (KeyValuePair<int, Tankkaart> v in tankkaartManager.GeefAlleTankkaarten(Convert.ToInt32(txtKaartnummer.Text), (DateTime)dpGeldigheidsdatum.SelectedDate)) {
-                        tankkaarten.Add(v.Value);
-                    }
-                    tUC.lstTankkaarten.ItemsSource = tankkaarten;
-                }
-                catch (Exception) { throw; }
-            }
-            
+            if (txtKaartnummer.Text != null && dpGeldigheidsdatum.SelectedDate == null) {
+                _tUC.lstTankkaarten.ItemsSource = _tankkaartManager.GeefAlleTankkaartenOpKaartnummer(Int32.Parse(txtKaartnummer.Text)).Select(x => x.Value).ToList();
+                Close();
+            } else if (txtKaartnummer.Text == null && dpGeldigheidsdatum.SelectedDate != null) {
+                _tUC.lstTankkaarten.ItemsSource = _tankkaartManager.GeefAlleTankkaartenOpGeldigheidsdatum((DateTime)dpGeldigheidsdatum.SelectedDate).Select(x => x.Value).ToList();
+                Close();
+            } 
         }
 
         private void btnAnnuleren_Click(object sender, RoutedEventArgs e) {

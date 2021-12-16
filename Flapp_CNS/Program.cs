@@ -15,8 +15,8 @@ namespace Flapp_CNS
             //BestuurderRepo repo = new BestuurderRepo(connStringBurak);
             TankkaartRepo repo_ = new TankkaartRepo(Tibo);
             //var b = repo.GeefBestuurder(2);
-            var t = repo_.GeefTankkaart(2);
-            Console.WriteLine(repo_.BestaatTankkaart(t.Kaartnummer));
+            
+            Console.WriteLine(repo_.BestaatTankkaart(4));
             //Geven
             //RijbewijsGevenId(connStringBurak);
             //RijbewijsGevenObj(connStringBurak);

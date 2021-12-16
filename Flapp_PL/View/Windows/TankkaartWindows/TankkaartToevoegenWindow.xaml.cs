@@ -1,6 +1,7 @@
 ﻿using Flapp_BLL.Managers;
 using Flapp_BLL.Models;
 using Flapp_DAL.Repository;
+using Flapp_PL.View.UserControls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +12,13 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
     public partial class TankkaartToevoegenWindow : Window {
         private TankkaartManager _tankkaartManager;
         private BrandstofManager _brandstofManager;
+        private TankkaartUC _tUC;
 
-        public TankkaartToevoegenWindow() {
+        public TankkaartToevoegenWindow(TankkaartUC tUC) {
             InitializeComponent();
             _tankkaartManager = new TankkaartManager(new TankkaartRepo(Application.Current.Properties["User"].ToString()));
             _brandstofManager = new BrandstofManager(new BrandstofRepo(Application.Current.Properties["User"].ToString()));
+            _tUC = tUC;
             laadWaarden();
         }
 
@@ -41,10 +44,10 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
                     t.ZetKaartnummer(_tankkaartManager.VoegTankkaartToe(t));
                     _brandstofManager.VoegBrandstofToeAanTankkaart(t.Kaartnummer, t.Brandstoffen);
                     MessageBox.Show("Tankkaart toegevoegd!");
+                    _tUC.lstTankkaarten.ItemsSource = _tankkaartManager.GeefAlleTankkaarten().Select(x => x.Value).ToList();
                     Close();
                 }
                 else { MessageBox.Show("Velden zijn leeg!"); }
-
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
@@ -61,7 +64,6 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
 
         private void btnVerwijderBrandstof_Click(object sender, RoutedEventArgs e) {
             if ((Brandstof)cbBrandstoffen.SelectedItem == null) { MessageBox.Show("U heeft geen brandstof aangeduid!"); return; }
-            if (lbBrandstof.Items.Contains((Brandstof)cbBrandstoffen.SelectedItem)) { MessageBox.Show("Brandstof staat al op de lijst!"); return; }
             lbBrandstof.Items.Remove((Brandstof)cbBrandstoffen.SelectedItem);
         }
     }
