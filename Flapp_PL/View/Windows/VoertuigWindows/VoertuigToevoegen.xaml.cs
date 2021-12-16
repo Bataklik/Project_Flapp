@@ -19,6 +19,7 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
         private BrandstofManager _brandstofmanager;
         private VoertuigTypeManager _voertuigTypeManager;
         private BestuurderManager _bestuurderManager;
+        private int aantalDeuren;
         public VoertuigToevoegen()
         {
             InitializeComponent();
@@ -144,6 +145,20 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
                 cmbType.ItemsSource = ts;
             }
             catch (Exception ex) { throw new Exception(ex.Message, ex); }
+        }
+
+        private void btnPlusDeur_Click(object sender, RoutedEventArgs e)
+        {
+            aantalDeuren = Convert.ToInt32(txtDeuren.Text);
+            aantalDeuren += 1;
+            txtDeuren.Text = aantalDeuren.ToString();
+        }
+
+        private void btnMindeur_Click(object sender, RoutedEventArgs e)
+        {
+            aantalDeuren = Convert.ToInt32(txtDeuren.Text);
+            aantalDeuren -= 1;
+            txtDeuren.Text = aantalDeuren.ToString();
         }
     }
 }
