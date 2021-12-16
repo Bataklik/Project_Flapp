@@ -3,9 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Flapp_PL.View.Windows.VoertuigWindows"
+        xmlns:local="clr-namespace:Flapp_PL.View.Windows.VoertuigWindows" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="VoertuigUpdaten" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+        Title="VoertuigUpdaten" Height="450" Width="576" WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <!-- Button Style-->
@@ -27,53 +27,93 @@
             </Setter>
         </Style>
     </Window.Resources>
-    <Grid Margin="0,0,-1,0">
+    <Grid Margin="0,0,-1,3">
         <Grid.RowDefinitions>
-            <RowDefinition Height="50" MinHeight="42.243"/>
-            <RowDefinition Height="auto" MinHeight="41.28"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto" MinHeight="41.28"/>
-            <RowDefinition Height="auto" MinHeight="41.28"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <TextBlock Text="Voertuig updaten" Grid.Row="0" Grid.ColumnSpan="4" FontSize="28" Margin="-1,0,0,5" TextAlignment="Center" Background="#112D4E" Foreground="#F9F7F7"/>
-        <Label Grid.Row="1" Grid.Column="0" Content="Voertuig ID" Margin="5,5,5,5" FontSize="16"/>
-        <Label Grid.Row="2" Grid.Column="0" Content="Merk" Margin="5,5,5,5" FontSize="16"/>
-        <Label Grid.Row="3" Grid.Column="0" Content="Model" Margin="5,5,5,5" FontSize="16"/>
-        <Label Grid.Row="4" Grid.Column="0" Content="Chassisnummer" Margin="5,5,5,5" FontSize="16"/>
-        <Label Grid.Row="5" Grid.Column="0" Content="Nummerplaat" Margin="5,5,5,5" FontSize="16"/>
-        <Label Grid.Row="6" Grid.Column="0" Content="Voertuigtype" Margin="5,5,5,5" FontSize="16"/>
-        <Label Grid.Row="7" Grid.Column="0" Content="Kleur" Margin="5,5,5,5" FontSize="16"/>
-        <Label Grid.Row="8" Grid.Column="0" Content="Aantal Deuren" Margin="5,5,5,5" FontSize="16"/>
-        <Label Grid.Row="1" Grid.Column="2" Content="Bestuurder" Margin="5,5,5,5" FontSize="16"/>
-        <Label Grid.Row="2" Grid.Column="2" Content="Brandstoftypes" Margin="5,5,5,5" FontSize="16"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
 
-        <TextBox Name="txtVoertuigId" Grid.Row="1" Grid.Column="1" Margin="5,0,5,0" VerticalAlignment="Center" FontSize="16" IsEnabled="False" Height="24"/>
-        <TextBox Name="txtMerk" Grid.Row="2" Grid.Column="1" Margin="5,0,5,0" VerticalAlignment="Center" FontSize="16" Height="23" />
-        <TextBox Name="txtModel" Grid.Row="3" Grid.Column="1" Margin="5,0,5,0" VerticalAlignment="Center" FontSize="16" Height="23" />
-        <TextBox Name="txtChassisNummer" Grid.Row="4" Grid.Column="1" Margin="5,0,5,0" VerticalAlignment="Center" FontSize="16" Height="23" />
-        <TextBox Name="txtNummerplaat" Grid.Row="5" Grid.Column="1" Margin="5,0,5,0" VerticalAlignment="Center" FontSize="16" Height="24" />
-        <TextBox Name="txtVoertuigtype" Grid.Row="6" Grid.Column="1" Margin="5,0,5,0" VerticalAlignment="Center" FontSize="16" Height="23" />
-        <TextBox Name="txtKleur" Grid.Row="7" Grid.Column="1" Margin="5,0,5,0" VerticalAlignment="Center" FontSize="16" Height="23" />
-        <TextBox Name="txtDeuren" Grid.Row="8" Grid.Column="1" Margin="5,0,5,0" VerticalAlignment="Center" FontSize="16" Height="23" />
-        <TextBox Name="txtBestuurder" Grid.Row="1" Grid.Column="3" Margin="5,0,50,0" VerticalAlignment="Center" FontSize="16" Height="24"/>
-        <StackPanel Grid.Row="2" 
+        </Grid.ColumnDefinitions>
+
+        <DockPanel Grid.ColumnSpan="4"
+                    Grid.Column="0"
+                    Grid.Row="0"
+                    Background="#112D4E" Margin="0,0,-19,0">
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                <materialDesign:PackIcon Kind="Car"
+                                     Margin="0,0,5,0"
+                                     Width="25" 
+                                     Height="25"
+                                     Foreground="#F9F7F7"
+                                     HorizontalAlignment="Center"/>
+                <TextBlock Text="Voertuig Updaten" 
+                   FontSize="20"
+                   Foreground="#F9F7F7"
+                   HorizontalAlignment="Center"/>
+            </StackPanel>
+        </DockPanel>
+        <TextBlock Text="Voertuig ID:" Grid.Row="1" Grid.Column="0" FontSize="16" VerticalAlignment="Center" Margin="10,0"/>
+        <TextBlock Text="Merk:" Grid.Row="2" Grid.Column="0" FontSize="16" VerticalAlignment="Center" Margin="10,0"/>
+        <TextBlock Text="Model:" Grid.Row="3" Grid.Column="0" FontSize="16" VerticalAlignment="Center" Margin="10,0"/>
+        <TextBlock Text="Chassisnummer:" Grid.Row="4" Grid.Column="0" FontSize="16" VerticalAlignment="Center" Margin="10,0" />
+        <TextBlock Text="Nummerplaat:" Grid.Row="5" Grid.Column="0" FontSize="16" VerticalAlignment="Center" Margin="10,0" />
+        <TextBlock Text="Type:" Grid.Row="6" Grid.Column="0" FontSize="16" VerticalAlignment="Center" Margin="10,0"/>
+        <TextBlock Text="Kleur:" Grid.Row="7" Grid.Column="0" FontSize="16" VerticalAlignment="Center" Margin="10,0" />
+        <TextBlock Text="Aantal deuren:" Grid.Row="8" Grid.Column="0" FontSize="16" VerticalAlignment="Center" Margin="10,0" />
+
+        <TextBox Name="txtId" Grid.Row="1" Grid.Column="1" Height ="30" Margin="10,4,59,6" FontSize="16" IsEnabled="False"  />
+        <ComboBox Name="cmbMerk" Grid.Row="2" Grid.Column="1" Width="130" Margin="5" Height="30" FontSize="16" SelectionChanged="cmbMerk_SelectionChanged" IsEditable="True"/>
+        <ComboBox Name="cmbModel" Grid.Row="3" Grid.Column="1" Width="130" Margin="10,5,10,5" FontSize="16" IsEditable="True" Loaded="cmbModel_Loaded" />
+        <TextBox Name="txtChassis" Grid.Row="4" Grid.Column="1" Height ="30" Width="130" Margin="10,4,10,6" FontSize="16" />
+        <TextBox Name="txtNummerplaat" Grid.Row="5" Grid.Column="1" Height ="30" Width="130" Margin="10,6,10,4" FontSize="16" />
+        <ComboBox Name="cmbType" Grid.Row="6" Grid.Column="1" Height ="30" Width="130"  Margin="10,5,10,5" FontSize="16" Loaded="cmbType_Loaded" />
+        <StackPanel Grid.Row="8" 
+                    Grid.Column="1"
+                    Orientation="Horizontal"
+                    Margin="10,5"
+                    Height="auto">
+            <TextBox  x:Name="txtDeuren"
+                      Width="80" 
+                      Height="30"
+                      Margin="0,0,5,0" 
+                      FontSize="14" IsEnabled="False"/>
+            <Button x:Name="btnPlusDeur"
+                    Click="btnPlusDeur_Click"
+                    Height="20" 
+                    Width="20" Content="+">
+            </Button>
+            <Button x:Name="btnMinDeur"
+                    Click="btnMindeur_Click"
+                    Height="20" 
+                    Width="20"
+                    Margin="1,0,0,0" Content="-">
+            </Button>
+        </StackPanel>
+        <TextBox Name="txtKleur" Grid.Row="7" Grid.Column="1" Height ="30" Width="130"  Margin="10,5,10,5" FontSize="16" />
+        <Label Content="Brandstoftypes:" Margin="5" Grid.Row="3" Grid.Column="2" FontSize="16"/>
+        <StackPanel Grid.Row="3" 
                     Grid.Column="3"
                     Orientation="Horizontal"
-                    Margin="5,5"
+                    Margin="10,5"
                     Height="auto">
             <ComboBox Loaded="cmbBrandstoffen_Loaded" 
                       x:Name="cmbBrandstoffen"
-                      Width="128" 
+                      Width="81" 
                       Height="30"
                       Margin="0,0,5,0" 
                       FontSize="14"/>
@@ -89,30 +129,54 @@
                     Margin="1,0,0,0" Content="-">
             </Button>
         </StackPanel>
-        <ListBox Name="lstBrandstoftypes" Grid.Row="3" Grid.Column="3" Grid.RowSpan="3" Margin="5,4,137,5" SelectionMode="Single">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Vertical">
-                        <TextBlock Text="{Binding Path=Naam}" />
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
+
+        <ListBox x:Name="lstBrandtof"
+                 Grid.Row="4"
+                 Grid.Column="3"
+                 Grid.RowSpan="3"
+                 Margin="10,5">            
         </ListBox>
-        <StackPanel
-            HorizontalAlignment="Left"
-            Orientation="Horizontal" Margin="4,0,0,0" Width="261" Grid.Column="3" Grid.Row="8">
-            <Button Content="Update"
-                x:Name="btnUpdate"
-                Click="btnUpdate_Click"
-                Margin="5"
-                Height="25"
-                Width="100"/>
-            <Button Content="Annuleren"
-                x:Name="btnAnnuleren"
-                Click="btnAnnuleren_Click"
-                Margin="5"
-                Height="25"
-                Width="100"/>
-        </StackPanel>
+        <Button x:Name="btnUpdaten"
+                    VerticalAlignment="Top"
+                    Click="btnUpdate_Click"
+                    Grid.Row="8"
+                    Grid.Column="2"
+                    Margin="5"
+                    Height="25"
+                    Width="100">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Kind="AddBold"
+                                             Margin="0,0,5,0"
+                                             Width="20" 
+                                             Height="20"
+                                             HorizontalAlignment="Left"
+                                             Foreground="#F9F7F7"
+                                             VerticalAlignment="Center"/>
+                <TextBlock Text="Updaten"
+                           Foreground="#F9F7F7"
+                           VerticalAlignment="Center"/>
+            </StackPanel>
+        </Button>
+        <Button x:Name="btnAnnuleren"
+                    VerticalAlignment="Top"
+                    Grid.Row="8"
+                    Grid.Column="3"
+                    Click="btnAnnuleren_Click"
+                    Margin="5"
+                    Height="25"
+                    Width="100">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Kind="CancelBold"
+                                             Margin="0,0,5,0"
+                                             Width="20" 
+                                             Height="20"
+                                             HorizontalAlignment="Left"
+                                             Foreground="#F9F7F7"
+                                             VerticalAlignment="Center"/>
+                <TextBlock Text="Annuleren"
+                           Foreground="#F9F7F7"
+                           VerticalAlignment="Center"/>
+            </StackPanel>
+        </Button>
     </Grid>
 </Window>

@@ -40,7 +40,7 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
             }
             else { _bestuurders = (ObservableCollection<Bestuurder>)Application.Current.Properties["Bestuurder"]; ; }
 
-            laadVoertuigtypes();
+            //laadVoertuigtypes();
             //laadBrandstoftypes();
             laadMerk();
         }
@@ -60,11 +60,7 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
         private void btnAnnuleren_Click(object sender, RoutedEventArgs e)
         {
             Close();
-        }
-        private void SelecteerBrandstof_Click(object sender, RoutedEventArgs e)
-        {
-            new BenzineSelecteren().ShowDialog();
-        }
+        }        
         private void VerwijderBrandstof_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -89,21 +85,11 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
         }             
         private void laadVoertuigtypes()
         {
-            try
-            {
-                IReadOnlyList<string> types = _voertuigTypeManager.GeefAlleVoertuigTypes();
-                ObservableCollection<string> ts = new();
-                foreach (var type in types)
-                {
-                    ts.Add(type);
-                }
-                cmbType.ItemsSource = ts;
-            }
-            catch (Exception ex) { throw new Exception(ex.Message, ex); }
+            
         }
         private void cmbMerk_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            if(cmbMerk.Text == "")
+            if(cmbMerk.SelectedIndex == 0)
             {
                 //cmbModel.IsEnabled = false;
                 cmbModel.ItemsSource = null;
@@ -117,10 +103,8 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
                 cmbModel.SelectedIndex = 0;
                 //merk = cmbMerk.SelectedItem.ToString();
                 //model = null;
-            }
-            
+            }            
         }
-
         private void cmbBrandstoffen_Loaded(object sender, RoutedEventArgs e)
         {
             try
@@ -135,30 +119,31 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
             if (lstBrandtof.Items.Contains((Brandstof)cmbBrandstoffen.SelectedItem)) { MessageBox.Show("Brandstof staat al op de lijst!"); return; }
             lstBrandtof.Items.Add((Brandstof)cmbBrandstoffen.SelectedItem);
         }
-
         private void btnRemoveBrandstof_Click(object sender, RoutedEventArgs e)
         {
             if ((Brandstof)lstBrandtof.SelectedItem == null) { MessageBox.Show("U heeft geen brandstof aangeduid!"); return; }
             if (!lstBrandtof.Items.Contains((Brandstof)lstBrandtof.SelectedItem)) { MessageBox.Show("Brandstof staat niet op de lijst!"); return; }
             lstBrandtof.Items.Remove((Brandstof)cmbBrandstoffen.SelectedItem);
         }
-
         private void txtDeuren_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
 
-        private void cmbBestuurder_Loaded(object sender, RoutedEventArgs e)
+        private void cmbType_Loaded(object sender, RoutedEventArgs e)
         {
-            lstBestuurder.ItemsSource = _bestuurders;
-        }
-
-        private void btnBestuurder_Click(object sender, RoutedEventArgs e)
-        {
-            VoertuigToevoegen ttw = this;
-
-            new VoertuigZoekBestuurder().ShowDialog();
+            try
+            {
+                IReadOnlyList<string> types = _voertuigTypeManager.GeefAlleVoertuigTypes();
+                ObservableCollection<string> ts = new();
+                foreach (var type in types)
+                {
+                    ts.Add(type);
+                }
+                cmbType.ItemsSource = ts;
+            }
+            catch (Exception ex) { throw new Exception(ex.Message, ex); }
         }
     }
 }

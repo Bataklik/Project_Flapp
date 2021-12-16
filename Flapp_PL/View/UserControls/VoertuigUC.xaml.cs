@@ -2,7 +2,6 @@
 using Flapp_BLL.Managers;
 using Flapp_BLL.Models;
 using Flapp_DAL.Repository;
-using Flapp_PL.View.UserControls.VoertuigUCs;
 using Flapp_PL.View.Windows.VoertuigWindow;
 using Flapp_PL.View.Windows.VoertuigWindows;
 using System;
@@ -56,10 +55,7 @@ namespace Flapp_PL.View.UserControls
             catch (Exception ex) { throw new Exception(ex.Message, ex); }
             lstVoertuigen.ItemsSource = voertuigen;
         }       
-        private void laadVoertuigen(string nummerplaat, string merk, string model)
-        {
-            
-        }
+        
         private void btnZoek_Click(object sender, RoutedEventArgs e)
         {            
             //new VoertuigZoeken(_main).ShowDialog();
@@ -96,6 +92,7 @@ namespace Flapp_PL.View.UserControls
                 {
                     MessageBox.Show(ex.Message);
                 }
+                finally { laadVoertuigen(); }
             }
             
         }
