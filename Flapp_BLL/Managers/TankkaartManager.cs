@@ -31,7 +31,7 @@ namespace Flapp_BLL.Managers {
             }
             catch (Exception ex) { throw new TankkaartManagerException("TankkaartManager", ex); }
         }
-        public Dictionary<int, Tankkaart> GeefAlleTankkaarten(int kaartnummer, DateTime geldigheidsdatum) {
+        public Dictionary<int, Tankkaart> GeefAlleTankkaarten(int kaartnummer, DateTime? geldigheidsdatum) {
             try { return _repo.GeefAlleTankkaarten(kaartnummer, geldigheidsdatum); }
             catch (Exception ex) { throw new TankkaartManagerException("TankkaartManager", ex); }
         }

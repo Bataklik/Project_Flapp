@@ -15,7 +15,7 @@ namespace Flapp_BLL.Interfaces
         bool BestaatBestuurder(Bestuurder bestuurder); //Moet kunnen kijken of een tankkaart een bestuurder heeft
         //void VoegBestuurderToe(Bestuurder bestuurder);
         //void VerwijderBestuurder(Bestuurder bestuurder);
-        Dictionary<int, Tankkaart> GeefAlleTankkaarten(int kaartnummer, DateTime geldigheidsdatum); //Voor een lijst voor tankkaarten;
+        Dictionary<int, Tankkaart> GeefAlleTankkaarten(int kaartnummer, DateTime? geldigheidsdatum); //Voor een lijst voor tankkaarten;
         Dictionary<int, Tankkaart> GeefAlleTankkaarten(); //Voor een lijst voor tankkaarten;
         Dictionary<int, Tankkaart> GeefAlleTankkaartenOpKaartnummer(int kaartnummer); //Voor een lijst voor tankkaarten;
         Dictionary<int, Tankkaart> GeefAlleTankkaartenOpGeldigheidsdatum(DateTime geldigheidsdatum); //Voor een lijst voor tankkaarten;

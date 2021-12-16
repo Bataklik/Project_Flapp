@@ -33,13 +33,14 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
         }
 
         private void btnZoek_Click(object sender, RoutedEventArgs e) {
-            if (txtKaartnummer.Text != null && dpGeldigheidsdatum.SelectedDate == null) {
-                _tUC.lstTankkaarten.ItemsSource = _tankkaartManager.GeefAlleTankkaartenOpKaartnummer(Int32.Parse(txtKaartnummer.Text)).Select(x => x.Value).ToList();
-                Close();
-            } else if (txtKaartnummer.Text == null && dpGeldigheidsdatum.SelectedDate != null) {
-                _tUC.lstTankkaarten.ItemsSource = _tankkaartManager.GeefAlleTankkaartenOpGeldigheidsdatum((DateTime)dpGeldigheidsdatum.SelectedDate).Select(x => x.Value).ToList();
-                Close();
-            } 
+            //if (txtKaartnummer.Text != null && dpGeldigheidsdatum.SelectedDate == null) {
+            //    _tUC.lstTankkaarten.ItemsSource = _tankkaartManager.GeefAlleTankkaartenOpKaartnummer(Int32.Parse(txtKaartnummer.Text)).Select(x => x.Value).ToList();
+            //    Close();
+            //} else if (txtKaartnummer.Text == null && dpGeldigheidsdatum.SelectedDate != null) {
+            //    _tUC.lstTankkaarten.ItemsSource = _tankkaartManager.GeefAlleTankkaartenOpGeldigheidsdatum((DateTime)dpGeldigheidsdatum.SelectedDate).Select(x => x.Value).ToList();
+            //    Close();
+            //} 
+            _tUC.lstTankkaarten.ItemsSource = _tankkaartManager.GeefAlleTankkaarten(Int32.Parse(txtKaartnummer.Text), (DateTime?)dpGeldigheidsdatum.SelectedDate);
         }
 
         private void btnAnnuleren_Click(object sender, RoutedEventArgs e) {

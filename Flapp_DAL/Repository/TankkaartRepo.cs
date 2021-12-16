@@ -111,7 +111,7 @@ namespace Flapp_DAL.Repository {
             return tankkaarten;
         }
 
-        public Dictionary<int, Tankkaart> GeefAlleTankkaarten(int kaartnummer, DateTime geldigheidsdatum) {
+        public Dictionary<int, Tankkaart> GeefAlleTankkaarten(int kaartnummer, DateTime? geldigheidsdatum) {
             Dictionary<int, Tankkaart> tankkaarten = new Dictionary<int, Tankkaart>();
             List<string> subQuery = new List<string>();
             int numberofparams = 0;
@@ -123,7 +123,7 @@ namespace Flapp_DAL.Repository {
                     subQuery.Add(" AND ");
                 }
                 numberofparams++;
-                subQuery.Add("tankkaartId=@tankkaartId");
+                subQuery.Add("Tankkaart.tankkaartId=@tankkaartId");
             }
 
             bool geldigheidsdatumIsNull = true;
