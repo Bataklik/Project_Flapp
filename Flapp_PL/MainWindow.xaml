@@ -44,20 +44,7 @@
         </Style>
     </Window.Resources>
     <Grid x:Name="mainWindow" MaxWidth="750">
-        <!--  Window Effect  -->
-        <Grid.Triggers>
-            <EventTrigger RoutedEvent="Loaded">
-                <BeginStoryboard>
-                    <Storyboard>
-                        <DoubleAnimation
-                            Storyboard.TargetProperty="Opacity"
-                            From="0.7"
-                            To="1"
-                            Duration="0:0:1" />
-                    </Storyboard>
-                </BeginStoryboard>
-            </EventTrigger>
-        </Grid.Triggers>
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition x:Name="col1" Width="300" />
             <ColumnDefinition x:Name="col2" />
@@ -164,7 +151,7 @@
                         Margin="0,0,50,0"
                         HorizontalAlignment="Left"
                         Foreground="#F9F7F7"
-                        Kind="Card" />
+                        Kind="BusinessCard" />
                     <TextBlock
                         Width="100"
                         Margin="0,0,10,0"

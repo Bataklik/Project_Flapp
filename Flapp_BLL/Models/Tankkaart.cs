@@ -29,8 +29,8 @@ namespace Flapp_BLL.Models {
             ZetGeldigheidsdatum(geldigheidsdatum);
         }
 
-        public Tankkaart(int kaartnummer, DateTime geldigheidsdatum, bool isgeblokkeerd) {
-            ZetKaartnummer(kaartnummer);
+        public Tankkaart(DateTime geldigheidsdatum, string pincode ,bool isgeblokkeerd) {
+            ZetPincode(pincode);
             ZetGeldigheidsdatum(geldigheidsdatum);
             ZetGeblokkeerd(isgeblokkeerd);
         }

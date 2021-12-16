@@ -174,7 +174,7 @@ namespace Flapp_DAL.Repository
                 finally { conn.Close(); }
             }
         }
-        public void VoegBrandstofToeAanTankkaart(int brandstofid, int tankkaartid) {
+        public void VoegBrandstofToeAanTankkaart(int tankkaartid, int brandstofid) {
             SqlConnection conn = new SqlConnection(_connString);
             string query = "INSERT INTO [dbo].[Brandstof_Tankkaart] ([brandstofId] ,[tankkaartId]) VALUES(@brandstofId, @tankkaartId);";
             using (SqlCommand cmd = conn.CreateCommand()) {

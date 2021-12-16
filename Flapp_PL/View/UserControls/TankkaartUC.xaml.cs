@@ -39,14 +39,15 @@ namespace Flapp_PL.View.UserControls {
         }
 
         private void btnVoegToe_Click(object sender, RoutedEventArgs e) {
+            TankkaartUC tUC = this;
             if (_main.wpUserControl.Children.Count > 1) _main.wpUserControl.Children.RemoveAt(_main.wpUserControl.Children.Count - 1);
-            new TankkaartToevoegenWindow().ShowDialog();
+            new TankkaartToevoegenWindow(tUC).ShowDialog();
         }
 
         private void Update_Click(object sender, RoutedEventArgs e) {
             Tankkaart t = (Tankkaart)lstTankkaarten.SelectedItem;
-
-            new TankkaartUpdateWindow(t).ShowDialog();
+            TankkaartUC tUC = this;
+            new TankkaartUpdateWindow(t, tUC).ShowDialog();
         }
 
         private void Verwijder_Click(object sender, RoutedEventArgs e) {
@@ -54,6 +55,7 @@ namespace Flapp_PL.View.UserControls {
             if (MessageBox.Show("Bent u zeker?", "Opgelet!", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes) {
                 _tankkaartManager.VerwijderTankkaart((Tankkaart)lstTankkaarten.SelectedItem);
             }
+            lstTankkaarten.ItemsSource = _tankkaartManager.GeefAlleTankkaarten();
         }
     }
 }
