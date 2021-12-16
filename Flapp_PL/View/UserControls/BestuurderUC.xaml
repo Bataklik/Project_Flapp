@@ -52,7 +52,7 @@
         <StackPanel Margin="5">
             <ListView
                 x:Name="lstbBestuurders"
-                Width="330"
+                Width="370"
                 Height="400"
                 Margin="10">
                 <ListView.View>
