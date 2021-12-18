@@ -27,6 +27,6 @@ Eiusmod eiusmod anim minim incididunt magna dolore esse aliqua reprehenderit rep
 
 #### Aparte Documentatie's
 
-- [Bestuurder doc](BestuurderDoc.md)
+- [Bestuurder](BestuurderDoc.md)
 - [Voertuig](VoertuigDoc.md)
 - [Tankkaart](TankkaartDoc.md)

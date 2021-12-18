@@ -16,8 +16,6 @@ namespace Flapp_PL.View.Windows.BestuurderWindows
         private BestuurderManager _bestuurderManager;
         private RijbewijsManager _rijbewijsManager;
 
-        private Adres _adres = null;
-
         public VoegBestuurderToe()
         {
             InitializeComponent();
@@ -100,13 +98,11 @@ namespace Flapp_PL.View.Windows.BestuurderWindows
 
         private void lstAdres_Loaded(object sender, RoutedEventArgs e)
         {
-            lstAdres.Items.Clear();
-            if (_adres != null) { lstAdres.Items.Add(_adres); }
         }
 
         private void btnAdresbeheer_Click(object sender, RoutedEventArgs e)
         {
-            new Adresbeheer(this, _adres).ShowDialog();
+            new Adresbeheer(this).ShowDialog();
         }
     }
 }

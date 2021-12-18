@@ -9,19 +9,14 @@ namespace Flapp_PL.View.Windows.BestuurderWindows.BeheerWindows
 {
     public partial class Adresbeheer : Window
     {
+        private VoegBestuurderToe _parentWindow;
         private AdresManager _adresManager;
 
-        public Adresbeheer(VoegBestuurderToe parentWindow, Adres _adres)
+        public Adresbeheer(VoegBestuurderToe parentWindow)
         {
             InitializeComponent();
+            _parentWindow = parentWindow;
             _adresManager = new AdresManager(new AdresRepo(Application.Current.Properties["User"].ToString()));
-
-        }
-
-        private void txtPostcode_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
-        {
-            Regex regex = new Regex("[^0-9]+");
-            e.Handled = regex.IsMatch(e.Text);
         }
 
         private void btnVoegtoe_Click(object sender, RoutedEventArgs e)
@@ -29,14 +24,12 @@ namespace Flapp_PL.View.Windows.BestuurderWindows.BeheerWindows
 
         }
 
-        private void btnVerwijderen_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void btnSelecteer_Click(object sender, RoutedEventArgs e)
         {
-
+            if (lstAdressen.SelectedItems == null) { MessageBox.Show("U heeft geen adres geselecteerd!"); return; }
+            _parentWindow.lstAdres.Items.Clear();
+            _parentWindow.lstAdres.Items.Add((Adres)lstAdressen.SelectedItem);
+            Close();
         }
 
         private void lstAdressen_Loaded(object sender, RoutedEventArgs e)
@@ -45,6 +38,15 @@ namespace Flapp_PL.View.Windows.BestuurderWindows.BeheerWindows
             try
             { lstAdressen.ItemsSource = _adresManager.GeefAdressen(); }
             catch (Exception ex) { MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
+        }
+
+        private void VerwijderAdres_Click(object sender, RoutedEventArgs e)
+        {
+            if (lstAdressen.SelectedItem == null) { MessageBox.Show("U heeft geen adres geselecteerd"); }
+        }
+
+        private void VoegAdresToe_Click(object sender, RoutedEventArgs e)
+        {
         }
     }
 }

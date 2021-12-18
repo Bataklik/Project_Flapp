@@ -483,7 +483,6 @@ namespace Flapp_DAL.Repository
             }
             return bestuurders;
         }
-
         public Dictionary<int, Bestuurder> GeefAlleBestuurdersOpVoornaam(string voornaam)
         {
             SqlConnection conn = new SqlConnection(_connString);
@@ -524,7 +523,6 @@ namespace Flapp_DAL.Repository
             }
             return bestuurders;
         }
-
         public Dictionary<int, Bestuurder> GeefAlleBestuurdersOpDatum(DateTime geboorte)
         {
             SqlConnection conn = new SqlConnection(_connString);
@@ -565,7 +563,6 @@ namespace Flapp_DAL.Repository
             }
             return bestuurders;
         }
-
         public Dictionary<int, Bestuurder> GeefAlleBestuurdersOpNaamVoornaam(string naam, string voornaam)
         {
             SqlConnection conn = new SqlConnection(_connString);
@@ -609,7 +606,6 @@ namespace Flapp_DAL.Repository
             }
             return bestuurders;
         }
-
         public Dictionary<int, Bestuurder> GeefAlleBestuurdersOpNaamVoornaamDatum(string naam, string voornaam, DateTime geboorte)
         {
             SqlConnection conn = new SqlConnection(_connString);
@@ -656,8 +652,6 @@ namespace Flapp_DAL.Repository
             }
             return bestuurders;
         }
-
-
         #endregion
     }
 }
