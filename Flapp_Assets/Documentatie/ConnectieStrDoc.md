@@ -20,7 +20,7 @@
 
    ![connStr4](Images/connStr4.png)
 
-6. Open het project in [\*VS](## 'Visual Studio'), in de class library is er een file genaamd `App.config`.<br>Hier in voeg je:
+6. Open het project in [\*VS](## 'Visual Studio'), in *Flapp_PL* is er een file genaamd `App.config`.<br>Hier in voeg je:
    `<add name="[NAAM]" connectionString="[CONNECTIESTRING]"/>` tussen `<connectionStrings>` en `</connectionStrings>` , je moet ook _[NAAM]_ en _[CONNECTIESTRING]_ aanpassen.
 
    ![connStr5](Images/connStr5.png)
