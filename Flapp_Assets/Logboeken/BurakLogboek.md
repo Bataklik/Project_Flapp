@@ -32,6 +32,7 @@
 | 1u   | Bestuurder Zoeken on name.                                 |
 | 1u   | Bestuurder UC ListBox Changed to ListView + Styles         |
 | 2u   | Adresbeheer & BestuurderToevoegen window Update            |
+| 1u   | Documentatie start                                          |
 
 
 
