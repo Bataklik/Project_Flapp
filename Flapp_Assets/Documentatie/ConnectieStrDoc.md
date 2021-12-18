@@ -6,7 +6,7 @@
 
 2. Open **SQL Server Object Explorer**. (View -> SQL Server Object Explorer)
 
-   <br>Rechts klik op _SQL Server_ als je nog geen connectie hebt.
+   Rechts klik op _SQL Server_ als je nog geen connectie hebt.
    ![connStr1](Images/connStr1.png)
 
 3. Duid in local een server aan met _SQLEXPRESS_ en hier na duid je ook de database aan.
