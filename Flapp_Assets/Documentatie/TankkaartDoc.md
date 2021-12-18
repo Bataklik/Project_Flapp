@@ -1,3 +1,3 @@
-## Flapp Documentatie
+## <img src='Images/book.svg' height=20/> Flapp Documentatie
 
-### Tankkaart documentatie
+### <img src='Images/tankkaart.svg' height=20/> Tankkaart documentatie

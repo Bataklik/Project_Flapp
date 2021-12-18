@@ -1,5 +1,4 @@
-## Flapp Documentatie
-
+## <img src='Images/book.svg' height=20/> Flapp Documentatie
 ### Connectiestring instellen
 
 1. Open [\*SMSS](## 'SQL Server Management Studio').

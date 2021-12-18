@@ -1,4 +1,4 @@
-## ![Doc's](Images/book.svg&s=10) Flapp Documentatie
+## <img src='Images/book.svg' height=20/> Flapp Documentatie
 
 ### Introductie
 
