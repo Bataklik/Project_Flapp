@@ -1,4 +1,4 @@
-## Flapp Documentatie
+## ![Doc's](Images/book.svg&s=10) Flapp Documentatie
 
 ### Introductie
 
@@ -10,7 +10,7 @@ Eiusmod eiusmod anim minim incididunt magna dolore esse aliqua reprehenderit rep
 
 - [SQL Server Management Studio](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver15)
 
-* Een database in [SMSS](## 'SQL Server Management Studio') met de naam **Project_Flapp_DB** en enkele tabellen genaamd:
+* Een database in [\*SMSS](## 'SQL Server Management Studio') met de naam **Project_Flapp_DB** en enkele tabellen genaamd:
   - Adres
   - Bestuurder
   - Brandstof
@@ -21,4 +21,12 @@ Eiusmod eiusmod anim minim incididunt magna dolore esse aliqua reprehenderit rep
   - Tankkaart
   - Voertuig
   - VoertuigType
-* [Connectiestring instellen in VS](ConnectieStrDoc.md)
+* [Connectiestring instellen in \*VS](ConnectieStrDoc.md)
+
+### Gebruik
+
+#### Aparte Documentatie's
+
+- [Bestuurder doc](BestuurderDoc.md)
+- [Voertuig](VoertuigDoc.md)
+- [Tankkaart](TankkaartDoc.md)
