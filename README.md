@@ -7,8 +7,8 @@
     <img src="Flapp_Assets/Images/FLAPP.png" alt="Logo" width="150" height="150" style="border-radius:50%;">
 
   <h3 align="center">Fleet Management App</h3>
-
-  <p align="center">
+    <p align="center"><a href="Flapp_Assets/Documentatie/HomeDoc.md">Documentatie</a></p>
+  <p align="center">s
     Logboeken van de contributors
     <br />
     <br />

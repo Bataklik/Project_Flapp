@@ -5,6 +5,7 @@
 1. Open [SMSS](## 'SQL Server Management Studio').
 
 2. Open **SQL Server Object Explorer**. (View -> SQL Server Object Explorer)
+
    <br>Rechts klik op _SQL Server_ als je nog geen connectie hebt.
    ![connStr1](Images/connStr1.png)
 
