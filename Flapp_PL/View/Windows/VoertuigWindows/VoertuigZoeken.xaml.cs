@@ -72,7 +72,7 @@ namespace Flapp_PL.View.Windows.VoertuigWindows
             if (cmbMerk.SelectedIndex != 0)
             {
                 //cmbModel.IsEnabled = true;
-                ObservableCollection<string> modellen = new(_voertuigmanager.geefModellen(cmbMerk.SelectedItem.ToString()));
+                ObservableCollection<string> modellen = new(_voertuigmanager.GeefModellenMerk(cmbMerk.SelectedItem.ToString()));
                 modellen.Insert(0, "");
                 cmbModel.ItemsSource = modellen;
                 cmbModel.SelectedIndex = 0;
@@ -88,7 +88,7 @@ namespace Flapp_PL.View.Windows.VoertuigWindows
 
         private void cmbMerk_Loaded(object sender, RoutedEventArgs e)
         {
-            ObservableCollection<string> merken = new(_voertuigmanager.geefMerken());
+            ObservableCollection<string> merken = new(_voertuigmanager.GeefMerken());
             merken.Insert(0, "");
             //cmbMerk.SelectedIndex = 0;
             cmbMerk.ItemsSource = merken;

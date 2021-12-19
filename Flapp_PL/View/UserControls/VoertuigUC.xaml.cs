@@ -47,7 +47,7 @@ namespace Flapp_PL.View.UserControls
             List<Voertuig> voertuigen = new List<Voertuig>();
             try
             {                
-                foreach (KeyValuePair<int,Voertuig> v in _voertuigManager.GeefAlleVoertuigen())
+                foreach (KeyValuePair<int,Voertuig> v in _voertuigManager.GeefVoertuigen())
                 {
                     voertuigen.Add(v.Value);
                 }

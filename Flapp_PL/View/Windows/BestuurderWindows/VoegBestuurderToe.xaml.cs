@@ -1,6 +1,7 @@
 ﻿using Flapp_BLL.Managers;
 using Flapp_BLL.Models;
 using Flapp_DAL.Repository;
+using Flapp_PL.View.Windows.BeheerWindows;
 using Flapp_PL.View.Windows.BestuurderWindows.BeheerWindows;
 using System;
 using System.Collections.Generic;
@@ -96,13 +97,21 @@ namespace Flapp_PL.View.Windows.BestuurderWindows
             lstRijbewijzen.Items.Clear();
         }
 
-        private void lstAdres_Loaded(object sender, RoutedEventArgs e)
-        {
-        }
+
 
         private void btnAdresbeheer_Click(object sender, RoutedEventArgs e)
         {
             new Adresbeheer(this).ShowDialog();
+        }
+
+        private void btnVoertuigbeheer_Click(object sender, RoutedEventArgs e)
+        {
+            new Voertuigbeheer(this).ShowDialog();
+        }
+
+        private void btnTankkaartbeheer_Click(object sender, RoutedEventArgs e)
+        {
+            new Tankaartbeheer(this).ShowDialog();
         }
     }
 }

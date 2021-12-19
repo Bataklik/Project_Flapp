@@ -3,7 +3,9 @@ using Flapp_BLL.Exceptions.ModelExpections;
 using Flapp_BLL.Interfaces;
 using Flapp_BLL.Models;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Flapp_BLL.Managers
 {
@@ -38,7 +40,7 @@ namespace Flapp_BLL.Managers
 
         public void VerwijderVoertuig(Voertuig voertuig)
         {
-            //if (!_repo.BestaatVoertuig(voertuig)) { throw new VoertuigException("VoertuigManager: VerwijderVoertuig: Voertuig bestaat niet!"); }
+            // if (!_repo.BestaatVoertuig(voertuig)) { throw new VoertuigException("VoertuigManager: VerwijderVoertuig: Voertuig bestaat niet!"); }
             try
             {
                 _repo.VerwijderVoertuig(voertuig);
@@ -46,11 +48,11 @@ namespace Flapp_BLL.Managers
             catch (Exception ex) { throw new VoertuigManagerException(ex.Message); }
         }
 
-        public Dictionary<int, Voertuig> GeefAlleVoertuigen()
+        public Dictionary<int, Voertuig> GeefVoertuigen()
         {
             try
             {
-                return _repo.GeefAlleVoertuigen();
+                return _repo.GeefVoertuigen();
             }
             catch (Exception ex) { throw new BestuurderManagerException("VoertuigManager: Geef alle voertuigen:", ex); }
         }
@@ -74,8 +76,18 @@ namespace Flapp_BLL.Managers
 
                 throw new Exception(ex.Message);
             }
-        }        
-        public IReadOnlyList<string> geefMerken()
+        }
+
+        public ObservableCollection<Voertuig> ZoekVoertuigen(string merk, string model)
+        {
+            try
+            {
+                return _repo.ZoekVoertuigen(merk, model);
+            }
+            catch (Exception ex) { throw new VoertuigManagerException("VoertuigManager: ZoekVoertuigen", ex); }
+        }
+
+        public IReadOnlyList<string> GeefMerken()
         {
             try
             {
@@ -83,7 +95,7 @@ namespace Flapp_BLL.Managers
             }
             catch (Exception ex) { throw new VoertuigManagerException("VoertuigManager: Geef automerken:", ex); }
         }
-        public IReadOnlyList<string> geefModellen(string merk)
+        public IReadOnlyList<string> GeefModellenMerk(string merk)
         {
             try
             {

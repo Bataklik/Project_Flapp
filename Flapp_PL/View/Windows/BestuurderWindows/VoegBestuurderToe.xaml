@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Flapp: Bestuurder Toevoegen"
     Width="590"
-    Height="400"
+    Height="450"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
@@ -60,15 +60,14 @@
             <RowDefinition Height="40" />
             <RowDefinition Height="40" />
             <RowDefinition Height="40" />
-            <RowDefinition Height="80" />
             <RowDefinition Height="40" />
+            <RowDefinition Height="80" />
 
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
         <!--  TextBlocks Bestuurder  -->
@@ -220,122 +219,226 @@
         <ListBox
             x:Name="lstRijbewijzen"
             Grid.Row="7"
+            Grid.RowSpan="2"
             Grid.Column="1"
             Margin="10,5"
             FontSize="14"
             SelectionMode="Single" />
 
-        <!--  Adres Section  -->
         <StackPanel
             Grid.Row="1"
-            Grid.RowSpan="2"
-            Grid.Column="2"
+            Grid.RowSpan="7"
+            Grid.Column="1"
             Grid.ColumnSpan="2"
-            Orientation="Horizontal">
-            <TextBlock
-                Margin="10,0"
-                VerticalAlignment="Center"
-                FontSize="16"
-                Text="Adres:" />
-            <StackPanel>
-                <ListView
-                    x:Name="lstAdres"
-                    Width="auto"
-                    Height="40"
-                    Loaded="lstAdres_Loaded"
-                    SelectionMode="Single">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn DisplayMemberBinding="{Binding Postcode}" Header="Postcode" />
-                            <GridViewColumn
-                                Width="50"
-                                DisplayMemberBinding="{Binding Stad}"
-                                Header="Stad" />
-                            <GridViewColumn
-                                Width="50"
-                                DisplayMemberBinding="{Binding Straat}"
-                                Header="Straat" />
-                            <GridViewColumn
-                                Width="50"
-                                DisplayMemberBinding="{Binding Huisnummer}"
-                                Header="Huisnummer" />
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-                <Button
-                    x:Name="btnAdresbeheer"
-                    Width="100"
-                    Height="25"
-                    Margin="0,5"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Click="btnAdresbeheer_Click">
-                    <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon
-                            Width="15"
-                            Height="15"
-                            Margin="0,0,5,0"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Center"
-                            Foreground="#F9F7F7"
-                            Kind="HousingEstate" />
-                        <TextBlock Foreground="#F9F7F7" Text="Adresbeheer" />
-                    </StackPanel>
-                </Button>
+            Height="250"
+            Margin="150,0,0,0"
+            VerticalAlignment="Top">
+            <!--  Adres Section  -->
+            <StackPanel
+                Grid.Row="1"
+                Grid.RowSpan="4"
+                Grid.Column="2"
+                Grid.ColumnSpan="2"
+                Orientation="Horizontal">
+                <StackPanel>
+                    <ListView
+                        x:Name="lstAdres"
+                        Width="250"
+                        Height="40"
+                        Margin="0,5"
+                        SelectionMode="Single">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn DisplayMemberBinding="{Binding Postcode}" Header="Postcode" />
+                                <GridViewColumn
+                                    Width="60"
+                                    DisplayMemberBinding="{Binding Stad}"
+                                    Header="Stad" />
+                                <GridViewColumn
+                                    Width="70"
+                                    DisplayMemberBinding="{Binding Straat}"
+                                    Header="Straat" />
+                                <GridViewColumn
+                                    Width="60"
+                                    DisplayMemberBinding="{Binding Huisnummer}"
+                                    Header="Huisnummer" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Button
+                        x:Name="btnAdresbeheer"
+                        Width="120"
+                        Height="25"
+                        Margin="0,5"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Click="btnAdresbeheer_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon
+                                Width="15"
+                                Height="15"
+                                Margin="0,0,5,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Foreground="#F9F7F7"
+                                Kind="HousingEstate" />
+                            <TextBlock Foreground="#F9F7F7" Text="Adresbeheer" />
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+
+            <!--  Voertuig Section  -->
+            <StackPanel Orientation="Horizontal">
+                <StackPanel>
+                    <ListView
+                        x:Name="lstVoertuig"
+                        Width="250"
+                        Height="40"
+                        Margin="0,5"
+                        SelectionMode="Single">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn
+                                    Width="60"
+                                    DisplayMemberBinding="{Binding Nummerplaat}"
+                                    Header="Nummerplaat" />
+                                <GridViewColumn
+                                    Width="65"
+                                    DisplayMemberBinding="{Binding Chassisnummer}"
+                                    Header="Chassisnummer" />
+                                <GridViewColumn
+                                    Width="65"
+                                    DisplayMemberBinding="{Binding Merk}"
+                                    Header="Merk" />
+                                <GridViewColumn
+                                    Width="60"
+                                    DisplayMemberBinding="{Binding Model}"
+                                    Header="Model" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Button
+                        x:Name="btnVoertuigbeheer"
+                        Width="120"
+                        Height="25"
+                        Margin="0,5"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Click="btnVoertuigbeheer_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon
+                                Width="15"
+                                Height="15"
+                                Margin="0,0,5,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Foreground="#F9F7F7"
+                                Kind="Car" />
+                            <TextBlock Foreground="#F9F7F7" Text="Voertuigbeheer" />
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+
+            <!--  Tankkaart Section  -->
+            <StackPanel Orientation="Horizontal">
+                <StackPanel>
+                    <ListView
+                        x:Name="lstTankkaart"
+                        Width="250"
+                        Height="40"
+                        Margin="0,5"
+                        SelectionMode="Single">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn
+                                    Width="100"
+                                    DisplayMemberBinding="{Binding Kaartnummer}"
+                                    Header="Kaartnummer" />
+                                <GridViewColumn
+                                    Width="100"
+                                    DisplayMemberBinding="{Binding Geldigheidsdatum}"
+                                    Header="Geldigheidsdatum" />
+                                <GridViewColumn
+                                    Width="50"
+                                    DisplayMemberBinding="{Binding Geblokkeerd}"
+                                    Header="Geblokkeerd" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Button
+                        x:Name="btnTankkaartbeheer"
+                        Width="120"
+                        Height="25"
+                        Margin="0,5"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Click="btnTankkaartbeheer_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon
+                                Width="15"
+                                Height="15"
+                                Margin="0,0,5,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Foreground="#F9F7F7"
+                                Kind="Card" />
+                            <TextBlock Foreground="#F9F7F7" Text="Tankkaartbeheer" />
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
             </StackPanel>
         </StackPanel>
-
-
         <!--  Buttons End  -->
-        <Button
-            x:Name="btnVoegtoe"
-            Grid.Row="7"
+        <StackPanel
+            Grid.Row="8"
             Grid.Column="2"
-            Width="120"
-            Height="45"
-            Margin="10,5,5,5"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Top"
-            Click="btnVoegtoe_Click">
-            <StackPanel Orientation="Horizontal">
-                <materialDesign:PackIcon
-                    Width="20"
-                    Height="20"
-                    Margin="0,0,5,0"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Foreground="#F9F7F7"
-                    Kind="AccountAdd" />
-                <TextBlock
-                    VerticalAlignment="Center"
-                    Foreground="#F9F7F7"
-                    Text="Toevoegen" />
-            </StackPanel>
-        </Button>
-        <Button
-            x:Name="btnAnnuleer"
-            Grid.Row="7"
-            Grid.Column="3"
-            Width="120"
-            Height="45"
-            Margin="10,5,5,5"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Top"
-            Click="btnAnnuleer_Click">
-            <StackPanel Orientation="Horizontal">
-                <materialDesign:PackIcon
-                    Width="20"
-                    Height="20"
-                    Margin="0,0,5,0"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Foreground="#F9F7F7"
-                    Kind="AccountRemove" />
-                <TextBlock
-                    VerticalAlignment="Center"
-                    Foreground="#F9F7F7"
-                    Text="Annuleren" />
-            </StackPanel>
-        </Button>
+            Orientation="Horizontal">
+            <Button
+                x:Name="btnVoegtoe"
+                Width="100"
+                Height="45"
+                Margin="10,0"
+                HorizontalAlignment="Center"
+                Click="btnVoegtoe_Click">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon
+                        Width="20"
+                        Height="20"
+                        Margin="0,0,5,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Foreground="#F9F7F7"
+                        Kind="AccountAdd" />
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Foreground="#F9F7F7"
+                        Text="Toevoegen" />
+                </StackPanel>
+            </Button>
+            <Button
+                x:Name="btnAnnuleer"
+                Width="100"
+                Height="45"
+                Margin="10,0"
+                HorizontalAlignment="Center"
+                Click="btnAnnuleer_Click">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon
+                        Width="20"
+                        Height="20"
+                        Margin="0,0,5,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Foreground="#F9F7F7"
+                        Kind="AccountRemove" />
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Foreground="#F9F7F7"
+                        Text="Annuleren" />
+                </StackPanel>
+            </Button>
+        </StackPanel>
     </Grid>
 </Window>

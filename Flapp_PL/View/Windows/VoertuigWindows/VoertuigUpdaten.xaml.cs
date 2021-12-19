@@ -101,7 +101,7 @@ namespace Flapp_PL.View.Windows.VoertuigWindows
         }
         private void laadMerk()
         {
-            ObservableCollection<string> merken = new(_voertuigManager.geefMerken());
+            ObservableCollection<string> merken = new(_voertuigManager.GeefMerken());
             merken.Insert(0, "");
             //cmbMerk.SelectedIndex = 0;
             cmbMerk.ItemsSource = merken;
@@ -116,7 +116,7 @@ namespace Flapp_PL.View.Windows.VoertuigWindows
             else
             {
                 //cmbModel.IsEnabled = true;
-                ObservableCollection<string> modellen = new(_voertuigManager.geefModellen(cmbMerk.SelectedItem.ToString()));
+                ObservableCollection<string> modellen = new(_voertuigManager.GeefModellenMerk(cmbMerk.SelectedItem.ToString()));
                 modellen.Insert(0, "");
                 cmbModel.ItemsSource = modellen;
                 cmbModel.SelectedIndex = 0;
@@ -162,7 +162,7 @@ namespace Flapp_PL.View.Windows.VoertuigWindows
             else
             {
                 //cmbModel.IsEnabled = true;
-                ObservableCollection<string> modellen = new(_voertuigManager.geefModellen(cmbMerk.SelectedItem.ToString()));
+                ObservableCollection<string> modellen = new(_voertuigManager.GeefModellenMerk(cmbMerk.SelectedItem.ToString()));
                 modellen.Insert(0, "");
                 cmbModel.ItemsSource = modellen;
                 cmbModel.SelectedIndex = 0;
