@@ -4,6 +4,7 @@ using Flapp_BLL.Models;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Flapp_BLL.Managers
 {
@@ -23,6 +24,15 @@ namespace Flapp_BLL.Managers
                 return _repo.BestaatAdres(adres);
             }
             catch (Exception ex) { throw new AdresManagerException("AdresManager: BestaatAdres", ex); }
+        }
+
+        public Dictionary<int, string> GeefAlleSteden()
+        {
+            try
+            {
+                return _repo.GeefAlleSteden();
+            }
+            catch (Exception ex) { throw new AdresManagerException("AdresManager: GeefAlleSteden", ex); }
         }
 
         public void VoegAdresToe(Adres adres)
@@ -45,7 +55,7 @@ namespace Flapp_BLL.Managers
             catch (Exception ex) { throw new AdresManagerException("AdresManager: VerwijderAdres", ex); }
         }
 
-        public List<Adres> GeefAdressen()
+        public ObservableCollection<Adres> GeefAdressen()
         {
             try
             {
@@ -64,6 +74,11 @@ namespace Flapp_BLL.Managers
             catch (Exception ex) { throw new AdresManagerException("AdresManager: UpdateAdres", ex); }
         }
 
+        public ObservableCollection<string> GeefStratenStad(int postcode, string stad)
+        {
+            return _repo.GeefStratenStad(postcode, stad);
+        }
+
         public Adres GeefAdres(int id)
         {
             if (!_repo.BestaatAdres(id)) { throw new AdresManagerException("AdresManager: GeefAdres: Adres bestaat niet!"); }
@@ -73,6 +88,16 @@ namespace Flapp_BLL.Managers
             }
             catch (Exception ex) { throw new AdresManagerException("AdresManager: GeefAdres(id)", ex); }
         }
+
+        public ObservableCollection<Adres> ZoekAdressen(int postcode, string stad, string straat)
+        {
+            try
+            {
+                return _repo.ZoekAdressen(postcode, stad, straat);
+            }
+            catch (Exception ex) { throw new AdresManagerException("AdresManager: ZoekAdressen", ex); }
+        }
+
         public Adres GeefAdres(Adres adres)
         {
             if (!_repo.BestaatAdres(adres)) { throw new AdresManagerException("AdresManager: GeefAdres: Adres bestaat niet!"); }

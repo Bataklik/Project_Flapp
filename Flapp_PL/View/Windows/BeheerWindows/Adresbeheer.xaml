@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Flapp: Adresbeheer"
     Width="550"
-    Height="300"
+    Height="350"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Window.Resources>
@@ -50,18 +50,12 @@
         </Style>
     </Window.Resources>
     <Grid Margin="5">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition Width="110" />
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="1.5*" />
             <RowDefinition Height="1*" />
             <RowDefinition Height="3*" />
         </Grid.RowDefinitions>
-        <DockPanel
-            Grid.Column="0"
-            Grid.ColumnSpan="2"
-            Background="#112D4E">
+        <DockPanel Grid.Column="0" Background="#112D4E">
             <StackPanel
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
@@ -80,17 +74,69 @@
         </DockPanel>
         <StackPanel
             Grid.Row="1"
+            Grid.Column="1"
+            Orientation="Horizontal">
+            <ComboBox
+                x:Name="cbSteden"
+                Width="100"
+                Height="25"
+                Margin="5"
+                SelectionChanged="cbSteden_SelectionChanged" />
+            <ComboBox
+                x:Name="cbStraten"
+                Width="100"
+                Height="25"
+                Margin="5" />
+            <Button x:Name="btnZoek" Click="btnZoek_Click" Width="50" Height="20">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon
+                        Width="10"
+                        Height="10"
+                        Margin="2,0"
+                        VerticalAlignment="Center"
+                        Foreground="#F9F7F7"
+                        Kind="Search" />
+                    <TextBlock
+                        FontSize="10"
+                        Foreground="#F9F7F7"
+                        Text="Zoek" />
+                </StackPanel>
+            </Button>
+        </StackPanel>
+        <StackPanel
+            Grid.Row="2"
             Grid.RowSpan="6"
             Grid.Column="0"
-            Margin="10,5,10,0">
+            Margin="10,5,10,0"
+            VerticalAlignment="Center">
             <ListView
                 x:Name="lstAdressen"
                 Width="auto"
                 Height="150"
                 Margin="1"
-                Loaded="lstAdressen_Loaded"
                 SelectionMode="Single">
+                <ListView.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem
+                            x:Name="miSelecteer"
+                            Click="miSelecteer_Click"
+                            Header="Selecteer"
+                            Icon="{materialDesign:PackIcon Kind=Select}" />
+                        <MenuItem
+                            x:Name="miVoegToe"
+                            Click="miVoegToe_Click"
+                            Header="Toevoegen"
+                            Icon="{materialDesign:PackIcon Kind=Add}" />
+                        <MenuItem
+                            x:Name="miVerwijderen"
+                            Click="miVerwijderen_Click"
+                            Header="Verwijder"
+                            Icon="{materialDesign:PackIcon Kind=Remove}" />
+                    </ContextMenu>
+                </ListView.ContextMenu>
+
                 <ListView.View>
+
                     <GridView>
                         <GridViewColumn
                             Width="auto"
@@ -112,70 +158,6 @@
 
                 </ListView.View>
             </ListView>
-        </StackPanel>
-        <!--  Buttons  -->
-        <StackPanel
-            Grid.Row="1"
-            Grid.Column="2"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center">
-            <Button
-                x:Name="btnSelecteer"
-                Width="100"
-                Height="35"
-                Margin="0,15"
-                Click="btnSelecteer_Click">
-                <StackPanel Orientation="Horizontal">
-                    <materialDesign:PackIcon
-                        Width="20"
-                        Height="20"
-                        Margin="0,0,5,0"
-                        Foreground="#F9F7F7"
-                        Kind="Select" />
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        Foreground="#F9F7F7"
-                        Text="Selecteren" />
-                </StackPanel>
-            </Button>
-            <Button
-                x:Name="btnToevoegen"
-                Width="100"
-                Height="35"
-                Margin="0,5"
-                Click="VoegAdresToe_Click">
-                <StackPanel Orientation="Horizontal">
-                    <materialDesign:PackIcon
-                        Width="20"
-                        Height="20"
-                        Margin="0,0,5,0"
-                        Foreground="#F9F7F7"
-                        Kind="Add" />
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        Foreground="#F9F7F7"
-                        Text="Toevoegen" />
-                </StackPanel>
-            </Button>
-            <Button
-                x:Name="btnVerwijderen"
-                Width="100"
-                Height="35"
-                Margin="0,15"
-                Click="VerwijderAdres_Click">
-                <StackPanel Orientation="Horizontal">
-                    <materialDesign:PackIcon
-                        Width="20"
-                        Height="20"
-                        Margin="0,0,5,0"
-                        Foreground="#F9F7F7"
-                        Kind="Delete" />
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        Foreground="#F9F7F7"
-                        Text="Verwijderen" />
-                </StackPanel>
-            </Button>
         </StackPanel>
     </Grid>
 </Window>

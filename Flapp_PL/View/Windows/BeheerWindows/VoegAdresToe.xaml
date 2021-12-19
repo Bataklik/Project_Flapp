@@ -50,7 +50,7 @@
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
-            <RowDefinition Height="2*" />
+            <RowDefinition Height="50" />
 
         </Grid.RowDefinitions>
         <DockPanel
@@ -62,17 +62,19 @@
                 VerticalAlignment="Center"
                 Orientation="Horizontal">
                 <materialDesign:PackIcon
-                    Width="25"
-                    Height="25"
+                    Width="20"
+                    Height="20"
                     Margin="0,5,5,0"
                     Foreground="#F9F7F7"
-                    Kind="HousingEstate" />
+                    Kind="House" />
                 <TextBlock
-                    FontSize="20"
+                    VerticalAlignment="Center"
+                    FontSize="18"
                     Foreground="#F9F7F7"
-                    Text="Adres beheer" />
+                    Text="Adres Toevoegen" />
             </StackPanel>
         </DockPanel>
+
         <!--  TextBlocks Adres  -->
         <TextBlock
             x:Name="tbStraat"
@@ -144,7 +146,6 @@
             MaxLength="4"
             PreviewTextInput="txtPostcode_PreviewTextInput" />
 
-
         <!--  AdresToevoegen Button  -->
         <Button
             x:Name="btnVoegtoe"
@@ -155,7 +156,8 @@
             Height="35"
             Margin="10,5,5,5"
             HorizontalAlignment="Center"
-            VerticalAlignment="Top">
+            VerticalAlignment="Top"
+            Click="btnVoegtoe_Click">
             <StackPanel Orientation="Horizontal">
                 <materialDesign:PackIcon
                     Width="20"

@@ -2,6 +2,7 @@
 using Flapp_BLL.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -157,11 +158,34 @@ namespace Flapp_DAL.Repository
                 finally { conn.Close(); }
             }
         }
-
-        public List<Adres> GeefAdressen()
+        public Dictionary<int, string> GeefAlleSteden()
         {
             SqlConnection conn = new SqlConnection(_connString);
-            List<Adres> adressen = new List<Adres>();
+            Dictionary<int, string> steden = new Dictionary<int, string>();
+            string query = "SELECT DISTINCT [stad],[postcode] FROM [Project_Flapp_DB].[dbo].[Adres]";
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
+                cmd.CommandText = query;
+
+                conn.Open();
+                try
+                {
+                    SqlDataReader r = cmd.ExecuteReader();
+                    while (r.Read())
+                    {
+                        ;
+                        steden.Add((int)r["postcode"], (string)r["stad"]);
+                    }
+                    return steden;
+                }
+                catch (Exception ex) { throw new Exception(ex.Message); }
+                finally { conn.Close(); }
+            }
+        }
+        public ObservableCollection<Adres> GeefAdressen()
+        {
+            SqlConnection conn = new SqlConnection(_connString);
+            ObservableCollection<Adres> adressen = new ObservableCollection<Adres>();
             string query = "SELECT TOP(20) * FROM Adres ORDER BY stad;";
             using (SqlCommand cmd = conn.CreateCommand())
             {
@@ -177,6 +201,32 @@ namespace Flapp_DAL.Repository
                     }
 
                     return adressen;
+                }
+                catch (Exception ex) { throw new Exception(ex.Message); }
+                finally { conn.Close(); }
+            }
+        }
+        public ObservableCollection<string> GeefStratenStad(int postcode, string stad)
+        {
+            SqlConnection conn = new SqlConnection(_connString);
+            ObservableCollection<string> straten = new ObservableCollection<string>();
+            string query = "SELECT DISTINCT straat FROM [Project_Flapp_DB].[dbo].[Adres] WHERE postcode = @postcode AND stad = @stad;";
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
+                cmd.Parameters.Add(new SqlParameter("@postcode", SqlDbType.Int));
+                cmd.Parameters.Add(new SqlParameter("@stad", SqlDbType.VarChar));
+                cmd.CommandText = query;
+                cmd.Parameters["@postcode"].Value = postcode;
+                cmd.Parameters["@stad"].Value = stad;
+                conn.Open();
+                try
+                {
+                    SqlDataReader r = cmd.ExecuteReader();
+                    while (r.Read())
+                    {
+                        straten.Add((string)r["straat"]);
+                    }
+                    return straten;
                 }
                 catch (Exception ex) { throw new Exception(ex.Message); }
                 finally { conn.Close(); }
@@ -241,5 +291,37 @@ namespace Flapp_DAL.Repository
         }
         #endregion
 
+        #region ZoekAdressen Method
+        public ObservableCollection<Adres> ZoekAdressen(int postcode, string stad, string straat)
+        {
+            SqlConnection conn = new SqlConnection(_connString);
+            ObservableCollection<Adres> adressen = new ObservableCollection<Adres>();
+            string query = "SELECT * FROM [Project_Flapp_DB].[dbo].[Adres] WHERE postcode = @postcode AND stad = @stad AND straat = @straat;";
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
+                cmd.Parameters.Add(new SqlParameter("@postcode", SqlDbType.Int));
+                cmd.Parameters.Add(new SqlParameter("@stad", SqlDbType.VarChar));
+                cmd.Parameters.Add(new SqlParameter("@straat", SqlDbType.VarChar));
+
+                cmd.CommandText = query;
+                cmd.Parameters["@postcode"].Value = postcode;
+                cmd.Parameters["@stad"].Value = stad;
+                cmd.Parameters["@straat"].Value = straat;
+
+                conn.Open();
+                try
+                {
+                    SqlDataReader r = cmd.ExecuteReader();
+                    while (r.Read())
+                    {
+                        adressen.Add(new Adres((int)r["adresId"], (string)r["straat"], (string)r["huisnummer"], (string)r["stad"], (int)r["postcode"]));
+                    }
+                    return adressen;
+                }
+                catch (Exception ex) { throw new Exception(ex.Message); }
+                finally { conn.Close(); }
+            }
+        }
+        #endregion
     }
 }

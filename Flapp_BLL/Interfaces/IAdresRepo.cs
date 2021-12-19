@@ -1,5 +1,6 @@
 ﻿using Flapp_BLL.Models;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Flapp_BLL.Interfaces
 {
@@ -12,6 +13,9 @@ namespace Flapp_BLL.Interfaces
         void UpdateAdres(Adres adres);
         Adres GeefAdres(int id);
         Adres GeefAdres(Adres adres);
-        List<Adres> GeefAdressen();
+        ObservableCollection<Adres> GeefAdressen();
+        Dictionary<int, string> GeefAlleSteden();
+        ObservableCollection<string> GeefStratenStad(int postcode, string stad);
+        ObservableCollection<Adres> ZoekAdressen(int postcode, string stad, string straat);
     }
 }
