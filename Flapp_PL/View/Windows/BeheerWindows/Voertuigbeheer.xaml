@@ -148,7 +148,7 @@
                             Header="Nummerplaat" />
                         <GridViewColumn
                             Width="auto"
-                            DisplayMemberBinding="{Binding Chassisnummer}"
+                            DisplayMemberBinding="{Binding ChassisNummer}"
                             Header="Chassisnummer" />
                         <GridViewColumn
                             Width="auto"

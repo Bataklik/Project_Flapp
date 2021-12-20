@@ -230,7 +230,7 @@
             Grid.RowSpan="7"
             Grid.Column="1"
             Grid.ColumnSpan="2"
-            Height="250"
+            Height="350"
             Margin="150,0,0,0"
             VerticalAlignment="Top">
             <!--  Adres Section  -->
@@ -244,7 +244,7 @@
                     <ListView
                         x:Name="lstAdres"
                         Width="250"
-                        Height="40"
+                        Height="50"
                         Margin="0,5"
                         SelectionMode="Single">
                         <ListView.View>
@@ -255,7 +255,7 @@
                                     DisplayMemberBinding="{Binding Stad}"
                                     Header="Stad" />
                                 <GridViewColumn
-                                    Width="70"
+                                    Width="65"
                                     DisplayMemberBinding="{Binding Straat}"
                                     Header="Straat" />
                                 <GridViewColumn
@@ -294,7 +294,7 @@
                     <ListView
                         x:Name="lstVoertuig"
                         Width="250"
-                        Height="40"
+                        Height="50"
                         Margin="0,5"
                         SelectionMode="Single">
                         <ListView.View>
@@ -304,11 +304,11 @@
                                     DisplayMemberBinding="{Binding Nummerplaat}"
                                     Header="Nummerplaat" />
                                 <GridViewColumn
-                                    Width="65"
+                                    Width="60"
                                     DisplayMemberBinding="{Binding Chassisnummer}"
                                     Header="Chassisnummer" />
                                 <GridViewColumn
-                                    Width="65"
+                                    Width="60"
                                     DisplayMemberBinding="{Binding Merk}"
                                     Header="Merk" />
                                 <GridViewColumn
@@ -347,21 +347,21 @@
                     <ListView
                         x:Name="lstTankkaart"
                         Width="250"
-                        Height="40"
+                        Height="50"
                         Margin="0,5"
                         SelectionMode="Single">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn
-                                    Width="100"
+                                    Width="80"
                                     DisplayMemberBinding="{Binding Kaartnummer}"
                                     Header="Kaartnummer" />
                                 <GridViewColumn
-                                    Width="100"
+                                    Width="80"
                                     DisplayMemberBinding="{Binding Geldigheidsdatum}"
                                     Header="Geldigheidsdatum" />
                                 <GridViewColumn
-                                    Width="50"
+                                    Width="80"
                                     DisplayMemberBinding="{Binding Geblokkeerd}"
                                     Header="Geblokkeerd" />
                             </GridView>

@@ -1,27 +1,60 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Flapp_BLL.Managers;
+using Flapp_BLL.Models;
+using Flapp_DAL.Repository;
+using Flapp_PL.View.Windows.BestuurderWindows;
+using Flapp_PL.View.Windows.TankkaartWindows;
+using System;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Flapp_PL.View.Windows.BeheerWindows
 {
-    /// <summary>
-    /// Interaction logic for Tankaartbeheer.xaml
-    /// </summary>
     public partial class Tankaartbeheer : Window
     {
-        public Tankaartbeheer(BestuurderWindows.VoegBestuurderToe voegBestuurderToe)
+        private TankkaartManager _tankkaartManager;
+        private VoegBestuurderToe _parentWindow;
+        public Tankaartbeheer(BestuurderWindows.VoegBestuurderToe parentWindow)
         {
             InitializeComponent();
+            _tankkaartManager = new TankkaartManager(new TankkaartRepo(Application.Current.Properties["User"].ToString()));
+            _parentWindow = parentWindow;
+            LaadTankkaarten();
+        }
+        public void LaadTankkaarten()
+        {
+            try
+            {
+                lstTankkaarten.ItemsSource = _tankkaartManager.GeefAlleTankkaarten().Values;
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
+        }
+
+        private void btnZoek_Click(object sender, RoutedEventArgs e)
+        {
+            if (dpGeldigheidsdatum.SelectedDate == null) { MessageBox.Show("Geen datum geselecteerd!", "Error", MessageBoxButton.OK, MessageBoxImage.Error); return; }
+        }
+
+        private void miSelecteer_Click(object sender, RoutedEventArgs e)
+        {
+            if (lstTankkaarten.SelectedItems == null) { MessageBox.Show("U heeft geen tankkaart geselecteerd!"); return; }
+            _parentWindow.lstTankkaart.Items.Clear();
+            _parentWindow.lstTankkaart.Items.Add((Tankkaart)lstTankkaarten.SelectedItem);
+            Close();
+        }
+
+        private void miVoegToe_Click(object sender, RoutedEventArgs e)
+        {
+            new TankkaartToevoegenWindow(this).ShowDialog();
+        }
+
+        private void miVerwijderen_Click(object sender, RoutedEventArgs e)
+        {
+            if (lstTankkaarten.SelectedItem == null) { MessageBox.Show("U heeft geen tankkaart geselecteerd"); }
+            try
+            {
+                _tankkaartManager.VerwijderTankkaart((Tankkaart)lstTankkaarten.SelectedItem);
+                LaadTankkaarten();
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
     }
 }

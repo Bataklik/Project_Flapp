@@ -8,18 +8,46 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Flapp_PL.View.Windows.VoertuigWindows;
+using Flapp_PL.View.Windows.BeheerWindows;
 
 namespace Flapp_PL.View.Windows.VoertuigWindow
 {
     public partial class VoertuigToevoegen : Window
     {
         private VoertuigManager _voertuigManager;
+        private Voertuigbeheer _voertuigbeheer = null;
         private ObservableCollection<Brandstof> _brandstoffen;
         private ObservableCollection<Bestuurder> _bestuurders;
         private BrandstofManager _brandstofmanager;
         private VoertuigTypeManager _voertuigTypeManager;
         private BestuurderManager _bestuurderManager;
         private int aantalDeuren;
+        public VoertuigToevoegen(Voertuigbeheer voertuigbeheer)
+        {
+            InitializeComponent();
+            _voertuigbeheer = voertuigbeheer;
+            _voertuigManager = new VoertuigManager(new VoertuigRepo(Application.Current.Properties["User"].ToString()));
+            _voertuigTypeManager = new VoertuigTypeManager(new VoertuigTypeRepo(Application.Current.Properties["User"].ToString()));
+            _brandstofmanager = new BrandstofManager(new BrandstofRepo(Application.Current.Properties["User"].ToString()));
+            _bestuurderManager = new BestuurderManager(new BestuurderRepo(Application.Current.Properties["User"].ToString()));
+            if (Application.Current.Properties["Brandstof"] == null)
+            {
+                Application.Current.Properties["Brandstof"] = new ObservableCollection<Brandstof>();
+                _brandstoffen = (ObservableCollection<Brandstof>)Application.Current.Properties["Brandstof"]; ;
+            }
+            else { _brandstoffen = (ObservableCollection<Brandstof>)Application.Current.Properties["Brandstof"]; ; }
+
+            if (Application.Current.Properties["Bestuurder"] == null)
+            {
+                Application.Current.Properties["Bestuurder"] = new ObservableCollection<Bestuurder>();
+                _bestuurders = (ObservableCollection<Bestuurder>)Application.Current.Properties["Bestuurder"]; ;
+            }
+            else { _bestuurders = (ObservableCollection<Bestuurder>)Application.Current.Properties["Bestuurder"]; ; }
+
+            //laadVoertuigtypes();
+            //laadBrandstoftypes();
+            laadMerk();
+        }
         public VoertuigToevoegen()
         {
             InitializeComponent();
@@ -45,23 +73,25 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
             //laadBrandstoftypes();
             laadMerk();
         }
+
         private void btnToevoegen_Click(object sender, RoutedEventArgs e)
-        {           
+        {
             try
             {
                 Voertuig voertuig = null;
                 voertuig = new Voertuig(cmbMerk.Text.ToUpper(), cmbModel.Text.ToUpper(), txtChassis.Text.ToUpper(), txtNummerplaat.Text.ToUpper(), lstBrandtof.Items.Cast<Brandstof>().ToList(), cmbType.SelectedItem.ToString().ToUpper(), txtKleur.Text.ToUpper(), Convert.ToInt32(txtDeuren.Text));
                 voertuig.ZetVoeruigID(_voertuigManager.VoegVoertuigToe(voertuig));
-                _brandstofmanager.VoegBrandstofToeAanVoertuig(voertuig.VoertuigID, voertuig.Brandstof);                 
-                
+                _brandstofmanager.VoegBrandstofToeAanVoertuig(voertuig.VoertuigID, voertuig.Brandstof);
+
                 MessageBox.Show("Voertuig is toegevoegd!");
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
+            if (_voertuigbeheer != null) { }
         }
         private void btnAnnuleren_Click(object sender, RoutedEventArgs e)
         {
             Close();
-        }        
+        }
         private void VerwijderBrandstof_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -76,21 +106,21 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
             {
                 MessageBox.Show(ex.Message, Title, MessageBoxButton.OK, MessageBoxImage.Error);
             }
-        }          
+        }
         private void laadMerk()
         {
             ObservableCollection<string> merken = new(_voertuigManager.GeefMerken());
             merken.Insert(0, "");
             //cmbMerk.SelectedIndex = 0;
             cmbMerk.ItemsSource = merken;
-        }             
+        }
         private void laadVoertuigtypes()
         {
-            
+
         }
         private void cmbMerk_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            if(cmbMerk.SelectedIndex == 0)
+            if (cmbMerk.SelectedIndex == 0)
             {
                 //cmbModel.IsEnabled = false;
                 cmbModel.ItemsSource = null;
@@ -104,7 +134,7 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
                 cmbModel.SelectedIndex = 0;
                 //merk = cmbMerk.SelectedItem.ToString();
                 //model = null;
-            }            
+            }
         }
         private void cmbBrandstoffen_Loaded(object sender, RoutedEventArgs e)
         {

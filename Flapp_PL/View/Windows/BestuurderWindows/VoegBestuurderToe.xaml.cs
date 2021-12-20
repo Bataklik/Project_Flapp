@@ -34,7 +34,7 @@ namespace Flapp_PL.View.Windows.BestuurderWindows
             {
                 bestuurder = new Bestuurder(txtNaam.Text, txtVoornaam.Text, s, dpGeboorte.Text, txtRijksregister.Text, lstRijbewijzen.Items.Cast<Rijbewijs>().ToList());
                 bestuurder.ZetId(_bestuurderManager.VoegBestuurderToeZonderAdres(bestuurder));
-
+                if (lstAdres.Items[0] != null) { a = (Adres)lstAdres.Items[0]; }
                 if (bestuurder.Rijbewijzen.Count > 0)
                 {
                     _rijbewijsManager.VoegRijbewijzenToeBestuurder(bestuurder.Id, bestuurder.Rijbewijzen);

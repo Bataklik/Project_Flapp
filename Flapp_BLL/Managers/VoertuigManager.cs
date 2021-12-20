@@ -78,7 +78,7 @@ namespace Flapp_BLL.Managers
             }
         }
 
-        public ObservableCollection<Voertuig> ZoekVoertuigen(string merk, string model)
+        public Dictionary<int, Voertuig> ZoekVoertuigen(string merk, string model)
         {
             try
             {

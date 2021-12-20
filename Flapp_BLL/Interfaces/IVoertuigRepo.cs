@@ -21,7 +21,7 @@ namespace Flapp_BLL.Interfaces
         IReadOnlyList<string> GeefMerken();
         IReadOnlyList<string> GeefModellen(string merk);
         Dictionary<int, Voertuig> ZoekVoertuig(string brand, string model, string licensePlate);
-        ObservableCollection<Voertuig> ZoekVoertuigen(string merk, string model);
+        Dictionary<int, Voertuig> ZoekVoertuigen(string merk, string model);
         //bool HeeftBestuurder(Bestuurder bestuurder); Moet kunnen kijken of een voertuig een bestuurder heeft
         //IReadOnlyList<Voertuig> GeefAlleVoertuigenZonderBestuurder() Voor een lijst voor voertuigen zonder bestuurders;
     }

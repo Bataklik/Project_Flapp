@@ -122,10 +122,10 @@ namespace Flapp_DAL.Repository
                 }
             }
         }
-        public ObservableCollection<Voertuig> ZoekVoertuigen(string merk, string model)
+        public Dictionary<int, Voertuig> ZoekVoertuigen(string merk, string model)
         {
             SqlConnection conn = new SqlConnection(_connString);
-            ObservableCollection<Voertuig> Voertuigen = new ObservableCollection<Voertuig>();
+            Dictionary<int, Voertuig> voertuigen = new Dictionary<int, Voertuig>();
             string query = "SELECT TOP(20) * FROM [Project_Flapp_DB].[dbo].[Voertuig] LEFT JOIN Brandstof_Voertuig ON Voertuig.voertuigId = Brandstof_Voertuig.voertuigId LEFT JOIN Brandstof ON Brandstof_Voertuig.brandstofId = Brandstof.brandstofId WHERE merk = @merk AND model = @model";
             using (SqlCommand cmd = conn.CreateCommand())
             {
@@ -142,11 +142,14 @@ namespace Flapp_DAL.Repository
                     SqlDataReader r = cmd.ExecuteReader();
                     while (r.Read())
                     {
-                        // Moet nog fixen, kwas moe
-                        List<Brandstof> brandstof = new List<Brandstof> { new Brandstof((string)r["naam"]) };
-                        Voertuigen.Add(new Voertuig((int)r["voertuigId"], (string)r["merk"], (string)r["model"], (string)r["chassisnummer"], (string)r["nummerplaat"], brandstof, (string)r["type"], (string)r["kleur"], (int)r["deuren"]));
+                        if (!voertuigen.ContainsKey((int)r["voertuigId"]))
+                        {
+                            List<Brandstof> brandstof = new List<Brandstof> { new Brandstof((string)r["naam"]) };
+                            voertuigen.Add((int)r["voertuigId"], new Voertuig((int)r["voertuigId"], (string)r["merk"], (string)r["model"], (string)r["chassisnummer"], (string)r["nummerplaat"], brandstof, (string)r["type"], (string)r["kleur"], (int)r["deuren"]));
+                        }
+                        else { voertuigen[(int)r["voertuigId"]].Brandstof.Add(new Brandstof((string)r["naam"])); }
                     }
-                    return Voertuigen;
+                    return voertuigen;
                 }
                 catch (Exception ex) { throw new Exception(ex.Message); }
                 finally { conn.Close(); }
