@@ -1,6 +1,7 @@
 ﻿using Flapp_BLL.Managers;
 using Flapp_BLL.Models;
 using Flapp_DAL.Repository;
+using Flapp_PL.View.Windows.BeheerWindows;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -26,6 +27,7 @@ namespace Flapp_PL.View.Windows.VoertuigWindows
         private VoertuigManager _voertuigManager;
         private BrandstofManager _brandstofmanager;
         private VoertuigTypeManager _voertuigTypeManager;
+        private BestuurderManager _bestuurderManager;
         private Voertuig _voertuig;
         private int aantalDeuren;
         public ObservableCollection<Brandstof> Brandstoffen { get; set; } = new ObservableCollection<Brandstof>();       
@@ -35,7 +37,8 @@ namespace Flapp_PL.View.Windows.VoertuigWindows
             _voertuig = v;            
             _brandstofmanager = new BrandstofManager(new BrandstofRepo(Application.Current.Properties["User"].ToString()));
             _voertuigManager = new VoertuigManager(new VoertuigRepo(Application.Current.Properties["User"].ToString()));
-            _voertuigTypeManager = new VoertuigTypeManager(new VoertuigTypeRepo(Application.Current.Properties["User"].ToString()));            
+            _voertuigTypeManager = new VoertuigTypeManager(new VoertuigTypeRepo(Application.Current.Properties["User"].ToString()));
+            _bestuurderManager = new BestuurderManager(new BestuurderRepo(Application.Current.Properties["User"].ToString()));
             laadVoertuig();
             laadMerk();            
         }
@@ -63,6 +66,13 @@ namespace Flapp_PL.View.Windows.VoertuigWindows
                     MessageBox.Show("Reselect uw brandstof!");
                 }else
                 {
+                    if (lstBestuurder.Items.Count > 0)
+                    {
+                        Bestuurder b = (Bestuurder)lstBestuurder.Items[0];
+                        v.ZetBestuurder((Bestuurder)lstBestuurder.Items[0]);
+                        b.ZetVoertuig(v);
+                        _bestuurderManager.VoegVoertuigToeAanBestuurder(b);
+                    }
                     _voertuigManager.UpdateVoertuig(v);
                     _brandstofmanager.VerwijderBrandstofBijVoertuig(v.VoertuigID);
                     _brandstofmanager.VoegBrandstofToeAanVoertuig(v.VoertuigID, v.Brandstof);
@@ -169,6 +179,11 @@ namespace Flapp_PL.View.Windows.VoertuigWindows
                 //merk = cmbMerk.SelectedItem.ToString();
                 //model = null;
             }
+        }
+
+        private void btnVoertuigbeheer_Click(object sender, RoutedEventArgs e)
+        {
+            new Bestuurderbeheer(this).ShowDialog();
         }
     }
 }

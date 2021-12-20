@@ -15,8 +15,8 @@ namespace Flapp_BLL.Interfaces
         Dictionary<int, Bestuurder> GeefAlleBestuurdersOpDatum(DateTime geboorte);
         Dictionary<int, Bestuurder> GeefAlleBestuurdersOpNaamVoornaam(string naam, string voornaam);
         Dictionary<int, Bestuurder> GeefAlleBestuurdersOpNaamVoornaamDatum(string naam, string voornaam, DateTime geboorte);
-
-
+        void VoegVoertuigToeAanBestuurder(Bestuurder b);
+        Dictionary<int, Bestuurder> GeefAlleBestuurdersZonderVoertuig();
         Bestuurder GeefBestuurder(Bestuurder bestuurder);
         IReadOnlyList<Bestuurder> GeefAlleBestuurdersZonderTankkaarten();
 

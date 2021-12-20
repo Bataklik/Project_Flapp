@@ -80,9 +80,15 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
             {
                 Voertuig voertuig = null;
                 voertuig = new Voertuig(cmbMerk.Text.ToUpper(), cmbModel.Text.ToUpper(), txtChassis.Text.ToUpper(), txtNummerplaat.Text.ToUpper(), lstBrandtof.Items.Cast<Brandstof>().ToList(), cmbType.SelectedItem.ToString().ToUpper(), txtKleur.Text.ToUpper(), Convert.ToInt32(txtDeuren.Text));
-                voertuig.ZetVoeruigID(_voertuigManager.VoegVoertuigToe(voertuig));
+                if (lstBestuurder.Items.Count > 0) 
+                {
+                    Bestuurder b = (Bestuurder)lstBestuurder.Items[0];
+                    voertuig.ZetBestuurder((Bestuurder)lstBestuurder.Items[0]); 
+                    b.ZetVoertuig(voertuig);
+                    _bestuurderManager.UpdateBestuurder(b);                   
+                }
+                voertuig.ZetVoeruigID(_voertuigManager.VoegVoertuigToe(voertuig));                
                 _brandstofmanager.VoegBrandstofToeAanVoertuig(voertuig.VoertuigID, voertuig.Brandstof);
-
                 MessageBox.Show("Voertuig is toegevoegd!");
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
@@ -189,6 +195,11 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
             aantalDeuren = Convert.ToInt32(txtDeuren.Text);
             aantalDeuren -= 1;
             txtDeuren.Text = aantalDeuren.ToString();
+        }
+
+        private void btnVoertuigbeheer_Click(object sender, RoutedEventArgs e)
+        {
+            new Bestuurderbeheer(this).ShowDialog();
         }
     }
 }

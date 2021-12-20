@@ -17,6 +17,7 @@ namespace Flapp_PL.View.Windows.BestuurderWindows
     {
         private BestuurderManager _bestuurderManager;
         private RijbewijsManager _rijbewijsManager;
+        
         private BestuurderUC _parentWindow;
 
         public VoegBestuurderToe(BestuurderUC bestuurderUC)

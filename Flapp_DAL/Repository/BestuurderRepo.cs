@@ -175,6 +175,29 @@ namespace Flapp_DAL.Repository
                 finally { conn.Close(); }
             }
         }
+        public void VoegVoertuigToeAanBestuurder(Bestuurder b)
+        {
+            SqlConnection conn = new SqlConnection(_connString);
+            string query = "UPDATE [dbo].[Bestuurder] SET [voertuigId] = @voertuig WHERE bestuurderId = @id;";
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
+                conn.Open();
+                try
+                {
+                    cmd.Parameters.Add(new SqlParameter("@id", SqlDbType.VarChar));                    
+                    cmd.Parameters.Add(new SqlParameter("@voertuig", SqlDbType.Int));
+                    
+
+                    cmd.CommandText = query;
+                    cmd.Parameters["@id"].Value = b.Id;                    
+                    cmd.Parameters["@voertuig"].Value = b.Voertuig.VoertuigID;                   
+
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception ex) { throw new Exception(ex.Message); }
+                finally { conn.Close(); }
+            }
+        }
         #endregion
 
         #region VerwijderBestuurder Method
@@ -633,6 +656,46 @@ namespace Flapp_DAL.Repository
                                 Voertuig voertuig = new Voertuig((int)r["voertuigId"], (string)r["merk"], (string)r["model"], (string)r["chassisnummer"], (string)r["nummerplaat"], new List<Brandstof>(), (string)r["type"], (string)r["kleur"], (int)r["deuren"], bestuurder);
                                 bestuurder.ZetVoertuig(voertuig);
                             }
+                            bestuurders.Add(bestuurder.Id, bestuurder);
+                        }
+                    }
+                }
+                catch (Exception ex) { throw new Exception(ex.Message); }
+                finally { conn.Close(); }
+            }
+            return bestuurders;
+        }
+
+        public Dictionary<int, Bestuurder> GeefAlleBestuurdersZonderVoertuig()
+        {
+            // !! BrandstofLijst is NULL in voertuig
+            SqlConnection conn = new SqlConnection(_connString);
+            Dictionary<int, Bestuurder> bestuurders = new Dictionary<int, Bestuurder>();
+            string query = "SELECT TOP (20) * FROM Bestuurder LEFT JOIN Rijbewijs_Bestuurder ON Bestuurder.bestuurderId = Rijbewijs_Bestuurder.bestuurderId LEFT JOIN Rijbewijs ON Rijbewijs_Bestuurder.rijbewijsId = Rijbewijs.rijbewijsId LEFT JOIN Adres ON Bestuurder.adresId = Adres.adresId LEFT JOIN Voertuig ON Bestuurder.voertuigId = Voertuig.voertuigId LEFT JOIN Tankkaart ON Bestuurder.tankkaartId = Tankkaart.tankkaartId WHERE Bestuurder.voertuigId IS NULL;";
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
+                cmd.CommandText = query;
+                conn.Open();
+                try
+                {
+                    SqlDataReader r = cmd.ExecuteReader();
+                    while (r.Read())
+                    {
+                        if (bestuurders.ContainsKey((int)r["bestuurderId"])) { bestuurders[(int)r["bestuurderId"]].Rijbewijzen.Add(new Rijbewijs(r[12].ToString())); }
+                        else
+                        {
+                            Adres adres = null;
+                            if (!r.IsDBNull(r.GetOrdinal("adresId")) && !r.IsDBNull(r.GetOrdinal("straat")) && !r.IsDBNull(r.GetOrdinal("huisnummer")) && !r.IsDBNull(r.GetOrdinal("stad")) && !r.IsDBNull(r.GetOrdinal("postcode"))) { adres = new Adres((int)r["adresId"], (string)r["straat"], (string)r["huisnummer"], (string)r["stad"], (int)r["postcode"]); }
+                            Geslacht geslacht = (bool)r["geslacht"] ? Geslacht.M : Geslacht.V;
+                            List<Rijbewijs> rijbewijzen = new List<Rijbewijs> { new Rijbewijs(r[12].ToString()) };
+                            Bestuurder bestuurder = new Bestuurder((int)r["bestuurderId"], (string)r["naam"], (string)r["voornaam"], geslacht, adres, Convert.ToDateTime(r["geboortedatum"]).ToString("dd/MM/yyyy"), (string)r["rijksregister"], rijbewijzen, null, null);
+                            
+                            if (!r.IsDBNull(r.GetOrdinal("tankkaartId")))
+                            {
+                                Tankkaart tankkaart = new Tankkaart((int)r["tankkaartId"], (DateTime)r["geldigheidsdatum"], (string)r["pincode"], (bool)r["geblokkeerd"]);
+                                bestuurder.ZetTankkaart(tankkaart);
+                            }
+
                             bestuurders.Add(bestuurder.Id, bestuurder);
                         }
                     }

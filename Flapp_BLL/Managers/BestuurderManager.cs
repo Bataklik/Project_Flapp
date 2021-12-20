@@ -52,7 +52,16 @@ namespace Flapp_BLL.Managers
             }
             catch (Exception ex) { throw new BestuurderManagerException("BestuurderManager: UpdateBestuurder", ex); }
         }
-
+        public void VoegVoertuigToeAanBestuurder(Bestuurder b)
+        {
+            if (!_repo.BestaatBestuurderId(b.Id)) { throw new BestuurderManagerException("BestuurderManager: UpdateBestuurder: Bestuurder bestaat niet!"); }
+            try
+            {
+                _repo.VoegVoertuigToeAanBestuurder(b);
+            }
+            catch (Exception ex) { throw new BestuurderManagerException("BestuurderManager: VoegVoertuigToeAanBestuurder", ex); }
+        }
+    
         public Dictionary<int, Bestuurder> GeefAlleBestuurders()
         {
             try
@@ -109,6 +118,15 @@ namespace Flapp_BLL.Managers
                 return _repo.GeefAlleBestuurdersZonderTankkaarten();
             }
             catch (Exception ex) { throw new BestuurderManagerException("BestuurderManager: GeefAlleBestuurdersZonderTankkaarten", ex); }
+
+        }
+        public Dictionary<int, Bestuurder> GeefAlleBestuurdersZonderVoertuig()
+        {
+            try
+            {
+                return _repo.GeefAlleBestuurdersZonderVoertuig();
+            }
+            catch (Exception ex) { throw new BestuurderManagerException(ex.Message); }
 
         }
     }

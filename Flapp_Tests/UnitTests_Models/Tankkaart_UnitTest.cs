@@ -75,7 +75,7 @@ namespace Flapp_TESTS.UnitTests_Models
         [Fact]
         public void Test_ZetGeblokkeerd_Valid()
         {
-            Tankkaart t = new Tankkaart(420, DateTime.Parse("06/08/2025"), true);
+            Tankkaart t = new Tankkaart(DateTime.Parse("06/08/2025"), "20", true) ;
             t.ZetGeblokkeerd(false);
             Assert.False(t.Geblokkeerd);
         }
@@ -84,7 +84,7 @@ namespace Flapp_TESTS.UnitTests_Models
         [InlineData(true)]
         public void Test_ZetGeblokkeerd_InValid(bool b)
         {
-            Tankkaart t = new Tankkaart(1, DateTime.Parse("06/08/2025"), true);
+            Tankkaart t = new Tankkaart(DateTime.Parse("06/08/2025"), "1", true);
             Assert.Throws<TankkaartException>(() => t.ZetGeblokkeerd(b));
         }
         #endregion
