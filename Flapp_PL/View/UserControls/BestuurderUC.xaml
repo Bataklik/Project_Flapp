@@ -58,11 +58,11 @@
                 <ListView.View>
                     <GridView>
                         <GridViewColumn
-                            Width="70"
+                            Width="85"
                             DisplayMemberBinding="{Binding Naam}"
                             Header="Naam" />
                         <GridViewColumn
-                            Width="70"
+                            Width="85"
                             DisplayMemberBinding="{Binding Voornaam}"
                             Header="Voornaam" />
                         <GridViewColumn
@@ -70,7 +70,7 @@
                             DisplayMemberBinding="{Binding Path=Geboortedatum, StringFormat='dd/MM/yyyy'}"
                             Header="Geboortedatum" />
                         <GridViewColumn
-                            Width="90"
+                            Width="100"
                             DisplayMemberBinding="{Binding Rijksregisternummer}"
                             Header="Rijksregisternummer" />
                     </GridView>

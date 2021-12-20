@@ -17,13 +17,13 @@ namespace Flapp_PL.View.UserControls
         private BestuurderManager _bestuurderManager;
         private MainWindow _main;
 
-        public BestuurderUC()
-        {
-            InitializeComponent();
-            _bestuurderManager = new BestuurderManager(new BestuurderRepo(Application.Current.Properties["User"].ToString()));
+        //public BestuurderUC()
+        //{
+        //    InitializeComponent();
+        //    _bestuurderManager = new BestuurderManager(new BestuurderRepo(Application.Current.Properties["User"].ToString()));
 
-            LaadBestuurders();
-        }
+        //    LaadBestuurders();
+        //}
         public BestuurderUC(MainWindow main)
         {
             InitializeComponent();
@@ -36,12 +36,7 @@ namespace Flapp_PL.View.UserControls
         {
             List<Bestuurder> bestuurders = new List<Bestuurder>();
             try
-            {
-                foreach (KeyValuePair<int, Bestuurder> v in _bestuurderManager.GeefAlleBestuurders(20))
-                {
-                    bestuurders.Add(v.Value);
-                }
-            }
+            { foreach (KeyValuePair<int, Bestuurder> v in _bestuurderManager.GeefAlleBestuurders()) { bestuurders.Add(v.Value); } }
             catch (Exception ex) { MessageBox.Show(ex.Message); return; }
             lstbBestuurders.ItemsSource = bestuurders;
         }
@@ -119,7 +114,7 @@ namespace Flapp_PL.View.UserControls
 
         private void btnVoegToe_Click(object sender, RoutedEventArgs e)
         {
-            new VoegBestuurderToe().ShowDialog();
+            new VoegBestuurderToe(this).ShowDialog();
         }
 
         private void UpdateBestuurder_Click(object sender, RoutedEventArgs e)

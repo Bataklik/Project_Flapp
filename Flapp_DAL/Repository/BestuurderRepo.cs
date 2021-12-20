@@ -80,33 +80,27 @@ namespace Flapp_DAL.Repository
         public int VoegBestuurderToe(Bestuurder b)
         {
             SqlConnection conn = new SqlConnection(_connString);
-            string query = "USE [Project_Flapp_DB] INSERT INTO [dbo].[Bestuurder] ([naam] ,[voornaam] ,[geboortedatum] ,[rijksregister] ,[adresid] ,[geslacht]) output INSERTED.bestuurderId  VALUES (@naam ,@voornaam ,@geboorte ,@rijksregister ,@adresid  ,@geslacht)";
+            string query = "USE [Project_Flapp_DB] INSERT INTO [dbo].[Bestuurder] ([naam] ,[voornaam] ,[geboortedatum] ,[rijksregister] ,[adresid] ,[voertuigId],[tankkaartId],[geslacht]) output INSERTED.bestuurderId  VALUES (@naam ,@voornaam ,@geboorte ,@rijksregister ,@adresid ,@voertuigid,@tankkaartid ,@geslacht)";
             using (SqlCommand cmd = conn.CreateCommand())
             {
-                conn.Open();
+                cmd.Parameters.AddWithValue("@naam", b.Naam);
+                cmd.Parameters.AddWithValue("@voornaam", b.Voornaam);
+                cmd.Parameters.AddWithValue("@geboorte", b.Geboortedatum);
+                cmd.Parameters.AddWithValue("@rijksregister", b.Rijksregisternummer);
+                if (b.Adres != null) { cmd.Parameters.AddWithValue("@adresid", b.Adres.Id); }
+                else { cmd.Parameters.AddWithValue("@adresid", DBNull.Value); }
+                if (b.Voertuig != null) { cmd.Parameters.AddWithValue("@voertuigid", b.Voertuig.VoertuigID); }
+                else { cmd.Parameters.AddWithValue("@voertuigid", DBNull.Value); }
+                if (b.Tankkaart != null) { cmd.Parameters.AddWithValue("@tankkaartid", b.Tankkaart.Kaartnummer); }
+                else { cmd.Parameters.AddWithValue("@tankkaartid", DBNull.Value); }
+
+                if (b.Geslacht == Geslacht.M) { cmd.Parameters.AddWithValue("@geslacht", 1); }
+                else { cmd.Parameters.AddWithValue("@geslacht", 0); }
                 try
                 {
-                    cmd.Parameters.Add(new SqlParameter("@naam", SqlDbType.VarChar));
-                    cmd.Parameters.Add(new SqlParameter("@voornaam", SqlDbType.VarChar));
-                    cmd.Parameters.Add(new SqlParameter("@geboorte", SqlDbType.DateTime));
-                    cmd.Parameters.Add(new SqlParameter("@rijksregister", SqlDbType.VarChar));
-                    cmd.Parameters.Add(new SqlParameter("@adresid", SqlDbType.Int));
-                    cmd.Parameters.Add(new SqlParameter("@tankkaart", SqlDbType.Int));
-                    cmd.Parameters.Add(new SqlParameter("@geslacht", SqlDbType.Bit));
-
+                    conn.Open();
                     cmd.CommandText = query;
-
-                    cmd.Parameters["@naam"].Value = b.Naam;
-                    cmd.Parameters["@voornaam"].Value = b.Voornaam;
-                    cmd.Parameters["@geboorte"].Value = b.Geboortedatum;
-                    cmd.Parameters["@rijksregister"].Value = b.Rijksregisternummer;
-                    cmd.Parameters["@adresid"].Value = b.Adres.Id;
-                    cmd.Parameters["@tankkaart"].Value = null;
-                    if (b.Geslacht == Geslacht.M) { cmd.Parameters["@geslacht"].Value = 1; }
-                    else { cmd.Parameters["@geslacht"].Value = 0; }
-                    int bestuurderId = (int)cmd.ExecuteScalar();
-                    return bestuurderId;
-                    //cmd.ExecuteNonQuery();
+                    return (int)cmd.ExecuteScalar();
                 }
                 catch (Exception ex) { throw new Exception(ex.Message); }
                 finally { conn.Close(); }
@@ -334,53 +328,10 @@ namespace Flapp_DAL.Repository
         {
             SqlConnection conn = new SqlConnection(_connString);
             Dictionary<int, Bestuurder> bestuurders = new Dictionary<int, Bestuurder>();
-            string query = "USE Project_Flapp_DB; SELECT * FROM Bestuurder LEFT JOIN Rijbewijs_Bestuurder ON Bestuurder.bestuurderId = Rijbewijs_Bestuurder.bestuurderId LEFT JOIN Rijbewijs ON Rijbewijs_Bestuurder.rijbewijsId = Rijbewijs.rijbewijsId LEFT JOIN Adres ON Bestuurder.adresId = Adres.adresId;";
+            string query = "USE Project_Flapp_DB; SELECT TOP (20) * FROM Bestuurder LEFT JOIN Rijbewijs_Bestuurder ON Bestuurder.bestuurderId = Rijbewijs_Bestuurder.bestuurderId LEFT JOIN Rijbewijs ON Rijbewijs_Bestuurder.rijbewijsId = Rijbewijs.rijbewijsId LEFT JOIN Adres ON Bestuurder.adresId = Adres.adresId;";
             using (SqlCommand cmd = conn.CreateCommand())
             {
                 cmd.CommandText = query;
-                conn.Open();
-                try
-                {
-                    SqlDataReader r = cmd.ExecuteReader();
-                    while (r.Read())
-                    {
-                        // Bestuurder(int id, string naam, string voornaam, Geslacht geslacht, Adres adres, string geboortedatum, string rijksregisternummer, List<Rijbewijs> rijbewijs, Voertuig voertuig, Tankkaart tankkaart)
-
-                        if (bestuurders.ContainsKey((int)r["bestuurderId"]))
-                        {
-                            Bestuurder dicBestuurder = bestuurders[(int)r["bestuurderId"]];
-                            dicBestuurder.Rijbewijzen.Add(new Rijbewijs(r[12].ToString()));
-                        }
-                        else
-                        {
-                            Adres adres = null;
-                            if (!r.IsDBNull(r.GetOrdinal("adresId")) && !r.IsDBNull(r.GetOrdinal("straat")) && !r.IsDBNull(r.GetOrdinal("huisnummer")) && !r.IsDBNull(r.GetOrdinal("stad")) && !r.IsDBNull(r.GetOrdinal("postcode")))
-                            {
-                                adres = new Adres((int)r["adresId"], (string)r["straat"], (string)r["huisnummer"], (string)r["stad"], (int)r["postcode"]);
-                            }
-
-                            Geslacht geslacht = (bool)r["geslacht"] ? Geslacht.M : Geslacht.V;
-                            List<Rijbewijs> rijbewijzen = new List<Rijbewijs> { new Rijbewijs(r[12].ToString()) };
-                            Bestuurder bestuurder = new Bestuurder((int)r["bestuurderId"], (string)r["naam"], (string)r["voornaam"], geslacht, adres, Convert.ToDateTime(r["geboortedatum"]).ToString("dd/MM/yyyy"), (string)r["rijksregister"], rijbewijzen, null, null);
-                            bestuurders.Add(bestuurder.Id, bestuurder);
-                        }
-                    }
-                }
-                catch (Exception ex) { throw new Exception(ex.Message); }
-                finally { conn.Close(); }
-            }
-            return bestuurders;
-        }
-        public Dictionary<int, Bestuurder> GeefAlleBestuurders(int top)
-        {
-            SqlConnection conn = new SqlConnection(_connString);
-            Dictionary<int, Bestuurder> bestuurders = new Dictionary<int, Bestuurder>();
-            string query = "USE Project_Flapp_DB; SELECT TOP (@top) * FROM Bestuurder LEFT JOIN Rijbewijs_Bestuurder ON Bestuurder.bestuurderId = Rijbewijs_Bestuurder.bestuurderId LEFT JOIN Rijbewijs ON Rijbewijs_Bestuurder.rijbewijsId = Rijbewijs.rijbewijsId LEFT JOIN Adres ON Bestuurder.adresId = Adres.adresId;";
-            using (SqlCommand cmd = conn.CreateCommand())
-            {
-                cmd.Parameters.Add(new SqlParameter("@top", SqlDbType.Int));
-                cmd.CommandText = query;
-                cmd.Parameters["@top"].Value = top;
                 conn.Open();
                 try
                 {

@@ -61,14 +61,6 @@ namespace Flapp_BLL.Managers
             }
             catch (Exception ex) { throw new BestuurderManagerException("BestuurderManager: GeefAlleBestuurders", ex); }
         }
-        public Dictionary<int, Bestuurder> GeefAlleBestuurders(int top)
-        {
-            try
-            {
-                return _repo.GeefAlleBestuurders(top);
-            }
-            catch (Exception ex) { throw new BestuurderManagerException("BestuurderManager: GeefAlleBestuurdersTOP", ex); }
-        }
         public Dictionary<int, Bestuurder> GeefAlleBestuurdersOpNaam(string naam)
         {
             try

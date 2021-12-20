@@ -1,6 +1,7 @@
 ﻿using Flapp_BLL.Managers;
 using Flapp_BLL.Models;
 using Flapp_DAL.Repository;
+using Flapp_PL.View.UserControls;
 using Flapp_PL.View.Windows.BeheerWindows;
 using Flapp_PL.View.Windows.BestuurderWindows.BeheerWindows;
 using System;
@@ -16,31 +17,34 @@ namespace Flapp_PL.View.Windows.BestuurderWindows
     {
         private BestuurderManager _bestuurderManager;
         private RijbewijsManager _rijbewijsManager;
+        private BestuurderUC _parentWindow;
 
-        public VoegBestuurderToe()
+        public VoegBestuurderToe(BestuurderUC bestuurderUC)
         {
             InitializeComponent();
             _bestuurderManager = new BestuurderManager(new BestuurderRepo(Application.Current.Properties["User"].ToString()));
             _rijbewijsManager = new RijbewijsManager(new RijbewijsRepo(Application.Current.Properties["User"].ToString()));
+            _parentWindow = bestuurderUC;
         }
 
         private void btnVoegtoe_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(txtNaam.Text) || string.IsNullOrEmpty(txtVoornaam.Text) || cbGeslacht.SelectedItem == null || dpGeboorte.SelectedDate == null || string.IsNullOrWhiteSpace(txtRijksregister.Text)) { MessageBox.Show("Er zijn velden niet ingevuld!", "Velden leeg!", MessageBoxButton.OK, MessageBoxImage.Error); return; }
             Geslacht s = cbGeslacht.SelectedItem.ToString() == "Man" ? Geslacht.M : Geslacht.V;
-            Adres a = null;
             Bestuurder bestuurder = null;
             try
             {
                 bestuurder = new Bestuurder(txtNaam.Text, txtVoornaam.Text, s, dpGeboorte.Text, txtRijksregister.Text, lstRijbewijzen.Items.Cast<Rijbewijs>().ToList());
-                bestuurder.ZetId(_bestuurderManager.VoegBestuurderToeZonderAdres(bestuurder));
-                if (lstAdres.Items[0] != null) { a = (Adres)lstAdres.Items[0]; }
-                if (bestuurder.Rijbewijzen.Count > 0)
-                {
-                    _rijbewijsManager.VoegRijbewijzenToeBestuurder(bestuurder.Id, bestuurder.Rijbewijzen);
-                }
+
+                if (lstAdres.Items.Count > 0) { bestuurder.ZetAdres((Adres)lstAdres.Items[0]); }
+                if (lstVoertuig.Items.Count > 0) { bestuurder.ZetVoertuig((Voertuig)lstVoertuig.Items[0]); }
+                if (lstTankkaart.Items.Count > 0) { bestuurder.ZetTankkaart((Tankkaart)lstTankkaart.Items[0]); }
+
+                bestuurder.ZetId(_bestuurderManager.VoegBestuurderToe(bestuurder));
+                if (bestuurder.Rijbewijzen.Count > 0) { _rijbewijsManager.VoegRijbewijzenToeBestuurder(bestuurder.Id, bestuurder.Rijbewijzen); }
                 MessageBox.Show("Bestuurder is Toegevoegd!", "Toevoegen gelukt!", MessageBoxButton.OK, MessageBoxImage.Asterisk);
                 ClearInputs();
+                _parentWindow.LaadBestuurders();
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, "Bestuurder Toevoegen.", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
@@ -62,7 +66,6 @@ namespace Flapp_PL.View.Windows.BestuurderWindows
             if (!lstRijbewijzen.Items.Contains((Rijbewijs)lstRijbewijzen.SelectedItem)) { MessageBox.Show("Rijbewijs staat niet al op de lijst!"); return; }
             lstRijbewijzen.Items.Remove((Rijbewijs)lstRijbewijzen.SelectedItem);
         }
-
         private void cbRijbewijzen_Loaded(object sender, RoutedEventArgs e)
         {
             try
@@ -71,7 +74,6 @@ namespace Flapp_PL.View.Windows.BestuurderWindows
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
-
         private void cbGeslacht_Loaded(object sender, RoutedEventArgs e)
         {
             List<string> geslachten = new List<string> { "Man", "Vrouw" };
@@ -79,13 +81,11 @@ namespace Flapp_PL.View.Windows.BestuurderWindows
             box.ItemsSource = geslachten;
             box.SelectedIndex = 0;
         }
-
         private void txtPostcode_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
-
         private void ClearInputs()
         {
             txtNaam.Text = string.Empty;
@@ -97,18 +97,14 @@ namespace Flapp_PL.View.Windows.BestuurderWindows
             lstRijbewijzen.Items.Clear();
         }
 
-
-
         private void btnAdresbeheer_Click(object sender, RoutedEventArgs e)
         {
             new Adresbeheer(this).ShowDialog();
         }
-
         private void btnVoertuigbeheer_Click(object sender, RoutedEventArgs e)
         {
             new Voertuigbeheer(this).ShowDialog();
         }
-
         private void btnTankkaartbeheer_Click(object sender, RoutedEventArgs e)
         {
             new Tankaartbeheer(this).ShowDialog();
