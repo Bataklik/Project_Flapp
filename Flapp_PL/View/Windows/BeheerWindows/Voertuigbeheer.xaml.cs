@@ -12,12 +12,22 @@ namespace Flapp_PL.View.Windows.BeheerWindows
     public partial class Voertuigbeheer : Window
     {
         private VoegBestuurderToe _parentWindow;
+        private UpdateBestuurderWindow _parentUpdateWindow;
+
         private VoertuigManager _voertuigManager;
 
         public Voertuigbeheer(VoegBestuurderToe parentWindow)
         {
             InitializeComponent();
             _parentWindow = parentWindow;
+            _voertuigManager = new VoertuigManager(new VoertuigRepo(Application.Current.Properties["User"].ToString()));
+            LaadVoertuigen();
+        }
+
+        public Voertuigbeheer(UpdateBestuurderWindow parentWindow)
+        {
+            InitializeComponent();
+            _parentUpdateWindow = parentWindow;
             _voertuigManager = new VoertuigManager(new VoertuigRepo(Application.Current.Properties["User"].ToString()));
             LaadVoertuigen();
         }
@@ -51,8 +61,16 @@ namespace Flapp_PL.View.Windows.BeheerWindows
         private void miSelecteer_Click(object sender, RoutedEventArgs e)
         {
             if (lstVoertuigen.SelectedItems == null) { MessageBox.Show("U heeft geen voertuig geselecteerd!"); return; }
-            _parentWindow.lstVoertuig.Items.Clear();
-            _parentWindow.lstVoertuig.Items.Add((Voertuig)lstVoertuigen.SelectedItem);
+            if (_parentWindow == null)
+            {
+                _parentUpdateWindow.lstVoertuig.Items.Clear();
+                _parentUpdateWindow.lstVoertuig.Items.Add((Voertuig)lstVoertuigen.SelectedItem);
+            }
+            else
+            {
+                _parentWindow.lstVoertuig.Items.Clear();
+                _parentWindow.lstVoertuig.Items.Add((Voertuig)lstVoertuigen.SelectedItem);
+            }
             Close();
         }
 

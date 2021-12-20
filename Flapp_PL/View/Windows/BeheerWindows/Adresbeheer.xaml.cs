@@ -12,12 +12,22 @@ namespace Flapp_PL.View.Windows.BestuurderWindows.BeheerWindows
     {
         private VoegBestuurderToe _parentWindow;
         private AdresManager _adresManager;
+        private UpdateBestuurderWindow _parentUpdateWindow;
 
         public Adresbeheer(VoegBestuurderToe parentWindow)
         {
             InitializeComponent();
 
             _parentWindow = parentWindow;
+            _adresManager = new AdresManager(new AdresRepo(Application.Current.Properties["User"].ToString()));
+
+            LaadAdressen();
+        }
+        public Adresbeheer(UpdateBestuurderWindow parentWindow)
+        {
+            InitializeComponent();
+
+            _parentUpdateWindow = parentWindow;
             _adresManager = new AdresManager(new AdresRepo(Application.Current.Properties["User"].ToString()));
 
             LaadAdressen();
@@ -35,8 +45,16 @@ namespace Flapp_PL.View.Windows.BestuurderWindows.BeheerWindows
         private void miSelecteer_Click(object sender, RoutedEventArgs e)
         {
             if (lstAdressen.SelectedItems == null) { MessageBox.Show("U heeft geen adres geselecteerd!"); return; }
-            _parentWindow.lstAdres.Items.Clear();
-            _parentWindow.lstAdres.Items.Add((Adres)lstAdressen.SelectedItem);
+            if (_parentWindow == null)
+            {
+                _parentUpdateWindow.lstAdres.Items.Clear();
+                _parentUpdateWindow.lstAdres.Items.Add((Adres)lstAdressen.SelectedItem);
+            }
+            else
+            {
+                _parentWindow.lstAdres.Items.Clear();
+                _parentWindow.lstAdres.Items.Add((Adres)lstAdressen.SelectedItem);
+            }
             Close();
         }
         private void miVoegToe_Click(object sender, RoutedEventArgs e)
@@ -60,7 +78,6 @@ namespace Flapp_PL.View.Windows.BestuurderWindows.BeheerWindows
             try { cbStraten.ItemsSource = _adresManager.GeefStratenStad(stad.Key, stad.Value); }
             catch (Exception) { throw; }
         }
-
         private void btnZoek_Click(object sender, RoutedEventArgs e)
         {
             if (cbSteden.SelectedItem == null || cbStraten.SelectedItem == null) { MessageBox.Show("Geen Juiste stad of straat aangeduid!"); return; }

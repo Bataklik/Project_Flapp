@@ -142,27 +142,30 @@ namespace Flapp_DAL.Repository
         public void UpdateBestuurder(Bestuurder b)
         {
             SqlConnection conn = new SqlConnection(_connString);
-            string query = "USE [Project_Flapp_DB] UPDATE [dbo].[Bestuurder] WHERE naam = @naam AND voornaam = @voornaam AND geboorte = @geboorte AND rijksregister = @rijksregister AND adresid = @adresid AND tankkaartid = @tankkaartid AND geslacht = @geslacht)";
+            string query = "UPDATE [dbo].[Bestuurder] SET [naam] = @naam ,[voornaam] = @voornaam ,[geboortedatum] = @geboorte ,[rijksregister] = @rijksregister ,[adresId] = @adres ,[voertuigId] = @voertuig ,[tankkaartId] = @tankkaart ,[geslacht] = @geslacht WHERE bestuurderId = @id;";
             using (SqlCommand cmd = conn.CreateCommand())
             {
                 conn.Open();
                 try
                 {
+                    cmd.Parameters.Add(new SqlParameter("@id", SqlDbType.VarChar));
                     cmd.Parameters.Add(new SqlParameter("@naam", SqlDbType.VarChar));
                     cmd.Parameters.Add(new SqlParameter("@voornaam", SqlDbType.VarChar));
                     cmd.Parameters.Add(new SqlParameter("@geboorte", SqlDbType.DateTime));
                     cmd.Parameters.Add(new SqlParameter("@rijksregister", SqlDbType.VarChar));
                     cmd.Parameters.Add(new SqlParameter("@adres", SqlDbType.Int));
+                    cmd.Parameters.Add(new SqlParameter("@voertuig", SqlDbType.Int));
                     cmd.Parameters.Add(new SqlParameter("@tankkaart", SqlDbType.Int));
                     cmd.Parameters.Add(new SqlParameter("@geslacht", SqlDbType.Bit));
 
                     cmd.CommandText = query;
-
+                    cmd.Parameters["@id"].Value = b.Id;
                     cmd.Parameters["@naam"].Value = b.Naam;
                     cmd.Parameters["@voornaam"].Value = b.Voornaam;
                     cmd.Parameters["@geboorte"].Value = b.Geboortedatum;
                     cmd.Parameters["@rijksregister"].Value = b.Rijksregisternummer;
                     cmd.Parameters["@adres"].Value = b.Adres.Id;
+                    cmd.Parameters["@voertuig"].Value = b.Voertuig.VoertuigID;
                     cmd.Parameters["@tankkaart"].Value = b.Tankkaart.Kaartnummer;
                     if (b.Geslacht == Geslacht.M) { cmd.Parameters["@geslacht"].Value = 1; } else { cmd.Parameters["@geslacht"].Value = 0; }
 

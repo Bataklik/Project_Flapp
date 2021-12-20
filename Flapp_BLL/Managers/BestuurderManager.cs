@@ -45,7 +45,7 @@ namespace Flapp_BLL.Managers
         }
         public void UpdateBestuurder(Bestuurder bestuurder)
         {
-            if (!_repo.BestaatBestuurder(bestuurder)) { throw new BestuurderManagerException("BestuurderManager: UpdateBestuurder: Bestuurder bestaat niet!"); }
+            if (!_repo.BestaatBestuurderId(bestuurder.Id)) { throw new BestuurderManagerException("BestuurderManager: UpdateBestuurder: Bestuurder bestaat niet!"); }
             try
             {
                 _repo.UpdateBestuurder(bestuurder);

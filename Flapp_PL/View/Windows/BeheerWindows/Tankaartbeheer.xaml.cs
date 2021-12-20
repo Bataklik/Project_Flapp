@@ -10,15 +10,25 @@ namespace Flapp_PL.View.Windows.BeheerWindows
 {
     public partial class Tankaartbeheer : Window
     {
-        private TankkaartManager _tankkaartManager;
         private VoegBestuurderToe _parentWindow;
-        public Tankaartbeheer(BestuurderWindows.VoegBestuurderToe parentWindow)
+        private UpdateBestuurderWindow _parentUpdateWindow;
+
+        private TankkaartManager _tankkaartManager;
+        public Tankaartbeheer(VoegBestuurderToe parentWindow)
         {
             InitializeComponent();
             _tankkaartManager = new TankkaartManager(new TankkaartRepo(Application.Current.Properties["User"].ToString()));
             _parentWindow = parentWindow;
             LaadTankkaarten();
         }
+        public Tankaartbeheer(UpdateBestuurderWindow parentWindow)
+        {
+            InitializeComponent();
+            _tankkaartManager = new TankkaartManager(new TankkaartRepo(Application.Current.Properties["User"].ToString()));
+            _parentUpdateWindow = parentWindow;
+            LaadTankkaarten();
+        }
+
         public void LaadTankkaarten()
         {
             try
@@ -36,8 +46,16 @@ namespace Flapp_PL.View.Windows.BeheerWindows
         private void miSelecteer_Click(object sender, RoutedEventArgs e)
         {
             if (lstTankkaarten.SelectedItems == null) { MessageBox.Show("U heeft geen tankkaart geselecteerd!"); return; }
-            _parentWindow.lstTankkaart.Items.Clear();
-            _parentWindow.lstTankkaart.Items.Add((Tankkaart)lstTankkaarten.SelectedItem);
+            if (_parentWindow == null)
+            {
+                _parentUpdateWindow.lstTankkaart.Items.Clear();
+                _parentUpdateWindow.lstTankkaart.Items.Add((Tankkaart)lstTankkaarten.SelectedItem);
+            }
+            else
+            {
+                _parentWindow.lstTankkaart.Items.Clear();
+                _parentWindow.lstTankkaart.Items.Add((Tankkaart)lstTankkaarten.SelectedItem);
+            }
             Close();
         }
 

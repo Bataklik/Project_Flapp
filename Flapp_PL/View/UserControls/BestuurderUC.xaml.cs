@@ -120,7 +120,7 @@ namespace Flapp_PL.View.UserControls
         private void UpdateBestuurder_Click(object sender, RoutedEventArgs e)
         {
             if ((Bestuurder)lstbBestuurders.SelectedItem == null) { MessageBox.Show("U heeft geen bestuurder gekozen!", "Geen bestuurder!", MessageBoxButton.OK, MessageBoxImage.Error); return; }
-            new UpdateBestuurderWindow((Bestuurder)lstbBestuurders.SelectedItem).ShowDialog();
+            new UpdateBestuurderWindow((Bestuurder)lstbBestuurders.SelectedItem, this).ShowDialog();
         }
 
         private void VerwijderBestuurder_Click(object sender, RoutedEventArgs e)

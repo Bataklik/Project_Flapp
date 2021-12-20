@@ -43,8 +43,9 @@ namespace Flapp_PL.View.Windows.BestuurderWindows
                 bestuurder.ZetId(_bestuurderManager.VoegBestuurderToe(bestuurder));
                 if (bestuurder.Rijbewijzen.Count > 0) { _rijbewijsManager.VoegRijbewijzenToeBestuurder(bestuurder.Id, bestuurder.Rijbewijzen); }
                 MessageBox.Show("Bestuurder is Toegevoegd!", "Toevoegen gelukt!", MessageBoxButton.OK, MessageBoxImage.Asterisk);
-                ClearInputs();
                 _parentWindow.LaadBestuurders();
+                ClearInputs();
+                Close();
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, "Bestuurder Toevoegen.", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
@@ -95,6 +96,9 @@ namespace Flapp_PL.View.Windows.BestuurderWindows
             dpGeboorte.Text = string.Empty;
             cbRijbewijzen.SelectedIndex = -1;
             lstRijbewijzen.Items.Clear();
+            lstAdres.Items.Clear();
+            lstVoertuig.Items.Clear();
+            lstTankkaart.Items.Clear();
         }
 
         private void btnAdresbeheer_Click(object sender, RoutedEventArgs e)
