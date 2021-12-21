@@ -67,6 +67,7 @@
                     Foreground="#F9F7F7"
                     Kind="HousingEstate" />
                 <TextBlock
+                    Margin="0,5,5,0"
                     FontSize="20"
                     Foreground="#F9F7F7"
                     Text="Adres beheer" />
@@ -87,7 +88,11 @@
                 Width="100"
                 Height="25"
                 Margin="5" />
-            <Button x:Name="btnZoek" Click="btnZoek_Click" Width="50" Height="20">
+            <Button
+                x:Name="btnZoek"
+                Width="50"
+                Height="20"
+                Click="btnZoek_Click">
                 <StackPanel Orientation="Horizontal">
                     <materialDesign:PackIcon
                         Width="10"

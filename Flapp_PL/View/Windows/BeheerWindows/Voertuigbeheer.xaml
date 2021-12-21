@@ -67,6 +67,7 @@
                     Foreground="#F9F7F7"
                     Kind="Car" />
                 <TextBlock
+                    Margin="0,5,5,0"
                     FontSize="20"
                     Foreground="#F9F7F7"
                     Text="Voertuig beheer" />
