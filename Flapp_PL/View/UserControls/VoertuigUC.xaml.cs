@@ -38,7 +38,7 @@ namespace Flapp_PL.View.UserControls
             _main = mainw;
             laadVoertuigen();
         }
-        
+
         #endregion
 
         #region methods
@@ -46,18 +46,18 @@ namespace Flapp_PL.View.UserControls
         {
             List<Voertuig> voertuigen = new List<Voertuig>();
             try
-            {                
-                foreach (KeyValuePair<int,Voertuig> v in _voertuigManager.GeefVoertuigen())
+            {
+                foreach (KeyValuePair<int, Voertuig> v in _voertuigManager.GeefVoertuigen())
                 {
                     voertuigen.Add(v.Value);
                 }
             }
-            catch (Exception ex) { throw new Exception(ex.Message, ex); }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
             lstVoertuigen.ItemsSource = voertuigen;
-        }       
-        
+        }
+
         private void btnZoek_Click(object sender, RoutedEventArgs e)
-        {            
+        {
             //new VoertuigZoeken(_main).ShowDialog();
             VoertuigUC vUC = this;
             if (_main.wpUserControl.Children.Count > 1) _main.wpUserControl.Children.RemoveAt(_main.wpUserControl.Children.Count - 1);
@@ -65,9 +65,9 @@ namespace Flapp_PL.View.UserControls
         }
         private void btnVoegToe_Click(object sender, RoutedEventArgs e)
         {
-            new VoertuigToevoegen().ShowDialog();            
+            new VoertuigToevoegen().ShowDialog();
         }
-        
+
         #endregion
 
         private void itemUpdate_Click(object sender, RoutedEventArgs e)
@@ -94,9 +94,9 @@ namespace Flapp_PL.View.UserControls
                 }
                 finally { laadVoertuigen(); }
             }
-            
+
         }
 
-        
+
     }
 }

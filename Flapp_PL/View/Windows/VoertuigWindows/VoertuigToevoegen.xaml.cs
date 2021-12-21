@@ -76,18 +76,19 @@ namespace Flapp_PL.View.Windows.VoertuigWindow
 
         private void btnToevoegen_Click(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(cmbMerk.Text) || string.IsNullOrWhiteSpace(cmbModel.Text) || string.IsNullOrWhiteSpace(txtChassis.Text) || string.IsNullOrWhiteSpace(txtNummerplaat.Text) || lstBestuurder.Items == null || string.IsNullOrWhiteSpace((string)cmbType.SelectedItem) || string.IsNullOrWhiteSpace(txtKleur.Text) || string.IsNullOrWhiteSpace(txtDeuren.Text)) { MessageBox.Show("Niet alle velden zijn ingevuld!"); return; }
+            Voertuig voertuig = new Voertuig(cmbMerk.Text.ToUpper(), cmbModel.Text.ToUpper(), txtChassis.Text.ToUpper(), txtNummerplaat.Text.ToUpper(), lstBrandtof.Items.Cast<Brandstof>().ToList(), cmbType.SelectedItem.ToString().ToUpper(), txtKleur.Text.ToUpper(), int.Parse(txtDeuren.Text));
             try
             {
-                Voertuig voertuig = null;
-                voertuig = new Voertuig(cmbMerk.Text.ToUpper(), cmbModel.Text.ToUpper(), txtChassis.Text.ToUpper(), txtNummerplaat.Text.ToUpper(), lstBrandtof.Items.Cast<Brandstof>().ToList(), cmbType.SelectedItem.ToString().ToUpper(), txtKleur.Text.ToUpper(), Convert.ToInt32(txtDeuren.Text));
-                if (lstBestuurder.Items.Count > 0) 
+
+                if (lstBestuurder.Items.Count > 0)
                 {
                     Bestuurder b = (Bestuurder)lstBestuurder.Items[0];
-                    voertuig.ZetBestuurder((Bestuurder)lstBestuurder.Items[0]); 
+                    voertuig.ZetBestuurder((Bestuurder)lstBestuurder.Items[0]);
                     b.ZetVoertuig(voertuig);
-                    _bestuurderManager.UpdateBestuurder(b);                   
+                    _bestuurderManager.UpdateBestuurder(b);
                 }
-                voertuig.ZetVoeruigID(_voertuigManager.VoegVoertuigToe(voertuig));                
+                voertuig.ZetVoeruigID(_voertuigManager.VoegVoertuigToe(voertuig));
                 _brandstofmanager.VoegBrandstofToeAanVoertuig(voertuig.VoertuigID, voertuig.Brandstof);
                 MessageBox.Show("Voertuig is toegevoegd!");
             }
