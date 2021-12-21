@@ -9,8 +9,8 @@
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         Title="Flapp: Tankkaart Toevoegen" 
-        Height="400" 
-        Width="320">
+        Height="450" 
+        Width="580">
     <Window.Resources>
         <!-- Button Style-->
         <Style TargetType="Button">
@@ -48,18 +48,21 @@
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="100"/>
+            <RowDefinition Height="40"/>
             <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="135"/>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="120"/>
+            <ColumnDefinition Width="150"/>
         </Grid.ColumnDefinitions>
 
         <!--TextBlocks-->
-        <DockPanel Grid.ColumnSpan="2"
+        <DockPanel Grid.ColumnSpan="4"
                     Grid.Column="0"
                     Grid.Row="0"
-                    Background="#112D4E" Margin="0,0,-16,0">
+                    Background="#112D4E" Margin="0,0,-25,0">
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center">
@@ -78,25 +81,24 @@
         <TextBlock Text="Geldigheidsdatum:" 
                    Grid.Row="1" 
                    Grid.Column="0" 
-                   FontSize="16" 
+                   FontSize="14" 
                    VerticalAlignment="Center" 
                    Margin="10,0"/>
         <TextBlock Text="Pincode:" Grid.Row="2" 
                    Grid.Column="0" 
-                   FontSize="16" 
+                   FontSize="14" 
                    VerticalAlignment="Center" 
                    Margin="10,0"/>
         <TextBlock Text="Geblokkeerd:" Grid.Row="3" 
                    Grid.Column="0" 
-                   FontSize="16" 
+                   FontSize="14" 
                    VerticalAlignment="Center" 
                    Margin="10,0"/>
-        <TextBlock Text="Brandstoftype:" Grid.Row="4" 
-                   Grid.Column="0" 
-                   FontSize="16" 
+        <TextBlock Text="Brandstoftype:" Grid.Row="1" 
+                   Grid.Column="2" 
+                   FontSize="14" 
                    VerticalAlignment="Center" 
                    Margin="10,0"/>
-        
 
         <!--Inputs Fields-->
         <DatePicker Name="dpGeldigheidsdatum" Grid.Row="1" 
@@ -121,8 +123,8 @@
             <ComboBoxItem>Ja</ComboBoxItem>
             <ComboBoxItem IsSelected="True">Nee</ComboBoxItem>
         </ComboBox>
-        <StackPanel Grid.Row="4" 
-                    Grid.Column="1"
+        <StackPanel Grid.Row="1" 
+                    Grid.Column="4"
                     Orientation="Horizontal"
                     Margin="10,5"
                     Height="auto">
@@ -152,21 +154,79 @@
 
             </Button>
         </StackPanel>
-        <ListBox Name="lbBrandstof" Grid.Row="5" 
-                 Grid.Column="1" 
+        <ListBox Name="lbBrandstof" Grid.Row="2"
+                 Grid.RowSpan="2"
+                 Grid.Column="3" 
                  Width="130" 
-                 Margin="10,7,11,10" 
+                 Margin="10,7,10,10" 
                  FontSize="16"/>
+        <StackPanel
+            Grid.Row="3"
+            Grid.RowSpan="4"
+            Grid.Column="2"
+            Grid.ColumnSpan="2"
+            Margin="14,48,-13,31"
+            Orientation="Horizontal">
+            <StackPanel>
+                <ListView
+                    x:Name="lstBestuurder"
+                    Width="250"
+                    Height="50"
+                    Margin="0,5"
+                    SelectionMode="Single">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn
+                                Width="60"
+                                DisplayMemberBinding="{Binding Naam}"
+                                Header="Naam" />
+                            <GridViewColumn
+                                Width="60"
+                                DisplayMemberBinding="{Binding Voornaam}"
+                                Header="Voornaam" />
+                            <GridViewColumn
+                                Width="60"
+                                DisplayMemberBinding="{Binding Geboortedatum}"
+                                Header="Geboortedatum" />
+                            <GridViewColumn
+                                Width="60"
+                                DisplayMemberBinding="{Binding Rijksregisternummer}"
+                                Header="Rijksregisternummer" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <Button
+                    x:Name="btnBestuurderBeheer"
+                    Width="120"
+                    Height="25"
+                    Margin="0,5"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Click="btnVoertuigbeheer_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                            Width="15"
+                            Height="15"
+                            Margin="0,0,5,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Foreground="#F9F7F7"
+                            Kind="People" />
+                        <TextBlock Foreground="#F9F7F7" Text="Bestuurderbeheer" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </StackPanel>
 
         <!--Buttons End-->
         <Button x:Name="btnVoegtoe"
                 Click="btnVoegtoe_Click"
-                Grid.Column="0"
+                Grid.Column="1"
                 Grid.Row="8"
                 Margin="5,5,5,5"
                 FontSize="15"
-                Height="40"
-                Width="130">
+                Height="30"
+                Width="100">
             <StackPanel Orientation="Horizontal">
                 <materialDesign:PackIcon Kind="Add"
                                              Margin="0,0,5,0"
@@ -182,12 +242,12 @@
         </Button>
         <Button x:Name="btnAnnuleer"
                 Click="btnAnnuleer_Click"
-                Grid.Column="1"
+                Grid.Column="2"
                 Grid.Row="8"
                 Margin="5,5,5,5"
                 FontSize="15"
-                Height="40"
-                Width="130">
+                Height="30"
+                Width="100">
             <StackPanel Orientation="Horizontal">
                 <materialDesign:PackIcon Kind="Cancel"
                                              Margin="0,0,5,0"
