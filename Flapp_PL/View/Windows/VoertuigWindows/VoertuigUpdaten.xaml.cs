@@ -30,20 +30,20 @@ namespace Flapp_PL.View.Windows.VoertuigWindows
         private BestuurderManager _bestuurderManager;
         private Voertuig _voertuig;
         private int aantalDeuren;
-        public ObservableCollection<Brandstof> Brandstoffen { get; set; } = new ObservableCollection<Brandstof>();       
+        public ObservableCollection<Brandstof> Brandstoffen { get; set; } = new ObservableCollection<Brandstof>();
         public VoertuigUpdaten(Voertuig v)
-        {            
+        {
             InitializeComponent();
-            _voertuig = v;            
+            _voertuig = v;
             _brandstofmanager = new BrandstofManager(new BrandstofRepo(Application.Current.Properties["User"].ToString()));
             _voertuigManager = new VoertuigManager(new VoertuigRepo(Application.Current.Properties["User"].ToString()));
             _voertuigTypeManager = new VoertuigTypeManager(new VoertuigTypeRepo(Application.Current.Properties["User"].ToString()));
             _bestuurderManager = new BestuurderManager(new BestuurderRepo(Application.Current.Properties["User"].ToString()));
             laadVoertuig();
-            laadMerk();            
+            laadMerk();
         }
         public void laadVoertuig()
-        {            
+        {
             lstBrandtof.ItemsSource = _voertuig.Brandstof;
             Brandstoffen = new ObservableCollection<Brandstof>(_voertuig.Brandstof);
             txtId.Text = $"{_voertuig.VoertuigID}";
@@ -57,14 +57,12 @@ namespace Flapp_PL.View.Windows.VoertuigWindows
             aantalDeuren = Convert.ToInt32(txtDeuren.Text);
         }
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
-        { 
+        {
             try
-            {              
+            {
                 Voertuig v = new Voertuig(Convert.ToInt32(txtId.Text), cmbMerk.Text, cmbModel.Text, txtChassis.Text, txtNummerplaat.Text, lstBrandtof.Items.Cast<Brandstof>().ToList(), cmbType.Text, txtKleur.Text, Convert.ToInt32(txtDeuren.Text));
-                if(v.Brandstof == null)
-                {
-                    MessageBox.Show("Reselect uw brandstof!");
-                }else
+                if (v.Brandstof == null) { MessageBox.Show("Reselect uw brandstof!"); return; }
+                else
                 {
                     if (lstBestuurder.Items.Count > 0)
                     {
@@ -79,9 +77,8 @@ namespace Flapp_PL.View.Windows.VoertuigWindows
                     MessageBox.Show("Updaten Gelukt!");
                     Close();
                 }
-                
             }
-            catch (Exception ex) { throw; }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
         private void btnAnnuleren_Click(object sender, RoutedEventArgs e)
         {

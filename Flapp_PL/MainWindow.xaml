@@ -44,7 +44,7 @@
         </Style>
     </Window.Resources>
     <Grid x:Name="mainWindow" MaxWidth="750">
-        
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition x:Name="col1" Width="300" />
             <ColumnDefinition x:Name="col2" />
@@ -75,12 +75,27 @@
                     Height="20" />
                 <Button
                     x:Name="btnKies"
-                    Width="40"
+                    Width="70"
                     Height="20"
-                    Margin="10,0"
+                    Margin="5,0"
                     Padding="10"
-                    Click="btnKies_Click"
-                    Content="Kies" />
+                    Click="btnKies_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                            Width="10"
+                            Height="10"
+                            Margin="5,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Foreground="#F9F7F7"
+                            Kind="Wifi" />
+                        <TextBlock
+                            Margin="0,0,5,0"
+                            VerticalAlignment="Center"
+                            Foreground="#F9F7F7"
+                            Text="Verbind" />
+                    </StackPanel>
+                </Button>
             </StackPanel>
             <!--  Bestuurder button  -->
             <Button

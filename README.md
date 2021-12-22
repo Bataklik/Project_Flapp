@@ -8,7 +8,7 @@
 
   <h3 align="center">Fleet Management App</h3>
     <p align="center"><a href="Flapp_Assets/Documentatie/HomeDoc.md">Documentatie</a></p>
-  <p align="center">s
+  <p align="center">
     Logboeken van de contributors
     <br />
     <br />

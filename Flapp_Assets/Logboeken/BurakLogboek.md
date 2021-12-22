@@ -32,7 +32,11 @@
 | 1u   | Bestuurder Zoeken on name.                                 |
 | 1u   | Bestuurder UC ListBox Changed to ListView + Styles         |
 | 2u   | Adresbeheer & BestuurderToevoegen window Update            |
-| 1u   | Documentatie start                                          |
+| 1u   | Documentatie start                                         |
+| 2u   | Documentatie Connectie & Bestuurder Toevoegen              |
+| 1u   | Refactor WPF                                               |
+
+
 
 
 
