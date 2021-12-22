@@ -32,7 +32,7 @@ namespace Flapp_PL.View.Windows.BeheerWindows {
         }
         public Bestuurderbeheer(TankkaartToevoegenWindow window) {
             InitializeComponent();
-            window = _tankkaartWindow;
+            _tankkaartWindow = window;
             _bestuurderManager = new BestuurderManager(new BestuurderRepo(Application.Current.Properties["User"].ToString()));
             laadBestuurders();
         }
@@ -56,13 +56,16 @@ namespace Flapp_PL.View.Windows.BeheerWindows {
         }
         private void miSelecteer_Click(object sender, RoutedEventArgs e) {
             if (lstBestuurder.SelectedItems == null) { MessageBox.Show("U heeft geen bestuurder geselecteerd!"); return; }
-            if (_parentWindow == null) {
+            if (_parentWindow == null && _tankkaartWindow == null) {
                 _parentUpdateWindow.lstBestuurder.Items.Clear();
                 _parentUpdateWindow.lstBestuurder.Items.Add((Bestuurder)lstBestuurder.SelectedItem);
-            }
-            else {
+            }else if (_parentUpdateWindow == null && _tankkaartWindow == null) {
                 _parentWindow.lstBestuurder.Items.Clear();
                 _parentWindow.lstBestuurder.Items.Add((Bestuurder)lstBestuurder.SelectedItem);
+            }
+            else if (_parentWindow == null && _parentUpdateWindow == null) {
+                _tankkaartWindow.lstBestuurder.Items.Clear();
+                _tankkaartWindow.lstBestuurder.Items.Add((Bestuurder)lstBestuurder.SelectedItem);
             }
             Close();
         }
