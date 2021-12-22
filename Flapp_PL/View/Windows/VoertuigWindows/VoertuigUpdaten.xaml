@@ -41,7 +41,7 @@
             </Setter>
         </Style>
     </Window.Resources>
-    <Grid Margin="0,0,-1,3">
+    <Grid Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
             <RowDefinition Height="40" />
@@ -66,7 +66,6 @@
             Grid.Row="0"
             Grid.Column="0"
             Grid.ColumnSpan="4"
-            Margin="0,0,-19,0"
             Background="#112D4E">
             <StackPanel
                 HorizontalAlignment="Center"
@@ -339,7 +338,7 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Foreground="#F9F7F7"
-                    Kind="AddBold" />
+                    Kind="Remove" />
                 <TextBlock
                     VerticalAlignment="Center"
                     Foreground="#F9F7F7"
@@ -363,7 +362,7 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Foreground="#F9F7F7"
-                    Kind="CancelBold" />
+                    Kind="Remove" />
                 <TextBlock
                     VerticalAlignment="Center"
                     Foreground="#F9F7F7"

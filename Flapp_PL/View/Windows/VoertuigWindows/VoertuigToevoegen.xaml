@@ -339,7 +339,7 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Foreground="#F9F7F7"
-                    Kind="AddBold" />
+                    Kind="Add" />
                 <TextBlock
                     VerticalAlignment="Center"
                     Foreground="#F9F7F7"
@@ -364,7 +364,7 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Foreground="#F9F7F7"
-                    Kind="CancelBold" />
+                    Kind="Remove" />
                 <TextBlock
                     VerticalAlignment="Center"
                     Foreground="#F9F7F7"
