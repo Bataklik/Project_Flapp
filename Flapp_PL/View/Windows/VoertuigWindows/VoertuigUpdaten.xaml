@@ -7,8 +7,8 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="VoertuigUpdaten"
-    Width="576"
-    Height="450"
+    Width="580"
+    Height="409"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 
@@ -41,7 +41,7 @@
             </Setter>
         </Style>
     </Window.Resources>
-    <Grid Margin="5">
+    <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
             <RowDefinition Height="40" />
@@ -51,8 +51,9 @@
             <RowDefinition Height="40" />
             <RowDefinition Height="40" />
             <RowDefinition Height="40" />
-            <RowDefinition Height="40" />
-            <RowDefinition Height="40" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
@@ -63,6 +64,7 @@
         </Grid.ColumnDefinitions>
 
         <DockPanel
+            Width="580"
             Grid.Row="0"
             Grid.Column="0"
             Grid.ColumnSpan="4"
@@ -74,7 +76,7 @@
                 <materialDesign:PackIcon
                     Width="25"
                     Height="25"
-                    Margin="0,0,5,0"
+                    
                     HorizontalAlignment="Center"
                     Foreground="#F9F7F7"
                     Kind="Car" />
@@ -88,56 +90,56 @@
         <TextBlock
             Grid.Row="1"
             Grid.Column="0"
-            Margin="10,0"
+            Margin="10,0,10,0"
             VerticalAlignment="Center"
             FontSize="16"
             Text="Voertuig ID:" />
         <TextBlock
             Grid.Row="2"
             Grid.Column="0"
-            Margin="10,0"
+            Margin="10,0,10,0"
             VerticalAlignment="Center"
             FontSize="16"
             Text="Merk:" />
         <TextBlock
             Grid.Row="3"
             Grid.Column="0"
-            Margin="10,0"
+            Margin="10,0,10,0"
             VerticalAlignment="Center"
             FontSize="16"
             Text="Model:" />
         <TextBlock
             Grid.Row="4"
             Grid.Column="0"
-            Margin="10,0"
+            Margin="10,0,10,0"
             VerticalAlignment="Center"
             FontSize="16"
             Text="Chassisnummer:" />
         <TextBlock
             Grid.Row="5"
             Grid.Column="0"
-            Margin="10,0"
+            Margin="10,0,10,0"
             VerticalAlignment="Center"
             FontSize="16"
             Text="Nummerplaat:" />
         <TextBlock
             Grid.Row="6"
             Grid.Column="0"
-            Margin="10,0"
+            Margin="10,0,10,0"
             VerticalAlignment="Center"
             FontSize="16"
             Text="Type:" />
         <TextBlock
             Grid.Row="7"
             Grid.Column="0"
-            Margin="10,0"
+            Margin="10,0,10,0"
             VerticalAlignment="Center"
             FontSize="16"
             Text="Kleur:" />
         <TextBlock
             Grid.Row="8"
             Grid.Column="0"
-            Margin="10,0"
+            Margin="10,0,10,0"
             VerticalAlignment="Center"
             FontSize="16"
             Text="Aantal deuren:" />
@@ -154,9 +156,8 @@
             Name="cmbMerk"
             Grid.Row="2"
             Grid.Column="1"
-            Width="130"
             Height="30"
-            Margin="5"
+            Margin="10,5,12,5"
             FontSize="16"
             IsEditable="True"
             SelectionChanged="cmbMerk_SelectionChanged" />
@@ -164,8 +165,7 @@
             Name="cmbModel"
             Grid.Row="3"
             Grid.Column="1"
-            Width="130"
-            Margin="10,5,10,5"
+            Margin="10,5,12,5"
             FontSize="16"
             IsEditable="True"
             Loaded="cmbModel_Loaded" />
@@ -175,7 +175,7 @@
             Grid.Column="1"
             Width="130"
             Height="30"
-            Margin="10,4,10,6"
+            Margin="10,4,12,6"
             FontSize="16" />
         <TextBox
             Name="txtNummerplaat"
@@ -183,7 +183,7 @@
             Grid.Column="1"
             Width="130"
             Height="30"
-            Margin="10,6,10,4"
+            Margin="10,6,12,4"
             FontSize="16" />
         <ComboBox
             Name="cmbType"
@@ -191,7 +191,7 @@
             Grid.Column="1"
             Width="130"
             Height="30"
-            Margin="10,5,10,5"
+            Margin="10,5,12,5"
             FontSize="16"
             Loaded="cmbType_Loaded" />
         <StackPanel
@@ -250,7 +250,7 @@
             Grid.Row="8"
             Grid.Column="1"
             Height="auto"
-            Margin="10,5"
+            Margin="10,5,10,5"
             Orientation="Horizontal">
             <TextBox
                 x:Name="txtDeuren"
@@ -279,20 +279,20 @@
             Grid.Column="1"
             Width="130"
             Height="30"
-            Margin="10,5,10,5"
+            Margin="10,5,12,5"
             FontSize="16" />
         <Label
-            Grid.Row="3"
+            Grid.Row="4"
             Grid.Column="2"
-            Margin="5"
+            Margin="5,5,5,5"
             Content="Brandstoftypes:"
             FontSize="16" />
         <StackPanel
-            Grid.Row="3"
-            Grid.Column="3"
+            Grid.Row="4"
+            Grid.Column="2"
             Height="auto"
-            Margin="10,5"
-            Orientation="Horizontal">
+            Margin="132,5,24,5"
+            Orientation="Horizontal" Grid.ColumnSpan="2">
             <ComboBox
                 x:Name="cmbBrandstoffen"
                 Width="81"
@@ -317,17 +317,18 @@
 
         <ListBox
             x:Name="lstBrandtof"
-            Grid.Row="4"
-            Grid.RowSpan="3"
-            Grid.Column="3"
-            Margin="10,5" />
+            Grid.Row="5"
+            Grid.RowSpan="2"
+            Height="74"
+            Grid.Column="2"
+            Margin="127,4,28,2" Grid.ColumnSpan="2" />
         <Button
             x:Name="btnUpdaten"
             Grid.Row="8"
             Grid.Column="2"
             Width="100"
             Height="25"
-            Margin="5"
+            Margin="17,5,16,0"
             VerticalAlignment="Top"
             Click="btnUpdate_Click">
             <StackPanel Orientation="Horizontal">
@@ -351,7 +352,7 @@
             Grid.Column="3"
             Width="100"
             Height="25"
-            Margin="5"
+            Margin="26,5,25,0"
             VerticalAlignment="Top"
             Click="btnAnnuleren_Click">
             <StackPanel Orientation="Horizontal">

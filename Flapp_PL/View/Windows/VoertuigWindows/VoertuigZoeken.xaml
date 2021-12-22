@@ -7,8 +7,8 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="VoertuigZoeken"
-    Width="337"
-    Height="425"
+    Width="255"
+    Height="256"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Window.Resources>
@@ -40,12 +40,12 @@
             </Setter>
         </Style>
     </Window.Resources>
-    <Grid Margin="5">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="45" />
             <RowDefinition Height="40" />
-            <RowDefinition Height="40" />
-            <RowDefinition Height="112" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
 
             <RowDefinition Height="44" />
             <RowDefinition Height="44" />
@@ -53,27 +53,16 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="200" />
-            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" MinWidth="130.517" />
+            <ColumnDefinition Width="Auto" MinWidth="13.027" />
         </Grid.ColumnDefinitions>
 
-        <!--  TextBlocks  -->
-        <!--<TextBlock
-            Grid.Row="0"
-            Grid.Column="0"
-            Grid.ColumnSpan="3"
-            Margin="0,0,-12,0"
-            Background="#112D4E"
-            FontSize="28"
-            Foreground="#F9F7F7"
-            Text="Voertuig zoeken"
-            TextAlignment="Center" />-->
         <DockPanel
             Grid.Row="0"
             Grid.Column="0"
-            Grid.ColumnSpan="4"
-            Margin="0,0,0,0"
-            Background="#112D4E">
+            Grid.ColumnSpan="3"
+            Margin="0,-3,10,39"
+            Background="#112D4E" Grid.RowSpan="2">
             <StackPanel
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
@@ -102,14 +91,6 @@
             FontSize="16"
             Text="Nummerplaat:" />
         <TextBlock
-            Grid.Row="3"
-            Grid.Column="0"
-            Height="22"
-            Margin="10,0,10,0"
-            VerticalAlignment="Center"
-            FontSize="16"
-            Text="BrandstofType:" />
-        <TextBlock
             Grid.Row="4"
             Grid.Column="0"
             Height="22"
@@ -132,21 +113,14 @@
             Grid.Row="1"
             Grid.Column="1"
             Grid.ColumnSpan="1"
-            Margin="10,5,16,5"
-            FontSize="16" />
-        <ListBox
-            Name="lstBrandstoftype"
-            Grid.Row="3"
-            Grid.Column="1"
-            Grid.ColumnSpan="1"
-            Margin="10,5,13,5"
+            Margin="18,5,19,5"
             FontSize="16" />
         <ComboBox
             Name="cmbMerk"
             Grid.Row="4"
             Grid.Column="1"
             Grid.ColumnSpan="1"
-            Margin="10,5,12,5"
+            Margin="18,5,19,5"
             FontSize="16"
             Loaded="cmbMerk_Loaded"
             SelectionChanged="cmbMerk_SelectionChanged" />
@@ -154,16 +128,16 @@
             Name="cmbModel"
             Grid.Row="5"
             Grid.Column="1"
-            Margin="10,5,12,5"
+            Margin="18,5,19,5"
             FontSize="16" />
 
         <!--  Buttons End  -->
         <StackPanel
             Grid.Row="6"
             Grid.ColumnSpan="2"
-            Margin="40,18,0,0"
+            Margin="13,9,0,9"
             HorizontalAlignment="Left"
-            Orientation="Horizontal">
+            Orientation="Horizontal" Width="220">
             <Button
                 x:Name="btnZoek"
                 Width="100"

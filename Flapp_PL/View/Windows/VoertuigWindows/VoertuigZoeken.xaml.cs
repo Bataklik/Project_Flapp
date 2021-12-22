@@ -34,15 +34,9 @@ namespace Flapp_PL.View.Windows.VoertuigWindows
             this.vUC = vUC;
             _voertuigmanager = new VoertuigManager(new VoertuigRepo(Application.Current.Properties["User"].ToString()));
             _brandstofManager = new BrandstofManager(new BrandstofRepo(Application.Current.Properties["User"].ToString()));
-            InitializeComponent();   
-            laadBrandstoffen();
-            //laadMerk();            
+            InitializeComponent();                     
         }
-        public void laadBrandstoffen()
-        {
-            try { lstBrandstoftype.ItemsSource = (List<Brandstof>)_brandstofManager.GeefAlleBrandstoffen(); }
-            catch (Exception ex) { throw new Exception(ex.Message, ex); }
-        }
+       
         
         private void btnZoek_Click(object sender, RoutedEventArgs e)
         {            
