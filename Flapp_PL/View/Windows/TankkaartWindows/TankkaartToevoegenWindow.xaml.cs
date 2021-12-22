@@ -48,8 +48,10 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
                     string pincode = txtPincode.Text;
                     bool geblokkeerd = false;
                     if (cbGeblokkeerd.SelectedIndex == 0) { geblokkeerd = true; }
+                    Bestuurder bestuurder = null;
+                    if (lstBestuurder.Items.Count > 0) bestuurder = (Bestuurder)lstBestuurder.SelectedItem;
                     List<Brandstof> brandstoffen = lbBrandstof.Items.Cast<Brandstof>().ToList();
-                    t = new Tankkaart(geldigheidsdatum, pincode, geblokkeerd, brandstoffen);
+                    t = new Tankkaart(geldigheidsdatum, pincode, geblokkeerd, brandstoffen, bestuurder );
                     t.ZetKaartnummer(_tankkaartManager.VoegTankkaartToe(t));
                     _brandstofManager.VoegBrandstofToeAanTankkaart(t.Kaartnummer, t.Brandstoffen);
                     MessageBox.Show("Tankkaart toegevoegd!");
@@ -77,7 +79,7 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
             lbBrandstof.Items.Remove((Brandstof)cbBrandstoffen.SelectedItem);
         }
 
-        private void btnVoertuigbeheer_Click(object sender, RoutedEventArgs e) {
+        private void btnBestuurderbeheer_Click(object sender, RoutedEventArgs e) {
             TankkaartToevoegenWindow ttw = this;
             new Bestuurderbeheer(ttw).ShowDialog();
         }

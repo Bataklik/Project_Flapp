@@ -124,16 +124,6 @@
                             Click="miSelecteer_Click"
                             Header="Selecteer"
                             Icon="{materialDesign:PackIcon Kind=Select}" />
-                        <MenuItem
-                            x:Name="miVoegToe"
-                            Click="miVoegToe_Click"
-                            Header="Toevoegen"
-                            Icon="{materialDesign:PackIcon Kind=Add}" />
-                        <MenuItem
-                            x:Name="miVerwijderen"
-                            Click="miVerwijderen_Click"
-                            Header="Verwijder"
-                            Icon="{materialDesign:PackIcon Kind=Remove}" />
                     </ContextMenu>
                 </ListView.ContextMenu>
 

@@ -2,6 +2,7 @@
 using Flapp_BLL.Models;
 using Flapp_DAL.Repository;
 using Flapp_PL.View.UserControls;
+using Flapp_PL.View.Windows.BeheerWindows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,10 +38,9 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
             laadWaarden();
         }
 
-        private void btnBestuurder_Click(object sender, RoutedEventArgs e) {
-            TankkaartUpdateWindow tuw = this;
-            TankkaartZoekBestuurderWindow tzbw = new TankkaartZoekBestuurderWindow(tuw);
-            tzbw.ShowDialog();
+        private void btnBestuurderbeheer_Click(object sender, RoutedEventArgs e) {
+            TankkaartUpdateWindow ttw = this;
+            new Bestuurderbeheer(ttw).ShowDialog();
         }
 
         private void laadWaarden() {
@@ -48,7 +48,11 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
             txtKaartnummer.IsEnabled = false;
             dpGeldigheidsdatum.SelectedDate = _tankkaart.Geldigheidsdatum;
             txtPincode.Text = _tankkaart.Pincode;
-            if (_tankkaart.Bestuurder != null) lbBestuurder.ItemsSource = _bestuurderManager.GeefAlleBestuurdersOpNaam(_tankkaart.Bestuurder.Naam); //Nog veranderen
+            List<Bestuurder> bestuurders = new List<Bestuurder>();
+            if (_tankkaart.Bestuurder != null) {
+                bestuurders.Add(_tankkaart.Bestuurder);
+                lstBestuurder.ItemsSource = bestuurders;
+            } 
             if (_tankkaart.Geblokkeerd) cbGeblokkeerd.SelectedIndex = 0;
             cbGeblokkeerd.SelectedIndex = 1;
             cbBrandstoffen.ItemsSource = _brandstofManager.GeefAlleBrandstoffen();

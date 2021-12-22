@@ -13,26 +13,33 @@ namespace Flapp_PL.View.Windows.BeheerWindows {
     /// </summary>
 
     public partial class Bestuurderbeheer : Window {
-        private VoertuigToevoegen _parentWindow;
-        private VoertuigUpdaten _parentUpdateWindow;
-        private TankkaartToevoegenWindow _tankkaartWindow;
+        private VoertuigToevoegen _voertuigToevoegenWindow;
+        private VoertuigUpdaten _voertuigUpdatenWindow;
+        private TankkaartToevoegenWindow _tankkaartToevoegenWindow;
+        private TankkaartUpdateWindow _tankkaartUpdateWindow;
 
         private BestuurderManager _bestuurderManager;
-        public Bestuurderbeheer(VoertuigToevoegen parentWindow) {
+        public Bestuurderbeheer(VoertuigToevoegen voertuigToevoegenWindow) {
             InitializeComponent();
-            _parentWindow = parentWindow;
+            _voertuigToevoegenWindow = voertuigToevoegenWindow;
             _bestuurderManager = new BestuurderManager(new BestuurderRepo(Application.Current.Properties["User"].ToString()));
             laadBestuurders();
         }
-        public Bestuurderbeheer(VoertuigUpdaten parentWindow) {
+        public Bestuurderbeheer(VoertuigUpdaten voertuigUpdatenWindow) {
             InitializeComponent();
-            _parentUpdateWindow = parentWindow;
+            _voertuigUpdatenWindow = voertuigUpdatenWindow;
             _bestuurderManager = new BestuurderManager(new BestuurderRepo(Application.Current.Properties["User"].ToString()));
             laadBestuurders();
         }
-        public Bestuurderbeheer(TankkaartToevoegenWindow window) {
+        public Bestuurderbeheer(TankkaartToevoegenWindow tankkaartToevoegenWindow) {
             InitializeComponent();
-            _tankkaartWindow = window;
+            _tankkaartToevoegenWindow = tankkaartToevoegenWindow;
+            _bestuurderManager = new BestuurderManager(new BestuurderRepo(Application.Current.Properties["User"].ToString()));
+            laadBestuurders();
+        }
+        public Bestuurderbeheer(TankkaartUpdateWindow tankkaartUpdateWindow) {
+            InitializeComponent();
+            _tankkaartUpdateWindow = tankkaartUpdateWindow;
             _bestuurderManager = new BestuurderManager(new BestuurderRepo(Application.Current.Properties["User"].ToString()));
             laadBestuurders();
         }
@@ -43,29 +50,21 @@ namespace Flapp_PL.View.Windows.BeheerWindows {
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
-        private void miVoegToe_Click(object sender, RoutedEventArgs e) {
-            // new VoegBestuurderToe().ShowDialog();
-        }
-        private void miVerwijderen_Click(object sender, RoutedEventArgs e) {
-            if (lstBestuurder.SelectedItem == null) { MessageBox.Show("U heeft geen tankkaart geselecteerd"); }
-            try {
-                _bestuurderManager.VerwijderBestuurder((Bestuurder)lstBestuurder.SelectedItem);
-                laadBestuurders();
-            }
-            catch (Exception ex) { MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
-        }
         private void miSelecteer_Click(object sender, RoutedEventArgs e) {
             if (lstBestuurder.SelectedItems == null) { MessageBox.Show("U heeft geen bestuurder geselecteerd!"); return; }
-            if (_parentWindow == null && _tankkaartWindow == null) {
-                _parentUpdateWindow.lstBestuurder.Items.Clear();
-                _parentUpdateWindow.lstBestuurder.Items.Add((Bestuurder)lstBestuurder.SelectedItem);
-            }else if (_parentUpdateWindow == null && _tankkaartWindow == null) {
-                _parentWindow.lstBestuurder.Items.Clear();
-                _parentWindow.lstBestuurder.Items.Add((Bestuurder)lstBestuurder.SelectedItem);
+            if (_voertuigToevoegenWindow == null && _tankkaartToevoegenWindow == null && _tankkaartUpdateWindow == null) {
+                _voertuigUpdatenWindow.lstBestuurder.Items.Clear();
+                _voertuigUpdatenWindow.lstBestuurder.Items.Add((Bestuurder)lstBestuurder.SelectedItem);
+            }else if (_voertuigUpdatenWindow == null && _tankkaartToevoegenWindow == null && _tankkaartUpdateWindow == null) {
+                _voertuigToevoegenWindow.lstBestuurder.Items.Clear();
+                _voertuigToevoegenWindow.lstBestuurder.Items.Add((Bestuurder)lstBestuurder.SelectedItem);
             }
-            else if (_parentWindow == null && _parentUpdateWindow == null) {
-                _tankkaartWindow.lstBestuurder.Items.Clear();
-                _tankkaartWindow.lstBestuurder.Items.Add((Bestuurder)lstBestuurder.SelectedItem);
+            else if (_voertuigToevoegenWindow == null && _voertuigUpdatenWindow == null && _tankkaartUpdateWindow == null) {
+                _tankkaartToevoegenWindow.lstBestuurder.Items.Clear();
+                _tankkaartToevoegenWindow.lstBestuurder.Items.Add((Bestuurder)lstBestuurder.SelectedItem);
+            }else if (_voertuigToevoegenWindow == null && _voertuigUpdatenWindow == null && _tankkaartToevoegenWindow == null) {
+                _tankkaartUpdateWindow.lstBestuurder.Items.Clear();
+                _tankkaartUpdateWindow.lstBestuurder.Items.Add((Bestuurder)lstBestuurder.SelectedItem);
             }
             Close();
         }

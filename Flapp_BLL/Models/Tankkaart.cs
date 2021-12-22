@@ -62,11 +62,12 @@ namespace Flapp_BLL.Models {
             ZetGeblokkeerd(geblokkeerd);
         }
 
-        public Tankkaart(DateTime geldigheidsdatum, string pincode, bool geblokkeerd, List<Brandstof> brandstoffen) {
+        public Tankkaart(DateTime geldigheidsdatum, string pincode, bool geblokkeerd, List<Brandstof> brandstoffen, Bestuurder bestuurder) {
             ZetGeldigheidsdatum(geldigheidsdatum);
             ZetPincode(pincode);
             ZetGeblokkeerd(geblokkeerd);
             Brandstoffen = brandstoffen;
+            ZetBestuurder(bestuurder);
         }
 
         public Tankkaart(int kaartnummer, DateTime geldigheidsdatum, string pincode, bool geblokkeerd, List<Brandstof> brandstoffen) {
@@ -97,7 +98,6 @@ namespace Flapp_BLL.Models {
             Pincode = pincode;
         }
         public void ZetBestuurder(Bestuurder bestuurder) {
-            if (bestuurder == null) { throw new TankkaartException("Tankkaart: ZetBestuurder: Tankkaart bestuurder is null!"); }
             Bestuurder = bestuurder;
         }
         #endregion

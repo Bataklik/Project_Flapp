@@ -8,7 +8,7 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Flapp: Tankkaart Updaten"
-    Width="320"
+    Width="350"
     Height="570"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
@@ -116,13 +116,6 @@
             FontSize="16"
             Text="Pincode:" />
         <TextBlock
-            Grid.Row="4"
-            Grid.Column="0"
-            Margin="10,0"
-            VerticalAlignment="Center"
-            FontSize="16"
-            Text="Bestuurder:" />
-        <TextBlock
             Grid.Row="6"
             Grid.Column="0"
             Margin="10,0"
@@ -162,72 +155,60 @@
             Width="130"
             Margin="10,5,10,5"
             FontSize="16" />
-        <ListView
-            x:Name="lbBestuurder"
+        <StackPanel
             Grid.Row="4"
-            Grid.Column="1"
-            Width="130"
-            Margin="10,10,11,10"
-            FontSize="10"
-            RenderTransformOrigin="0.526,-0.266">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn
-                        Width="55"
-                        DisplayMemberBinding="{Binding Naam}"
-                        Header="Naam" />
-                    <GridViewColumn
-                        Width="65"
-                        DisplayMemberBinding="{Binding Voornaam}"
-                        Header="Voornaam" />
-                </GridView>
-            </ListView.View>
-            <ListView.ItemContainerStyle>
-                <Style TargetType="{x:Type ListViewItem}">
-                    <Setter Property="Foreground" Value="Black" />
-                    <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="#F9F7F7" />
-                            <Setter Property="BorderBrush" Value="#DBE2EF" />
-                            <Setter Property="BorderThickness" Value="1" />
-                        </Trigger>
-                        <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Background" Value="#DBE2EF" />
-                            <Setter Property="BorderBrush" Value="#DBE2EF" />
-                            <Setter Property="BorderThickness" Value="1" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </ListView.ItemContainerStyle>
-            <ListView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel HorizontalAlignment="Left" />
-                </ItemsPanelTemplate>
-            </ListView.ItemsPanel>
-        </ListView>
-        <Button
-            x:Name="btnBestuurder"
-            Grid.Row="5"
-            Grid.Column="1"
-            Width="130"
-            Margin="10,5,10,5"
-            Click="btnBestuurder_Click"
-            FontSize="13">
-            <StackPanel Orientation="Horizontal">
-                <materialDesign:PackIcon
-                    Width="20"
-                    Height="20"
-                    Margin="0,0,5,0"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Foreground="#F9F7F7"
-                    Kind="Search" />
-                <TextBlock
-                    VerticalAlignment="Center"
-                    Foreground="#F9F7F7"
-                    Text="Zoek Bestuurder" />
+            Grid.RowSpan="2"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Margin="33,15,52,10"
+            Orientation="Horizontal">
+            <StackPanel>
+                <ListView
+                    x:Name="lstBestuurder"
+                    Width="250"
+                    Height="50"
+                    Margin="0,5"
+                    SelectionMode="Single">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn
+                                Width="60"
+                                DisplayMemberBinding="{Binding Naam}"
+                                Header="Naam" />
+                            <GridViewColumn
+                                Width="60"
+                                DisplayMemberBinding="{Binding Voornaam}"
+                                Header="Voornaam" />
+                            <GridViewColumn
+                                Width="60"
+                                DisplayMemberBinding="{Binding Geboortedatum}"
+                                Header="Geboortedatum" />
+                            <GridViewColumn
+                                Width="60"
+                                DisplayMemberBinding="{Binding Rijksregisternummer}"
+                                Header="Rijksregisternummer" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <Button
+                    x:Name="btnBestuurderBeheer"
+                    Width="120"
+                    Height="25"
+                    Click="btnBestuurderbeheer_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                            Width="15"
+                            Height="15"
+                            Margin="0,0,5,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Foreground="#F9F7F7"
+                            Kind="People" />
+                        <TextBlock Foreground="#F9F7F7" Text="Bestuurderbeheer" />
+                    </StackPanel>
+                </Button>
             </StackPanel>
-        </Button>
+        </StackPanel>
         <ComboBox
             Name="cbGeblokkeerd"
             Grid.Row="6"
@@ -242,7 +223,7 @@
             Grid.Row="7"
             Grid.Column="1"
             Height="auto"
-            Margin="10,5"
+            Margin="18,5,2,5"
             Orientation="Horizontal">
             <ComboBox
                 x:Name="cbBrandstoffen"

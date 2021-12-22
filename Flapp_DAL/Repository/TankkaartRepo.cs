@@ -86,7 +86,7 @@ namespace Flapp_DAL.Repository {
         public Dictionary<int, Tankkaart> GeefAlleTankkaarten() {
             SqlConnection conn = new SqlConnection(_connString);
             Dictionary<int, Tankkaart> tankkaarten = new Dictionary<int, Tankkaart>();
-            string query = "SELECT * FROM [dbo].[Tankkaart] LEFT JOIN Brandstof_Tankkaart ON Tankkaart.tankkaartId = Brandstof_Tankkaart.tankkaartId LEFT JOIN Brandstof ON Brandstof_Tankkaart.brandstofId = Brandstof.brandstofId;";
+            string query = "SELECT * FROM [dbo].[Tankkaart] LEFT JOIN Brandstof_Tankkaart ON Tankkaart.tankkaartId = Brandstof_Tankkaart.tankkaartId LEFT JOIN Brandstof ON Brandstof_Tankkaart.brandstofId = Brandstof.brandstofId LEFT JOIN Bestuurder ON Tankkaart.tankkaartId=Bestuurder.tankkaartId LEFT JOIN Adres ON Bestuurder.adresId = Adres.adresId LEFT JOIN Rijbewijs_Bestuurder ON Bestuurder.bestuurderId = Rijbewijs_Bestuurder.bestuurderId LEFT JOIN Rijbewijs ON Rijbewijs_Bestuurder.rijbewijsId = Rijbewijs.rijbewijsId;";
             using (SqlCommand cmd = conn.CreateCommand()) {
                 cmd.CommandText = query;
                 conn.Open();
@@ -99,7 +99,18 @@ namespace Flapp_DAL.Repository {
                         }
                         else {
                             List<Brandstof> brandstof = new List<Brandstof> { new Brandstof((string)r["naam"]) };
-                            Tankkaart t = new Tankkaart((int)r["tankkaartId"], (DateTime)r["geldigheidsdatum"], (string)r["pincode"], brandstof, (bool)r["geblokkeerd"]);
+                            Adres a = null;
+                            if (!r.IsDBNull(r.GetOrdinal("adresId")) && !r.IsDBNull(r.GetOrdinal("straat")) && !r.IsDBNull(r.GetOrdinal("huisnummer")) && !r.IsDBNull(r.GetOrdinal("stad")) && !r.IsDBNull(r.GetOrdinal("postcode"))) {
+                                a = new Adres((int)r["adresId"], (string)r["straat"], (string)r["huisnummer"], (string)r["stad"], (int)r["postcode"]);
+                            }
+                            
+                            Bestuurder b = null;
+                            if (!r.IsDBNull(r.GetOrdinal("geslacht")) && !r.IsDBNull(r.GetOrdinal("naam")) && !r.IsDBNull(r.GetOrdinal("bestuurderId")) && !r.IsDBNull(r.GetOrdinal("naam")) && !r.IsDBNull(r.GetOrdinal("voornaam")) && !r.IsDBNull(r.GetOrdinal("geboortedatum")) && !r.IsDBNull(r.GetOrdinal("rijksregister"))) {
+                                Geslacht geslacht = (bool)r["geslacht"] ? Geslacht.M : Geslacht.V;
+                                List<Rijbewijs> rijbewijzen = new List<Rijbewijs> { new Rijbewijs(r[25].ToString()) };
+                                b = new Bestuurder((int)r["bestuurderId"], r[9].ToString(), (string)r["voornaam"], geslacht, a, Convert.ToDateTime(r["geboortedatum"]).ToString("dd/MM/yyyy"), (string)r["rijksregister"], rijbewijzen, null, null);
+                            }
+                            Tankkaart t = new Tankkaart((int)r["tankkaartId"], (DateTime)r["geldigheidsdatum"], (string)r["pincode"], brandstof, b, (bool)r["geblokkeerd"]);
 
                             tankkaarten.Add(t.Kaartnummer, t);
                         }
@@ -415,24 +426,63 @@ namespace Flapp_DAL.Repository {
         //    }
         //}
 
+        //public int VoegTankkaartToe(Tankkaart t) {
+        //    string query = "INSERT INTO [dbo].[Tankkaart] ([geldigheidsdatum], [pincode], [geblokkeerd]) output INSERTED.tankkaartId  VALUES (@geldigheidsdatum ,@pincode ,@geblokkeerd)";
+        //    SqlConnection conn = new SqlConnection(_connString);
+        //    SqlCommand cmd = new(query, conn);
+        //    try {
+        //        conn.Open();
+
+        //        cmd.Parameters.AddWithValue("@geldigheidsdatum", t.Geldigheidsdatum);
+        //        cmd.Parameters.AddWithValue("@pincode", t.Pincode);
+        //        if (t.Geblokkeerd) { cmd.Parameters.AddWithValue("@geblokkeerd", 1); }
+        //        else { cmd.Parameters.AddWithValue("@geblokkeerd", 0); }
+
+        //        int tankkaartId = (int)cmd.ExecuteScalar();
+
+        //        return tankkaartId;
+        //    }
+        //    catch (Exception ex) { throw new TankkaartException(ex.Message); }
+        //    finally { conn.Close(); }
+        //}
+
         public int VoegTankkaartToe(Tankkaart t) {
-            string query = "INSERT INTO [dbo].[Tankkaart] ([geldigheidsdatum], [pincode], [geblokkeerd]) output INSERTED.tankkaartId  VALUES (@geldigheidsdatum ,@pincode ,@geblokkeerd)";
-            SqlConnection conn = new SqlConnection(_connString);
-            SqlCommand cmd = new(query, conn);
-            try {
+            using (SqlConnection conn = new SqlConnection(_connString)) {
                 conn.Open();
 
-                cmd.Parameters.AddWithValue("@geldigheidsdatum", t.Geldigheidsdatum);
-                cmd.Parameters.AddWithValue("@pincode", t.Pincode);
-                if (t.Geblokkeerd) { cmd.Parameters.AddWithValue("@geblokkeerd", 1); }
-                else { cmd.Parameters.AddWithValue("@geblokkeerd", 0); }
+                SqlCommand cmd = conn.CreateCommand();
+                SqlTransaction trx;
 
-                int tankkaartId = (int)cmd.ExecuteScalar();
+                trx = conn.BeginTransaction();
 
-                return tankkaartId;
+                cmd.Connection = conn;
+                cmd.Transaction = trx;
+
+                try {
+                    cmd.CommandText = "INSERT INTO [dbo].[Tankkaart] ([geldigheidsdatum], [pincode], [geblokkeerd]) output INSERTED.tankkaartId  VALUES (@geldigheidsdatum ,@pincode ,@geblokkeerd);";
+                    cmd.Parameters.AddWithValue("@geldigheidsdatum", t.Geldigheidsdatum);
+                    cmd.Parameters.AddWithValue("@pincode", t.Pincode);
+                    if (t.Geblokkeerd) { cmd.Parameters.AddWithValue("@geblokkeerd", 1); }
+                    else { cmd.Parameters.AddWithValue("@geblokkeerd", 0); }
+                    cmd.ExecuteNonQuery();
+                    int tankkaartId = (int)cmd.ExecuteScalar();
+
+                    if (t.Bestuurder != null) {
+                        cmd.CommandText = "UPDATE [dbo].[Bestuurder] SET tankkaartId=@tankkaartId WHERE bestuurderId=@bestuurderId";
+                        cmd.Parameters.AddWithValue("@tankkaartId", tankkaartId);
+                        cmd.Parameters.AddWithValue("@bestuurderId", t.Bestuurder.Id);
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    trx.Commit();
+                    return tankkaartId;
+                }
+                catch (Exception ex) {
+                    trx.Rollback();
+                    throw new Exception(ex.Message);
+                }
+                finally { conn.Close(); }
             }
-            catch (Exception ex) { throw new TankkaartException(ex.Message); }
-            finally { conn.Close(); }
         }
     }
 }

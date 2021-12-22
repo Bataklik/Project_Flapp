@@ -8,8 +8,8 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Flapp: Tankkaart Toevoegen"
-    Width="580"
-    Height="450"
+    Width="300"
+    Height="550"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
@@ -59,13 +59,11 @@
             <RowDefinition Height="40" />
             <RowDefinition Height="40" />
             <RowDefinition Height="100" />
-            <RowDefinition Height="40" />
+            <RowDefinition Height="120" />
             <RowDefinition Height="60" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="135" />
-            <ColumnDefinition Width="150" />
-            <ColumnDefinition Width="120" />
             <ColumnDefinition Width="150" />
         </Grid.ColumnDefinitions>
 
@@ -73,8 +71,8 @@
         <DockPanel
             Grid.Row="0"
             Grid.Column="0"
-            Grid.ColumnSpan="4"
-            Margin="0,0,-25,0"
+            Grid.ColumnSpan="2"
+            Margin="0,0,-15,0"
             Background="#112D4E">
             <StackPanel
                 HorizontalAlignment="Center"
@@ -116,8 +114,8 @@
             FontSize="14"
             Text="Geblokkeerd:" />
         <TextBlock
-            Grid.Row="1"
-            Grid.Column="2"
+            Grid.Row="4"
+            Grid.Column="0"
             Margin="10,0"
             VerticalAlignment="Center"
             FontSize="14"
@@ -151,8 +149,8 @@
             <ComboBoxItem IsSelected="True">Nee</ComboBoxItem>
         </ComboBox>
         <StackPanel
-            Grid.Row="1"
-            Grid.Column="4"
+            Grid.Row="4"
+            Grid.Column="1"
             Height="auto"
             Margin="10,5"
             Orientation="Horizontal">
@@ -189,23 +187,22 @@
         </StackPanel>
         <ListBox
             Name="lbBrandstof"
-            Grid.Row="2"
-            Grid.RowSpan="2"
-            Grid.Column="3"
+            Grid.Row="5"
+            Grid.Column="1"
             Width="130"
             Margin="10,7,10,10"
             FontSize="16" />
         <StackPanel
-            Grid.Row="3"
-            Grid.RowSpan="4"
-            Grid.Column="2"
+            Grid.Row="6"
+            Grid.RowSpan="2"
+            Grid.Column="0"
             Grid.ColumnSpan="2"
-            Margin="14,48,-13,31"
+            Margin="14,8,-13,36"
             Orientation="Horizontal">
             <StackPanel>
                 <ListView
                     x:Name="lstBestuurder"
-                    Width="250"
+                    Width="259"
                     Height="50"
                     Margin="0,5"
                     SelectionMode="Single">
@@ -237,7 +234,7 @@
                     Margin="0,5"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Click="btnVoertuigbeheer_Click">
+                    Click="btnBestuurderbeheer_Click">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon
                             Width="15"
@@ -257,7 +254,7 @@
         <Button
             x:Name="btnVoegtoe"
             Grid.Row="8"
-            Grid.Column="1"
+            Grid.Column="0"
             Width="100"
             Height="30"
             Margin="5,5,5,5"
@@ -281,7 +278,7 @@
         <Button
             x:Name="btnAnnuleer"
             Grid.Row="8"
-            Grid.Column="2"
+            Grid.Column="1"
             Width="100"
             Height="30"
             Margin="5,5,5,5"

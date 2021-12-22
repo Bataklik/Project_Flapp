@@ -67,7 +67,7 @@
                             Header="Geldigheidsdatum" />
                         <GridViewColumn
                             Width="80"
-                            DisplayMemberBinding="{Binding Bestuurder, TargetNullValue=Geen}"
+                            DisplayMemberBinding="{Binding Bestuurder.Voornaam}"
                             Header="Bestuurder" />
                         <GridViewColumn
                             Width="80"
