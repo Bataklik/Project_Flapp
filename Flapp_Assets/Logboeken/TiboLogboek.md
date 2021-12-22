@@ -21,4 +21,5 @@
 | 1u30 | Update TankkaartWPF                               |
 | 1u00 | Update TankkaartWPF (Material icons)              |
 | 1u00 | Update TankkaartWPF                               |
-| 1u00 | Update TankkaartWPF + Tankaaart Toevoegen         |
+| 1u00 | Update TankkaartWPF + Tankaart Toevoegen          |
+| 1u00 | Update TankkaartWPF + Bestuurderbeheer            |

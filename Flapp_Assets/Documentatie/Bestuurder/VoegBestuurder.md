@@ -15,5 +15,4 @@
    ![VoegBest3](../Images/voegBest3.png)
 
 4. Nu krijg je _Elon Musk_ in de bestuurders lijst.
-
    ![VoegBest4](../Images/voegBest4.png)
