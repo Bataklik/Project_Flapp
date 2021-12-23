@@ -9,6 +9,7 @@
     Title="Flapp: Adresbeheer"
     Width="550"
     Height="350"
+    ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Window.Resources>

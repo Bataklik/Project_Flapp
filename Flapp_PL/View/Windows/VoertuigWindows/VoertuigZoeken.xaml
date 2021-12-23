@@ -9,6 +9,7 @@
     Title="VoertuigZoeken"
     Width="255"
     Height="256"
+    ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Window.Resources>
@@ -59,10 +60,11 @@
 
         <DockPanel
             Grid.Row="0"
+            Grid.RowSpan="2"
             Grid.Column="0"
             Grid.ColumnSpan="3"
             Margin="0,-3,10,39"
-            Background="#112D4E" Grid.RowSpan="2">
+            Background="#112D4E">
             <StackPanel
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
@@ -135,9 +137,10 @@
         <StackPanel
             Grid.Row="6"
             Grid.ColumnSpan="2"
+            Width="220"
             Margin="13,9,0,9"
             HorizontalAlignment="Left"
-            Orientation="Horizontal" Width="220">
+            Orientation="Horizontal">
             <Button
                 x:Name="btnZoek"
                 Width="100"

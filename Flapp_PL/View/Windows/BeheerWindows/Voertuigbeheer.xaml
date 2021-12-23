@@ -9,6 +9,7 @@
     Title="Flapp: Voertuig beheer"
     Width="550"
     Height="350"
+    ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Window.Resources>

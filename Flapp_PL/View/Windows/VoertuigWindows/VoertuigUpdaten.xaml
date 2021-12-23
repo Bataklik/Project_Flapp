@@ -9,6 +9,7 @@
     Title="VoertuigUpdaten"
     Width="580"
     Height="409"
+    ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 
@@ -41,7 +42,7 @@
             </Setter>
         </Style>
     </Window.Resources>
-    <Grid >
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
             <RowDefinition Height="40" />
@@ -64,10 +65,10 @@
         </Grid.ColumnDefinitions>
 
         <DockPanel
-            Width="580"
             Grid.Row="0"
             Grid.Column="0"
             Grid.ColumnSpan="4"
+            Width="580"
             Background="#112D4E">
             <StackPanel
                 HorizontalAlignment="Center"
@@ -76,7 +77,6 @@
                 <materialDesign:PackIcon
                     Width="25"
                     Height="25"
-                    
                     HorizontalAlignment="Center"
                     Foreground="#F9F7F7"
                     Kind="Car" />
@@ -290,9 +290,10 @@
         <StackPanel
             Grid.Row="4"
             Grid.Column="2"
+            Grid.ColumnSpan="2"
             Height="auto"
             Margin="132,5,24,5"
-            Orientation="Horizontal" Grid.ColumnSpan="2">
+            Orientation="Horizontal">
             <ComboBox
                 x:Name="cmbBrandstoffen"
                 Width="81"
@@ -319,9 +320,10 @@
             x:Name="lstBrandtof"
             Grid.Row="5"
             Grid.RowSpan="2"
-            Height="74"
             Grid.Column="2"
-            Margin="127,4,28,2" Grid.ColumnSpan="2" />
+            Grid.ColumnSpan="2"
+            Height="74"
+            Margin="127,4,28,2" />
         <Button
             x:Name="btnUpdaten"
             Grid.Row="8"

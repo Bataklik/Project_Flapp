@@ -8,6 +8,7 @@
     Title="Flapp: Adres Toevoegen"
     Width="250"
     Height="280"
+    ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Window.Resources>

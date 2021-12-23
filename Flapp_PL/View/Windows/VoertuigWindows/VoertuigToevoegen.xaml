@@ -8,6 +8,7 @@
     Title="VoertuigToevoegen"
     Width="576"
     Height="409"
+    ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Window.Resources>
