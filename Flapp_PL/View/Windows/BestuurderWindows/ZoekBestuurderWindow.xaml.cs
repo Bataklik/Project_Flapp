@@ -14,45 +14,49 @@ namespace Flapp_PL.View.Windows {
             heeftVoertuig = false;
         }
 
+        private string toUpperFirstletter(string value) {
+            return char.ToUpper(value[0]) + value.Substring(1);
+        }
+
         private void btnZoek_Click(object sender, RoutedEventArgs e) {
             if (string.IsNullOrWhiteSpace(txtNaam.Text) && string.IsNullOrWhiteSpace(txtVoornaam.Text) && dpGeboortedatum.SelectedDate == null) {
                 main.Show();
-                bUC.LaadBestuurders();
+                bUC.LaadBestuurders(heeftVoertuig);
                 Close();
                 return;
             }
             // Naam Voornaam Date
             else if (!string.IsNullOrWhiteSpace(txtNaam.Text) && !string.IsNullOrWhiteSpace(txtVoornaam.Text) && dpGeboortedatum.SelectedDate != null) {
                 main.Show();
-                bUC.LaadAlleBestuurdersOpNaamVoornaamDate(txtNaam.Text, txtVoornaam.Text, (DateTime)dpGeboortedatum.SelectedDate, heeftVoertuig);
+                bUC.LaadAlleBestuurdersOpNaamVoornaamDate(toUpperFirstletter(txtNaam.Text), toUpperFirstletter(txtVoornaam.Text), (DateTime)dpGeboortedatum.SelectedDate, heeftVoertuig);
                 Close();
                 return;
             }
             // Naam Voornaam
             else if (!string.IsNullOrWhiteSpace(txtNaam.Text) && !string.IsNullOrWhiteSpace(txtVoornaam.Text) && dpGeboortedatum.SelectedDate == null) {
                 main.Show();
-                bUC.LaadAlleBestuurdersOpNaamVoornaam(txtNaam.Text, txtVoornaam.Text);
+                bUC.LaadAlleBestuurdersOpNaamVoornaam(toUpperFirstletter(txtNaam.Text), toUpperFirstletter(txtVoornaam.Text), heeftVoertuig);
                 Close();
                 return;
             }
             // Naam
             else if (!string.IsNullOrWhiteSpace(txtNaam.Text) && string.IsNullOrWhiteSpace(txtVoornaam.Text) && dpGeboortedatum.SelectedDate == null) {
                 main.Show();
-                bUC.LaadAlleBestuurdersOpNaam(txtNaam.Text, heeftVoertuig);
+                bUC.LaadAlleBestuurdersOpNaam(toUpperFirstletter(txtNaam.Text), heeftVoertuig);
                 Close();
                 return;
             }
             // Voornaam
             else if (string.IsNullOrWhiteSpace(txtNaam.Text) && !string.IsNullOrWhiteSpace(txtVoornaam.Text) && dpGeboortedatum.SelectedDate == null) {
                 main.Show();
-                bUC.LaadAlleBestuurdersOpVoornaam(txtVoornaam.Text);
+                bUC.LaadAlleBestuurdersOpVoornaam(toUpperFirstletter(txtVoornaam.Text), heeftVoertuig);
                 Close();
                 return;
             }
             // Date
             else if (string.IsNullOrWhiteSpace(txtNaam.Text) && string.IsNullOrWhiteSpace(txtVoornaam.Text) && dpGeboortedatum.SelectedDate != null) {
                 main.Show();
-                bUC.LaadAlleBestuurdersOpDatum((DateTime)dpGeboortedatum.SelectedDate);
+                bUC.LaadAlleBestuurdersOpDatum((DateTime)dpGeboortedatum.SelectedDate, heeftVoertuig);
                 Close();
                 return;
             }

@@ -35,6 +35,13 @@ namespace Flapp_PL.View.UserControls {
             catch (Exception ex) { MessageBox.Show(ex.Message); return; }
             lstbBestuurders.ItemsSource = bestuurders;
         }
+        public void LaadBestuurders(bool heeftVoertuig) {
+            List<Bestuurder> bestuurders = new List<Bestuurder>();
+            try { foreach (KeyValuePair<int, Bestuurder> v in _bestuurderManager.GeefAlleBestuurders(heeftVoertuig)) { bestuurders.Add(v.Value); } }
+            catch (Exception ex) { MessageBox.Show(ex.Message); return; }
+            lstbBestuurders.ItemsSource = bestuurders;
+        }
+
         public void LaadAlleBestuurdersOpNaam(string naam, bool heeftVoertuig) {
             List<Bestuurder> bestuurders = new List<Bestuurder>();
             try {
@@ -45,30 +52,30 @@ namespace Flapp_PL.View.UserControls {
             catch (Exception ex) { MessageBox.Show(ex.Message); return; }
             lstbBestuurders.ItemsSource = bestuurders;
         }
-        public void LaadAlleBestuurdersOpVoornaam(string voornaam) {
+        public void LaadAlleBestuurdersOpVoornaam(string voornaam, bool heeftVoertuig) {
             List<Bestuurder> bestuurders = new List<Bestuurder>();
             try {
-                foreach (Bestuurder v in _bestuurderManager.GeefAlleBestuurdersOpVoornaam(voornaam).Values.ToList()) {
+                foreach (Bestuurder v in _bestuurderManager.GeefAlleBestuurdersOpVoornaam(voornaam, heeftVoertuig).Values.ToList()) {
                     bestuurders.Add(v);
                 }
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); return; }
             lstbBestuurders.ItemsSource = bestuurders;
         }
-        public void LaadAlleBestuurdersOpDatum(DateTime date) {
+        public void LaadAlleBestuurdersOpDatum(DateTime date, bool heeftVoertuig) {
             List<Bestuurder> bestuurders = new List<Bestuurder>();
             try {
-                foreach (Bestuurder v in _bestuurderManager.GeefAlleBestuurdersOpDatum(date).Values.ToList()) {
+                foreach (Bestuurder v in _bestuurderManager.GeefAlleBestuurdersOpDatum(date, heeftVoertuig).Values.ToList()) {
                     bestuurders.Add(v);
                 }
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); return; }
             lstbBestuurders.ItemsSource = bestuurders;
         }
-        public void LaadAlleBestuurdersOpNaamVoornaam(string naam, string voornaam) {
+        public void LaadAlleBestuurdersOpNaamVoornaam(string naam, string voornaam, bool heeftVoertuig) {
             List<Bestuurder> bestuurders = new List<Bestuurder>();
             try {
-                foreach (Bestuurder v in _bestuurderManager.GeefAlleBestuurdersOpNaamVoornaam(naam, voornaam).Values.ToList()) {
+                foreach (Bestuurder v in _bestuurderManager.GeefAlleBestuurdersOpNaamVoornaam(naam, voornaam, heeftVoertuig).Values.ToList()) {
                     bestuurders.Add(v);
                 }
             }
@@ -78,7 +85,7 @@ namespace Flapp_PL.View.UserControls {
         public void LaadAlleBestuurdersOpNaamVoornaamDate(string naam, string voornaam, DateTime date, bool heeftVoertuig) {
             List<Bestuurder> bestuurders = new List<Bestuurder>();
             try {
-                foreach (Bestuurder v in _bestuurderManager.GeefAlleBestuurdersOpNaamVoornaamDate(naam, voornaam, date).Values.ToList()) {
+                foreach (Bestuurder v in _bestuurderManager.GeefAlleBestuurdersOpNaamVoornaamDate(naam, voornaam, date, heeftVoertuig).Values.ToList()) {
                     bestuurders.Add(v);
                 }
             }
@@ -90,16 +97,13 @@ namespace Flapp_PL.View.UserControls {
             BestuurderUC bUC = this;
             new ZoekBestuurderWindow(_main, bUC).ShowDialog();
         }
-
         private void btnVoegToe_Click(object sender, RoutedEventArgs e) {
             new VoegBestuurderToe(this).ShowDialog();
         }
-
         private void UpdateBestuurder_Click(object sender, RoutedEventArgs e) {
             if ((Bestuurder)lstbBestuurders.SelectedItem == null) { MessageBox.Show("U heeft geen bestuurder gekozen!", "Geen bestuurder!", MessageBoxButton.OK, MessageBoxImage.Error); return; }
             new UpdateBestuurderWindow((Bestuurder)lstbBestuurders.SelectedItem, this).ShowDialog();
         }
-
         private void VerwijderBestuurder_Click(object sender, RoutedEventArgs e) {
             if ((Bestuurder)lstbBestuurders.SelectedItem == null) { MessageBox.Show("U heeft geen bestuurder gekozen!", "Geen bestuurder!", MessageBoxButton.OK, MessageBoxImage.Error); return; }
             try { _bestuurderManager.VerwijderBestuurder((Bestuurder)lstbBestuurders.SelectedItem); }

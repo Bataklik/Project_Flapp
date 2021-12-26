@@ -8,11 +8,13 @@ namespace Flapp_BLL.Interfaces {
         bool BestaatBestuurderId(int id);
 
         Dictionary<int, Bestuurder> GeefAlleBestuurders();
+        Dictionary<int, Bestuurder> GeefAlleBestuurders(bool heeftVoertuig);
+
         Dictionary<int, Bestuurder> GeefAlleBestuurdersOpNaam(string naam, bool heeftVoertuig);
-        Dictionary<int, Bestuurder> GeefAlleBestuurdersOpVoornaam(string voornaam);
-        Dictionary<int, Bestuurder> GeefAlleBestuurdersOpDatum(DateTime geboorte);
-        Dictionary<int, Bestuurder> GeefAlleBestuurdersOpNaamVoornaam(string naam, string voornaam);
-        Dictionary<int, Bestuurder> GeefAlleBestuurdersOpNaamVoornaamDatum(string naam, string voornaam, DateTime geboorte);
+        Dictionary<int, Bestuurder> GeefAlleBestuurdersOpVoornaam(string voornaam, bool heeftVoertuig);
+        Dictionary<int, Bestuurder> GeefAlleBestuurdersOpDatum(DateTime geboorte, bool heeftVoertuig);
+        Dictionary<int, Bestuurder> GeefAlleBestuurdersOpNaamVoornaam(string naam, string voornaam, bool heeftVoertuig);
+        Dictionary<int, Bestuurder> GeefAlleBestuurdersOpNaamVoornaamDatum(string naam, string voornaam, DateTime geboorte, bool heeftVoertuig);
         void VoegVoertuigToeAanBestuurder(Bestuurder b);
         Dictionary<int, Bestuurder> GeefAlleBestuurdersZonderVoertuig();
         Bestuurder GeefBestuurder(Bestuurder bestuurder);
