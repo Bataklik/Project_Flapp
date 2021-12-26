@@ -7,7 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Flapp_Logo_Cube.svg" />
+    <None Remove="Images\Flapp_Logo.ico" />
     <None Remove="Images\FLAPP_LOGO.png" />
+    <None Remove="Images\FLAPP_LOGO2.ico" />
+    <None Remove="Images\FLAPP_LOGO_Banner.png" />
+    <None Remove="Images\Flapp_Logo_Cube.svg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,7 +26,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Images\FLAPP_LOGO.png" />
+    <Resource Include="Images\FLAPP_LOGO.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

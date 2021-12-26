@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using Flapp_BLL.Models;
 
-namespace Flapp_BLL.Interfaces
-{
-    public interface IBestuurderRepo
-    {
+namespace Flapp_BLL.Interfaces {
+    public interface IBestuurderRepo {
         bool BestaatBestuurder(Bestuurder bestuurder);
         bool BestaatBestuurderId(int id);
 
         Dictionary<int, Bestuurder> GeefAlleBestuurders();
-        Dictionary<int, Bestuurder> GeefAlleBestuurdersOpNaam(string naam);
+        Dictionary<int, Bestuurder> GeefAlleBestuurdersOpNaam(string naam, bool heeftVoertuig);
         Dictionary<int, Bestuurder> GeefAlleBestuurdersOpVoornaam(string voornaam);
         Dictionary<int, Bestuurder> GeefAlleBestuurdersOpDatum(DateTime geboorte);
         Dictionary<int, Bestuurder> GeefAlleBestuurdersOpNaamVoornaam(string naam, string voornaam);

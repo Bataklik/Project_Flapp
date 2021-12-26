@@ -46,10 +46,11 @@
     <Grid x:Name="mainWindow" MaxWidth="750">
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition x:Name="col1" Width="300" />
+            <ColumnDefinition x:Name="col1" Width="66.214" />
+            <ColumnDefinition Width="233.786" />
             <ColumnDefinition x:Name="col2" />
         </Grid.ColumnDefinitions>
-        <StackPanel Background="#112D4E">
+        <StackPanel Grid.ColumnSpan="2" Background="#112D4E">
             <!--  Logo Panel  -->
             <StackPanel
                 Height="100"
@@ -181,6 +182,6 @@
             <!--  User  -->
 
         </StackPanel>
-        <WrapPanel x:Name="wpUserControl" Grid.Column="1" />
+        <WrapPanel x:Name="wpUserControl" Grid.Column="2" />
     </Grid>
 </Window>
