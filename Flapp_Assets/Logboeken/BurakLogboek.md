@@ -35,7 +35,7 @@
 | 1u   | Documentatie start                                         |
 | 2u   | Documentatie Connectie & Bestuurder Toevoegen              |
 | 1u   | Refactor WPF                                               |
-| 1.3u | Zoekbestuurder add toggle button                         |
+| 2.3u | Zoekbestuurder add toggle button                           |
 
 
 
