@@ -42,6 +42,36 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="MainButtons" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Background" Value="#112D4E" />
+            <Setter Property="Foreground" Value="#DBE2EF" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid Background="{TemplateBinding Background}">
+                            <ContentPresenter
+                                x:Name="MyContentPresenter"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Content="{TemplateBinding Content}" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="#112D4E" />
+                    <Setter Property="Foreground" Value="#112D4E" />
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Background" Value="#3F72AF" />
+                    <Setter Property="TextBlock.Foreground" Value="#F9F7F7" />
+                    <Setter Property="Cursor" Value="Hand" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
     <Grid x:Name="mainWindow" MaxWidth="750">
 
@@ -104,15 +134,14 @@
                 Grid.Column="0"
                 Height="80"
                 Margin="0,20"
-                Background="#112D4E"
-                Click="btnBestuurder_Click">
+                Click="btnBestuurder_Click"
+                Style="{StaticResource MainButtons}">
                 <StackPanel Orientation="Horizontal">
                     <materialDesign:PackIcon
                         Width="50"
                         Height="50"
                         Margin="0,0,50,0"
                         HorizontalAlignment="Left"
-                        Foreground="#F9F7F7"
                         Kind="Person" />
                     <TextBlock
                         Width="100"
@@ -120,7 +149,6 @@
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
                         FontSize="18"
-                        Foreground="#F9F7F7"
                         Text="Bestuurder"
                         TextAlignment="Left" />
                 </StackPanel>
@@ -131,15 +159,14 @@
                 Grid.Column="0"
                 Height="80"
                 Margin="0,20"
-                Background="#112D4E"
-                Click="btnVoertuig_Click">
+                Click="btnVoertuig_Click"
+                Style="{StaticResource MainButtons}">
                 <StackPanel Orientation="Horizontal">
                     <materialDesign:PackIcon
                         Width="50"
                         Height="50"
                         Margin="0,0,50,0"
                         HorizontalAlignment="Left"
-                        Foreground="#F9F7F7"
                         Kind="Car" />
                     <TextBlock
                         Width="100"
@@ -147,7 +174,6 @@
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
                         FontSize="18"
-                        Foreground="#F9F7F7"
                         Text="Voertuig"
                         TextAlignment="Left" />
                 </StackPanel>
@@ -158,15 +184,14 @@
                 Grid.Column="0"
                 Height="80"
                 Margin="0,20"
-                Background="#112D4E"
-                Click="btnTankkaart_Click">
+                Click="btnTankkaart_Click"
+                Style="{StaticResource MainButtons}">
                 <StackPanel Orientation="Horizontal">
                     <materialDesign:PackIcon
                         Width="50"
                         Height="50"
                         Margin="0,0,50,0"
                         HorizontalAlignment="Left"
-                        Foreground="#F9F7F7"
                         Kind="BusinessCard" />
                     <TextBlock
                         Width="100"
@@ -174,13 +199,10 @@
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
                         FontSize="18"
-                        Foreground="#F9F7F7"
                         Text="Tankkaart"
                         TextAlignment="Left" />
                 </StackPanel>
             </Button>
-            <!--  User  -->
-
         </StackPanel>
         <WrapPanel x:Name="wpUserControl" Grid.Column="2" />
     </Grid>
