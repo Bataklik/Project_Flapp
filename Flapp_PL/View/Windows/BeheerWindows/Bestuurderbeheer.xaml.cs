@@ -46,7 +46,10 @@ namespace Flapp_PL.View.Windows.BeheerWindows {
 
         public void laadBestuurders() {
             try {
-                lstBestuurder.ItemsSource = _bestuurderManager.GeefAlleBestuurdersZonderVoertuig().Values;
+                if (_tankkaartToevoegenWindow != null || _tankkaartUpdateWindow != null) { lstBestuurder.ItemsSource = _bestuurderManager.GeefAlleBestuurdersZonderTankkaarten(); }
+                else {
+                    lstBestuurder.ItemsSource = _bestuurderManager.GeefAlleBestuurdersZonderVoertuig().Values;
+                }
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
         }

@@ -17,6 +17,7 @@ namespace Flapp_BLL.Managers {
             }
             catch (Exception ex) { throw new TankkaartManagerException("TankkaartManager", ex); }
         }
+
         public void VerwijderTankkaart(Tankkaart tankkaart) {
             if (!_repo.BestaatTankkaart(tankkaart.Kaartnummer)) { throw new Exception("TankkaartManager: VerwijderTankkaart: Tankkaart bestaat niet!"); }
             try {
@@ -24,6 +25,7 @@ namespace Flapp_BLL.Managers {
             }
             catch (Exception ex) { throw new TankkaartManagerException("TankkaartManager", ex); }
         }
+
         public void UpdateTankkaart(Tankkaart tankkaart) {
             if (!_repo.BestaatTankkaart(tankkaart.Kaartnummer)) { throw new Exception("TankkaartManager: UpdateTankkaart: Tankkaart bestaat niet!"); }
             try {
@@ -31,28 +33,29 @@ namespace Flapp_BLL.Managers {
             }
             catch (Exception ex) { throw new TankkaartManagerException("TankkaartManager", ex); }
         }
-        public Dictionary<int, Tankkaart> GeefAlleTankkaarten(int kaartnummer, DateTime? geldigheidsdatum) {
-            try { return _repo.GeefAlleTankkaarten(kaartnummer, geldigheidsdatum); }
-            catch (Exception ex) { throw new TankkaartManagerException("TankkaartManager", ex); }
-        }
+
         public Dictionary<int, Tankkaart> GeefAlleTankkaarten() {
             try { return _repo.GeefAlleTankkaarten(); }
             catch (Exception ex) { throw new TankkaartManagerException("TankkaartManager", ex); }
         }
+
         public Dictionary<int, Tankkaart> GeefAlleTankkaartenOpKaartnummer(int kaartnummer) {
             try { return _repo.GeefAlleTankkaartenOpKaartnummer(kaartnummer); }
             catch (Exception ex) { throw new TankkaartManagerException("TankkaartManager", ex); }
         }
+
         public Dictionary<int, Tankkaart> GeefAlleTankkaartenOpGeldigheidsdatum(DateTime geldigheidsdatum) {
             try { return _repo.GeefAlleTankkaartenOpGeldigheidsdatum(geldigheidsdatum); }
             catch (Exception ex) { throw new TankkaartManagerException("TankkaartManager", ex); }
         }
+
         public bool BestaatBestuurder(Bestuurder bestuurder) {
             try {
                 return _repo.BestaatBestuurder(bestuurder);
             }
             catch (Exception ex) { throw new TankkaartManagerException("TankkaartManager", ex); }
         }
+
         public void VoegBestuurderToe(Bestuurder bestuurder) {
             if (_repo.BestaatBestuurder(bestuurder)) { throw new Exception("TankkaartManager: BestaatBestuurder: Bestuurder bestaat al!"); }
             try {
@@ -60,6 +63,7 @@ namespace Flapp_BLL.Managers {
             }
             catch (Exception ex) { throw new TankkaartManagerException("TankkaartManager", ex); }
         }
+
         public void VerwijderBestuurder(Bestuurder bestuurder) {
             if (!_repo.BestaatBestuurder(bestuurder)) { throw new TankkaartManagerException("TankkaartManager: VerwijderBestuurder: Bestuurder bestaat niet"); }
             try {

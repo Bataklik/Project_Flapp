@@ -122,72 +122,10 @@ namespace Flapp_DAL.Repository {
             return tankkaarten;
         }
 
-        public Dictionary<int, Tankkaart> GeefAlleTankkaarten(int kaartnummer, DateTime? geldigheidsdatum) {
-            Dictionary<int, Tankkaart> tankkaarten = new Dictionary<int, Tankkaart>();
-            List<string> subQuery = new List<string>();
-            int numberofparams = 0;
-
-            bool kaartnrIsNull = true;
-            if (kaartnummer > 0) {
-                kaartnrIsNull = false;
-                if (numberofparams > 0) {
-                    subQuery.Add(" AND ");
-                }
-                numberofparams++;
-                subQuery.Add("Tankkaart.tankkaartId=@tankkaartId");
-            }
-
-            bool geldigheidsdatumIsNull = true;
-            if (geldigheidsdatum < DateTime.Now) {
-                geldigheidsdatumIsNull = false;
-                if (numberofparams > 0) {
-                    subQuery.Add(" AND ");
-                }
-                numberofparams++;
-                subQuery.Add("geldigheidsdatum=@geldigheidsdatum");
-            }
-
-            string query = $"SELECT * FROM [dbo].[Tankkaart] LEFT JOIN Brandstof_Tankkaart ON Tankkaart.tankkaartId = Brandstof_Tankkaart.tankkaartId LEFT JOIN Brandstof ON Brandstof_Tankkaart.brandstofId = Brandstof.brandstofId WHERE {String.Join("", subQuery)};"; ;
-
-            SqlConnection conn = new SqlConnection(_connString);
-
-            using (SqlCommand cmd = conn.CreateCommand()) {
-                try {
-                    conn.Open();
-
-                    if (!kaartnrIsNull) {
-                        cmd.Parameters.Add(new SqlParameter("@tankkaartId", SqlDbType.Int));
-                        cmd.Parameters["@tankkaartId"].Value = kaartnummer;
-                    }
-                    if (!geldigheidsdatumIsNull) {
-                        cmd.Parameters.Add(new SqlParameter("@geldigheidsdatum", SqlDbType.DateTime));
-                        cmd.Parameters["@geldigheidsdatum"].Value = geldigheidsdatum;
-                    }
-
-                    cmd.CommandText = query;
-                    SqlDataReader r = cmd.ExecuteReader();
-                    while (r.Read()) {
-                        if (tankkaarten.ContainsKey((int)r["tankkaartId"])) {
-                            Tankkaart dicTankkaart = tankkaarten[(int)r["tankkaartId"]];
-                            dicTankkaart.Brandstoffen.Add(new Brandstof((string)r["naam"]));
-                        }
-                        else {
-                            List<Brandstof> brandstof = new List<Brandstof> { new Brandstof((string)r["naam"]) };
-                            Tankkaart t = new Tankkaart((int)r["tankkaartId"], (DateTime)r["geldigheidsdatum"], (string)r["pincode"], (bool)r["geblokkeerd"]);
-                            tankkaarten.Add(t.Kaartnummer, t);
-                        }
-                    }
-                }
-                catch (Exception ex) { throw new Exception(ex.Message); }
-                finally { conn.Close(); }
-            }
-            return tankkaarten;
-        }
-
         public Dictionary<int, Tankkaart> GeefAlleTankkaartenOpKaartnummer(int kaartnummer) {
             SqlConnection conn = new SqlConnection(_connString);
             Dictionary<int, Tankkaart> tankkaarten = new Dictionary<int, Tankkaart>();
-            string query = "SELECT * FROM [dbo].[Tankkaart] LEFT JOIN Brandstof_Tankkaart ON Tankkaart.tankkaartId = Brandstof_Tankkaart.tankkaartId LEFT JOIN Brandstof ON Brandstof_Tankkaart.brandstofId = Brandstof.brandstofId WHERE Tankkaart.tankkaartId=@tankkaartId;";
+            string query = "SELECT * FROM [dbo].[Tankkaart] LEFT JOIN Brandstof_Tankkaart ON Tankkaart.tankkaartId = Brandstof_Tankkaart.tankkaartId LEFT JOIN Brandstof ON Brandstof_Tankkaart.brandstofId = Brandstof.brandstofId LEFT JOIN Bestuurder ON Tankkaart.tankkaartId=Bestuurder.tankkaartId LEFT JOIN Adres ON Bestuurder.adresId = Adres.adresId LEFT JOIN Rijbewijs_Bestuurder ON Bestuurder.bestuurderId = Rijbewijs_Bestuurder.bestuurderId LEFT JOIN Rijbewijs ON Rijbewijs_Bestuurder.rijbewijsId = Rijbewijs.rijbewijsId WHERE Tankkaart.tankkaartId=@tankkaartId;";
             using (SqlCommand cmd = conn.CreateCommand()) {
                 cmd.Parameters.Add(new SqlParameter("@tankkaartId", SqlDbType.Int));
 
@@ -205,7 +143,18 @@ namespace Flapp_DAL.Repository {
                         }
                         else {
                             List<Brandstof> brandstof = new List<Brandstof> { new Brandstof((string)r["naam"]) };
-                            Tankkaart t = new Tankkaart((int)r["tankkaartId"], (DateTime)r["geldigheidsdatum"], (string)r["pincode"], brandstof, (bool)r["geblokkeerd"]);
+                            Adres a = null;
+                            if (!r.IsDBNull(r.GetOrdinal("adresId")) && !r.IsDBNull(r.GetOrdinal("straat")) && !r.IsDBNull(r.GetOrdinal("huisnummer")) && !r.IsDBNull(r.GetOrdinal("stad")) && !r.IsDBNull(r.GetOrdinal("postcode"))) {
+                                a = new Adres((int)r["adresId"], (string)r["straat"], (string)r["huisnummer"], (string)r["stad"], (int)r["postcode"]);
+                            }
+
+                            Bestuurder b = null;
+                            if (!r.IsDBNull(r.GetOrdinal("geslacht")) && !r.IsDBNull(r.GetOrdinal("naam")) && !r.IsDBNull(r.GetOrdinal("bestuurderId")) && !r.IsDBNull(r.GetOrdinal("naam")) && !r.IsDBNull(r.GetOrdinal("voornaam")) && !r.IsDBNull(r.GetOrdinal("geboortedatum")) && !r.IsDBNull(r.GetOrdinal("rijksregister"))) {
+                                Geslacht geslacht = (bool)r["geslacht"] ? Geslacht.M : Geslacht.V;
+                                List<Rijbewijs> rijbewijzen = new List<Rijbewijs> { new Rijbewijs(r[25].ToString()) };
+                                b = new Bestuurder((int)r["bestuurderId"], r[9].ToString(), (string)r["voornaam"], geslacht, a, Convert.ToDateTime(r["geboortedatum"]).ToString("dd/MM/yyyy"), (string)r["rijksregister"], rijbewijzen, null, null);
+                            }
+                            Tankkaart t = new Tankkaart((int)r["tankkaartId"], (DateTime)r["geldigheidsdatum"], (string)r["pincode"], brandstof, b, (bool)r["geblokkeerd"]);
 
                             tankkaarten.Add(t.Kaartnummer, t);
                         }
@@ -220,12 +169,12 @@ namespace Flapp_DAL.Repository {
         public Dictionary<int, Tankkaart> GeefAlleTankkaartenOpGeldigheidsdatum(DateTime geldigheidsdatum) {
             SqlConnection conn = new SqlConnection(_connString);
             Dictionary<int, Tankkaart> tankkaarten = new Dictionary<int, Tankkaart>();
-            string query = "SELECT * FROM [dbo].[Tankkaart] LEFT JOIN Brandstof_Tankkaart ON Tankkaart.tankkaartId = Brandstof_Tankkaart.tankkaartId LEFT JOIN Brandstof ON Brandstof_Tankkaart.brandstofId = Brandstof.brandstofId WHERE geldigheidsdatum=@geldigheidsdatum;";
+            string query = "SELECT * FROM [dbo].[Tankkaart] LEFT JOIN Brandstof_Tankkaart ON Tankkaart.tankkaartId = Brandstof_Tankkaart.tankkaartId LEFT JOIN Brandstof ON Brandstof_Tankkaart.brandstofId = Brandstof.brandstofId LEFT JOIN Bestuurder ON Tankkaart.tankkaartId=Bestuurder.tankkaartId LEFT JOIN Adres ON Bestuurder.adresId = Adres.adresId LEFT JOIN Rijbewijs_Bestuurder ON Bestuurder.bestuurderId = Rijbewijs_Bestuurder.bestuurderId LEFT JOIN Rijbewijs ON Rijbewijs_Bestuurder.rijbewijsId = Rijbewijs.rijbewijsId WHERE geldigheidsdatum=@geldigheidsdatum;";
             using (SqlCommand cmd = conn.CreateCommand()) {
                 cmd.CommandText = query;
                 conn.Open();
                 try {
-                    cmd.Parameters.Add(new SqlParameter("@tankkaartId", SqlDbType.DateTime));
+                    cmd.Parameters.Add(new SqlParameter("@geldigheidsdatum", SqlDbType.DateTime));
 
                     cmd.CommandText = query;
 
@@ -240,7 +189,18 @@ namespace Flapp_DAL.Repository {
                         }
                         else {
                             List<Brandstof> brandstof = new List<Brandstof> { new Brandstof((string)r["naam"]) };
-                            Tankkaart t = new Tankkaart((int)r["tankkaartId"], (DateTime)r["geldigheidsdatum"], (string)r["pincode"], brandstof, (bool)r["geblokkeerd"]);
+                            Adres a = null;
+                            if (!r.IsDBNull(r.GetOrdinal("adresId")) && !r.IsDBNull(r.GetOrdinal("straat")) && !r.IsDBNull(r.GetOrdinal("huisnummer")) && !r.IsDBNull(r.GetOrdinal("stad")) && !r.IsDBNull(r.GetOrdinal("postcode"))) {
+                                a = new Adres((int)r["adresId"], (string)r["straat"], (string)r["huisnummer"], (string)r["stad"], (int)r["postcode"]);
+                            }
+
+                            Bestuurder b = null;
+                            if (!r.IsDBNull(r.GetOrdinal("geslacht")) && !r.IsDBNull(r.GetOrdinal("naam")) && !r.IsDBNull(r.GetOrdinal("bestuurderId")) && !r.IsDBNull(r.GetOrdinal("naam")) && !r.IsDBNull(r.GetOrdinal("voornaam")) && !r.IsDBNull(r.GetOrdinal("geboortedatum")) && !r.IsDBNull(r.GetOrdinal("rijksregister"))) {
+                                Geslacht geslacht = (bool)r["geslacht"] ? Geslacht.M : Geslacht.V;
+                                List<Rijbewijs> rijbewijzen = new List<Rijbewijs> { new Rijbewijs(r[25].ToString()) };
+                                b = new Bestuurder((int)r["bestuurderId"], r[9].ToString(), (string)r["voornaam"], geslacht, a, Convert.ToDateTime(r["geboortedatum"]).ToString("dd/MM/yyyy"), (string)r["rijksregister"], rijbewijzen, null, null);
+                            }
+                            Tankkaart t = new Tankkaart((int)r["tankkaartId"], (DateTime)r["geldigheidsdatum"], (string)r["pincode"], brandstof, b, (bool)r["geblokkeerd"]);
 
                             tankkaarten.Add(t.Kaartnummer, t);
                         }
