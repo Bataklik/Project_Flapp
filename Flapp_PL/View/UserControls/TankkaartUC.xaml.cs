@@ -55,7 +55,7 @@ namespace Flapp_PL.View.UserControls {
             if (MessageBox.Show("Bent u zeker?", "Opgelet!", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes) {
                 _tankkaartManager.VerwijderTankkaart((Tankkaart)lstTankkaarten.SelectedItem);
             }
-            lstTankkaarten.ItemsSource = _tankkaartManager.GeefAlleTankkaarten();
+            lstTankkaarten.ItemsSource = _tankkaartManager.GeefAlleTankkaarten().Values;
         }
     }
 }

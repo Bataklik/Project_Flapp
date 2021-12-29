@@ -18,7 +18,6 @@ namespace Flapp_BLL.Managers {
             }
             catch (Exception) { throw; }
         }
-
         public void VoegBrandstofToeAanTankkaart(int tankkaartId, List<Brandstof> brandstof) {
             try {
                 brandstof.ForEach(b => _repo.VoegBrandstofToeAanTankkaart(tankkaartId, b.Id));
@@ -29,10 +28,10 @@ namespace Flapp_BLL.Managers {
             try { _repo.VerwijderBrandstofBijVoertuig(id); }
             catch (Exception) { throw; }
         }
-        public void GeefBrandstof(Brandstof brandstof) {
+        public Brandstof GeefBrandstof(Brandstof brandstof) {
             if (!_repo.BestaatBrandstof(brandstof)) { throw new BrandstofManagerException("BrandstofManager: GeefBrandstof: BrandstofType bestaat niet!"); }
 
-            try { _repo.GeefBrandstof(brandstof); }
+            try { return _repo.GeefBrandstof(brandstof); }
             catch (Exception ex) { throw new BrandstofManagerException("BrandstofManager", ex); }
         }
         public void GeefBrandstof(int id) {
@@ -55,13 +54,21 @@ namespace Flapp_BLL.Managers {
             }
             catch (Exception ex) { throw new BrandstofManagerException("BrandstofManager", ex); }
         }
+        public void UpdateTankkaartBrandstof(List<Brandstof> brandstof, Tankkaart tankkaart) {
+            try {
+                brandstof.ForEach(b => _repo.UpdateTankkaartBrandstof(b, tankkaart));
+            }
+            catch (Exception ex) { throw new BrandstofManagerException("BrandstofManager", ex); }
+        }
         public void VerwijderBrandstof(int id) {
             if (!_repo.BestaatBrandstof(id)) { throw new BrandstofManagerException("BrandstofManager: VerwijderBrandstof: BrandstofType bestaat niet!"); }
             _repo.VerwijderBrandstof(id);
         }
-        public void VerwijderBrandstof(string naam) {
-            if (!_repo.BestaatBrandstof(naam)) { throw new BrandstofManagerException("BrandstofManager: VerwijderBrandstof: BrandstofType bestaat niet!"); }
-            _repo.VerwijderBrandstof(naam);
+        public void VerwijderBrandstofBijTankkaart(List<Brandstof> brandstof) {
+            try {
+                brandstof.ForEach(b => _repo.VerwijderBrandstofBijTankkaart(b));
+            }
+            catch (Exception ex) { throw new BrandstofManagerException("BrandstofManager", ex); }
         }
         public IReadOnlyList<Brandstof> GeefAlleBrandstoffen() {
             try {

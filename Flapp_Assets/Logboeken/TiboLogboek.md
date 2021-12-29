@@ -23,3 +23,4 @@
 | 1u00 | Update TankkaartWPF                               |
 | 1u00 | Update TankkaartWPF + Tankaart Toevoegen          |
 | 1u00 | Update TankkaartWPF + Bestuurderbeheer            |
+| 1u00 | Update TankkaartWPF + Tankkaart, BestuurderRepo   |

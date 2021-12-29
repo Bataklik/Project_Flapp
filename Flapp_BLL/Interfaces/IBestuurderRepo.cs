@@ -6,6 +6,7 @@ namespace Flapp_BLL.Interfaces {
     public interface IBestuurderRepo {
         bool BestaatBestuurder(Bestuurder bestuurder);
         bool BestaatBestuurderId(int id);
+        bool HeeftBestuurderTankkaart(Bestuurder bestuurder);
 
         Dictionary<int, Bestuurder> GeefAlleBestuurders();
         Dictionary<int, Bestuurder> GeefAlleBestuurders(bool heeftVoertuig);
@@ -26,6 +27,8 @@ namespace Flapp_BLL.Interfaces {
         void UpdateBestuurder(Bestuurder bestuurder);
         void VerwijderBestuurder(Bestuurder bestuurder);
 
+        void VoegTankkaartToeAanBestuurder(Tankkaart t);
+        void VerwijderTankkaartVanBestuurder(Bestuurder bestuurder);
         //bool HeeftTankkaart(Tankkaart tankkaart); Moet kunnen kijken of een bestuurder een tankkaart heeft
         //bool HeeftVoertuig(Voertuig voertuig); Moet kunnen kijken of een bestuurder een voertuig heeft
     }

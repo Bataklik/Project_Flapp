@@ -77,12 +77,32 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
                 string pincode = txtPincode.Text;
                 bool geblokkeerd = false;
                 if (cbGeblokkeerd.SelectedIndex == 0) { geblokkeerd = true;  }
-                //List<Brandstof> brandstoffen = lbBrandstof.Items.Cast<Brandstof>().ToList();
-                Tankkaart t = new Tankkaart(kaartnummer ,geldigheidsdatum, pincode, geblokkeerd);
+                Bestuurder bestuurder = null;
+                if (lstBestuurder.Items.Count > 0) bestuurder = (Bestuurder)lstBestuurder.Items[0];
+                List<Brandstof> lstBrandstoffen = lbBrandstof.Items.Cast<Brandstof>().ToList();
+                List<Brandstof> brandstoffen = new List<Brandstof>();
+                foreach (var v in lstBrandstoffen) {
+                    brandstoffen.Add(_brandstofManager.GeefBrandstof(v));
+                }
+                Tankkaart t = new Tankkaart(kaartnummer ,geldigheidsdatum, pincode, brandstoffen, bestuurder, geblokkeerd);
                 _tankkaartManager.UpdateTankkaart(t);
+                _brandstofManager.VerwijderBrandstofBijTankkaart(brandstoffen);
+                _brandstofManager.VoegBrandstofToeAanTankkaart(t.Kaartnummer, brandstoffen);
+                if (bestuurder != null) _bestuurderManager.VoegTankkaartToeAanBestuurder(t);
                 MessageBox.Show("Updaten gelukt!");
                 _tUC.lstTankkaarten.ItemsSource = _tankkaartManager.GeefAlleTankkaarten().Select(x => x.Value).ToList();
                 Close();
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+        }
+
+        private void VerwijderBestuurder_Click(object sender, RoutedEventArgs e) {
+            try {
+                if ((Bestuurder)lstBestuurder.SelectedItem == null) { MessageBox.Show("U heeft geen bestuurder gekozen!", "Geen bestuurder!", MessageBoxButton.OK, MessageBoxImage.Error); return; }
+                if (MessageBox.Show("Bent u zeker?", "Opgelet!", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes) {
+                    _bestuurderManager.VerwijderTankkaartVanBestuurder((Bestuurder)lstBestuurder.SelectedItem);
+                }
+                lstBestuurder.ItemsSource = null;
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }

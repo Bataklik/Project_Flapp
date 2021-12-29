@@ -13,6 +13,7 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
     public partial class TankkaartToevoegenWindow : Window {
         private TankkaartManager _tankkaartManager;
         private BrandstofManager _brandstofManager;
+        private BestuurderManager _bestuurderManager;
         private Tankaartbeheer _parentWindow;
         private TankkaartUC _tUC;
 
@@ -20,6 +21,7 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
             InitializeComponent();
             _tankkaartManager = new TankkaartManager(new TankkaartRepo(Application.Current.Properties["User"].ToString()));
             _brandstofManager = new BrandstofManager(new BrandstofRepo(Application.Current.Properties["User"].ToString()));
+            _bestuurderManager = new BestuurderManager(new BestuurderRepo(Application.Current.Properties["User"].ToString()));
             _parentWindow = parentWindow;
             laadWaarden();
         }
@@ -27,6 +29,7 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
             InitializeComponent();
             _tankkaartManager = new TankkaartManager(new TankkaartRepo(Application.Current.Properties["User"].ToString()));
             _brandstofManager = new BrandstofManager(new BrandstofRepo(Application.Current.Properties["User"].ToString()));
+            _bestuurderManager = new BestuurderManager(new BestuurderRepo(Application.Current.Properties["User"].ToString()));
             _tUC = tUC;
             laadWaarden();
         }
@@ -49,11 +52,12 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
                     bool geblokkeerd = false;
                     if (cbGeblokkeerd.SelectedIndex == 0) { geblokkeerd = true; }
                     Bestuurder bestuurder = null;
-                    if (lstBestuurder.Items.Count > 0) bestuurder = (Bestuurder)lstBestuurder.SelectedItem;
+                    if (lstBestuurder.Items.Count > 0) bestuurder = (Bestuurder)lstBestuurder.Items[0];
                     List<Brandstof> brandstoffen = lbBrandstof.Items.Cast<Brandstof>().ToList();
                     t = new Tankkaart(geldigheidsdatum, pincode, geblokkeerd, brandstoffen, bestuurder );
                     t.ZetKaartnummer(_tankkaartManager.VoegTankkaartToe(t));
                     _brandstofManager.VoegBrandstofToeAanTankkaart(t.Kaartnummer, t.Brandstoffen);
+                    if (t.Bestuurder != null) _bestuurderManager.VoegTankkaartToeAanBestuurder(t);
                     MessageBox.Show("Tankkaart toegevoegd!");
                     if (_tUC != null) { _tUC.lstTankkaarten.ItemsSource = _tankkaartManager.GeefAlleTankkaarten().Select(x => x.Value).ToList(); }
                     else { _parentWindow.lstTankkaarten.ItemsSource = _tankkaartManager.GeefAlleTankkaarten().Select(x => x.Value).ToList(); }

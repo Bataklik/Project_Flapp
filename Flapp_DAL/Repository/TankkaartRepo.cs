@@ -321,11 +321,17 @@ namespace Flapp_DAL.Repository {
                 cmd.Transaction = trx;
 
                 try {
-                    cmd.CommandText = "DELETE FROM [dbo].[Brandstof_Tankkaart] WHERE tankkaartid = @id1;";
+                    cmd.CommandText = "DELETE FROM [dbo].[Brandstof_Tankkaart] WHERE tankkaartid=@id1;";
                     cmd.Parameters.AddWithValue("@id1", t.Kaartnummer);
                     cmd.ExecuteNonQuery();
 
-                    cmd.CommandText = "DELETE FROM [dbo].[Tankkaart] WHERE tankkaartid = @id2;";
+                    if (t.Bestuurder != null) {
+                        cmd.CommandText = "UPDATE [dbo].[Bestuurder] SET tankkaartId=NULL WHERE bestuurderId=@id3;";
+                        cmd.Parameters.AddWithValue("@id3", t.Bestuurder.Id);
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    cmd.CommandText = "DELETE FROM [dbo].[Tankkaart] WHERE tankkaartid=@id2;";
                     cmd.Parameters.AddWithValue("@id2", t.Kaartnummer);
                     cmd.ExecuteNonQuery();
 
@@ -407,40 +413,26 @@ namespace Flapp_DAL.Repository {
         //}
 
         public int VoegTankkaartToe(Tankkaart t) {
-            using (SqlConnection conn = new SqlConnection(_connString)) {
+            SqlConnection conn = new SqlConnection(_connString);
+            string query = "INSERT INTO Tankkaart ([geldigheidsdatum], [pincode], [geblokkeerd]) output INSERTED.tankkaartId VALUES (@geldigheidsdatum, @pincode, @geblokkeerd);";
+            using (SqlCommand cmd = conn.CreateCommand()) {
                 conn.Open();
-
-                SqlCommand cmd = conn.CreateCommand();
-                SqlTransaction trx;
-
-                trx = conn.BeginTransaction();
-
-                cmd.Connection = conn;
-                cmd.Transaction = trx;
-
                 try {
-                    cmd.CommandText = "INSERT INTO [dbo].[Tankkaart] ([geldigheidsdatum], [pincode], [geblokkeerd]) output INSERTED.tankkaartId  VALUES (@geldigheidsdatum ,@pincode ,@geblokkeerd);";
-                    cmd.Parameters.AddWithValue("@geldigheidsdatum", t.Geldigheidsdatum);
-                    cmd.Parameters.AddWithValue("@pincode", t.Pincode);
-                    if (t.Geblokkeerd) { cmd.Parameters.AddWithValue("@geblokkeerd", 1); }
-                    else { cmd.Parameters.AddWithValue("@geblokkeerd", 0); }
-                    cmd.ExecuteNonQuery();
-                    int tankkaartId = (int)cmd.ExecuteScalar();
+                    cmd.Parameters.Add(new SqlParameter("@geldigheidsdatum", SqlDbType.DateTime));
+                    cmd.Parameters.Add(new SqlParameter("@pincode", SqlDbType.NVarChar));
+                    cmd.Parameters.Add(new SqlParameter("@geblokkeerd", SqlDbType.Bit));
 
-                    if (t.Bestuurder != null) {
-                        cmd.CommandText = "UPDATE [dbo].[Bestuurder] SET tankkaartId=@tankkaartId WHERE bestuurderId=@bestuurderId";
-                        cmd.Parameters.AddWithValue("@tankkaartId", tankkaartId);
-                        cmd.Parameters.AddWithValue("@bestuurderId", t.Bestuurder.Id);
-                        cmd.ExecuteNonQuery();
-                    }
+                    cmd.CommandText = query;
 
-                    trx.Commit();
+                    cmd.Parameters["@geldigheidsdatum"].Value = t.Geldigheidsdatum;
+                    cmd.Parameters["@pincode"].Value = t.Pincode;
+                    if (t.Geblokkeerd) cmd.Parameters["@geblokkeerd"].Value = 1;
+                    cmd.Parameters["@geblokkeerd"].Value = 0;
+
+                    int tankkaartId = Convert.ToInt32(cmd.ExecuteScalar());
                     return tankkaartId;
                 }
-                catch (Exception ex) {
-                    trx.Rollback();
-                    throw new Exception(ex.Message);
-                }
+                catch (Exception ex) { throw new Exception(ex.Message); }
                 finally { conn.Close(); }
             }
         }

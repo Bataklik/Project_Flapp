@@ -169,6 +169,15 @@
                     Height="50"
                     Margin="0,5"
                     SelectionMode="Single">
+                    <ListView.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem
+                            x:Name="VerwijderBestuurder"
+                            Click="VerwijderBestuurder_Click"
+                            Header="Verwijderen"
+                            Icon="{materialDesign:PackIcon Kind=Delete}" />
+                        </ContextMenu>
+                    </ListView.ContextMenu>
                     <ListView.View>
                         <GridView>
                             <GridViewColumn

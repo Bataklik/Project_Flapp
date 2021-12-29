@@ -65,6 +65,26 @@ namespace Flapp_DAL.Repository {
                 finally { conn.Close(); }
             }
         }
+        public bool HeeftBestuurderTankkaart(Bestuurder b) {
+            SqlConnection conn = new SqlConnection(_connString);
+            string query = "SELECT 1 FROM Bestuurder WHERE bestuurderId=@bestuurderId AND tankkaartId IS NOT NULL";
+            using (SqlCommand cmd = conn.CreateCommand()) {
+                conn.Open();
+                try {
+                    cmd.Parameters.Add(new SqlParameter("@bestuurderId", SqlDbType.Int));
+
+                    cmd.CommandText = query;
+
+                    cmd.Parameters["@bestuurderId"].Value = b.Id;
+
+                    int bestuurderBestaat = Convert.ToInt32(cmd.ExecuteScalar());
+                    if (bestuurderBestaat == 1) { return true; }
+                    return false;
+                }
+                catch (Exception ex) { throw new Exception(ex.Message); }
+                finally { conn.Close(); }
+            }
+        }
         #endregion
 
         #region VoegBestuurderToe Method
@@ -184,6 +204,26 @@ namespace Flapp_DAL.Repository {
                 finally { conn.Close(); }
             }
         }
+        public void VoegTankkaartToeAanBestuurder(Tankkaart t) {
+            SqlConnection conn = new SqlConnection(_connString);
+            string query = "UPDATE [dbo].[Bestuurder] SET tankkaartId=@tankkaartId WHERE bestuurderId=@bestuurderId;";
+            using (SqlCommand cmd = conn.CreateCommand()) {
+                conn.Open();
+                try {
+                    cmd.Parameters.Add(new SqlParameter("@bestuurderId", SqlDbType.Int));
+                    cmd.Parameters.Add(new SqlParameter("@tankkaartId", SqlDbType.Int));
+
+                    cmd.CommandText = query;
+
+                    cmd.Parameters["@bestuurderId"].Value = t.Bestuurder.Id;
+                    cmd.Parameters["@tankkaartId"].Value = t.Kaartnummer;
+
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception ex) { throw new Exception(ex.Message); }
+                finally { conn.Close(); }
+            }
+        }
         #endregion
 
         #region VerwijderBestuurder Method
@@ -214,6 +254,24 @@ namespace Flapp_DAL.Repository {
                     trx.Rollback();
                     throw new Exception(ex.Message);
                 }
+                finally { conn.Close(); }
+            }
+        }
+        public void VerwijderTankkaartVanBestuurder(Bestuurder b) {
+            SqlConnection conn = new SqlConnection(_connString);
+            string query = "UPDATE [dbo].[Bestuurder] SET tankkaartId=NULL WHERE bestuurderId=@bestuurderId;";
+            using (SqlCommand cmd = conn.CreateCommand()) {
+                conn.Open();
+                try {
+                    cmd.Parameters.Add(new SqlParameter("@bestuurderId", SqlDbType.Int));
+
+                    cmd.CommandText = query;
+
+                    cmd.Parameters["@bestuurderId"].Value = b.Id;
+
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception ex) { throw new Exception(ex.Message); }
                 finally { conn.Close(); }
             }
         }

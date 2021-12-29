@@ -12,6 +12,13 @@ namespace Flapp_BLL.Managers {
             _repo = repo;
         }
 
+        public bool HeeftBestuurderTankkaart(Bestuurder bestuurder) {
+            try {
+                return _repo.HeeftBestuurderTankkaart(bestuurder);
+            }
+            catch (Exception ex) { throw new BestuurderManagerException("BestuurderManager: VerwijderBestuurder", ex); }
+        }
+
         public int VoegBestuurderToe(Bestuurder bestuurder) {
             if (_repo.BestaatBestuurder(bestuurder)) { throw new BestuurderManagerException("BestuurderManager: VoegBestuurderToe: Bestuurder bestaat al!"); }
             try {
@@ -31,6 +38,12 @@ namespace Flapp_BLL.Managers {
             if (!_repo.BestaatBestuurder(bestuurder)) { throw new BestuurderManagerException("BestuurderManager: VerwijderBestuurder: Bestuurder bestaat niet!"); }
             try {
                 _repo.VerwijderBestuurder(bestuurder);
+            }
+            catch (Exception ex) { throw new BestuurderManagerException("BestuurderManager: VerwijderBestuurder", ex); }
+        }
+        public void VerwijderTankkaartVanBestuurder(Bestuurder bestuurder) {
+            try {
+                _repo.VerwijderTankkaartVanBestuurder(bestuurder);
             }
             catch (Exception ex) { throw new BestuurderManagerException("BestuurderManager: VerwijderBestuurder", ex); }
         }
@@ -55,6 +68,12 @@ namespace Flapp_BLL.Managers {
                 _repo.VoegVoertuigToeAanBestuurder(b);
             }
             catch (Exception ex) { throw new BestuurderManagerException("BestuurderManager: VoegVoertuigToeAanBestuurder", ex); }
+        }
+        public void VoegTankkaartToeAanBestuurder(Tankkaart t) {
+            try {
+                _repo.VoegTankkaartToeAanBestuurder(t);
+            }
+            catch (Exception ex) { throw new BestuurderManagerException("BestuurderManager: VoegTankkaartToeAanBestuurder", ex); }
         }
 
         public Dictionary<int, Bestuurder> GeefAlleBestuurders() {

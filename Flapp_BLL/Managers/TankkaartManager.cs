@@ -23,7 +23,7 @@ namespace Flapp_BLL.Managers {
             try {
                 _repo.VerwijderTankkaart(tankkaart);
             }
-            catch (Exception ex) { throw new TankkaartManagerException("TankkaartManager", ex); }
+             catch (Exception ex) { throw new TankkaartManagerException("TankkaartManager", ex); }
         }
 
         public void UpdateTankkaart(Tankkaart tankkaart) {
