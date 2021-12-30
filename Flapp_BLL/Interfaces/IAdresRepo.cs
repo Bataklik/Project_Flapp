@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace Flapp_BLL.Interfaces
-{
-    public interface IAdresRepo
-    {
+namespace Flapp_BLL.Interfaces {
+    public interface IAdresRepo {
         bool BestaatAdres(Adres adres);
         bool BestaatAdres(int id);
         void VoegAdresToe(Adres adres);
@@ -16,6 +14,6 @@ namespace Flapp_BLL.Interfaces
         ObservableCollection<Adres> GeefAdressen();
         Dictionary<int, string> GeefAlleSteden();
         ObservableCollection<string> GeefStratenStad(int postcode, string stad);
-        ObservableCollection<Adres> ZoekAdressen(int postcode, string stad, string straat);
+        ObservableCollection<Adres> ZoekAdressen(string stad, string straat);
     }
 }
