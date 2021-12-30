@@ -154,7 +154,8 @@
             Grid.Column="1"
             Width="130"
             Margin="10,5,10,5"
-            FontSize="16" />
+            FontSize="16" 
+            PreviewTextInput="txtPincode_PreviewTextInput"/>
         <StackPanel
             Grid.Row="4"
             Grid.RowSpan="2"

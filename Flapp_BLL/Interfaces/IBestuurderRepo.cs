@@ -19,7 +19,7 @@ namespace Flapp_BLL.Interfaces {
         void VoegVoertuigToeAanBestuurder(Bestuurder b);
         Dictionary<int, Bestuurder> GeefAlleBestuurdersZonderVoertuig();
         Bestuurder GeefBestuurder(Bestuurder bestuurder);
-        IReadOnlyList<Bestuurder> GeefAlleBestuurdersZonderTankkaarten();
+        Dictionary<int, Bestuurder> GeefAlleBestuurdersZonderTankkaarten();
 
         int VoegBestuurderToe(Bestuurder bestuurder);
         int VoegBestuurderToeZonderAdres(Bestuurder bestuurder);

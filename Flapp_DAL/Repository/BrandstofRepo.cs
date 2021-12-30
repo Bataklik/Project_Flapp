@@ -261,17 +261,17 @@ namespace Flapp_DAL.Repository {
                 finally { conn.Close(); }
             }
         }
-        public void VerwijderBrandstofBijTankkaart(Brandstof brandstof) {
+        public void VerwijderBrandstofBijTankkaart(int tankkaartId) {
             SqlConnection conn = new SqlConnection(_connString);
-            string query = "DELETE FROM Brandstof_Tankkaart WHERE brandstofId=@brandstofId;";
+            string query = "DELETE FROM Brandstof_Tankkaart WHERE tankkaartId=@tankkaartId;";
             using (SqlCommand cmd = conn.CreateCommand()) {
                 conn.Open();
                 try {
-                    cmd.Parameters.Add(new SqlParameter("@brandstofId", SqlDbType.Int));
+                    cmd.Parameters.Add(new SqlParameter("@tankkaartId", SqlDbType.Int));
 
                     cmd.CommandText = query;
 
-                    cmd.Parameters["@brandstofId"].Value = brandstof.Id;
+                    cmd.Parameters["@tankkaartId"].Value = tankkaartId;
 
                     cmd.ExecuteNonQuery();
                 }

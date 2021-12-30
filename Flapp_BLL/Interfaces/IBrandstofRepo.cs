@@ -19,7 +19,7 @@ namespace Flapp_BLL.Interfaces
         void UpdateTankkaartBrandstof(Brandstof brandstof, Tankkaart tankkaart);
         void VerwijderBrandstof(int id);
         void VerwijderBrandstof(string brandstof_naam);
-        void VerwijderBrandstofBijTankkaart(Brandstof brandstof);
+        void VerwijderBrandstofBijTankkaart(int tankkaartId);
         
     }
 }

@@ -113,7 +113,7 @@ namespace Flapp_BLL.Managers {
             catch (Exception ex) { throw new BestuurderManagerException("BestuurderManager: GeefAlleBestuurdersOpNaamVoornaamDate", ex); }
         }
 
-        public IReadOnlyList<Bestuurder> GeefAlleBestuurdersZonderTankkaarten() {
+        public Dictionary<int, Bestuurder> GeefAlleBestuurdersZonderTankkaarten() {
             try {
                 return _repo.GeefAlleBestuurdersZonderTankkaarten();
             }

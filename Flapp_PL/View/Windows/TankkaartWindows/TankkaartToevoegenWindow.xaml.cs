@@ -6,6 +6,7 @@ using Flapp_PL.View.Windows.BeheerWindows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
 
 namespace Flapp_PL.View.Windows.TankkaartWindows {
@@ -41,6 +42,11 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
                 cbBrandstoffen.ItemsSource = _brandstofManager.GeefAlleBrandstoffen();
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
+        }
+
+        private void txtPincode_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e) {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
 
         private void btnVoegtoe_Click(object sender, RoutedEventArgs e) {

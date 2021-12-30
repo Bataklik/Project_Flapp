@@ -5,8 +5,10 @@ using Flapp_PL.View.UserControls;
 using Flapp_PL.View.Windows.BeheerWindows;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,7 +24,8 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
     /// Interaction logic for TankkaartUpdateWindow.xaml
     /// </summary>
     public partial class TankkaartUpdateWindow : Window {
-        private Tankkaart _tankkaart;
+        public ObservableCollection<Brandstof> Brandstoffen { get; set; } = new ObservableCollection<Brandstof>();
+        private Tankkaart Tankkaart;
         private TankkaartUC _tUC;
         private BestuurderManager _bestuurderManager;
         private BrandstofManager _brandstofManager;
@@ -30,12 +33,17 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
 
         public TankkaartUpdateWindow(Tankkaart t, TankkaartUC tUC) {
             InitializeComponent();
-            _tankkaart = t;
+            Tankkaart = t;
             _tUC = tUC;
             _bestuurderManager = new BestuurderManager(new BestuurderRepo(Application.Current.Properties["User"].ToString()));
             _brandstofManager = new BrandstofManager(new BrandstofRepo(Application.Current.Properties["User"].ToString()));
             _tankkaartManager = new TankkaartManager(new TankkaartRepo(Application.Current.Properties["User"].ToString()));
             laadWaarden();
+        }
+
+        private void txtPincode_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e) {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
 
         private void btnBestuurderbeheer_Click(object sender, RoutedEventArgs e) {
@@ -44,25 +52,26 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
         }
 
         private void laadWaarden() {
-            txtKaartnummer.Text = Convert.ToString(_tankkaart.Kaartnummer);
+            txtKaartnummer.Text = Convert.ToString(Tankkaart.Kaartnummer);
             txtKaartnummer.IsEnabled = false;
-            dpGeldigheidsdatum.SelectedDate = _tankkaart.Geldigheidsdatum;
-            txtPincode.Text = _tankkaart.Pincode;
+            dpGeldigheidsdatum.SelectedDate = Tankkaart.Geldigheidsdatum;
+            txtPincode.Text = Tankkaart.Pincode;
             List<Bestuurder> bestuurders = new List<Bestuurder>();
-            if (_tankkaart.Bestuurder != null) {
-                bestuurders.Add(_tankkaart.Bestuurder);
+            if (Tankkaart.Bestuurder != null) {
+                bestuurders.Add(Tankkaart.Bestuurder);
                 lstBestuurder.ItemsSource = bestuurders;
             } 
-            if (_tankkaart.Geblokkeerd) cbGeblokkeerd.SelectedIndex = 0;
+            if (Tankkaart.Geblokkeerd) cbGeblokkeerd.SelectedIndex = 0;
             cbGeblokkeerd.SelectedIndex = 1;
             cbBrandstoffen.ItemsSource = _brandstofManager.GeefAlleBrandstoffen();
-            lbBrandstof.ItemsSource = _tankkaart.Brandstoffen;
+            lbBrandstof.ItemsSource = Tankkaart.Brandstoffen;
         }
 
         private void btnVoegBrandstofToe_Click(object sender, RoutedEventArgs e) {
-            if ((Brandstof)cbBrandstoffen.SelectedItem == null) { MessageBox.Show("U heeft geen brandstof aangeduid!"); return; }
-            if (lbBrandstof.Items.Contains((Brandstof)cbBrandstoffen.SelectedItem)) { MessageBox.Show("Brandstof staat al op de lijst!"); return; }
-            lbBrandstof.Items.Add((Brandstof)cbBrandstoffen.SelectedItem);
+            if ((Brandstof)cbBrandstoffen.SelectedItem == null) { MessageBox.Show("U heeft geen rijbewijs aangeduid!"); return; }
+            if (lbBrandstof.Items.Contains((Brandstof)cbBrandstoffen.SelectedItem)) { MessageBox.Show("Rijbewijs staat al op de lijst!"); return; }
+            Brandstoffen.Add((Brandstof)cbBrandstoffen.SelectedItem);
+            lbBrandstof.ItemsSource = Brandstoffen;
         }
 
         private void btnVerwijderBrandstof_Click(object sender, RoutedEventArgs e) {
@@ -72,25 +81,20 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e) {
             try {
-                DateTime geldigheidsdatum = (DateTime)dpGeldigheidsdatum.SelectedDate;
-                int kaartnummer = Int32.Parse(txtKaartnummer.Text);
-                string pincode = txtPincode.Text;
+                Tankkaart.ZetKaartnummer(int.Parse(txtKaartnummer.Text));
+                Tankkaart.ZetGeldigheidsdatum((DateTime)dpGeldigheidsdatum.SelectedDate);
+                Tankkaart.ZetPincode(txtPincode.Text);
                 bool geblokkeerd = false;
                 if (cbGeblokkeerd.SelectedIndex == 0) { geblokkeerd = true;  }
-                Bestuurder bestuurder = null;
-                if (lstBestuurder.Items.Count > 0) bestuurder = (Bestuurder)lstBestuurder.Items[0];
-                List<Brandstof> lstBrandstoffen = lbBrandstof.Items.Cast<Brandstof>().ToList();
-                List<Brandstof> brandstoffen = new List<Brandstof>();
-                foreach (var v in lstBrandstoffen) {
-                    brandstoffen.Add(_brandstofManager.GeefBrandstof(v));
-                }
-                Tankkaart t = new Tankkaart(kaartnummer ,geldigheidsdatum, pincode, brandstoffen, bestuurder, geblokkeerd);
-                _tankkaartManager.UpdateTankkaart(t);
-                _brandstofManager.VerwijderBrandstofBijTankkaart(brandstoffen);
-                _brandstofManager.VoegBrandstofToeAanTankkaart(t.Kaartnummer, brandstoffen);
-                if (bestuurder != null) _bestuurderManager.VoegTankkaartToeAanBestuurder(t);
+                Tankkaart.ZetGeblokkeerd(geblokkeerd);
+                if (lstBestuurder.Items.Count > 0) Tankkaart.ZetBestuurder((Bestuurder)lstBestuurder.Items[0]);
+                Tankkaart.ZetBrandstoffen(lbBrandstof.Items.Cast<Brandstof>().ToList());
+                _tankkaartManager.UpdateTankkaart(Tankkaart);
+                _brandstofManager.VerwijderBrandstofBijTankkaart(Tankkaart.Kaartnummer);
+                _brandstofManager.VoegBrandstofToeAanTankkaart(Tankkaart.Kaartnummer, Tankkaart.Brandstoffen);
+                if (Tankkaart.Bestuurder != null) _bestuurderManager.VoegTankkaartToeAanBestuurder(Tankkaart);
                 MessageBox.Show("Updaten gelukt!");
-                _tUC.lstTankkaarten.ItemsSource = _tankkaartManager.GeefAlleTankkaarten().Select(x => x.Value).ToList();
+                _tUC.lstTankkaarten.ItemsSource = _tankkaartManager.GeefAlleTankkaarten().Values;
                 Close();
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }

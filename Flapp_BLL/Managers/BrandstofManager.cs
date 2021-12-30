@@ -64,9 +64,9 @@ namespace Flapp_BLL.Managers {
             if (!_repo.BestaatBrandstof(id)) { throw new BrandstofManagerException("BrandstofManager: VerwijderBrandstof: BrandstofType bestaat niet!"); }
             _repo.VerwijderBrandstof(id);
         }
-        public void VerwijderBrandstofBijTankkaart(List<Brandstof> brandstof) {
+        public void VerwijderBrandstofBijTankkaart(int tankkaartId) {
             try {
-                brandstof.ForEach(b => _repo.VerwijderBrandstofBijTankkaart(b));
+                _repo.VerwijderBrandstofBijTankkaart(tankkaartId);
             }
             catch (Exception ex) { throw new BrandstofManagerException("BrandstofManager", ex); }
         }

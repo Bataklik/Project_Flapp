@@ -75,7 +75,7 @@ namespace Flapp_BLL.Models {
             ZetGeldigheidsdatum(geldigheidsdatum);
             ZetPincode(pincode);
             ZetGeblokkeerd(geblokkeerd);
-            Brandstoffen = brandstoffen;
+            ZetBrandstoffen(brandstoffen);
         }
 
         #endregion
@@ -99,6 +99,10 @@ namespace Flapp_BLL.Models {
         }
         public void ZetBestuurder(Bestuurder bestuurder) {
             Bestuurder = bestuurder;
+        }
+        public void ZetBrandstoffen(List<Brandstof> brandstoffen) {
+            if (brandstoffen == null) throw new TankkaartException("Brandstoflijst is null");
+            Brandstoffen = brandstoffen;
         }
         #endregion
 
