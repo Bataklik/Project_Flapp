@@ -21,12 +21,12 @@ Eiusmod eiusmod anim minim incididunt magna dolore esse aliqua reprehenderit rep
   - Tankkaart
   - Voertuig
   - VoertuigType
-* [Connectiestring instellen in \*VS](https://github.com/Bataklik/Project_Flapp/wiki/ConnectieStrDoc.md)
+* [Connectiestring instellen in \*VS](https://github.com/Bataklik/Project_Flapp/wiki/ConnectieStrDoc)
 
 ### Gebruik
 
 #### Aparte Documentatie's
 
-- [Bestuurder](https://github.com/Bataklik/Project_Flapp/wiki/BestuurderDoc.md)
-- [Voertuig](https://github.com/Bataklik/Project_Flapp/wiki/VoertuigDoc.md)
-- [Tankkaart](https://github.com/Bataklik/Project_Flapp/wiki/TankkaartDoc.md)
+- [Bestuurder](https://github.com/Bataklik/Project_Flapp/wiki/BestuurderDoc)
+- [Voertuig](https://github.com/Bataklik/Project_Flapp/wiki/VoertuigDoc)
+- [Tankkaart](https://github.com/Bataklik/Project_Flapp/wiki/TankkaartDoc)

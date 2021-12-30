@@ -2,6 +2,6 @@
 
 ### Tankkaart documentatie
 
-- [Tankkaart Toevoegen](VoegTankkaartToe.md)
+- [Tankkaart Toevoegen](VoegTankkaartToe)
 
-- [Tankkaart Updaten](UpdateTankkaart.md)
+- [Tankkaart Updaten](UpdateTankkaart)
