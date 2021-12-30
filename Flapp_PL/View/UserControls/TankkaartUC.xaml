@@ -91,7 +91,9 @@
                 </ListView.ContextMenu>
                 <ListView.ItemContainerStyle>
                     <Style TargetType="{x:Type ListViewItem}">
-                        <Setter Property="Foreground" Value="Black" />
+                        <Setter Property="Foreground" Value="#3F72AF" />
+                        <Setter Property="Height" Value="40" />
+
                         <Style.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter Property="Background" Value="#F9F7F7" />

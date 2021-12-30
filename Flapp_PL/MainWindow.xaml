@@ -72,6 +72,8 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+
+
     </Window.Resources>
     <Grid x:Name="mainWindow" MaxWidth="750">
 
@@ -99,11 +101,22 @@
                     Foreground="#F9F7F7" />
             </StackPanel>
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                <Label Content="User:" Foreground="#F9F7F7" />
                 <ComboBox
                     x:Name="cbUsers"
                     Width="100"
-                    Height="20" />
+                    Height="20"
+                    Foreground="#F9F7F7">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock
+                                    FontWeight="SemiBold"
+                                    Foreground="#112D4E"
+                                    Text="{Binding Path=.}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
                 <Button
                     x:Name="btnKies"
                     Width="70"

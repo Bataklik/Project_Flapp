@@ -78,17 +78,23 @@
             Grid.Row="1"
             Grid.Column="1"
             Orientation="Horizontal">
-            <ComboBox
-                x:Name="cbSteden"
+            <TextBox
+                x:Name="txtSteden"
                 Width="100"
                 Height="25"
                 Margin="5"
-                SelectionChanged="cbSteden_SelectionChanged" />
-            <ComboBox
-                x:Name="cbStraten"
+                VerticalAlignment="Center"
+                materialDesign:HintAssist.Hint="Stad"
+                Background="#DBE2EF"
+                Foreground="#3F72AF" />
+            <TextBox
+                x:Name="txtStraten"
                 Width="100"
                 Height="25"
-                Margin="5" />
+                Margin="5"
+                materialDesign:HintAssist.Hint="Straat"
+                Background="#DBE2EF"
+                Foreground="#3F72AF" />
             <Button
                 x:Name="btnZoek"
                 Width="50"
