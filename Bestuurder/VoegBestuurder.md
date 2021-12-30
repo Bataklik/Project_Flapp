@@ -2,7 +2,7 @@
 
 ### Voeg bestuurder documentatie
 
-1. Kies een [connctie](ConnectieStrDoc.md), dat u heeft gemaakt.
+1. Kies een [connctie](https://github.com/Bataklik/Project_Flapp/wiki/ConnectieStrDoc.md), dat u heeft gemaakt.
 
    ![VoegBest1](Images/voegBest1.png)
 
