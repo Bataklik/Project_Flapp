@@ -2,25 +2,19 @@
 using System;
 using System.Data.SqlClient;
 
-namespace Flapp_DAL.Repository
-{
-    public class ConnectionRepo : IConnectionRepo
-    {
+namespace Flapp_DAL.Repository {
+    public class ConnectionRepo : IConnectionRepo {
         private string _connString;
 
-        public ConnectionRepo(string connString)
-        {
+        public ConnectionRepo(string connString) {
             _connString = connString;
         }
-        public bool IsServerConnected()
-        {
+        public bool IsServerConnected() {
             SqlConnection conn = new SqlConnection(_connString);
-            string query = "USE [Project_Flapp_DB]; SELECT 1;";
-            using (SqlCommand cmd = conn.CreateCommand())
-            {
+            string query = "SELECT 1;";
+            using (SqlCommand cmd = conn.CreateCommand()) {
                 conn.Open();
-                try
-                {
+                try {
                     cmd.CommandText = query;
                     int connBestaat = Convert.ToInt32(cmd.ExecuteScalar());
                     if (connBestaat == 1) { return true; }
