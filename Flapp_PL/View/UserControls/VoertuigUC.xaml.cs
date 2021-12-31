@@ -80,23 +80,16 @@ namespace Flapp_PL.View.UserControls
 
         private void btnVerwijderVoertuig_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("Bent u zeker dat u het voertuig wilt verwijdere?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
-            {
+            if ((Voertuig)lstVoertuigen.SelectedItem == null) { MessageBox.Show("U heeft geen voertuig gekozen!", "Geen voertuig!", MessageBoxButton.OK, MessageBoxImage.Hand); return; }
+            Voertuig teVerwijderen = (Voertuig)lstVoertuigen.SelectedItem;
+            MessageBoxResult result = MessageBox.Show($"Wilt u zeker Voertuig: \n{teVerwijderen.Merk} {teVerwijderen.Model}, {teVerwijderen.Nummerplaat}\n verwijderen?", "Voertuig Verwijderen?", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+            if (result == MessageBoxResult.No) { return; }
 
-            }
-            else
-            {
-                if ((Voertuig)lstVoertuigen.SelectedItem == null) { MessageBox.Show("U heeft geen voertuig gekozen!", "Geen voertuig!", MessageBoxButton.OK, MessageBoxImage.Error); return; }
-                try { _voertuigManager.VerwijderVoertuig((Voertuig)lstVoertuigen.SelectedItem); MessageBox.Show("Verwijderen Gelukt!"); }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-                finally { laadVoertuigen(); }
-            }
+            try { _voertuigManager.VerwijderVoertuig((Voertuig)lstVoertuigen.SelectedItem); }
+            catch (Exception ex) {MessageBox.Show(ex.Message); }
+            finally { laadVoertuigen(); }
 
         }
-
 
     }
 }

@@ -52,9 +52,13 @@ namespace Flapp_PL.View.UserControls {
 
         private void Verwijder_Click(object sender, RoutedEventArgs e) {
             if ((Tankkaart)lstTankkaarten.SelectedItem == null) { MessageBox.Show("U heeft geen tankkaart gekozen!", "Geen tankkaart!", MessageBoxButton.OK, MessageBoxImage.Error); return; }
-            if (MessageBox.Show("Bent u zeker?", "Opgelet!", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes) {
-                _tankkaartManager.VerwijderTankkaart((Tankkaart)lstTankkaarten.SelectedItem);
+            Tankkaart teVerwijderen = (Tankkaart)lstTankkaarten.SelectedItem;
+            MessageBoxResult result = MessageBox.Show($"Wilt u zeker Tankkaart: \nKaartnummer: {teVerwijderen.Kaartnummer}, {teVerwijderen.Geldigheidsdatum.ToShortDateString()}\n verwijderen?", "Tankkaart Verwijderen?", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+            if (result == MessageBoxResult.No) { return; }
+            try {
+                _tankkaartManager.VerwijderTankkaart(teVerwijderen);
             }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
             lstTankkaarten.ItemsSource = _tankkaartManager.GeefAlleTankkaarten().Values;
         }
     }

@@ -106,7 +106,10 @@ namespace Flapp_PL.View.UserControls {
         }
         private void VerwijderBestuurder_Click(object sender, RoutedEventArgs e) {
             if ((Bestuurder)lstbBestuurders.SelectedItem == null) { MessageBox.Show("U heeft geen bestuurder gekozen!", "Geen bestuurder!", MessageBoxButton.OK, MessageBoxImage.Error); return; }
-            try { _bestuurderManager.VerwijderBestuurder((Bestuurder)lstbBestuurders.SelectedItem); }
+            Bestuurder teVerwijderen = (Bestuurder)lstbBestuurders.SelectedItem;
+            MessageBoxResult result =  MessageBox.Show($"Wilt u zeker Bestuurder: \n{teVerwijderen.Naam} {teVerwijderen.Voornaam}, {teVerwijderen.Adres}\n verwijderen?","Bestuurder Verwijderen?",MessageBoxButton.YesNo,MessageBoxImage.Question,MessageBoxResult.No);
+            if (result == MessageBoxResult.No) { return; }
+            try { _bestuurderManager.VerwijderBestuurder(teVerwijderen); }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
             finally { LaadBestuurders(); }
         }
