@@ -4,17 +4,17 @@
 
 1. Kies een [connctie](https://github.com/Bataklik/Project_Flapp/wiki/ConnectieStrDoc), dat u heeft gemaakt.
 
-   ![VoegBest1](Images/Bestuurder/voegBest1.png)
+   ![VoegBest1](/Images/Bestuurder/voegBest1.png)
 
 2. Nadat je een verbinding heeft gekozen, klik je op (A.) **Bestuurder**.
    <br>Nu krijg je de bestuurders in een lijst, onder de lijst heb je een knop (B.) **Toevoegen**.
 
-   ![VoegBest2](Images/Bestuurder/voegBest2.png)
+   ![VoegBest2](/Images/Bestuurder/voegBest2.png)
 
 3. Je krijgt een toevoegingsscherm te zien, waar je alle gevraagde gegevens invult en dan op toevoegen drukt.
 
-   ![VoegBest3](Images/Bestuurder/voegBest3.png)
+   ![VoegBest3](/Images/Bestuurder/voegBest3.png)
 
 4. Nu krijg je _Elon Musk_ in de bestuurders lijst.
 
-   ![VoegBest4](Images/Bestuurder/voegBest4.png)
+   ![VoegBest4](/Images/Bestuurder/voegBest4.png)
