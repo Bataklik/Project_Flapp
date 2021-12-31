@@ -62,7 +62,7 @@ namespace Flapp_BLL.Models
         #region Overrides
         public override string ToString()
         {
-            return $"[Adres] {Straat}, {Huisnummer}, {Stad}: {Postcode}";
+            return $"{Straat} {Huisnummer}, {Stad}: {Postcode}";
         }
 
         public override bool Equals(object obj)

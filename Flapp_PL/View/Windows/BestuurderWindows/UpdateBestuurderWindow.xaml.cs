@@ -23,7 +23,7 @@ namespace Flapp_PL.View.Windows.BestuurderWindows {
         private BestuurderUC _parentWindow;
 
         private string toUpperFirstletter(string value) {
-            return char.ToUpper(value[0]) + value.Substring(1);
+            return char.ToUpper(value[0]) + value.Substring(1).ToLower();
         }
 
         public UpdateBestuurderWindow(Bestuurder bestuurder, BestuurderUC parentWindow) {
