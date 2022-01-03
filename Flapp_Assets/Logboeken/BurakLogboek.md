@@ -36,7 +36,8 @@
 | 2u   | Documentatie Connectie & Bestuurder Toevoegen              |
 | 1u   | Refactor WPF                                               |
 | 2.3u | Zoekbestuurder add toggle button                           |
-| 2u | adresbeheer zoeken aangepast + documentatie verplaatst naar wiki  |
+| 2u | Adresbeheer zoeken aangepast + documentatie verplaatst naar wiki  |
+| 1.3u | Voertuigbeheer zoeken aangepast  |
 
 
 
