@@ -208,7 +208,7 @@
             Width="130"
             Margin="10,6,10,5"
             FontSize="16"
-            IsEditable="True" />
+            IsEditable="True" DropDownOpened="cmbModel_DropDownOpened" DropDownClosed="cmbModel_DropDownClosed" IsSynchronizedWithCurrentItem="False" />
         <TextBox
             Name="txtChassis"
             Grid.Row="3"

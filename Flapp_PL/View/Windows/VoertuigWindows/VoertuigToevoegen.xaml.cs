@@ -106,7 +106,7 @@ namespace Flapp_PL.View.Windows.VoertuigWindow {
         }
         private void laadMerk() {
             ObservableCollection<string> merken = new(_voertuigManager.GeefMerken());
-            merken.Insert(0, "");
+            //merken.Insert(0, "");
             //cmbMerk.SelectedIndex = 0;
             cmbMerk.ItemsSource = merken;
         }
@@ -114,19 +114,7 @@ namespace Flapp_PL.View.Windows.VoertuigWindow {
 
         }
         private void cmbMerk_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e) {
-            if (cmbMerk.SelectedIndex == 0) {
-                //cmbModel.IsEnabled = false;
-                cmbModel.ItemsSource = null;
-            }
-            else {
-                //cmbModel.IsEnabled = true;
-                ObservableCollection<string> modellen = new(_voertuigManager.GeefModellenMerk(cmbMerk.SelectedItem.ToString()));
-                modellen.Insert(0, "");
-                cmbModel.ItemsSource = modellen;
-                cmbModel.SelectedIndex = 0;
-                //merk = cmbMerk.SelectedItem.ToString();
-                //model = null;
-            }
+            cmbModel.ItemsSource = null;
         }
         private void cmbBrandstoffen_Loaded(object sender, RoutedEventArgs e) {
             try {
@@ -175,6 +163,35 @@ namespace Flapp_PL.View.Windows.VoertuigWindow {
 
         private void btnVoertuigbeheer_Click(object sender, RoutedEventArgs e) {
             new Bestuurderbeheer(this).ShowDialog();
+        }       
+
+        private void cmbModel_DropDownOpened(object sender, EventArgs e)
+        {
+            
+                
+                if (cmbMerk.SelectedIndex < 0)
+                {
+                    //cmbModel.IsEnabled = false;
+                    cmbModel.ItemsSource = null;
+                    cmbModel.IsDropDownOpen = false;
+                }
+                else
+                {
+                    //cmbModel.IsEnabled = true;
+                    ObservableCollection<string> modellen = new(_voertuigManager.GeefModellenMerk(cmbMerk.SelectedItem.ToString()));
+                    modellen.Insert(0, "");
+                    cmbModel.ItemsSource = modellen;
+                    cmbModel.SelectedIndex = 0;
+                    //merk = cmbMerk.SelectedItem.ToString();
+                    //model = null;
+                }   
+            
+
+        }
+
+        private void cmbModel_DropDownClosed(object sender, EventArgs e)
+        {
+            
         }
     }
 }
