@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Flapp: Voertuig beheer"
     Width="550"
-    Height="350"
+    Height="400"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
@@ -49,6 +49,7 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+
     </Window.Resources>
     <Grid Margin="5">
         <Grid.RowDefinitions>
@@ -78,17 +79,29 @@
             Grid.Row="1"
             Grid.Column="1"
             Orientation="Horizontal">
-            <ComboBox
-                x:Name="cbMerk"
-                Width="100"
-                Height="25"
-                Margin="5"
-                SelectionChanged="cbMerk_SelectionChanged" />
-            <ComboBox
-                x:Name="cbModel"
-                Width="100"
-                Height="25"
-                Margin="5" />
+            <GroupBox BorderBrush="Transparent" Header="Merk:">
+                <TextBox
+                    x:Name="txtMerk"
+                    Width="100"
+                    Height="25"
+                    Margin="5" />
+            </GroupBox>
+            <GroupBox BorderBrush="Transparent" Header="Model: ">
+
+                <TextBox
+                    x:Name="txtModel"
+                    Width="100"
+                    Height="25"
+                    Margin="5" />
+            </GroupBox>
+            <GroupBox BorderBrush="Transparent" Header="Nummerplaat:">
+                <TextBox
+                    x:Name="txtNummerplaat"
+                    Width="100"
+                    Height="25"
+                    Margin="5" />
+            </GroupBox>
+
             <Button
                 x:Name="btnZoek"
                 Width="50"
@@ -118,7 +131,7 @@
             <ListView
                 x:Name="lstVoertuigen"
                 Width="auto"
-                Height="150"
+                Height="180"
                 Margin="1"
                 SelectionMode="Single">
                 <ListView.ContextMenu>

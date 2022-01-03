@@ -103,7 +103,7 @@ namespace Flapp_DAL.Repository {
                             if (!r.IsDBNull(r.GetOrdinal("adresId")) && !r.IsDBNull(r.GetOrdinal("straat")) && !r.IsDBNull(r.GetOrdinal("huisnummer")) && !r.IsDBNull(r.GetOrdinal("stad")) && !r.IsDBNull(r.GetOrdinal("postcode"))) {
                                 a = new Adres((int)r["adresId"], (string)r["straat"], (string)r["huisnummer"], (string)r["stad"], (int)r["postcode"]);
                             }
-                            
+
                             Bestuurder b = null;
                             if (!r.IsDBNull(r.GetOrdinal("geslacht")) && !r.IsDBNull(r.GetOrdinal("naam")) && !r.IsDBNull(r.GetOrdinal("bestuurderId")) && !r.IsDBNull(r.GetOrdinal("naam")) && !r.IsDBNull(r.GetOrdinal("voornaam")) && !r.IsDBNull(r.GetOrdinal("geboortedatum")) && !r.IsDBNull(r.GetOrdinal("rijksregister"))) {
                                 Geslacht geslacht = (bool)r["geslacht"] ? Geslacht.M : Geslacht.V;

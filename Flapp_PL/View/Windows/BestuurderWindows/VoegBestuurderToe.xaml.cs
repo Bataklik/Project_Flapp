@@ -25,7 +25,7 @@ namespace Flapp_PL.View.Windows.BestuurderWindows {
             _parentWindow = bestuurderUC;
         }
         private string toUpperFirstletter(string value) {
-            return char.ToUpper(value[0]) + value.Substring(1);
+            return char.ToUpper(value[0]) + value.Substring(1).ToLower();
         }
 
         private void btnVoegtoe_Click(object sender, RoutedEventArgs e) {
