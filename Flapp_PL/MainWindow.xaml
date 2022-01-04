@@ -13,7 +13,7 @@
     Background="#F9F7F7"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
-    mc:Ignorable="d">
+    mc:Ignorable="d" Icon="/Images/flapp_icon_PuW_icon.ico">
     <Window.Resources>
         <!--  Button Style  -->
         <Style TargetType="Button">

@@ -8,6 +8,7 @@
     Title="Flapp: Adres Toevoegen"
     Width="250"
     Height="280"
+    Icon="/Images/flapp_icon_PuW_icon.ico"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">

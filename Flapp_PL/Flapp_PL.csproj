@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <None Remove="Flapp_Logo_Cube.svg" />
+    <None Remove="Images\flapp_icon_PuW_icon.ico" />
     <None Remove="Images\Flapp_Logo.ico" />
     <None Remove="Images\FLAPP_LOGO.png" />
     <None Remove="Images\FLAPP_LOGO2.ico" />
@@ -27,6 +28,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\flapp_icon_PuW_icon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\FLAPP_LOGO.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>

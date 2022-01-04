@@ -9,6 +9,7 @@
     Title="VoertuigZoeken"
     Width="255"
     Height="256"
+    Icon="/Images/flapp_icon_PuW_icon.ico"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">

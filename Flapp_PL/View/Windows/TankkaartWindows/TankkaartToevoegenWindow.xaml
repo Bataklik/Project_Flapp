@@ -10,6 +10,7 @@
     Title="Flapp: Tankkaart Toevoegen"
     Width="300"
     Height="550"
+    Icon="/Images/flapp_icon_PuW_icon.ico"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
@@ -138,7 +139,7 @@
             Width="130"
             Margin="10,5,10,5"
             FontSize="16"
-            PreviewTextInput="txtPincode_PreviewTextInput"/>
+            PreviewTextInput="txtPincode_PreviewTextInput" />
         <ComboBox
             Name="cbGeblokkeerd"
             Grid.Row="3"

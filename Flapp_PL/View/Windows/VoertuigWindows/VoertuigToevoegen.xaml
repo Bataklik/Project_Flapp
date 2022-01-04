@@ -8,6 +8,7 @@
     Title="VoertuigToevoegen"
     Width="576"
     Height="409"
+    Icon="/Images/flapp_icon_PuW_icon.ico"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
@@ -207,8 +208,11 @@
             Grid.Column="1"
             Width="130"
             Margin="10,6,10,5"
+            DropDownClosed="cmbModel_DropDownClosed"
+            DropDownOpened="cmbModel_DropDownOpened"
             FontSize="16"
-            IsEditable="True" DropDownOpened="cmbModel_DropDownOpened" DropDownClosed="cmbModel_DropDownClosed" IsSynchronizedWithCurrentItem="False" />
+            IsEditable="True"
+            IsSynchronizedWithCurrentItem="False" />
         <TextBox
             Name="txtChassis"
             Grid.Row="3"

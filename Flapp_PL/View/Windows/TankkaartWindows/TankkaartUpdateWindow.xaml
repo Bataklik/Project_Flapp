@@ -10,6 +10,7 @@
     Title="Flapp: Tankkaart Updaten"
     Width="350"
     Height="570"
+    Icon="/Images/flapp_icon_PuW_icon.ico"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
@@ -154,8 +155,8 @@
             Grid.Column="1"
             Width="130"
             Margin="10,5,10,5"
-            FontSize="16" 
-            PreviewTextInput="txtPincode_PreviewTextInput"/>
+            FontSize="16"
+            PreviewTextInput="txtPincode_PreviewTextInput" />
         <StackPanel
             Grid.Row="4"
             Grid.RowSpan="2"
@@ -173,10 +174,10 @@
                     <ListView.ContextMenu>
                         <ContextMenu>
                             <MenuItem
-                            x:Name="VerwijderBestuurder"
-                            Click="VerwijderBestuurder_Click"
-                            Header="Verwijderen"
-                            Icon="{materialDesign:PackIcon Kind=Delete}" />
+                                x:Name="VerwijderBestuurder"
+                                Click="VerwijderBestuurder_Click"
+                                Header="Verwijderen"
+                                Icon="{materialDesign:PackIcon Kind=Delete}" />
                         </ContextMenu>
                     </ListView.ContextMenu>
                     <ListView.View>
