@@ -295,8 +295,8 @@
                                     Header="Nummerplaat" />
                                 <GridViewColumn
                                     Width="60"
-                                    DisplayMemberBinding="{Binding Chassisnummer}"
-                                    Header="Chassisnummer" />
+                                    DisplayMemberBinding="{Binding ChassisNummer}"
+                                    Header="ChassisNummer" />
                                 <GridViewColumn
                                     Width="60"
                                     DisplayMemberBinding="{Binding Merk}"

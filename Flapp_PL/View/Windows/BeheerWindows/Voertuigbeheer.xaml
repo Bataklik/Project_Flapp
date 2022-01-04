@@ -83,29 +83,26 @@
                 <TextBox
                     x:Name="txtMerk"
                     Width="100"
-                    Height="25"
-                    Margin="5" />
+                    Height="25" />
             </GroupBox>
             <GroupBox BorderBrush="Transparent" Header="Model: ">
 
                 <TextBox
                     x:Name="txtModel"
                     Width="100"
-                    Height="25"
-                    Margin="5" />
+                    Height="25" />
             </GroupBox>
             <GroupBox BorderBrush="Transparent" Header="Nummerplaat:">
                 <TextBox
                     x:Name="txtNummerplaat"
                     Width="100"
-                    Height="25"
-                    Margin="5" />
+                    Height="25" />
             </GroupBox>
-
             <Button
                 x:Name="btnZoek"
                 Width="50"
                 Height="20"
+                Margin="0,30,0,15"
                 Click="btnZoek_Click">
                 <StackPanel Orientation="Horizontal">
                     <materialDesign:PackIcon
