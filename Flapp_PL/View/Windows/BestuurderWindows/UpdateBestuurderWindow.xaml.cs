@@ -44,10 +44,10 @@ namespace Flapp_PL.View.Windows.BestuurderWindows {
                 Bestuurder.ZetRijksregisternummer(txtRijksregister.Text);
                 Bestuurder.ZetRijbewijsLijst(lstRijbewijzen.Items.Cast<Rijbewijs>().ToList());
 
-                Bestuurder.ZetAdres((Adres)lstAdres.Items[0]);
-                //Bestuurder.ZetVoertuig((Voertuig)lstVoertuig.Items[0]);
+
+                if (lstAdres.Items.Count > 0) { Bestuurder.ZetVoertuig((Voertuig)lstVoertuig.Items[0]); }
                 if (lstVoertuig.Items.Count > 0) { Bestuurder.ZetVoertuig((Voertuig)lstVoertuig.Items[0]); }
-                Bestuurder.ZetTankkaart((Tankkaart)lstTankkaart.Items[0]);
+                if (lstTankkaart.Items.Count > 0) { Bestuurder.ZetTankkaart((Tankkaart)lstTankkaart.Items[0]); }
 
                 _bestuurderManager.UpdateBestuurder(Bestuurder);
                 MessageBox.Show("Bestuurder is geüpdatet!", "Updaten gelukt!", MessageBoxButton.OK, MessageBoxImage.Asterisk);
