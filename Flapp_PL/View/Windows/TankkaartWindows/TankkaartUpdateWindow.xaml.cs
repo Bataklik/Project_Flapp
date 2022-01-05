@@ -47,24 +47,27 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
         }
 
         private void btnBestuurderbeheer_Click(object sender, RoutedEventArgs e) {
-            TankkaartUpdateWindow ttw = this;
-            new Bestuurderbeheer(ttw).ShowDialog();
+            if (lstBestuurder.Items.Count == 0) {
+                TankkaartUpdateWindow ttw = this;
+                new Bestuurderbeheer(ttw).ShowDialog();
+            } else {
+                MessageBox.Show("Gelieve eerst de bestuurder te verwijderen!");
+            }
+            
         }
 
         private void laadWaarden() {
-            txtKaartnummer.Text = Convert.ToString(Tankkaart.Kaartnummer);
             txtKaartnummer.IsEnabled = false;
+            txtKaartnummer.Text = $"{Tankkaart.Kaartnummer}";
             dpGeldigheidsdatum.SelectedDate = Tankkaart.Geldigheidsdatum;
-            txtPincode.Text = Tankkaart.Pincode;
-            List<Bestuurder> bestuurders = new List<Bestuurder>();
-            if (Tankkaart.Bestuurder != null) {
-                bestuurders.Add(Tankkaart.Bestuurder);
-                lstBestuurder.ItemsSource = bestuurders;
-            } 
+            txtPincode.Text = $"{Tankkaart.Pincode}";
             if (Tankkaart.Geblokkeerd) cbGeblokkeerd.SelectedIndex = 0;
             cbGeblokkeerd.SelectedIndex = 1;
             cbBrandstoffen.ItemsSource = _brandstofManager.GeefAlleBrandstoffen();
             lbBrandstof.ItemsSource = Tankkaart.Brandstoffen;
+            Brandstoffen = new ObservableCollection<Brandstof>(Tankkaart.Brandstoffen);
+
+            if (Tankkaart.Bestuurder != null) lstBestuurder.Items.Add(Tankkaart.Bestuurder);
         }
 
         private void btnVoegBrandstofToe_Click(object sender, RoutedEventArgs e) {
@@ -75,8 +78,10 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
         }
 
         private void btnVerwijderBrandstof_Click(object sender, RoutedEventArgs e) {
-            if ((Brandstof)cbBrandstoffen.SelectedItem == null) { MessageBox.Show("U heeft geen brandstof aangeduid!"); return; }
-            lbBrandstof.Items.Remove((Brandstof)cbBrandstoffen.SelectedItem);
+            if ((Brandstof)cbBrandstoffen.SelectedItem == null) { MessageBox.Show("U heeft geen rijbewijs aangeduid!"); return; }
+            if (!lbBrandstof.Items.Contains((Brandstof)cbBrandstoffen.SelectedItem)) { MessageBox.Show("Rijbewijs staat niet al op de lijst!"); return; }
+            Brandstoffen.Remove((Brandstof)cbBrandstoffen.SelectedItem);
+            lbBrandstof.ItemsSource = Brandstoffen;
         }
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e) {

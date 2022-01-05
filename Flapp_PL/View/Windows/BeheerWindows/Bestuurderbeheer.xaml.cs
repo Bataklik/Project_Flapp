@@ -53,8 +53,10 @@ namespace Flapp_PL.View.Windows.BeheerWindows {
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
+
         private void miSelecteer_Click(object sender, RoutedEventArgs e) {
-            if (lstBestuurder.SelectedItems == null) { MessageBox.Show("U heeft geen bestuurder geselecteerd!"); return; }
+            if (lstBestuurder.SelectedItem == null) { MessageBox.Show("U heeft geen bestuurder geselecteerd!"); return; }
+
             if (_voertuigToevoegenWindow == null && _tankkaartToevoegenWindow == null && _tankkaartUpdateWindow == null) {
                 _voertuigUpdatenWindow.lstBestuurder.Items.Clear();
                 _voertuigUpdatenWindow.lstBestuurder.Items.Add((Bestuurder)lstBestuurder.SelectedItem);
@@ -65,12 +67,13 @@ namespace Flapp_PL.View.Windows.BeheerWindows {
             else if (_voertuigToevoegenWindow == null && _voertuigUpdatenWindow == null && _tankkaartUpdateWindow == null) {
                 _tankkaartToevoegenWindow.lstBestuurder.Items.Clear();
                 _tankkaartToevoegenWindow.lstBestuurder.Items.Add((Bestuurder)lstBestuurder.SelectedItem);
-            }else if (_voertuigToevoegenWindow == null && _voertuigUpdatenWindow == null && _tankkaartToevoegenWindow == null) {
-                _tankkaartUpdateWindow.lstBestuurder.Items.Clear();
+            }else {
+                _tankkaartUpdateWindow.lstBestuurder.ItemsSource = null;
                 _tankkaartUpdateWindow.lstBestuurder.Items.Add((Bestuurder)lstBestuurder.SelectedItem);
             }
             Close();
         }
+
         private void btnZoek_Click(object sender, RoutedEventArgs e) {
 
         }
