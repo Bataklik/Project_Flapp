@@ -76,14 +76,16 @@ namespace Flapp_PL.View.Windows.VoertuigWindow {
 
                 if (string.IsNullOrWhiteSpace(cmbMerk.Text) || string.IsNullOrWhiteSpace(cmbModel.Text) || string.IsNullOrWhiteSpace(txtChassis.Text) || string.IsNullOrWhiteSpace(txtNummerplaat.Text) || lstBestuurder.Items == null || string.IsNullOrWhiteSpace((string)cmbType.SelectedItem) || string.IsNullOrWhiteSpace(txtKleur.Text) || string.IsNullOrWhiteSpace(txtDeuren.Text)) { MessageBox.Show("Niet alle velden zijn ingevuld!"); return; }
 
+                
+                voertuig.ZetVoeruigID(_voertuigManager.VoegVoertuigToe(voertuig));
+                _brandstofmanager.VoegBrandstofToeAanVoertuig(voertuig.VoertuigID, voertuig.Brandstof);
+                
                 if (lstBestuurder.Items.Count > 0) {
                     Bestuurder b = (Bestuurder)lstBestuurder.Items[0];
                     b.ZetVoertuig(voertuig);
                     voertuig.ZetBestuurder((Bestuurder)lstBestuurder.Items[0]);
                     _bestuurderManager.UpdateBestuurder(b);
                 }
-                voertuig.ZetVoeruigID(_voertuigManager.VoegVoertuigToe(voertuig));
-                _brandstofmanager.VoegBrandstofToeAanVoertuig(voertuig.VoertuigID, voertuig.Brandstof);
                 MessageBox.Show("Voertuig is toegevoegd!");
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
