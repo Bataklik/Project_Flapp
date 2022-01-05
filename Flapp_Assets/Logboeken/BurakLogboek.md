@@ -4,7 +4,7 @@
 
 > Logboek Burak Balci
 
-| Duurr                             | Beschrijving                                                                           |
+| Uren                              | Beschrijving                                                                           |
 |-----------------------------------|----------------------------------------------------------------------------------------|
 |                                   |                                                                                        |
 | 2                                 | Project uitleg                                                                         |
@@ -28,7 +28,7 @@
 | 3                                 | Proberen van GeefAlleBestrders te maken, maar datm wordt in andere format terg gegeven |
 | 2                                 | Created ZoekBestrderWindow with *Tibo*                                                 |
 | 1                                 | Connection Mainscreen                                                                  |
-|  1.3                              | Work on Voeg bestrder toe                                                              |
+| 1.3                              | Work on Voeg bestrder toe                                                              |
 | 2                                 | Bestrder toevoegen works now                                                           |
 | 1                                 | Bestrder Zoeken on name.                                                               |
 | 1                                 | Bestrder UC ListBox Changed to ListView + Styles                                       |
@@ -36,9 +36,9 @@
 | 1                                 | Docmentatie start                                                                      |
 | 2                                 | Docmentatie Connectie & Bestrder Toevoegen                                             |
 | 1                                 | Refactor WPF                                                                           |
-|  2.3                              | Zoekbestrder add toggle btton                                                          |
+| 2.3                              | Zoekbestrder add toggle btton                                                          |
 | 2                                 | Adresbeheer zoeken aangepast + docmentatie verplaatst naar wiki                        |
-|  1.3                              | Voertigbeheer zoeken aangepast                                                         |
+| 1.3                              | Voertigbeheer zoeken aangepast                                                         |
 | 53                                | TOTAAL                                                                                 |
 
 
