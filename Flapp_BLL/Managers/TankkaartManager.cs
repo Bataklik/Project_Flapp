@@ -49,6 +49,11 @@ namespace Flapp_BLL.Managers {
             catch (Exception ex) { throw new TankkaartManagerException("TankkaartManager", ex); }
         }
 
+        public Tankkaart GeefTankkaart(int kaartnr) {
+            try { return _repo.GeefTankkaart(kaartnr); }
+            catch (Exception ex) { throw new TankkaartManagerException("TankkaartManager", ex); }
+        }
+
         public bool BestaatBestuurder(Bestuurder bestuurder) {
             try {
                 return _repo.BestaatBestuurder(bestuurder);

@@ -6,6 +6,7 @@ namespace Flapp_BLL.Interfaces
 {
     public interface ITankkaartRepo
     {
+        Tankkaart GeefTankkaart(int kaartnr);
         bool BestaatTankkaart(Tankkaart tankkaart);
         bool BestaatTankkaart(int kaart);
         int VoegTankkaartToe(Tankkaart tankkaart);

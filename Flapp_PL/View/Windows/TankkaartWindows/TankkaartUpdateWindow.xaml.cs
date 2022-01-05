@@ -68,8 +68,8 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
         }
 
         private void btnVoegBrandstofToe_Click(object sender, RoutedEventArgs e) {
-            if ((Brandstof)cbBrandstoffen.SelectedItem == null) { MessageBox.Show("U heeft geen rijbewijs aangeduid!"); return; }
-            if (lbBrandstof.Items.Contains((Brandstof)cbBrandstoffen.SelectedItem)) { MessageBox.Show("Rijbewijs staat al op de lijst!"); return; }
+            if ((Brandstof)cbBrandstoffen.SelectedItem == null) { MessageBox.Show("U heeft geen brandstof aangeduid!"); return; }
+            if (lbBrandstof.Items.Contains((Brandstof)cbBrandstoffen.SelectedItem)) { MessageBox.Show("Brandstof staat al op de lijst!"); return; }
             Brandstoffen.Add((Brandstof)cbBrandstoffen.SelectedItem);
             lbBrandstof.ItemsSource = Brandstoffen;
         }
@@ -88,12 +88,17 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
                 if (cbGeblokkeerd.SelectedIndex == 0) { geblokkeerd = true;  }
                 Tankkaart.ZetGeblokkeerd(geblokkeerd);
                 if (lstBestuurder.Items.Count > 0) Tankkaart.ZetBestuurder((Bestuurder)lstBestuurder.Items[0]);
-                Tankkaart.ZetBrandstoffen(lbBrandstof.Items.Cast<Brandstof>().ToList());
+                List<Brandstof> lbBrandstoffen = new List<Brandstof>();
+                foreach (var b in lbBrandstof.Items.Cast<Brandstof>().ToList()) {
+                    lbBrandstoffen.Add(_brandstofManager.GeefBrandstof(b));
+                }
+                Tankkaart.ZetBrandstoffen(lbBrandstoffen);
                 _tankkaartManager.UpdateTankkaart(Tankkaart);
                 _brandstofManager.VerwijderBrandstofBijTankkaart(Tankkaart.Kaartnummer);
                 _brandstofManager.VoegBrandstofToeAanTankkaart(Tankkaart.Kaartnummer, Tankkaart.Brandstoffen);
                 if (Tankkaart.Bestuurder != null) _bestuurderManager.VoegTankkaartToeAanBestuurder(Tankkaart);
                 MessageBox.Show("Updaten gelukt!");
+
                 _tUC.lstTankkaarten.ItemsSource = _tankkaartManager.GeefAlleTankkaarten().Values;
                 Close();
             }
