@@ -9,7 +9,7 @@ namespace Flapp_PL {
     public partial class MainWindow : Window {
         ConnectionManager cm;
         public MainWindow() {
-            Application.Current.Properties["User"] = ConfigurationManager.ConnectionStrings["connStringA"].ConnectionString;
+            Application.Current.Properties["User"] = ConfigurationManager.ConnectionStrings["connStringAA"].ConnectionString;
             cm = new ConnectionManager(new ConnectionRepo((string)Application.Current.Properties["User"]));
             InitializeComponent();
             //cbUsers.ItemsSource = new List<string> { "Raf", "TiboD", "TiboL", "Burak", "Azure" };
