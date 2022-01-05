@@ -385,13 +385,19 @@ namespace Flapp_DAL.Repository {
                 try {
                     SqlDataReader r = cmd.ExecuteReader();
                     while (r.Read()) {
-                        if (bestuurders.ContainsKey((int)r["bestuurderId"])) { bestuurders[(int)r["bestuurderId"]].Rijbewijzen.Add(new Rijbewijs(r[12].ToString())); bestuurders[(int)r["bestuurderId"]].Voertuig.Brandstof.Add(new Brandstof(r[29].ToString())); }
+                        var bestId = (int)r["bestuurderId"];
+                        Bestuurder bestuurder;
+                        if (bestuurders.ContainsKey((int)r["bestuurderId"])) {
+                            bestuurder = bestuurders[(int)r["bestuurderId"]];
+                            bestuurder.Rijbewijzen.Add(new Rijbewijs(r[12].ToString()));
+                            if (DBNull.Value != r[29]) { bestuurders[(int)r["bestuurderId"]].Voertuig.Brandstof.Add(new Brandstof(r[29].ToString())); }
+                        }
                         else {
                             Adres adres = null;
                             if (!r.IsDBNull(r.GetOrdinal("adresId")) && !r.IsDBNull(r.GetOrdinal("straat")) && !r.IsDBNull(r.GetOrdinal("huisnummer")) && !r.IsDBNull(r.GetOrdinal("stad")) && !r.IsDBNull(r.GetOrdinal("postcode"))) { adres = new Adres((int)r["adresId"], (string)r["straat"], (string)r["huisnummer"], (string)r["stad"], (int)r["postcode"]); }
                             Geslacht geslacht = (bool)r["geslacht"] ? Geslacht.M : Geslacht.V;
                             List<Rijbewijs> rijbewijzen = new List<Rijbewijs> { new Rijbewijs(r[12].ToString()) };
-                            Bestuurder bestuurder = new Bestuurder((int)r["bestuurderId"], (string)r["naam"], (string)r["voornaam"], geslacht, adres, Convert.ToDateTime(r["geboortedatum"]).ToString("dd/MM/yyyy"), (string)r["rijksregister"], rijbewijzen, null, null);
+                            bestuurder = new Bestuurder((int)r["bestuurderId"], (string)r["naam"], (string)r["voornaam"], geslacht, adres, Convert.ToDateTime(r["geboortedatum"]).ToString("dd/MM/yyyy"), (string)r["rijksregister"], rijbewijzen, null, null);
                             if (!r.IsDBNull(r.GetOrdinal("voertuigId"))) {
                                 string naam = r[29].ToString();
                                 List<Brandstof> brandstoffen = new List<Brandstof> { new Brandstof(naam) };
@@ -400,6 +406,7 @@ namespace Flapp_DAL.Repository {
                             }
                             if (!r.IsDBNull(r.GetOrdinal("tankkaartId"))) {
                                 Tankkaart tankkaart = new Tankkaart((int)r["tankkaartId"], (DateTime)r["geldigheidsdatum"], (string)r["pincode"], (bool)r["geblokkeerd"]);
+                                if (DBNull.Value != r[29]) { tankkaart.Brandstoffen.Add(new Brandstof(r[29].ToString())); ; }
                                 bestuurder.ZetTankkaart(tankkaart);
                             }
 
@@ -469,7 +476,7 @@ namespace Flapp_DAL.Repository {
                             Bestuurder bestuurder = new Bestuurder((int)r["bestuurderId"], (string)r["naam"], (string)r["voornaam"], geslacht, adres, Convert.ToDateTime(r["geboortedatum"]).ToString("dd/MM/yyyy"), (string)r["rijksregister"], rijbewijzen, null, null);
 
                             if (!r.IsDBNull(r.GetOrdinal("voertuigId"))) {
-                                List<Brandstof> brandstoffen = new List<Brandstof> { new Brandstof(int.Parse(r[28].ToString()) ,r[29].ToString()) };
+                                List<Brandstof> brandstoffen = new List<Brandstof> { new Brandstof(int.Parse(r[28].ToString()), r[29].ToString()) };
                                 Voertuig voertuig = new Voertuig((int)r["voertuigId"], (string)r["merk"], (string)r["model"], (string)r["chassisnummer"], (string)r["nummerplaat"], brandstoffen, (string)r["type"], (string)r["kleur"], (int)r["deuren"], bestuurder);
                                 bestuurder.ZetVoertuig(voertuig);
                             }
