@@ -25,7 +25,7 @@ namespace Flapp_PL.View.UserControls {
             laadTankkaarten();
         }
 
-        private void laadTankkaarten() {
+        public void laadTankkaarten() {
             try {
                 lstTankkaarten.ItemsSource = _tankkaartManager.GeefAlleTankkaarten().Values;
             }

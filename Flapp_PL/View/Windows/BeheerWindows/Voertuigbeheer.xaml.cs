@@ -32,7 +32,6 @@ namespace Flapp_PL.View.Windows.BeheerWindows {
         private void miVoegToe_Click(object sender, RoutedEventArgs e) {
             new VoertuigToevoegen(this).ShowDialog();
         }
-
         private void miVerwijderen_Click(object sender, RoutedEventArgs e) {
             if (lstVoertuigen.SelectedItem == null) { MessageBox.Show("U heeft geen tankkaart geselecteerd"); }
             try {
@@ -41,7 +40,6 @@ namespace Flapp_PL.View.Windows.BeheerWindows {
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
-
         private void miSelecteer_Click(object sender, RoutedEventArgs e) {
             if (lstVoertuigen.SelectedItems == null) { MessageBox.Show("U heeft geen voertuig geselecteerd!"); return; }
             if (_parentWindow == null) {

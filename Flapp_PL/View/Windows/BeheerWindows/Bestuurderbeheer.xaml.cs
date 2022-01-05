@@ -17,7 +17,6 @@ namespace Flapp_PL.View.Windows.BeheerWindows {
         private VoertuigUpdaten _voertuigUpdatenWindow;
         private TankkaartToevoegenWindow _tankkaartToevoegenWindow;
         private TankkaartUpdateWindow _tankkaartUpdateWindow;
-
         private BestuurderManager _bestuurderManager;
         public Bestuurderbeheer(VoertuigToevoegen voertuigToevoegenWindow) {
             InitializeComponent();
@@ -75,7 +74,7 @@ namespace Flapp_PL.View.Windows.BeheerWindows {
         }
 
         private void btnZoek_Click(object sender, RoutedEventArgs e) {
-
+            
         }
     }
 }

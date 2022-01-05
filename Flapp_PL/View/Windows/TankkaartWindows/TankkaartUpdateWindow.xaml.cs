@@ -93,6 +93,7 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
                 if (cbGeblokkeerd.SelectedIndex == 0) { geblokkeerd = true;  }
                 Tankkaart.ZetGeblokkeerd(geblokkeerd);
                 if (lstBestuurder.Items.Count > 0) Tankkaart.ZetBestuurder((Bestuurder)lstBestuurder.Items[0]);
+                else { Tankkaart.ZetBestuurder(null); }
                 List<Brandstof> lbBrandstoffen = new List<Brandstof>();
                 foreach (var b in lbBrandstof.Items.Cast<Brandstof>().ToList()) {
                     lbBrandstoffen.Add(_brandstofManager.GeefBrandstof(b));
@@ -115,8 +116,9 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
                 if ((Bestuurder)lstBestuurder.SelectedItem == null) { MessageBox.Show("U heeft geen bestuurder gekozen!", "Geen bestuurder!", MessageBoxButton.OK, MessageBoxImage.Error); return; }
                 if (MessageBox.Show("Bent u zeker?", "Opgelet!", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes) {
                     _bestuurderManager.VerwijderTankkaartVanBestuurder((Bestuurder)lstBestuurder.SelectedItem);
+                    lstBestuurder.Items.Remove((Bestuurder)lstBestuurder.SelectedItem);
                 }
-                lstBestuurder.ItemsSource = null;
+                _tUC.laadTankkaarten();
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
