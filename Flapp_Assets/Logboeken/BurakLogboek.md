@@ -4,40 +4,42 @@
 
 > Logboek Burak Balci
 
-| Duur | Beschrijving                                               |
-| ---- | ---------------------------------------------------------- |
-| 2u   | Project uitleg                                             |
-| 2u   | Groepje samenstellen + rollen, Github & C# project starten |
-| 3u   | Nieuwe klassen + mappen in project gemaakt                 |
-| 3u   | Bestuurder + Tankaart Update & andere klassen              |
-| 2u   | Refactoring model klassen en enkele aanpassingen           |
-| 1u   | Refactor bestuurder classe                                 |
-| 2u   | Refactor Voertuig + Tankkaart classe                       |
-| 2u   | xUnit project + 1 bestuurder ctor test aangemaakt          |
-| 2u   | Adres Test + beetje bestuurder Test                        |
-| 2u   | Create Datalaag + BestuurderRepo, Exceptions -> Public     |
-| 1u   | Create sql table files                                     |
-| 2u   | Create Adres interface, repo, manager                      |
-| 2u   | Create 2 ManagerExceptions, 3 nieuwe folders in Exceptions |
-| 2u   | Add VoegRijbewijsToe, VoegBrandstofToe met bijhorende methods |
-| 2u   | Change RijbewijsType -> List<RijbewijsType> & Change errors|
-| 3u   | Rework sql tables and add CreateAll.sql                    |
-| 2.3u | Create Brandstof_Tankkaart sql table & rework db           |
-| 2u   | Check Adres, Rijbewijs Toevoegen & Geven                   |
-| 3u   | Proberen van GeefAlleBestuurders te maken, maar datum wordt in andere format terug gegeven |
-| 2u   | Created ZoekBestuurderWindow with *Tibo*                   |
-| 1u   | Connection Mainscreen                                      |
-| 1.3u | Work on Voeg bestuurder toe                                |
-| 2u   | Bestuurder toevoegen works now                             |
-| 1u   | Bestuurder Zoeken on name.                                 |
-| 1u   | Bestuurder UC ListBox Changed to ListView + Styles         |
-| 2u   | Adresbeheer & BestuurderToevoegen window Update            |
-| 1u   | Documentatie start                                         |
-| 2u   | Documentatie Connectie & Bestuurder Toevoegen              |
-| 1u   | Refactor WPF                                               |
-| 2.3u | Zoekbestuurder add toggle button                           |
-| 2u | Adresbeheer zoeken aangepast + documentatie verplaatst naar wiki  |
-| 1.3u | Voertuigbeheer zoeken aangepast  |
+| Uren                              | Beschrijving                                                                           |
+|-----------------------------------|----------------------------------------------------------------------------------------|
+|                                   |                                                                                        |
+| 2                                 | Project uitleg                                                                         |
+| 2                                 | Groepje samenstellen + rollen, Githb & C# project starten                              |
+| 3                                 | Niewe klassen + mappen in project gemaakt                                              |
+| 3                                 | Bestuurder + Tankaart Update & andere klassen                                          |
+| 2                                 | Refactoring model klassen en enkele aanpassingen                                       |
+| 1                                 | Refactor bestrder classe                                                               |
+| 2                                 | Refactor Voertig + Tankkaart classe                                                    |
+| 2                                 | xUnit project + 1 bestrder ctor test aangemaakt                                        |
+| 2                                 | Adres Test + beetje bestrder Test                                                      |
+| 2                                 | Create Datalaag + BestrderRepo, Exceptions -> Pblic                                    |
+| 1                                 | Create sql table files                                                                 |
+| 2                                 | Create Adres interface, repo, manager                                                  |
+| 2                                 | Create 2 ManagerExceptions, 3 niewe folders in Exceptions                              |
+| 2                                 | Add VoegRijbewijsToe, VoegBrandstofToe met bijhorende methods                          |
+| 2                                 | Change RijbewijsType -> List<RijbewijsType> & Change errors                            |
+| 3                                 | Rework sql tables and add CreateAll.sql                                                |
+| 2.3                               | Create Brandstof_Tankkaart sql table & rework db                                       |
+| 2                                 | Check Adres, Rijbewijs Toevoegen & Geven                                               |
+| 3                                 | Proberen van GeefAlleBestrders te maken, maar datm wordt in andere format terg gegeven |
+| 2                                 | Created ZoekBestrderWindow with *Tibo*                                                 |
+| 1                                 | Connection Mainscreen                                                                  |
+| 1.3                               | Work on Voeg bestrder toe                                                              |
+| 2                                 | Bestrder toevoegen works now                                                           |
+| 1                                 | Bestrder Zoeken on name.                                                               |
+| 1                                 | Bestrder UC ListBox Changed to ListView + Styles                                       |
+| 2                                 | Adresbeheer & BestrderToevoegen window Update                                          |
+| 1                                 | Docmentatie start                                                                      |
+| 2                                 | Docmentatie Connectie & Bestrder Toevoegen                                             |
+| 1                                 | Refactor WPF                                                                           |
+| 2.3                               | Zoekbestrder add toggle btton                                                          |
+| 2                                 | Adresbeheer zoeken aangepast + docmentatie verplaatst naar wiki                        |
+| 1.3                               | Voertigbeheer zoeken aangepast                                                         |
+| 53                                | TOTAAL                                                                                 |
 
 
 

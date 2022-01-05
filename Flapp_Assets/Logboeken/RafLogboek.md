@@ -45,3 +45,8 @@
 | 1    | Add BestuurderBeheerder                          |
 | 1    | Delete brandstof by voertuigZoeken        |
 | 0.5  | Change lay-out voertuigUpdaten                   |
+|  1 | Fix nummerplaatchecker               |
+| 2  | fix selectmerk & selectmodel                   |
+|   |                    |
+| 69.5  | TOTAAL               |
+
