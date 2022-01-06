@@ -40,7 +40,8 @@
 | 2                                 | Adresbeheer zoeken aangepast + docmentatie verplaatst naar wiki                        |
 | 1.3                               | Voertigbeheer zoeken aangepast                                                         |
 | 3                                 | Refactor alle GeefAlleBestuurder                                                       |
-| 56                                | TOTAAL                                                                                 |
+| 2                                 | Documentatie en alle Images resizen                                                    |
+| 58                                | TOTAAL                                                                                 |
 
 
 
