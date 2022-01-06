@@ -47,9 +47,14 @@ namespace Flapp_PL.View.Windows.BestuurderWindows {
                 Bestuurder.ZetRijbewijsLijst(lstRijbewijzen.Items.Cast<Rijbewijs>().ToList());
 
 
-                if (lstAdres.Items.Count > 0) { Bestuurder.ZetVoertuig((Voertuig)lstVoertuig.Items[0]); }
+                if (lstAdres.Items.Count > 0) { Bestuurder.ZetAdres((Adres)lstAdres.Items[0]); }
+                else { Bestuurder.ZetAdres(null); }
+
                 if (lstVoertuig.Items.Count > 0) { Bestuurder.ZetVoertuig((Voertuig)lstVoertuig.Items[0]); }
+                else { Bestuurder.ZetVoertuig(null); }
+
                 if (lstTankkaart.Items.Count > 0) { Bestuurder.ZetTankkaart((Tankkaart)lstTankkaart.Items[0]); }
+                else { Bestuurder.ZetTankkaart(null); }
 
                 _bestuurderManager.UpdateBestuurder(Bestuurder);
                 MessageBox.Show("Bestuurder is geüpdatet!", "Updaten gelukt!", MessageBoxButton.OK, MessageBoxImage.Asterisk);

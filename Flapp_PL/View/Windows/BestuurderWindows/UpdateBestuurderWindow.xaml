@@ -383,15 +383,15 @@
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn
-                                        Width="80"
+                                        Width="50"
                                         DisplayMemberBinding="{Binding Kaartnummer}"
                                         Header="Kaartnummer" />
                                     <GridViewColumn
-                                        Width="80"
-                                        DisplayMemberBinding="{Binding Geldigheidsdatum}"
+                                        Width="100"
+                                        DisplayMemberBinding="{Binding Geldigheidsdatum, StringFormat='dd/MM/yyyy'}"
                                         Header="Geldigheidsdatum" />
                                     <GridViewColumn
-                                        Width="80"
+                                        Width="90"
                                         DisplayMemberBinding="{Binding Geblokkeerd}"
                                         Header="Geblokkeerd" />
                                 </GridView>
