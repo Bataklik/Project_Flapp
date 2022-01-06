@@ -35,6 +35,8 @@ namespace Flapp_PL.View.Windows.BestuurderWindows {
             laadBestuurder();
 
         }
+
+        #region Click Methods
         private void btnUpdate_Click(object sender, RoutedEventArgs e) {
             try {
                 Bestuurder.ZetNaam(toUpperFirstletter(txtNaam.Text));
@@ -57,18 +59,6 @@ namespace Flapp_PL.View.Windows.BestuurderWindows {
             catch (Exception ex) { MessageBox.Show(ex.Message); }
 
         }
-        private void cbRijbewijzen_Loaded(object sender, RoutedEventArgs e) {
-            try {
-                cbRijbewijzen.ItemsSource = _rijbewijsManager.GeefAlleRijbewijzen();
-            }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
-        }
-        private void cbGeslacht_Loaded(object sender, RoutedEventArgs e) {
-            List<string> geslachten = new List<string> { "Man", "Vrouw" };
-            var box = sender as ComboBox;
-            box.ItemsSource = geslachten;
-            box.SelectedIndex = 0;
-        }
         private void btnAddRijbewijs_Click(object sender, RoutedEventArgs e) {
             if ((Rijbewijs)cbRijbewijzen.SelectedItem == null) { MessageBox.Show("U heeft geen rijbewijs aangeduid!"); return; }
             if (lstRijbewijzen.Items.Contains((Rijbewijs)cbRijbewijzen.SelectedItem)) { MessageBox.Show("Rijbewijs staat al op de lijst!"); return; }
@@ -81,11 +71,6 @@ namespace Flapp_PL.View.Windows.BestuurderWindows {
             Rijbewijzen.Remove((Rijbewijs)lstRijbewijzen.SelectedItem);
             lstRijbewijzen.ItemsSource = Rijbewijzen;
         }
-        private void txtPostcode_PreviewTextInput(object sender, TextCompositionEventArgs e) {
-            Regex regex = new Regex("[^0-9]+");
-            e.Handled = regex.IsMatch(e.Text);
-        }
-
         private void btnAdresbeheer_Click(object sender, RoutedEventArgs e) {
             new Adresbeheer(this).ShowDialog();
         }
@@ -95,7 +80,51 @@ namespace Flapp_PL.View.Windows.BestuurderWindows {
         private void btnTankkaartbeheer_Click(object sender, RoutedEventArgs e) {
             new Tankaartbeheer(this).ShowDialog();
         }
+        private void btnAnnuleer_Click(object sender, RoutedEventArgs e) {
+            Close();
+        }
+        private void miDeselecterenAdres_Click(object sender, RoutedEventArgs e) {
+            if (lstAdres.Items.Count < 1) { MessageBox.Show("Er is geen adres geselecteerd!", "Geen Adressen!", MessageBoxButton.OK, MessageBoxImage.Information); return; }
+            MessageBoxResult result = MessageBox.Show("Wilt u adres niet meer selecteren?", "Niet Selecteren!", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+            if (result == MessageBoxResult.Yes) { lstAdres.Items.Clear(); }
+        }
+        private void miDeselecterenVoertuig_Click(object sender, RoutedEventArgs e) {
+            if (lstVoertuig.Items.Count < 1) { MessageBox.Show("Er is geen voertuig geselecteerd!", "Geen Voertuig!", MessageBoxButton.OK, MessageBoxImage.Information); return; }
+            MessageBoxResult result = MessageBox.Show("Wilt u voertuig niet meer selecteren?", "Niet Selecteren!", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+            if (result == MessageBoxResult.Yes) { lstVoertuig.Items.Clear(); }
 
+        }
+        private void miDeselecterenTankkaart_Click(object sender, RoutedEventArgs e) {
+            if (lstTankkaart.Items.Count < 1) { MessageBox.Show("Er is geen tankkaart geselecteerd!", "Geen Tankkaart!", MessageBoxButton.OK, MessageBoxImage.Information); return; }
+            MessageBoxResult result = MessageBox.Show("Wilt u tankkaart niet meer selecteren?", "Niet Selecteren!", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+            if (result == MessageBoxResult.Yes) { lstTankkaart.Items.Clear(); }
+
+        }
+        #endregion
+
+        #region Loaded Methods
+        private void cbRijbewijzen_Loaded(object sender, RoutedEventArgs e) {
+            try {
+                cbRijbewijzen.ItemsSource = _rijbewijsManager.GeefAlleRijbewijzen();
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+        }
+        private void cbGeslacht_Loaded(object sender, RoutedEventArgs e) {
+            List<string> geslachten = new List<string> { "Man", "Vrouw" };
+            var box = sender as ComboBox;
+            box.ItemsSource = geslachten;
+            box.SelectedIndex = 0;
+        }
+        #endregion
+
+        #region PreviewTextInput Methods
+        private void txtPostcode_PreviewTextInput(object sender, TextCompositionEventArgs e) {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+        #endregion
+
+        #region Helpers
         private void laadBestuurder() {
             txtNaam.Text = Bestuurder.Naam;
             txtVoornaam.Text = Bestuurder.Voornaam;
@@ -111,8 +140,6 @@ namespace Flapp_PL.View.Windows.BestuurderWindows {
             if (Bestuurder.Tankkaart != null) { lstTankkaart.Items.Add(Bestuurder.Tankkaart); }
 
         }
-        private void btnAnnuleer_Click(object sender, RoutedEventArgs e) {
-            Close();
-        }
+        #endregion
     }
 }
