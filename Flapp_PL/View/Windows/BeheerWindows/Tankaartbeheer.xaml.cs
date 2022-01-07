@@ -27,7 +27,7 @@ namespace Flapp_PL.View.Windows.BeheerWindows {
 
         public void LaadTankkaarten() {
             try {
-                lstTankkaarten.ItemsSource = _tankkaartManager.GeefAlleTankkaarten().Values;
+                lstTankkaarten.ItemsSource = _tankkaartManager.GeefAlleTankkaartenZonderBestuurder().Values;
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
         }

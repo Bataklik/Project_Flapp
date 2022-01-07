@@ -2,10 +2,8 @@
 using System;
 using System.Collections.Generic;
 
-namespace Flapp_BLL.Interfaces
-{
-    public interface ITankkaartRepo
-    {
+namespace Flapp_BLL.Interfaces {
+    public interface ITankkaartRepo {
         Tankkaart GeefTankkaart(int kaartnr);
         bool BestaatTankkaart(Tankkaart tankkaart);
         bool BestaatTankkaart(int kaart);
@@ -19,5 +17,6 @@ namespace Flapp_BLL.Interfaces
         Dictionary<int, Tankkaart> GeefAlleTankkaarten(); //Voor een lijst voor tankkaarten;
         Dictionary<int, Tankkaart> GeefAlleTankkaartenOpKaartnummer(int kaartnummer); //Voor een lijst voor tankkaarten;
         Dictionary<int, Tankkaart> GeefAlleTankkaartenOpGeldigheidsdatum(DateTime geldigheidsdatum); //Voor een lijst voor tankkaarten;
+        Dictionary<int, Tankkaart> GeefAlleTankkaartenZonderBestuurder();
     }
 }

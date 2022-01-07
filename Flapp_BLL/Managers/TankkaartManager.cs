@@ -23,7 +23,7 @@ namespace Flapp_BLL.Managers {
             try {
                 _repo.VerwijderTankkaart(tankkaart);
             }
-             catch (Exception ex) { throw new TankkaartManagerException("TankkaartManager", ex); }
+            catch (Exception ex) { throw new TankkaartManagerException("TankkaartManager", ex); }
         }
 
         public void UpdateTankkaart(Tankkaart tankkaart) {
@@ -46,6 +46,11 @@ namespace Flapp_BLL.Managers {
 
         public Dictionary<int, Tankkaart> GeefAlleTankkaartenOpGeldigheidsdatum(DateTime geldigheidsdatum) {
             try { return _repo.GeefAlleTankkaartenOpGeldigheidsdatum(geldigheidsdatum); }
+            catch (Exception ex) { throw new TankkaartManagerException("TankkaartManager", ex); }
+        }
+
+        public Dictionary<int, Tankkaart> GeefAlleTankkaartenZonderBestuurder() {
+            try { return _repo.GeefAlleTankkaartenZonderBestuurder(); }
             catch (Exception ex) { throw new TankkaartManagerException("TankkaartManager", ex); }
         }
 
