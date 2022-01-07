@@ -80,14 +80,30 @@
             Grid.Column="1"
             Margin="5,0"
             Orientation="Horizontal">
-            <DatePicker
-                Name="dpGeldigheidsdatum"
+            <GroupBox Header="Start">
+                <DatePicker
+                    Name="startDp"
+                    Margin="5,0"
+                    VerticalAlignment="Center" />
+            </GroupBox>
+            <TextBlock
                 Margin="5,0"
-                VerticalAlignment="Center" />
+                VerticalAlignment="Center"
+                Foreground="#3F72AF"
+                Text="Tussen"
+                TextDecorations="Underline" />
+            <GroupBox Header="Einde">
+                <DatePicker
+                    Name="endDp"
+                    Margin="5,0"
+                    VerticalAlignment="Center" />
+            </GroupBox>
+
             <Button
                 x:Name="btnZoek"
                 Width="50"
                 Height="20"
+                Margin="5,0"
                 VerticalAlignment="Center"
                 Click="btnZoek_Click">
                 <StackPanel Orientation="Horizontal">

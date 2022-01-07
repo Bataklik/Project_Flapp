@@ -17,6 +17,6 @@ namespace Flapp_BLL.Interfaces {
         Dictionary<int, Tankkaart> GeefAlleTankkaarten(); //Voor een lijst voor tankkaarten;
         Dictionary<int, Tankkaart> GeefAlleTankkaartenOpKaartnummer(int kaartnummer); //Voor een lijst voor tankkaarten;
         Dictionary<int, Tankkaart> GeefAlleTankkaartenOpGeldigheidsdatum(DateTime geldigheidsdatum); //Voor een lijst voor tankkaarten;
-        Dictionary<int, Tankkaart> GeefAlleTankkaartenZonderBestuurder();
+        Dictionary<int, Tankkaart> GeefAlleTankkaartenZonderBestuurder(DateTime? startDt, DateTime? endDt);
     }
 }

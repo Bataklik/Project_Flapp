@@ -25,17 +25,14 @@ namespace Flapp_PL.View.Windows.BeheerWindows {
             LaadTankkaarten();
         }
 
-        public void LaadTankkaarten() {
-            try {
-                lstTankkaarten.ItemsSource = _tankkaartManager.GeefAlleTankkaartenZonderBestuurder().Values;
-            }
-            catch (Exception ex) { MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
-        }
-
+        #region Click Methods
         private void btnZoek_Click(object sender, RoutedEventArgs e) {
-            if (dpGeldigheidsdatum.SelectedDate == null) { MessageBox.Show("Geen datum geselecteerd!", "Error", MessageBoxButton.OK, MessageBoxImage.Error); return; }
-        }
+            if ((startDp.SelectedDate == null && endDp.SelectedDate != null) || (startDp.SelectedDate != null && endDp.SelectedDate == null)) { MessageBox.Show("Geen datum geselecteerd!", "Error", MessageBoxButton.OK, MessageBoxImage.Error); return; }
 
+            if (startDp.SelectedDate == null && endDp.SelectedDate == null) { lstTankkaarten.ItemsSource = _tankkaartManager.GeefAlleTankkaartenZonderBestuurder(null, null); }
+            if (startDp.SelectedDate != null && endDp.SelectedDate != null) { lstTankkaarten.ItemsSource = _tankkaartManager.GeefAlleTankkaartenZonderBestuurder(startDp.SelectedDate, endDp.SelectedDate); }
+
+        }
         private void miSelecteer_Click(object sender, RoutedEventArgs e) {
             if (lstTankkaarten.SelectedItems == null) { MessageBox.Show("U heeft geen tankkaart geselecteerd!"); return; }
             if (_parentWindow == null) {
@@ -48,11 +45,9 @@ namespace Flapp_PL.View.Windows.BeheerWindows {
             }
             Close();
         }
-
         private void miVoegToe_Click(object sender, RoutedEventArgs e) {
             new TankkaartToevoegenWindow(this).ShowDialog();
         }
-
         private void miVerwijderen_Click(object sender, RoutedEventArgs e) {
             if (lstTankkaarten.SelectedItem == null) { MessageBox.Show("U heeft geen tankkaart geselecteerd"); }
             try {
@@ -61,5 +56,15 @@ namespace Flapp_PL.View.Windows.BeheerWindows {
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
+        #endregion
+
+        #region Helpers
+        public void LaadTankkaarten() {
+            try {
+                lstTankkaarten.ItemsSource = _tankkaartManager.GeefAlleTankkaartenZonderBestuurder(null, null).Values;
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
+        }
+        #endregion
     }
 }

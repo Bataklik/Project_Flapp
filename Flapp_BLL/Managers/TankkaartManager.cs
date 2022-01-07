@@ -49,8 +49,8 @@ namespace Flapp_BLL.Managers {
             catch (Exception ex) { throw new TankkaartManagerException("TankkaartManager", ex); }
         }
 
-        public Dictionary<int, Tankkaart> GeefAlleTankkaartenZonderBestuurder() {
-            try { return _repo.GeefAlleTankkaartenZonderBestuurder(); }
+        public Dictionary<int, Tankkaart> GeefAlleTankkaartenZonderBestuurder(DateTime? start, DateTime? end) {
+            try { return _repo.GeefAlleTankkaartenZonderBestuurder(start, end); }
             catch (Exception ex) { throw new TankkaartManagerException("TankkaartManager", ex); }
         }
 

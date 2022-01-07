@@ -213,17 +213,26 @@ namespace Flapp_DAL.Repository {
         }
 
 
-        public Dictionary<int, Tankkaart> GeefAlleTankkaartenZonderBestuurder() {
+        public Dictionary<int, Tankkaart> GeefAlleTankkaartenZonderBestuurder(DateTime? startDt, DateTime? endDt) {
             SqlConnection conn = new SqlConnection(_connString);
             Dictionary<int, Tankkaart> tankkaarten = new Dictionary<int, Tankkaart>();
-            string query = "SELECT TOP(20) * FROM [dbo].[Tankkaart] LEFT JOIN Brandstof_Tankkaart ON Tankkaart.tankkaartId = Brandstof_Tankkaart.tankkaartId LEFT JOIN Brandstof ON Brandstof_Tankkaart.brandstofId = Brandstof.brandstofId LEFT JOIN Bestuurder ON Tankkaart.tankkaartId=Bestuurder.tankkaartId LEFT JOIN Adres ON Bestuurder.adresId = Adres.adresId LEFT JOIN Rijbewijs_Bestuurder ON Bestuurder.bestuurderId = Rijbewijs_Bestuurder.bestuurderId LEFT JOIN Rijbewijs ON Rijbewijs_Bestuurder.rijbewijsId = Rijbewijs.rijbewijsId WHERE Bestuurder.tankkaartId is NULL;";
+            string query;
+            if (startDt == null && endDt == null) { query = "SELECT TOP(20) * FROM [dbo].[Tankkaart] LEFT JOIN Brandstof_Tankkaart ON Tankkaart.tankkaartId = Brandstof_Tankkaart.tankkaartId LEFT JOIN Brandstof ON Brandstof_Tankkaart.brandstofId = Brandstof.brandstofId LEFT JOIN Bestuurder ON Tankkaart.tankkaartId=Bestuurder.tankkaartId LEFT JOIN Adres ON Bestuurder.adresId = Adres.adresId LEFT JOIN Rijbewijs_Bestuurder ON Bestuurder.bestuurderId = Rijbewijs_Bestuurder.bestuurderId LEFT JOIN Rijbewijs ON Rijbewijs_Bestuurder.rijbewijsId = Rijbewijs.rijbewijsId WHERE Bestuurder.tankkaartId is NULL;"; }
+            else { query = "SELECT TOP(20) * FROM [dbo].[Tankkaart] LEFT JOIN Brandstof_Tankkaart ON Tankkaart.tankkaartId = Brandstof_Tankkaart.tankkaartId LEFT JOIN Brandstof ON Brandstof_Tankkaart.brandstofId = Brandstof.brandstofId LEFT JOIN Bestuurder ON Tankkaart.tankkaartId=Bestuurder.tankkaartId LEFT JOIN Adres ON Bestuurder.adresId = Adres.adresId LEFT JOIN Rijbewijs_Bestuurder ON Bestuurder.bestuurderId = Rijbewijs_Bestuurder.bestuurderId LEFT JOIN Rijbewijs ON Rijbewijs_Bestuurder.rijbewijsId = Rijbewijs.rijbewijsId WHERE Bestuurder.tankkaartId is NULL AND geldigheidsdatum >= @start AND geldigheidsdatum <= @end;"; }
             using (SqlCommand cmd = conn.CreateCommand()) {
-                cmd.CommandText = query;
-                conn.Open();
                 try {
-                    cmd.CommandText = query;
+                    conn.Open();
+                    if (startDt != null && endDt != null) {
+                        cmd.Parameters.Add(new SqlParameter("@start", SqlDbType.Date));
+                        cmd.Parameters.Add(new SqlParameter("@end", SqlDbType.Date));
+                        cmd.CommandText = query;
+                        cmd.Parameters["@start"].Value = startDt.Value.Date;
+                        cmd.Parameters["@end"].Value = endDt.Value.Date;
+                    }
+                    else {
+                        cmd.CommandText = query;
+                    }
                     SqlDataReader r = cmd.ExecuteReader();
-
                     while (r.Read()) {
                         if (tankkaarten.ContainsKey((int)r["tankkaartId"])) {
                             Tankkaart dicTankkaart = tankkaarten[(int)r["tankkaartId"]];
