@@ -29,8 +29,11 @@ namespace Flapp_PL.View.Windows.BeheerWindows {
         private void btnZoek_Click(object sender, RoutedEventArgs e) {
             if ((startDp.SelectedDate == null && endDp.SelectedDate != null) || (startDp.SelectedDate != null && endDp.SelectedDate == null)) { MessageBox.Show("Geen datum geselecteerd!", "Error", MessageBoxButton.OK, MessageBoxImage.Error); return; }
 
-            if (startDp.SelectedDate == null && endDp.SelectedDate == null) { lstTankkaarten.ItemsSource = _tankkaartManager.GeefAlleTankkaartenZonderBestuurder(null, null); }
-            if (startDp.SelectedDate != null && endDp.SelectedDate != null) { lstTankkaarten.ItemsSource = _tankkaartManager.GeefAlleTankkaartenZonderBestuurder(startDp.SelectedDate, endDp.SelectedDate); }
+            if (startDp.SelectedDate == null && endDp.SelectedDate == null) { lstTankkaarten.ItemsSource = _tankkaartManager.GeefAlleTankkaartenZonderBestuurder(null, null).Values; }
+            if (startDp.SelectedDate != null && endDp.SelectedDate != null) {
+                lstTankkaarten.ItemsSource = _tankkaartManager.GeefAlleTankkaartenZonderBestuurder(startDp.SelectedDate, endDp.SelectedDate).Values;
+            
+            }
 
         }
         private void miSelecteer_Click(object sender, RoutedEventArgs e) {
