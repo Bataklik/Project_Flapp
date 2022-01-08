@@ -38,7 +38,7 @@
 | 1                                 | Refactor WPF                                                                           |
 | 2.3                               | Zoekbestrder add toggle btton                                                          |
 | 2                                 | Adresbeheer zoeken aangepast + docmentatie verplaatst naar wiki                        |
-| 1.3                               | Voertigbeheer zoeken aangepast                                                         |
+| 1.3                               | Voertuigbeheer zoeken aangepast                                                         |
 | 3                                 | Refactor alle GeefAlleBestuurder                                                       |
 | 2                                 | Documentatie en alle Images resizen                                                    |
 | 58                                | TOTAAL                                                                                 |
