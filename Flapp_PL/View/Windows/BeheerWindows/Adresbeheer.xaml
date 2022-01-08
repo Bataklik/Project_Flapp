@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Flapp: Adresbeheer"
     Width="550"
-    Height="350"
+    Height="360"
     Icon="/Images/flapp_icon_PuW_icon.ico"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
@@ -54,7 +54,7 @@
     <Grid Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="1.5*" />
-            <RowDefinition Height="1*" />
+            <RowDefinition Height="1.4*" />
             <RowDefinition Height="3*" />
         </Grid.RowDefinitions>
         <DockPanel Grid.Column="0" Background="#112D4E">
@@ -79,18 +79,21 @@
             Grid.Row="1"
             Grid.Column="1"
             Orientation="Horizontal">
-            <TextBox
-                x:Name="txtSteden"
-                Width="100"
-                Height="25"
-                Margin="5"
-                materialDesign:HintAssist.Hint="Stad" />
-            <TextBox
-                x:Name="txtStraten"
-                Width="100"
-                Height="25"
-                Margin="5"
-                materialDesign:HintAssist.Hint="Straat" />
+            <GroupBox Padding="5" Header="Stad">
+                <TextBox
+                    x:Name="txtSteden"
+                    Width="100"
+                    Height="25"
+                    materialDesign:HintAssist.Hint="Stad" />
+            </GroupBox>
+
+            <GroupBox Margin="5,0" Header="Straat">
+                <TextBox
+                    x:Name="txtStraten"
+                    Width="100"
+                    Height="25"
+                    materialDesign:HintAssist.Hint="Straat" />
+            </GroupBox>
             <Button
                 x:Name="btnZoek"
                 Width="50"
