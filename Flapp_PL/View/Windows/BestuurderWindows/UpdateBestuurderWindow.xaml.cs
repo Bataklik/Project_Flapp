@@ -118,7 +118,6 @@ namespace Flapp_PL.View.Windows.BestuurderWindows {
             List<string> geslachten = new List<string> { "Man", "Vrouw" };
             var box = sender as ComboBox;
             box.ItemsSource = geslachten;
-            box.SelectedIndex = 0;
         }
         #endregion
 
@@ -133,11 +132,11 @@ namespace Flapp_PL.View.Windows.BestuurderWindows {
         private void laadBestuurder() {
             txtNaam.Text = Bestuurder.Naam;
             txtVoornaam.Text = Bestuurder.Voornaam;
-            if (Bestuurder.Geslacht == Geslacht.M) { cbGeslacht.SelectedIndex = 0; }
-            else { cbGeslacht.SelectedIndex = 1; }
             dpGeboorte.Text = Bestuurder.Geboortedatum.ToShortDateString();
             txtRijksregister.Text = Bestuurder.Rijksregisternummer;
             lstRijbewijzen.ItemsSource = Bestuurder.Rijbewijzen;
+            if (Bestuurder.Geslacht == Geslacht.M) { cbGeslacht.SelectedItem = "Man"; }
+            else { cbGeslacht.SelectedItem = "Vrouw"; }
             Rijbewijzen = new ObservableCollection<Rijbewijs>(Bestuurder.Rijbewijzen);
 
             if (Bestuurder.Adres != null) { lstAdres.Items.Add(Bestuurder.Adres); }
