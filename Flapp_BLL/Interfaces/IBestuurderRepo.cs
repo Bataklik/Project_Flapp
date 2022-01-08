@@ -9,6 +9,8 @@ namespace Flapp_BLL.Interfaces {
         bool HeeftBestuurderTankkaart(Bestuurder bestuurder);
 
         Dictionary<int, Bestuurder> GeefAlleBestuurders();
+        Dictionary<int, Bestuurder> GeefAlleBestuurders2();
+
         Dictionary<int, Bestuurder> GeefAlleBestuurders(bool heeftVoertuig);
 
         Dictionary<int, Bestuurder> GeefAlleBestuurdersOpNaam(string naam, bool heeftVoertuig);

@@ -11,9 +11,10 @@
     Width="750"
     Height="540"
     Background="#F9F7F7"
+    Icon="/Images/flapp_icon_PuW_icon.ico"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
-    mc:Ignorable="d" Icon="/Images/flapp_icon_PuW_icon.ico">
+    mc:Ignorable="d">
     <Window.Resources>
         <!--  Button Style  -->
         <Style TargetType="Button">
@@ -101,7 +102,7 @@
                     Foreground="#F9F7F7" />
             </StackPanel>
             <!--  Connectie Panel  -->
-            <!--<StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                 <ComboBox
                     x:Name="cbUsers"
                     Width="100"
@@ -141,7 +142,7 @@
                             Text="Verbind" />
                     </StackPanel>
                 </Button>
-            </StackPanel>-->
+            </StackPanel>
             <!--  Bestuurder button  -->
             <Button
                 x:Name="btnBestuurder"

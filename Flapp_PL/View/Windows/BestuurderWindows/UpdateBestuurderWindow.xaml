@@ -229,38 +229,55 @@
                 Grid.ColumnSpan="2"
                 Orientation="Horizontal">
                 <StackPanel>
-                    <ListView
-                        x:Name="lstAdres"
-                        Width="250"
-                        Height="55"
-                        Margin="0,2"
-                        SelectionMode="Single">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn
-                                    Width="50"
-                                    DisplayMemberBinding="{Binding Postcode}"
-                                    Header="Postcode" />
-                                <GridViewColumn
-                                    Width="50"
-                                    DisplayMemberBinding="{Binding Stad}"
-                                    Header="Stad" />
-                                <GridViewColumn
-                                    Width="60"
-                                    DisplayMemberBinding="{Binding Straat}"
-                                    Header="Straat" />
-                                <GridViewColumn
-                                    Width="60"
-                                    DisplayMemberBinding="{Binding Huisnummer}"
-                                    Header="Huisnummer" />
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
+                    <StackPanel Orientation="Horizontal">
+                        <ListView
+                            x:Name="lstAdres"
+                            Width="250"
+                            Height="50"
+                            Margin="0,5"
+                            SelectionMode="Single">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Postcode}" Header="Postcode" />
+                                    <GridViewColumn
+                                        Width="60"
+                                        DisplayMemberBinding="{Binding Stad}"
+                                        Header="Stad" />
+                                    <GridViewColumn
+                                        Width="65"
+                                        DisplayMemberBinding="{Binding Straat}"
+                                        Header="Straat" />
+                                    <GridViewColumn
+                                        Width="60"
+                                        DisplayMemberBinding="{Binding Huisnummer}"
+                                        Header="Huisnummer" />
+                                </GridView>
+                            </ListView.View>
+                            <ListView.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem
+                                        x:Name="miDeselecterenAdres"
+                                        Click="miDeselecterenAdres_Click"
+                                        Header="Deselecteren">
+                                        <MenuItem.Icon>
+                                            <materialDesign:PackIcon
+                                                Width="15"
+                                                Height="15"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                Foreground="#112D4E"
+                                                Kind="SelectOff" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                </ContextMenu>
+                            </ListView.ContextMenu>
+                        </ListView>
+                    </StackPanel>
                     <Button
                         x:Name="btnAdresbeheer"
                         Width="120"
                         Height="25"
-                        Margin="0,2"
+                        Margin="0,5"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
                         Click="btnAdresbeheer_Click">
@@ -282,33 +299,54 @@
             <!--  Voertuig Section  -->
             <StackPanel Orientation="Horizontal">
                 <StackPanel>
-                    <ListView
-                        x:Name="lstVoertuig"
-                        Width="250"
-                        Height="55"
-                        Margin="0,5"
-                        SelectionMode="Single">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn
-                                    Width="60"
-                                    DisplayMemberBinding="{Binding Nummerplaat}"
-                                    Header="Nummerplaat" />
-                                <GridViewColumn
-                                    Width="60"
-                                    DisplayMemberBinding="{Binding ChassisNummer}"
-                                    Header="ChassisNummer" />
-                                <GridViewColumn
-                                    Width="60"
-                                    DisplayMemberBinding="{Binding Merk}"
-                                    Header="Merk" />
-                                <GridViewColumn
-                                    Width="60"
-                                    DisplayMemberBinding="{Binding Model}"
-                                    Header="Model" />
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
+                    <StackPanel Orientation="Horizontal">
+                        <ListView
+                            x:Name="lstVoertuig"
+                            Width="250"
+                            Height="50"
+                            Margin="0,5"
+                            SelectionMode="Single">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn
+                                        Width="60"
+                                        DisplayMemberBinding="{Binding Nummerplaat}"
+                                        Header="Nummerplaat" />
+                                    <GridViewColumn
+                                        Width="60"
+                                        DisplayMemberBinding="{Binding ChassisNummer}"
+                                        Header="Chassisnummer" />
+                                    <GridViewColumn
+                                        Width="60"
+                                        DisplayMemberBinding="{Binding Merk}"
+                                        Header="Merk" />
+                                    <GridViewColumn
+                                        Width="60"
+                                        DisplayMemberBinding="{Binding Model}"
+                                        Header="Model" />
+                                </GridView>
+                            </ListView.View>
+                            <ListView.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem
+                                        x:Name="miDeselecterenVoertuig"
+                                        Click="miDeselecterenVoertuig_Click"
+                                        Header="Deselecteren">
+                                        <MenuItem.Icon>
+                                            <materialDesign:PackIcon
+                                                Width="15"
+                                                Height="15"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                Foreground="#112D4E"
+                                                Kind="SelectOff" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                </ContextMenu>
+                            </ListView.ContextMenu>
+
+                        </ListView>
+                    </StackPanel>
                     <Button
                         x:Name="btnVoertuigbeheer"
                         Width="120"
@@ -335,29 +373,54 @@
             <!--  Tankkaart Section  -->
             <StackPanel Orientation="Horizontal">
                 <StackPanel>
-                    <ListView
-                        x:Name="lstTankkaart"
-                        Width="250"
-                        Height="55"
-                        Margin="0,2"
-                        SelectionMode="Single">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn
-                                    Width="80"
-                                    DisplayMemberBinding="{Binding Kaartnummer}"
-                                    Header="Kaartnummer" />
-                                <GridViewColumn
-                                    Width="80"
-                                    DisplayMemberBinding="{Binding Geldigheidsdatum}"
-                                    Header="Geldigheidsdatum" />
-                                <GridViewColumn
-                                    Width="80"
-                                    DisplayMemberBinding="{Binding Geblokkeerd}"
-                                    Header="Geblokkeerd" />
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
+                    <StackPanel Orientation="Horizontal">
+                        <ListView
+                            x:Name="lstTankkaart"
+                            Width="250"
+                            Height="50"
+                            Margin="0,5"
+                            SelectionMode="Single">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn
+                                        Width="50"
+                                        DisplayMemberBinding="{Binding Kaartnummer}"
+                                        Header="Kaartnummer" />
+                                    <GridViewColumn
+                                        Width="100"
+                                        DisplayMemberBinding="{Binding Geldigheidsdatum, StringFormat='dd/MM/yyyy'}"
+                                        Header="Geldigheidsdatum" />
+                                    <GridViewColumn
+                                        Width="90"
+                                        DisplayMemberBinding="{Binding Geblokkeerd}"
+                                        Header="Geblokkeerd" />
+                                </GridView>
+                            </ListView.View>
+                            <ListView.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem
+                                        x:Name="miDeselecterenTankkaart"
+                                        Click="miDeselecterenTankkaart_Click"
+                                        Header="Deselecteren">
+                                        <MenuItem.Icon>
+                                            <materialDesign:PackIcon
+                                                Width="15"
+                                                Height="15"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                Foreground="#112D4E"
+                                                Kind="SelectOff" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                </ContextMenu>
+                            </ListView.ContextMenu>
+
+                        </ListView>
+
+
+
+                    </StackPanel>
+
                     <Button
                         x:Name="btnTankkaartbeheer"
                         Width="120"

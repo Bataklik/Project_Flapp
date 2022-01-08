@@ -78,7 +78,7 @@ namespace Flapp_BLL.Managers {
 
         public Dictionary<int, Bestuurder> GeefAlleBestuurders() {
             try {
-                return _repo.GeefAlleBestuurders();
+                return _repo.GeefAlleBestuurders2();
             }
             catch (Exception ex) { throw new BestuurderManagerException("BestuurderManager: GeefAlleBestuurders", ex); }
         }

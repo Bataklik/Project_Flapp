@@ -80,14 +80,30 @@
             Grid.Column="1"
             Margin="5,0"
             Orientation="Horizontal">
-            <DatePicker
-                Name="dpGeldigheidsdatum"
+            <GroupBox Header="Start">
+                <DatePicker
+                    Name="startDp"
+                    Margin="5,0"
+                    VerticalAlignment="Center" />
+            </GroupBox>
+            <TextBlock
                 Margin="5,0"
-                VerticalAlignment="Center" />
+                VerticalAlignment="Center"
+                Foreground="#3F72AF"
+                Text="Tussen"
+                TextDecorations="Underline" />
+            <GroupBox Header="Einde">
+                <DatePicker
+                    Name="endDp"
+                    Margin="5,0"
+                    VerticalAlignment="Center" />
+            </GroupBox>
+
             <Button
                 x:Name="btnZoek"
                 Width="50"
                 Height="20"
+                Margin="5,0"
                 VerticalAlignment="Center"
                 Click="btnZoek_Click">
                 <StackPanel Orientation="Horizontal">
@@ -124,7 +140,7 @@
                             Click="miSelecteer_Click"
                             Header="Selecteer"
                             Icon="{materialDesign:PackIcon Kind=Select}" />
-                        <MenuItem
+                        <!--<MenuItem
                             x:Name="miVoegToe"
                             Click="miVoegToe_Click"
                             Header="Toevoegen"
@@ -133,7 +149,7 @@
                             x:Name="miVerwijderen"
                             Click="miVerwijderen_Click"
                             Header="Verwijder"
-                            Icon="{materialDesign:PackIcon Kind=Remove}" />
+                            Icon="{materialDesign:PackIcon Kind=Remove}" />-->
                     </ContextMenu>
                 </ListView.ContextMenu>
 
@@ -146,12 +162,16 @@
                             Header="Kaartnummer" />
                         <GridViewColumn
                             Width="120"
-                            DisplayMemberBinding="{Binding Geldigheidsdatum}"
+                            DisplayMemberBinding="{Binding Geldigheidsdatum, StringFormat='dd/MM/yyyy'}"
                             Header="Geldigheidsdatum" />
                         <GridViewColumn
-                            Width="80"
-                            DisplayMemberBinding="{Binding Bestuurder}"
-                            Header="Bestuurder" />
+                            Width="110"
+                            DisplayMemberBinding="{Binding Bestuurder.Naam}"
+                            Header="Naam" />
+                        <GridViewColumn
+                            Width="110"
+                            DisplayMemberBinding="{Binding Bestuurder.Voornaam}"
+                            Header="Voornaam" />
                         <GridViewColumn
                             Width="70"
                             DisplayMemberBinding="{Binding Geblokkeerd}"

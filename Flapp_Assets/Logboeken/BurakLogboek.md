@@ -39,7 +39,9 @@
 | 2.3                               | Zoekbestrder add toggle btton                                                          |
 | 2                                 | Adresbeheer zoeken aangepast + docmentatie verplaatst naar wiki                        |
 | 1.3                               | Voertigbeheer zoeken aangepast                                                         |
-| 53                                | TOTAAL                                                                                 |
+| 3                                 | Refactor alle GeefAlleBestuurder                                                       |
+| 2                                 | Documentatie en alle Images resizen                                                    |
+| 58                                | TOTAAL                                                                                 |
 
 
 
