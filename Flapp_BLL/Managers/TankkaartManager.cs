@@ -38,6 +38,11 @@ namespace Flapp_BLL.Managers {
             try { return _repo.GeefAlleTankkaarten(); }
             catch (Exception ex) { throw new TankkaartManagerException("TankkaartManager", ex); }
         }
+        
+        public Dictionary<int, Tankkaart> GeefTankkaarten(int? kaartnummer, DateTime? datum, int? bestuurderid, string naam, string voornaam, DateTime? geboortedatum, string rijksregister, bool strikt = true) {
+            try { return _repo.GeefTankkaarten(kaartnummer, datum, bestuurderid, naam, voornaam, geboortedatum, rijksregister, strikt); }
+            catch (Exception ex) { throw new TankkaartManagerException("TankkaartManager", ex); }
+        }
 
         public Dictionary<int, Tankkaart> GeefAlleTankkaartenOpKaartnummer(int kaartnummer) {
             try { return _repo.GeefAlleTankkaartenOpKaartnummer(kaartnummer); }
