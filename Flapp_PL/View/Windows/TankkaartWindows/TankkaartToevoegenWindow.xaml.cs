@@ -63,15 +63,16 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
                     if (lstBestuurder.Items.Count > 0) bestuurder = (Bestuurder)lstBestuurder.Items[0];
                     List<Brandstof> brandstoffen = lbBrandstof.Items.Cast<Brandstof>().ToList();
                     t = new Tankkaart(geldigheidsdatum, pincode, geblokkeerd, brandstoffen, bestuurder);
-                    if (t.Bestuurder.Voertuig != null) {
-                        if (t.Brandstoffen[0].Naam == t.Bestuurder.Voertuig.Brandstof[0].Naam) {
-                            VoegTankkaartToe(t);
-                        }
-                        else {
-                            MessageBox.Show("Brandstoffen kunnen niet gecombineerd worden met het voertuig!");
-                        }
-                    }
-                    else { VoegTankkaartToe(t); }
+                    //if (t.Bestuurder.Voertuig != null) {
+                    //    if (t.Brandstoffen[0].Naam == t.Bestuurder.Voertuig.Brandstof[0].Naam) {
+                    //        VoegTankkaartToe(t);
+                    //    }
+                    //    else {
+                    //        MessageBox.Show("Brandstoffen kunnen niet gecombineerd worden met het voertuig!");
+                    //    }
+                    //}
+                    //else {
+                    VoegTankkaartToe(t);
                     MessageBox.Show("Tankkaart toegevoegd!");
                     if (_tUC != null) { _tUC.laadTankkaarten(); }
                     else { _parentWindow.LaadTankkaarten(); }
