@@ -184,7 +184,7 @@ namespace Flapp_DAL.Repository {
         public Dictionary<int, Voertuig> GeefVoertuigen() {
             SqlConnection conn = new SqlConnection(_connString);
             Dictionary<int, Voertuig> voertuigen = new Dictionary<int, Voertuig>();
-            string query = "SELECT TOP(20) * FROM Voertuig LEFT JOIN Brandstof_Voertuig ON Voertuig.voertuigId = Brandstof_Voertuig.voertuigId LEFT JOIN Brandstof ON Brandstof_Voertuig.brandstofId = Brandstof.brandstofId";
+            string query = "SELECT TOP(20) * FROM Voertuig LEFT JOIN Brandstof_Voertuig ON Voertuig.voertuigId = Brandstof_Voertuig.voertuigId LEFT JOIN Brandstof ON Brandstof_Voertuig.brandstofId = Brandstof.brandstofId LEFT JOIN Bestuurder ON Voertuig.voertuigId = Bestuurder.voertuigId";
             using (SqlCommand cmd = conn.CreateCommand()) {
                 cmd.CommandText = query;
                 conn.Open();
@@ -200,7 +200,8 @@ namespace Flapp_DAL.Repository {
                             List<Brandstof> brandstof = new List<Brandstof> { new Brandstof((string)r["naam"]) };
                             string voertuigtype = (string)r["type"];
                             Voertuig voertuig = new Voertuig((int)r["voertuigId"], (string)r["merk"], (string)r["model"], (string)r["chassisnummer"], (string)r["nummerplaat"], brandstof, voertuigtype, (string)r["kleur"], (int)r["deuren"]);
-
+                            
+                            
                             voertuigen.Add(voertuig.VoertuigID, voertuig);
                         }
 

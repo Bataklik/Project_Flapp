@@ -51,6 +51,7 @@ namespace Flapp_PL.View.Windows.VoertuigWindows {
             txtKleur.Text = _voertuig.Kleur;
             txtDeuren.Text = $"{_voertuig.Aantaldeuren}";
             aantalDeuren = Convert.ToInt32(txtDeuren.Text);
+            if (_voertuig.Bestuurder != null) { lstBestuurder.Items.Add(_voertuig.Bestuurder); }
         }
         private void btnUpdate_Click(object sender, RoutedEventArgs e) {
             try {
