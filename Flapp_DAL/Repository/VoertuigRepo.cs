@@ -184,7 +184,7 @@ namespace Flapp_DAL.Repository {
         public Dictionary<int, Voertuig> GeefVoertuigen() {
             SqlConnection conn = new SqlConnection(_connString);
             Dictionary<int, Voertuig> voertuigen = new Dictionary<int, Voertuig>();
-            string query = "SELECT TOP(20) * FROM Voertuig LEFT JOIN Brandstof_Voertuig ON Voertuig.voertuigId = Brandstof_Voertuig.voertuigId LEFT JOIN Brandstof ON Brandstof_Voertuig.brandstofId = Brandstof.brandstofId LEFT JOIN Bestuurder ON Voertuig.voertuigId = Bestuurder.voertuigId";
+            string query = "SELECT TOP(20) * FROM Voertuig LEFT JOIN Brandstof_Voertuig ON Voertuig.voertuigId = Brandstof_Voertuig.voertuigId LEFT JOIN Brandstof ON Brandstof_Voertuig.brandstofId = Brandstof.brandstofId LEFT JOIN Bestuurder ON Voertuig.voertuigId = Bestuurder.voertuigId LEFT JOIN Rijbewijs_Bestuurder ON Bestuurder.bestuurderId = Rijbewijs_Bestuurder.bestuurderId LEFT JOIN Rijbewijs ON Rijbewijs_Bestuurder.rijbewijsId = Rijbewijs.rijbewijsId  LEFT JOIN Adres ON Bestuurder.adresId = Adres.adresId LEFT JOIN Tankkaart ON Bestuurder.tankkaartId = Tankkaart.tankkaartId";
             using (SqlCommand cmd = conn.CreateCommand()) {
                 cmd.CommandText = query;
                 conn.Open();
@@ -197,11 +197,27 @@ namespace Flapp_DAL.Repository {
                         }
                         else {
                             //List<Brandstof> brandstof =  geefbrandstoffenVanVoertuig((int)r["voertuigId"]);
+                            Bestuurder bestuurder;
                             List<Brandstof> brandstof = new List<Brandstof> { new Brandstof((string)r["naam"]) };
                             string voertuigtype = (string)r["type"];
                             Voertuig voertuig = new Voertuig((int)r["voertuigId"], (string)r["merk"], (string)r["model"], (string)r["chassisnummer"], (string)r["nummerplaat"], brandstof, voertuigtype, (string)r["kleur"], (int)r["deuren"]);
-                            
-                            
+                            Adres adres = null;
+                            if (!r.IsDBNull(r.GetOrdinal("adresId")) && !r.IsDBNull(r.GetOrdinal("straat")) && !r.IsDBNull(r.GetOrdinal("huisnummer")) && !r.IsDBNull(r.GetOrdinal("stad")) && !r.IsDBNull(r.GetOrdinal("postcode"))) { adres = new Adres((int)r["adresId"], (string)r["straat"], (string)r["huisnummer"], (string)r["stad"], (int)r["postcode"]); }
+                            Geslacht geslacht = (bool)r["geslacht"] ? Geslacht.M : Geslacht.V;
+                            List<Rijbewijs> rijbewijzen = new List<Rijbewijs> { new Rijbewijs(r[12].ToString()) };
+                            bestuurder = new Bestuurder((int)r["bestuurderId"], (string)r[14], (string)r["voornaam"], geslacht, adres, Convert.ToDateTime(r["geboortedatum"]).ToString("dd/MM/yyyy"), (string)r["rijksregister"], rijbewijzen, null, null);
+                            if (!r.IsDBNull(r.GetOrdinal("voertuigId"))) {
+                                string naam = r[29].ToString();
+                                List<Brandstof> brandstoffen = new List<Brandstof> { new Brandstof(naam) };
+                                bestuurder.ZetVoertuig(voertuig);
+                            }
+                            if (!r.IsDBNull(r.GetOrdinal("tankkaartId"))) {
+                                Tankkaart tankkaart = new Tankkaart((int)r["tankkaartId"], (DateTime)r["geldigheidsdatum"], (string)r["pincode"], (bool)r["geblokkeerd"]);
+                                if (DBNull.Value != r[29]) { tankkaart.Brandstoffen.Add(new Brandstof(r[29].ToString())); ; }
+                                bestuurder.ZetTankkaart(tankkaart);
+                            }
+                            voertuig.ZetBestuurder(bestuurder);
+
                             voertuigen.Add(voertuig.VoertuigID, voertuig);
                         }
 
