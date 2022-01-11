@@ -197,26 +197,29 @@ namespace Flapp_DAL.Repository {
                         }
                         else {
                             //List<Brandstof> brandstof =  geefbrandstoffenVanVoertuig((int)r["voertuigId"]);
-                            Bestuurder bestuurder;
-                            List<Brandstof> brandstof = new List<Brandstof> { new Brandstof((string)r["naam"]) };
                             string voertuigtype = (string)r["type"];
+                            List<Brandstof> brandstof = new List<Brandstof> { new Brandstof((string)r["naam"]) };
                             Voertuig voertuig = new Voertuig((int)r["voertuigId"], (string)r["merk"], (string)r["model"], (string)r["chassisnummer"], (string)r["nummerplaat"], brandstof, voertuigtype, (string)r["kleur"], (int)r["deuren"]);
-                            Adres adres = null;
-                            if (!r.IsDBNull(r.GetOrdinal("adresId")) && !r.IsDBNull(r.GetOrdinal("straat")) && !r.IsDBNull(r.GetOrdinal("huisnummer")) && !r.IsDBNull(r.GetOrdinal("stad")) && !r.IsDBNull(r.GetOrdinal("postcode"))) { adres = new Adres((int)r["adresId"], (string)r["straat"], (string)r["huisnummer"], (string)r["stad"], (int)r["postcode"]); }
-                            Geslacht geslacht = (bool)r["geslacht"] ? Geslacht.M : Geslacht.V;
-                            List<Rijbewijs> rijbewijzen = new List<Rijbewijs> { new Rijbewijs(r[12].ToString()) };
-                            bestuurder = new Bestuurder((int)r["bestuurderId"], (string)r[14], (string)r["voornaam"], geslacht, adres, Convert.ToDateTime(r["geboortedatum"]).ToString("dd/MM/yyyy"), (string)r["rijksregister"], rijbewijzen, null, null);
-                            if (!r.IsDBNull(r.GetOrdinal("voertuigId"))) {
-                                string naam = r[29].ToString();
-                                List<Brandstof> brandstoffen = new List<Brandstof> { new Brandstof(naam) };
-                                bestuurder.ZetVoertuig(voertuig);
+
+                            if (!r.IsDBNull(r.GetOrdinal("bestuurderId"))) {
+                                Bestuurder bestuurder;
+                                Adres adres = null;
+                                if (!r.IsDBNull(r.GetOrdinal("adresId")) && !r.IsDBNull(r.GetOrdinal("straat")) && !r.IsDBNull(r.GetOrdinal("huisnummer")) && !r.IsDBNull(r.GetOrdinal("stad")) && !r.IsDBNull(r.GetOrdinal("postcode"))) { adres = new Adres((int)r["adresId"], (string)r["straat"], (string)r["huisnummer"], (string)r["stad"], (int)r["postcode"]); }
+                                Geslacht geslacht = (bool)r["geslacht"] ? Geslacht.M : Geslacht.V;
+                                List<Rijbewijs> rijbewijzen = new List<Rijbewijs> { new Rijbewijs(r[12].ToString()) };
+                                bestuurder = new Bestuurder((int)r["bestuurderId"], (string)r[14], (string)r["voornaam"], geslacht, adres, Convert.ToDateTime(r["geboortedatum"]).ToString("dd/MM/yyyy"), (string)r["rijksregister"], rijbewijzen, null, null);
+                                if (!r.IsDBNull(r.GetOrdinal("voertuigId"))) {
+                                    string naam = r[12].ToString();
+                                    List<Brandstof> brandstoffen = new List<Brandstof> { new Brandstof(naam) };
+                                    bestuurder.ZetVoertuig(voertuig);
+                                }
+                                if (!r.IsDBNull(r.GetOrdinal("tankkaartId"))) {
+                                    Tankkaart tankkaart = new Tankkaart((int)r["tankkaartId"], (DateTime)r["geldigheidsdatum"], (string)r["pincode"], (bool)r["geblokkeerd"]);
+                                    if (DBNull.Value != r[12]) { tankkaart.Brandstoffen.Add(new Brandstof(r[12].ToString())); ; }
+                                    bestuurder.ZetTankkaart(tankkaart);
+                                }
+                                voertuig.ZetBestuurder(bestuurder);
                             }
-                            if (!r.IsDBNull(r.GetOrdinal("tankkaartId"))) {
-                                Tankkaart tankkaart = new Tankkaart((int)r["tankkaartId"], (DateTime)r["geldigheidsdatum"], (string)r["pincode"], (bool)r["geblokkeerd"]);
-                                if (DBNull.Value != r[29]) { tankkaart.Brandstoffen.Add(new Brandstof(r[29].ToString())); ; }
-                                bestuurder.ZetTankkaart(tankkaart);
-                            }
-                            voertuig.ZetBestuurder(bestuurder);
 
                             voertuigen.Add(voertuig.VoertuigID, voertuig);
                         }
