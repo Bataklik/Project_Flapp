@@ -296,38 +296,63 @@ namespace Flapp_DAL.Repository {
         #region UpdateVoertuig Method
         public void UpdateVoertuig(Voertuig v) {
             var brandstoffen = v.geefBrandstoffen();
-            string query = "USE [Project_Flapp_DB]; UPDATE [dbo].[Voertuig] SET merk = @merk , model = @model" +
+
+            string queryVUpdaten = "USE [Project_Flapp_DB]; UPDATE [dbo].[Voertuig] SET merk = @merk , model = @model" +
                 ", chassisnummer = @chassisnummer , nummerplaat = @nummerplaat , type = @type" +
                 ", kleur = @kleur , deuren = @deuren WHERE voertuigId = @voertuigId;";
+            string queryBVerwijderen = "USE [Project_Flapp_DB]; DELETE FROM [dbo].[Brandstof_Voertuig] WHERE voertuigId = @vId;";
+            string queryBToevoegen = "USE [Project_Flapp_DB]; INSERT INTO [dbo].[Brandstof_Voertuig] ([brandstofId] ,[voertuigId]) VALUES(@bId,@vId);";
+
             SqlConnection conn = new SqlConnection(_connString);
-            SqlCommand command = new(query, conn);
+            SqlCommand commandvToevoegen = new(queryVUpdaten, conn);
+            SqlCommand commandBVerwijderen = new(queryBVerwijderen, conn);
             conn.Open();
+            SqlTransaction transaction = conn.BeginTransaction();
+            commandvToevoegen.Transaction = transaction;
+            commandBVerwijderen.Transaction = transaction;
 
             try {
-                command.Parameters.Add(new SqlParameter("@voertuigId", SqlDbType.Int));
-                command.Parameters.Add(new SqlParameter("@merk", SqlDbType.NVarChar));
-                command.Parameters.Add(new SqlParameter("@model", SqlDbType.NVarChar));
-                command.Parameters.Add(new SqlParameter("@chassisnummer", SqlDbType.NVarChar));
-                command.Parameters.Add(new SqlParameter("@nummerplaat", SqlDbType.NVarChar));
-                //cmd.Parameters.Add(new SqlParameter("@brandstof_type", SqlDbType.Int));
-                command.Parameters.Add(new SqlParameter("@type", SqlDbType.NVarChar));
-                command.Parameters.Add(new SqlParameter("@kleur", SqlDbType.NVarChar));
-                command.Parameters.Add(new SqlParameter("@deuren", SqlDbType.Int));
-                //cmd.Parameters.Add(new SqlParameter("@bestuurder_id", SqlDbType.Int));
-                command.CommandText = query;
-                command.Parameters["@voertuigid"].Value = v.VoertuigID;
-                command.Parameters["@merk"].Value = v.Merk;
-                command.Parameters["@model"].Value = v.Model;
-                command.Parameters["@chassisnummer"].Value = v.ChassisNummer;
-                command.Parameters["@nummerplaat"].Value = v.Nummerplaat;
-                //cmd.Parameters["@brandstof_type"].Value = v.Brandstof.Id;
-                command.Parameters["@type"].Value = v.VoertuigType;
-                command.Parameters["@kleur"].Value = v.Kleur;
-                command.Parameters["@deuren"].Value = v.Aantaldeuren;
-                //cmd.Parameters["@bestuurder_id"].Value = v.Bestuurder.Id;
-                command.ExecuteNonQuery();
+                commandvToevoegen.Parameters.Add(new SqlParameter("@voertuigId", SqlDbType.Int));
+                commandvToevoegen.Parameters.Add(new SqlParameter("@merk", SqlDbType.NVarChar));
+                commandvToevoegen.Parameters.Add(new SqlParameter("@model", SqlDbType.NVarChar));
+                commandvToevoegen.Parameters.Add(new SqlParameter("@chassisnummer", SqlDbType.NVarChar));
+                commandvToevoegen.Parameters.Add(new SqlParameter("@nummerplaat", SqlDbType.NVarChar));
+                commandvToevoegen.Parameters.Add(new SqlParameter("@type", SqlDbType.NVarChar));
+                commandvToevoegen.Parameters.Add(new SqlParameter("@kleur", SqlDbType.NVarChar));
+                commandvToevoegen.Parameters.Add(new SqlParameter("@deuren", SqlDbType.Int));
+
+                //commandvToevoegen.CommandText = queryVUpdaten;
+
+                commandvToevoegen.Parameters["@voertuigid"].Value = v.VoertuigID;
+                commandvToevoegen.Parameters["@merk"].Value = v.Merk;
+                commandvToevoegen.Parameters["@model"].Value = v.Model;
+                commandvToevoegen.Parameters["@chassisnummer"].Value = v.ChassisNummer;
+                commandvToevoegen.Parameters["@nummerplaat"].Value = v.Nummerplaat;
+                commandvToevoegen.Parameters["@type"].Value = v.VoertuigType;
+                commandvToevoegen.Parameters["@kleur"].Value = v.Kleur;
+                commandvToevoegen.Parameters["@deuren"].Value = v.Aantaldeuren;
+                commandvToevoegen.ExecuteNonQuery();
+
+                commandBVerwijderen.Parameters.Add(new SqlParameter("@vId", SqlDbType.Int));
+                commandBVerwijderen.Parameters["@vId"].Value = v.VoertuigID;
+                commandBVerwijderen.ExecuteNonQuery();
+
+                foreach (var brandstof in brandstoffen)
+                {
+                    SqlCommand commandBToevoegen = new(queryBToevoegen, conn);
+                    commandBToevoegen.Transaction = transaction;
+                    commandBToevoegen.Parameters.Add(new SqlParameter("@bId", SqlDbType.Int));
+                    commandBToevoegen.Parameters.Add(new SqlParameter("@vId", SqlDbType.Int));
+
+                    commandBToevoegen.Parameters["@bId"].Value = brandstof.Id;
+                    commandBToevoegen.Parameters["@vId"].Value = v.VoertuigID;
+                    
+                    commandBToevoegen.ExecuteNonQuery();
+                }
+                transaction.Commit();
+
             }
-            catch (Exception ex) { throw new Exception(ex.Message); }
+            catch (Exception ex) { transaction.Rollback(); throw new Exception(ex.Message); }
             finally { conn.Close(); }
 
         }

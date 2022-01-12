@@ -224,6 +224,24 @@
                                 Header="Voornaam" />
                         </GridView>
                     </ListView.View>
+                    <ListView.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem
+                                        x:Name="miDeselecterenBestuurder"
+                                        Click="miDeselecterenBestuurder_Click"
+                                        Header="Deselecteren">
+                                <MenuItem.Icon>
+                                    <materialDesign:PackIcon
+                                                Width="15"
+                                                Height="15"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                Foreground="#112D4E"
+                                                Kind="SelectOff" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ContextMenu>
+                    </ListView.ContextMenu>
                 </ListView>
                 <Button
                     x:Name="btnBestuurderBeheer"

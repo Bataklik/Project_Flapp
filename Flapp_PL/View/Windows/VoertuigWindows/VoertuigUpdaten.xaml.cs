@@ -41,7 +41,7 @@ namespace Flapp_PL.View.Windows.VoertuigWindows {
         }
         public void laadVoertuig() {
             lstBrandtof.ItemsSource = _voertuig.Brandstof;
-            //Brandstoffen = new ObservableCollection<Brandstof>(_voertuig.Brandstof);
+            Brandstoffen = new ObservableCollection<Brandstof>(_voertuig.Brandstof);
             txtId.Text = $"{_voertuig.VoertuigID}";
             cmbMerk.Text = _voertuig.Merk;
             cmbModel.Text = _voertuig.Model;
@@ -65,8 +65,6 @@ namespace Flapp_PL.View.Windows.VoertuigWindows {
                         _bestuurderManager.VoegVoertuigToeAanBestuurder(b);
                     }
                     _voertuigManager.UpdateVoertuig(v);
-                    _brandstofmanager.VerwijderBrandstofBijVoertuig(v.VoertuigID);
-                    _brandstofmanager.VoegBrandstofToeAanVoertuig(v.VoertuigID, v.Brandstof);
                     MessageBox.Show("Updaten Gelukt!");
                     Close();
                 }
@@ -140,22 +138,27 @@ namespace Flapp_PL.View.Windows.VoertuigWindows {
 
         private void cmbModel_Loaded(object sender, RoutedEventArgs e) {
             if (cmbMerk.SelectedIndex <= 0) {
-                //cmbModel.IsEnabled = false;
+                
                 cmbModel.ItemsSource = null;
             }
             else {
                 //cmbModel.IsEnabled = true;
                 ObservableCollection<string> modellen = new(_voertuigManager.GeefModellenMerk(cmbMerk.SelectedItem.ToString()));
-                modellen.Insert(0, "");
+                
                 cmbModel.ItemsSource = modellen;
                 cmbModel.SelectedIndex = 0;
-                //merk = cmbMerk.SelectedItem.ToString();
-                //model = null;
+                
             }
         }
 
         private void btnVoertuigbeheer_Click(object sender, RoutedEventArgs e) {
             new Bestuurderbeheer(this).ShowDialog();
+        }
+        private void miDeselecterenBestuurder_Click(object sender, RoutedEventArgs e)
+        {
+            if (lstBestuurder.Items.Count < 1) { MessageBox.Show("Er is geen bestuurder geselecteerd!", "Geen Bestuurder!", MessageBoxButton.OK, MessageBoxImage.Information); return; }
+            MessageBoxResult result = MessageBox.Show("Wilt u deze bestuurder verwijderen van het voertuig?", "Niet Selecteren!", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+            if (result == MessageBoxResult.Yes) { lstBestuurder.Items.Clear(); }
         }
     }
 }

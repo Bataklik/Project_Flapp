@@ -106,9 +106,6 @@ namespace Flapp_PL.View.Windows.VoertuigWindow {
             ObservableCollection<string> merken = new(_voertuigManager.GeefMerken());            
             cmbMerk.ItemsSource = merken;
         }
-        private void laadVoertuigtypes() {
-
-        }
         private void cmbMerk_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e) {
             cmbModel.ItemsSource = null;
         }
@@ -166,28 +163,28 @@ namespace Flapp_PL.View.Windows.VoertuigWindow {
             
                 
                 if (cmbMerk.SelectedIndex < 0)
-                {
-                    
+                {                    
                     cmbModel.ItemsSource = null;
                     cmbModel.IsDropDownOpen = false;
                 }
                 else
-                {
-                    //cmbModel.IsEnabled = true;
+                {                    
                     ObservableCollection<string> modellen = new(_voertuigManager.GeefModellenMerk(cmbMerk.SelectedItem.ToString()));
                     
-                    cmbModel.ItemsSource = modellen;
-                    //cmbModel.SelectedIndex = 0;
-                    //merk = cmbMerk.SelectedItem.ToString();
-                    //model = null;
+                    cmbModel.ItemsSource = modellen;                   
                 }   
-            
-
         }
 
         private void cmbModel_DropDownClosed(object sender, EventArgs e)
         {
             
+        }
+
+        private void miDeselecterenBestuurder_Click(object sender, RoutedEventArgs e)
+        {
+            if (lstBestuurder.Items.Count < 1) { MessageBox.Show("Er is geen bestuurder geselecteerd!", "Geen Bestuurder!", MessageBoxButton.OK, MessageBoxImage.Information); return; }
+            MessageBoxResult result = MessageBox.Show("Wilt u deze bestuurder verwijderen van het voertuig?", "Niet Selecteren!", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+            if (result == MessageBoxResult.Yes) { lstBestuurder.Items.Clear(); }
         }
     }
 }
