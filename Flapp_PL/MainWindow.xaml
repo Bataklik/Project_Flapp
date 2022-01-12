@@ -102,7 +102,7 @@
                     Foreground="#F9F7F7" />
             </StackPanel>
             <!--  Connectie Panel  -->
-            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+            <!--<StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                 <ComboBox
                     x:Name="cbUsers"
                     Width="100"
@@ -142,7 +142,7 @@
                             Text="Verbind" />
                     </StackPanel>
                 </Button>
-            </StackPanel>
+            </StackPanel>-->
             <!--  Bestuurder button  -->
             <Button
                 x:Name="btnBestuurder"
