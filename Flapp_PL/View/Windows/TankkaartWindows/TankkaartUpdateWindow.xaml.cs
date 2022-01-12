@@ -60,8 +60,10 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
                 if (Tankkaart.Geblokkeerd) cbGeblokkeerd.SelectedIndex = 0;
                 cbGeblokkeerd.SelectedIndex = 1;
                 cbBrandstoffen.ItemsSource = _brandstofManager.GeefAlleBrandstoffen();
-                lbBrandstof.ItemsSource = Tankkaart.Brandstoffen;
-                Brandstoffen = new ObservableCollection<Brandstof>(Tankkaart.Brandstoffen);
+                foreach (var b in Tankkaart.Brandstoffen) {
+                    lbBrandstof.Items.Add(_brandstofManager.GeefBrandstof(b));
+                    Brandstoffen.Add(_brandstofManager.GeefBrandstof(b));
+                }
 
                 if (Tankkaart.Bestuurder != null) lstBestuurder.Items.Add(Tankkaart.Bestuurder);
             }
@@ -70,9 +72,10 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
 
         private void btnVoegBrandstofToe_Click(object sender, RoutedEventArgs e) {
             try {
-                if ((Brandstof)cbBrandstoffen.SelectedItem == null) { MessageBox.Show("U heeft geen brandstof aangeduid!"); return; }
-                if (lbBrandstof.Items.Contains((Brandstof)cbBrandstoffen.SelectedItem)) { MessageBox.Show("Brandstof staat al op de lijst!"); return; }
-                Brandstoffen.Add((Brandstof)cbBrandstoffen.SelectedItem);
+                Brandstof selected = _brandstofManager.GeefBrandstof((Brandstof)cbBrandstoffen.SelectedItem);
+                if (selected == null) { MessageBox.Show("U heeft geen brandstof aangeduid!"); return; }
+                if (lbBrandstof.Items.Contains(selected)) { MessageBox.Show("Brandstof staat al op de lijst!"); return; }
+                Brandstoffen.Add(selected);
                 lbBrandstof.ItemsSource = Brandstoffen;
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }      
@@ -96,7 +99,7 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
                 Tankkaart.ZetPincode(txtPincode.Text);
                 Tankkaart.ZetGeblokkeerd(geblokkeerd);
                 Tankkaart.ZetBestuurder(lstBestuurder.Items.Count > 0 ? (Bestuurder)lstBestuurder.Items[0] : null);
-                Tankkaart.ZetBrandstoffen(lbBrandstof.Items.Cast<Brandstof>().ToList());
+                Tankkaart.ZetBrandstoffen(Brandstoffen.ToList());
                 _tankkaartManager.UpdateTankkaart(Tankkaart);
                 MessageBox.Show("Updaten gelukt!");
 
