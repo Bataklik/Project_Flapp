@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Flapp_BLL.Exceptions.ManagerExceptions;
 using Flapp_BLL.Interfaces;
 using Flapp_BLL.Models;
@@ -41,19 +42,8 @@ namespace Flapp_BLL.Managers {
             }
             catch (Exception ex) { throw new BestuurderManagerException("BestuurderManager: VerwijderBestuurder", ex); }
         }
-        public void VerwijderTankkaartVanBestuurder(Bestuurder bestuurder) {
-            try {
-                _repo.VerwijderTankkaartVanBestuurder(bestuurder);
-            }
-            catch (Exception ex) { throw new BestuurderManagerException("BestuurderManager: VerwijderBestuurder", ex); }
-        }
 
-        public Dictionary<int, Bestuurder> GeefAlleBestuurders(bool heeftVoertuig) {
-            try {
-                return _repo.GeefAlleBestuurders(heeftVoertuig);
-            }
-            catch (Exception ex) { throw new BestuurderManagerException("BestuurderManager: GeefAlleBestuurders", ex); }
-        }
+        
 
         public void UpdateBestuurder(Bestuurder bestuurder) {
             if (!_repo.BestaatBestuurderId(bestuurder.Id)) { throw new BestuurderManagerException("BestuurderManager: UpdateBestuurder: Bestuurder bestaat niet!"); }
@@ -69,18 +59,24 @@ namespace Flapp_BLL.Managers {
             }
             catch (Exception ex) { throw new BestuurderManagerException("BestuurderManager: VoegVoertuigToeAanBestuurder", ex); }
         }
-        public void VoegTankkaartToeAanBestuurder(Tankkaart t) {
-            try {
-                _repo.VoegTankkaartToeAanBestuurder(t);
-            }
-            catch (Exception ex) { throw new BestuurderManagerException("BestuurderManager: VoegTankkaartToeAanBestuurder", ex); }
-        }
 
+        public Dictionary<int, Bestuurder> GeefAlleBestuurders(bool heeftVoertuig) {
+            try {
+                return _repo.GeefAlleBestuurders(heeftVoertuig);
+            }
+            catch (Exception ex) { throw new BestuurderManagerException("BestuurderManager: GeefAlleBestuurders", ex); }
+        }
         public Dictionary<int, Bestuurder> GeefAlleBestuurders() {
             try {
                 return _repo.GeefAlleBestuurders();
             }
             catch (Exception ex) { throw new BestuurderManagerException("BestuurderManager: GeefAlleBestuurders", ex); }
+        }
+        public ObservableCollection<Bestuurder> GeefBestuurders(string naam, string voornaam) {
+            try {
+                return _repo.GeefBestuurders(naam, voornaam);
+            }
+            catch (Exception ex) { throw new BestuurderManagerException("BestuurderManager: GeefBestuurders", ex); }
         }
         public Dictionary<int, Bestuurder> GeefAlleBestuurdersOpNaam(string naam, bool heeftVoertuig) {
             try {

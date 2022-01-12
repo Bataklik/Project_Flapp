@@ -38,9 +38,9 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
         }
 
         private void laadWaarden() {
-            dpGeldigheidsdatum.SelectedDate = DateTime.Now.AddYears(2);
-            dpGeldigheidsdatum.IsEnabled = false;
             try {
+                dpGeldigheidsdatum.SelectedDate = DateTime.Now.AddYears(2);
+                dpGeldigheidsdatum.IsEnabled = false;
                 cbBrandstoffen.ItemsSource = _brandstofManager.GeefAlleBrandstoffen();
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
@@ -63,16 +63,7 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
                     if (lstBestuurder.Items.Count > 0) bestuurder = (Bestuurder)lstBestuurder.Items[0];
                     List<Brandstof> brandstoffen = lbBrandstof.Items.Cast<Brandstof>().ToList();
                     t = new Tankkaart(geldigheidsdatum, pincode, geblokkeerd, brandstoffen, bestuurder);
-                    //if (t.Bestuurder.Voertuig != null) {
-                    //    if (t.Brandstoffen[0].Naam == t.Bestuurder.Voertuig.Brandstof[0].Naam) {
-                    //        VoegTankkaartToe(t);
-                    //    }
-                    //    else {
-                    //        MessageBox.Show("Brandstoffen kunnen niet gecombineerd worden met het voertuig!");
-                    //    }
-                    //}
-                    //else {
-                    VoegTankkaartToe(t);
+                    t.ZetKaartnummer(_tankkaartManager.VoegTankkaartToe(t));
                     MessageBox.Show("Tankkaart toegevoegd!");
                     if (_tUC != null) { _tUC.laadTankkaarten(); }
                     else { _parentWindow.LaadTankkaarten(); }
@@ -84,10 +75,17 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
         }
 
         private void btnAnnuleer_Click(object sender, RoutedEventArgs e) {
-            Close();
+            try {
+                Close();
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }        
         }
 
         private void btnVoegBrandstofToe_Click(object sender, RoutedEventArgs e) {
+            try {
+
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
             if ((Brandstof)cbBrandstoffen.SelectedItem == null) { MessageBox.Show("U heeft geen brandstof aangeduid!"); return; }
             if (lbBrandstof.Items.Contains((Brandstof)cbBrandstoffen.SelectedItem)) { MessageBox.Show("Brandstof staat al op de lijst!"); return; }
             Brandstoffen.Add((Brandstof)cbBrandstoffen.SelectedItem);
@@ -95,21 +93,18 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
         }
 
         private void btnVerwijderBrandstof_Click(object sender, RoutedEventArgs e) {
-            if ((Brandstof)cbBrandstoffen.SelectedItem == null) { MessageBox.Show("U heeft geen rijbewijs aangeduid!"); return; }
-            if (!lbBrandstof.Items.Contains((Brandstof)cbBrandstoffen.SelectedItem)) { MessageBox.Show("Rijbewijs staat niet al op de lijst!"); return; }
-            Brandstoffen.Remove((Brandstof)cbBrandstoffen.SelectedItem);
-            lbBrandstof.ItemsSource = Brandstoffen;
+            try {
+                if ((Brandstof)cbBrandstoffen.SelectedItem == null) { MessageBox.Show("U heeft geen brandstof aangeduid!"); return; }
+                if (!lbBrandstof.Items.Contains((Brandstof)cbBrandstoffen.SelectedItem)) { MessageBox.Show("Brandstof staat niet al op de lijst!"); return; }
+                Brandstoffen.Remove((Brandstof)cbBrandstoffen.SelectedItem);
+                lbBrandstof.ItemsSource = Brandstoffen;
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }         
         }
 
         private void btnBestuurderbeheer_Click(object sender, RoutedEventArgs e) {
             TankkaartToevoegenWindow ttw = this;
             new Bestuurderbeheer(ttw).ShowDialog();
-        }
-
-        private void VoegTankkaartToe(Tankkaart t) {
-            t.ZetKaartnummer(_tankkaartManager.VoegTankkaartToe(t));
-            _brandstofManager.VoegBrandstofToeAanTankkaart(t.Kaartnummer, t.Brandstoffen);
-            if (t.Bestuurder != null) _bestuurderManager.VoegTankkaartToeAanBestuurder(t);
         }
     }
 }

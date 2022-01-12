@@ -47,65 +47,60 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
         }
 
         private void btnBestuurderbeheer_Click(object sender, RoutedEventArgs e) {
-            if (lstBestuurder.Items.Count == 0) {
-                TankkaartUpdateWindow ttw = this;
-                new Bestuurderbeheer(ttw).ShowDialog();
-            } else {
-                MessageBox.Show("Gelieve eerst de bestuurder te verwijderen!");
-            }
-            
+            TankkaartUpdateWindow ttw = this;
+            new Bestuurderbeheer(ttw).ShowDialog();
         }
 
         private void laadWaarden() {
-            txtKaartnummer.IsEnabled = false;
-            txtKaartnummer.Text = $"{Tankkaart.Kaartnummer}";
-            dpGeldigheidsdatum.SelectedDate = Tankkaart.Geldigheidsdatum;
-            txtPincode.Text = $"{Tankkaart.Pincode}";
-            if (Tankkaart.Geblokkeerd) cbGeblokkeerd.SelectedIndex = 0;
-            cbGeblokkeerd.SelectedIndex = 1;
-            cbBrandstoffen.ItemsSource = _brandstofManager.GeefAlleBrandstoffen();
-            lbBrandstof.ItemsSource = Tankkaart.Brandstoffen;
-            Brandstoffen = new ObservableCollection<Brandstof>(Tankkaart.Brandstoffen);
+            try {
+                txtKaartnummer.IsEnabled = false;
+                txtKaartnummer.Text = $"{Tankkaart.Kaartnummer}";
+                dpGeldigheidsdatum.SelectedDate = Tankkaart.Geldigheidsdatum;
+                txtPincode.Text = $"{Tankkaart.Pincode}";
+                if (Tankkaart.Geblokkeerd) cbGeblokkeerd.SelectedIndex = 0;
+                cbGeblokkeerd.SelectedIndex = 1;
+                cbBrandstoffen.ItemsSource = _brandstofManager.GeefAlleBrandstoffen();
+                lbBrandstof.ItemsSource = Tankkaart.Brandstoffen;
+                Brandstoffen = new ObservableCollection<Brandstof>(Tankkaart.Brandstoffen);
 
-            if (Tankkaart.Bestuurder != null) lstBestuurder.Items.Add(Tankkaart.Bestuurder);
+                if (Tankkaart.Bestuurder != null) lstBestuurder.Items.Add(Tankkaart.Bestuurder);
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
         private void btnVoegBrandstofToe_Click(object sender, RoutedEventArgs e) {
-            if ((Brandstof)cbBrandstoffen.SelectedItem == null) { MessageBox.Show("U heeft geen brandstof aangeduid!"); return; }
-            if (lbBrandstof.Items.Contains((Brandstof)cbBrandstoffen.SelectedItem)) { MessageBox.Show("Brandstof staat al op de lijst!"); return; }
-            Brandstoffen.Add((Brandstof)cbBrandstoffen.SelectedItem);
-            lbBrandstof.ItemsSource = Brandstoffen;
+            try {
+                if ((Brandstof)cbBrandstoffen.SelectedItem == null) { MessageBox.Show("U heeft geen brandstof aangeduid!"); return; }
+                if (lbBrandstof.Items.Contains((Brandstof)cbBrandstoffen.SelectedItem)) { MessageBox.Show("Brandstof staat al op de lijst!"); return; }
+                Brandstoffen.Add((Brandstof)cbBrandstoffen.SelectedItem);
+                lbBrandstof.ItemsSource = Brandstoffen;
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }      
         }
 
         private void btnVerwijderBrandstof_Click(object sender, RoutedEventArgs e) {
-            if ((Brandstof)cbBrandstoffen.SelectedItem == null) { MessageBox.Show("U heeft geen rijbewijs aangeduid!"); return; }
-            if (!lbBrandstof.Items.Contains((Brandstof)cbBrandstoffen.SelectedItem)) { MessageBox.Show("Rijbewijs staat niet al op de lijst!"); return; }
-            Brandstoffen.Remove((Brandstof)cbBrandstoffen.SelectedItem);
-            lbBrandstof.ItemsSource = Brandstoffen;
+            try {
+                if ((Brandstof)cbBrandstoffen.SelectedItem == null) { MessageBox.Show("U heeft geen brandstof aangeduid!"); return; }
+                if (!lbBrandstof.Items.Contains((Brandstof)cbBrandstoffen.SelectedItem)) { MessageBox.Show("Brandstof staat niet al op de lijst!"); return; }
+                Brandstoffen.Remove((Brandstof)cbBrandstoffen.SelectedItem);
+                lbBrandstof.ItemsSource = Brandstoffen;
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }          
         }
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e) {
             try {
+                bool geblokkeerd = cbGeblokkeerd.SelectedIndex == 0 ? geblokkeerd = true : geblokkeerd = false;
                 Tankkaart.ZetKaartnummer(int.Parse(txtKaartnummer.Text));
                 Tankkaart.ZetGeldigheidsdatum((DateTime)dpGeldigheidsdatum.SelectedDate);
                 Tankkaart.ZetPincode(txtPincode.Text);
-                bool geblokkeerd = false;
-                if (cbGeblokkeerd.SelectedIndex == 0) { geblokkeerd = true;  }
                 Tankkaart.ZetGeblokkeerd(geblokkeerd);
-                if (lstBestuurder.Items.Count > 0) Tankkaart.ZetBestuurder((Bestuurder)lstBestuurder.Items[0]);
-                else { Tankkaart.ZetBestuurder(null); }
-                List<Brandstof> lbBrandstoffen = new List<Brandstof>();
-                foreach (var b in lbBrandstof.Items.Cast<Brandstof>().ToList()) {
-                    lbBrandstoffen.Add(_brandstofManager.GeefBrandstof(b));
-                }
-                Tankkaart.ZetBrandstoffen(lbBrandstoffen);
+                Tankkaart.ZetBestuurder(lstBestuurder.Items.Count > 0 ? (Bestuurder)lstBestuurder.Items[0] : null);
+                Tankkaart.ZetBrandstoffen(lbBrandstof.Items.Cast<Brandstof>().ToList());
                 _tankkaartManager.UpdateTankkaart(Tankkaart);
-                _brandstofManager.VerwijderBrandstofBijTankkaart(Tankkaart.Kaartnummer);
-                _brandstofManager.VoegBrandstofToeAanTankkaart(Tankkaart.Kaartnummer, Tankkaart.Brandstoffen);
-                if (Tankkaart.Bestuurder != null) _bestuurderManager.VoegTankkaartToeAanBestuurder(Tankkaart);
                 MessageBox.Show("Updaten gelukt!");
 
-                _tUC.lstTankkaarten.ItemsSource = _tankkaartManager.GeefAlleTankkaarten().Values;
+                _tUC.laadTankkaarten();
                 Close();
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
@@ -115,7 +110,6 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
             try {
                 if ((Bestuurder)lstBestuurder.SelectedItem == null) { MessageBox.Show("U heeft geen bestuurder gekozen!", "Geen bestuurder!", MessageBoxButton.OK, MessageBoxImage.Error); return; }
                 if (MessageBox.Show("Bent u zeker?", "Opgelet!", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes) {
-                    _bestuurderManager.VerwijderTankkaartVanBestuurder((Bestuurder)lstBestuurder.SelectedItem);
                     lstBestuurder.Items.Remove((Bestuurder)lstBestuurder.SelectedItem);
                 }
                 _tUC.laadTankkaarten();
@@ -124,7 +118,10 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
         }
 
         private void btnAnnuleer_Click(object sender, RoutedEventArgs e) {
-            Close();
+            try {
+                Close();
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
     }
 }

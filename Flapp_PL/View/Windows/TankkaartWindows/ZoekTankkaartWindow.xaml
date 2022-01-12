@@ -120,7 +120,7 @@
                                 x:Name="VerwijderBestuurder"
                                 Click="VerwijderBestuurder_Click"
                                 Header="Verwijderen"
-                                Icon="{materialDesign:PackIcon Kind=Delete}" />
+                                Icon="{materialDesign:PackIcon Kind=Remove}" />
                         </ContextMenu>
                     </ListView.ContextMenu>
                     <ListView.View>
