@@ -563,35 +563,40 @@ namespace Flapp_DAL.Repository {
 
         #region VerwijderVoertuig Method
         public void VerwijderVoertuig(Voertuig v) {
-            SqlConnection conn = new SqlConnection(_connString);
-            string query = "USE [Project_Flapp_DB]; DELETE FROM [dbo].[Voertuig] WHERE voertuigId = @voertuigId;";
-            string query2 = "DELETE FROM [dbo].[Brandstof_Voertuig] WHERE voertuigID = @voertuigId";
-            string query3 = "UPDATE Bestuurder SET voertuigId = NULL WHERE voertuigId = @voertuigId";
-            SqlCommand command = new(query, conn);
-            SqlCommand command2 = new(query2, conn);
-            SqlCommand command3 = new(query3, conn);
-            conn.Open();
-            SqlTransaction transaction = conn.BeginTransaction();
-            command.Transaction = transaction;
-            command2.Transaction = transaction;
-            command3.Transaction = transaction;
-            try {
-                command2.Parameters.Add(new SqlParameter("@voertuigId", SqlDbType.Int));
-                command2.CommandText = query2;
-                command2.Parameters["@voertuigId"].Value = v.VoertuigID;
-                command2.ExecuteNonQuery();
-                command3.Parameters.Add(new SqlParameter("@voertuigId", SqlDbType.Int));
-                command3.CommandText = query2;
-                command3.Parameters["@voertuigId"].Value = v.VoertuigID;
-                command3.ExecuteNonQuery();
-                command.Parameters.Add(new SqlParameter("@voertuigId", SqlDbType.Int));
-                command.CommandText = query;
-                command.Parameters["@voertuigId"].Value = v.VoertuigID;
-                command.ExecuteNonQuery();
-                transaction.Commit();
+            using (SqlConnection conn = new SqlConnection(_connString))
+            {
+                conn.Open();
+
+                SqlCommand cmd = conn.CreateCommand();
+                SqlTransaction trx;
+
+                trx = conn.BeginTransaction();
+
+                cmd.Connection = conn;
+                cmd.Transaction = trx;
+
+                try
+                {
+                    cmd.CommandText = "DELETE FROM [dbo].[Brandstof_Voertuig] WHERE voertuigId = @id1;";
+                    cmd.Parameters.AddWithValue("@id1", v.VoertuigID);
+                    cmd.ExecuteNonQuery();
+
+                    cmd.CommandText = "Update [dbo].[Bestuurder] SET voertuigId = null WHERE voertuigId = @id2;";
+                    cmd.Parameters.AddWithValue("@id2", v.VoertuigID);
+                    cmd.ExecuteNonQuery();
+
+                    cmd.CommandText = "DELETE FROM [dbo].[Voertuig] WHERE voertuigId = @id3;";
+                    cmd.Parameters.AddWithValue("@id3", v.VoertuigID);
+                    cmd.ExecuteNonQuery();
+                    trx.Commit();
+                }
+                catch (Exception ex)
+                {
+                    trx.Rollback();
+                    throw new Exception(ex.Message);
+                }
+                finally { conn.Close(); }
             }
-            catch (Exception ex) { transaction.Rollback(); throw new Exception(ex.Message); }
-            finally { conn.Close(); }
 
         }
         #endregion
