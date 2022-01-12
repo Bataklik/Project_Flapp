@@ -42,7 +42,7 @@ namespace Flapp_PL.View.UserControls
         #endregion
 
         #region methods
-        private void laadVoertuigen()
+        public void laadVoertuigen()
         {
             List<Voertuig> voertuigen = new List<Voertuig>();
             try
@@ -64,7 +64,7 @@ namespace Flapp_PL.View.UserControls
         }
         private void btnVoegToe_Click(object sender, RoutedEventArgs e)
         {
-            new VoertuigToevoegen().ShowDialog();
+            new VoertuigToevoegen(this).ShowDialog();
         }
 
         #endregion

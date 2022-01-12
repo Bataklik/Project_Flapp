@@ -61,8 +61,7 @@ namespace Flapp_PL.View.Windows.VoertuigWindows {
                     if (lstBestuurder.Items.Count > 0) {
                         Bestuurder b = (Bestuurder)lstBestuurder.Items[0];
                         v.ZetBestuurder((Bestuurder)lstBestuurder.Items[0]);
-                        b.ZetVoertuig(v);
-                        _bestuurderManager.VoegVoertuigToeAanBestuurder(b);
+                        b.ZetVoertuig(v);                        
                     }
                     _voertuigManager.UpdateVoertuig(v);
                     MessageBox.Show("Updaten Gelukt!");
@@ -177,9 +176,14 @@ namespace Flapp_PL.View.Windows.VoertuigWindows {
         }
         private void miDeselecterenBestuurder_Click(object sender, RoutedEventArgs e)
         {
+
             if (lstBestuurder.Items.Count < 1) { MessageBox.Show("Er is geen bestuurder geselecteerd!", "Geen Bestuurder!", MessageBoxButton.OK, MessageBoxImage.Information); return; }
             MessageBoxResult result = MessageBox.Show("Wilt u deze bestuurder verwijderen van het voertuig?", "Niet Selecteren!", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
-            if (result == MessageBoxResult.Yes) { lstBestuurder.Items.Clear(); }
+            if (result == MessageBoxResult.Yes) 
+            {
+                _bestuurderManager.UpdateBestuurder_voertuigId(_voertuig.VoertuigID);
+                lstBestuurder.Items.Clear(); 
+            }
         }
     }
 }

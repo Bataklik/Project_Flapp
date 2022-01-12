@@ -363,6 +363,18 @@ namespace Flapp_DAL.Repository {
                 commandBVerwijderen.Parameters["@vId"].Value = v.VoertuigID;
                 commandBVerwijderen.ExecuteNonQuery();
 
+                if (v.Bestuurder != null)
+                {
+                    string qry = "UPDATE Bestuurder SET voertuigId=@voertuigId WHERE bestuurderId=@bestuurderId;";
+                    SqlCommand cmd = new(qry, conn);
+                    cmd.Transaction = transaction;
+                    cmd.Parameters.Add(new SqlParameter("@bestuurderId", SqlDbType.Int));
+                    cmd.Parameters.Add(new SqlParameter("@voertuigId", SqlDbType.Int));
+                    cmd.Parameters["@bestuurderId"].Value = v.Bestuurder.Id;
+                    cmd.Parameters["@voertuigId"].Value = v.VoertuigID;
+                    cmd.ExecuteNonQuery();
+                }
+
                 foreach (var brandstof in brandstoffen)
                 {
                     SqlCommand commandBToevoegen = new(queryBToevoegen, conn);
@@ -389,17 +401,24 @@ namespace Flapp_DAL.Repository {
             SqlConnection conn = new SqlConnection(_connString);
             string query = "USE [Project_Flapp_DB]; DELETE FROM [dbo].[Voertuig] WHERE voertuigId = @voertuigId;";
             string query2 = "DELETE FROM [dbo].[Brandstof_Voertuig] WHERE voertuigID = @voertuigId";
+            string query3 = "UPDATE Bestuurder SET voertuigId = NULL WHERE voertuigId = @voertuigId";
             SqlCommand command = new(query, conn);
             SqlCommand command2 = new(query2, conn);
+            SqlCommand command3 = new(query3, conn);
             conn.Open();
             SqlTransaction transaction = conn.BeginTransaction();
             command.Transaction = transaction;
             command2.Transaction = transaction;
+            command3.Transaction = transaction;
             try {
                 command2.Parameters.Add(new SqlParameter("@voertuigId", SqlDbType.Int));
                 command2.CommandText = query2;
                 command2.Parameters["@voertuigId"].Value = v.VoertuigID;
                 command2.ExecuteNonQuery();
+                command3.Parameters.Add(new SqlParameter("@voertuigId", SqlDbType.Int));
+                command3.CommandText = query2;
+                command3.Parameters["@voertuigId"].Value = v.VoertuigID;
+                command3.ExecuteNonQuery();
                 command.Parameters.Add(new SqlParameter("@voertuigId", SqlDbType.Int));
                 command.CommandText = query;
                 command.Parameters["@voertuigId"].Value = v.VoertuigID;

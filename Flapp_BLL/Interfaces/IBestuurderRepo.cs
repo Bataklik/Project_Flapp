@@ -24,9 +24,10 @@ namespace Flapp_BLL.Interfaces {
         Dictionary<int, Bestuurder> GeefAlleBestuurdersZonderTankkaarten();
 
         int VoegBestuurderToe(Bestuurder bestuurder);
-        void VoegVoertuigToeAanBestuurder(Bestuurder b);
+        
 
         void UpdateBestuurder(Bestuurder bestuurder);
         void VerwijderBestuurder(Bestuurder bestuurder);
+        void UpdateBestuurder_voertuigId(int VoertuigID);
     }
 }
