@@ -138,13 +138,33 @@ namespace Flapp_PL.View.Windows.VoertuigWindow {
 
         private void btnPlusDeur_Click(object sender, RoutedEventArgs e) {
             aantalDeuren = Convert.ToInt32(txtDeuren.Text);
-            aantalDeuren += 1;
+            switch (aantalDeuren)
+            {
+                case (3):
+                    aantalDeuren = 5;
+                    break;
+                case (5):
+                    aantalDeuren = 7;
+                    break;
+                default:
+                    break;
+            }
             txtDeuren.Text = aantalDeuren.ToString();
         }
 
         private void btnMindeur_Click(object sender, RoutedEventArgs e) {
             aantalDeuren = Convert.ToInt32(txtDeuren.Text);
-            aantalDeuren -= 1;
+            switch (aantalDeuren)
+            {
+                case (7):
+                    aantalDeuren = 5;
+                    break;
+                case (5):
+                    aantalDeuren = 3;
+                    break;
+                default:
+                    break;
+            }
             txtDeuren.Text = aantalDeuren.ToString();
         }
 
