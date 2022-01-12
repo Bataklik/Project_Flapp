@@ -56,7 +56,6 @@ namespace Flapp_TESTS.UnitTests_Models
         [InlineData("")]
         [InlineData(null)]
         [InlineData("    ")]
-        [InlineData("a")]
         public void Test_ZetNaam_BadNaam_InValid(string naam)
         {
             Rijbewijs rb = new Rijbewijs("B");
