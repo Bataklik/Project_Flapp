@@ -41,12 +41,12 @@ namespace Flapp_PL.View.Windows.VoertuigWindows {
         }
         public void laadVoertuig() {
             lstBrandtof.ItemsSource = _voertuig.Brandstof;
-            Brandstoffen = new ObservableCollection<Brandstof>(_voertuig.Brandstof);
+            //Brandstoffen = new ObservableCollection<Brandstof>(_voertuig.Brandstof);
             txtId.Text = $"{_voertuig.VoertuigID}";
             cmbMerk.Text = _voertuig.Merk;
             cmbModel.Text = _voertuig.Model;
             txtChassis.Text = _voertuig.ChassisNummer;
-            cmbType.Text = _voertuig.VoertuigType;
+            cmbType.SelectedItem = _voertuig.VoertuigType;
             txtNummerplaat.Text = _voertuig.Nummerplaat;
             txtKleur.Text = _voertuig.Kleur;
             txtDeuren.Text = $"{_voertuig.Aantaldeuren}";

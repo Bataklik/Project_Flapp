@@ -75,7 +75,7 @@ namespace Flapp_PL.View.UserControls
             MainWindow main = new MainWindow();
             Voertuig v = (Voertuig)lstVoertuigen.SelectedItem;
             //main.wpUserControl.Children.Add(new VoertuigUpdatenUC(v, main));
-            new VoertuigUpdaten(v).ShowDialog();
+            new VoertuigUpdaten((Voertuig)lstVoertuigen.SelectedItem).ShowDialog();
         }
 
         private void btnVerwijderVoertuig_Click(object sender, RoutedEventArgs e)

@@ -198,13 +198,13 @@ namespace Flapp_DAL.Repository {
                         if (voertuigen.ContainsKey((int)r["voertuigId"]))
                         {
                             Voertuig dicVoertuig = voertuigen[(int)r["voertuigId"]];
-                            dicVoertuig.Brandstof.Add(new Brandstof(r["naam"].ToString()));
+                            dicVoertuig.Brandstof.Add(new Brandstof((int)r[10], (string)r[11]));
                         }
                         else
                         {
                             //List<Brandstof> brandstof =  geefbrandstoffenVanVoertuig((int)r["voertuigId"]);
                             string voertuigtype = (string)r["type"];
-                            List<Brandstof> brandstof = new List<Brandstof> { new Brandstof((string)r["naam"]) };
+                            List<Brandstof> brandstof = new List<Brandstof> { new Brandstof((int)r[10], (string)r[11]) };
                             Voertuig voertuig = new Voertuig((int)r["voertuigId"], (string)r["merk"], (string)r["model"], (string)r["chassisnummer"], (string)r["nummerplaat"], brandstof, voertuigtype, (string)r["kleur"], (int)r["deuren"]);
 
                             if (!r.IsDBNull(r.GetOrdinal("bestuurderId")))
