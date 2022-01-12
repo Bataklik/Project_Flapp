@@ -53,7 +53,7 @@ namespace Flapp_PL.View.UserControls
                 }
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
-            lstVoertuigen.ItemsSource = voertuigen;
+                lstVoertuigen.ItemsSource = voertuigen;
         }
 
         private void btnZoek_Click(object sender, RoutedEventArgs e)
