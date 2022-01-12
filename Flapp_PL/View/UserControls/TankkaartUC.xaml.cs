@@ -29,37 +29,43 @@ namespace Flapp_PL.View.UserControls {
             try {
                 lstTankkaarten.ItemsSource = _tankkaartManager.GeefAlleTankkaarten().Values;
             }
-            catch (Exception) { throw; }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
         private void btnZoek_Click(object sender, RoutedEventArgs e) {
-            TankkaartUC tUC = this;
-            if (_main.wpUserControl.Children.Count > 1) _main.wpUserControl.Children.RemoveAt(_main.wpUserControl.Children.Count - 1);
-            new ZoekTankkaartWindow(_main, tUC).ShowDialog();
+            try {
+                if (_main.wpUserControl.Children.Count > 1) _main.wpUserControl.Children.RemoveAt(_main.wpUserControl.Children.Count - 1);
+                new ZoekTankkaartWindow(_main, this).ShowDialog();
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }      
         }
 
         private void btnVoegToe_Click(object sender, RoutedEventArgs e) {
-            TankkaartUC tUC = this;
-            if (_main.wpUserControl.Children.Count > 1) _main.wpUserControl.Children.RemoveAt(_main.wpUserControl.Children.Count - 1);
-            new TankkaartToevoegenWindow(tUC).ShowDialog();
+            try {
+                if (_main.wpUserControl.Children.Count > 1) _main.wpUserControl.Children.RemoveAt(_main.wpUserControl.Children.Count - 1);
+                new TankkaartToevoegenWindow(this).ShowDialog();
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }         
         }
 
         private void Update_Click(object sender, RoutedEventArgs e) {
-            Tankkaart t = (Tankkaart)lstTankkaarten.SelectedItem;
-            TankkaartUC tUC = this;
-            new TankkaartUpdateWindow(t, tUC).ShowDialog();
+            try {
+                Tankkaart t = (Tankkaart)lstTankkaarten.SelectedItem;
+                new TankkaartUpdateWindow(t, this).ShowDialog();
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }       
         }
 
         private void Verwijder_Click(object sender, RoutedEventArgs e) {
-            if ((Tankkaart)lstTankkaarten.SelectedItem == null) { MessageBox.Show("U heeft geen tankkaart gekozen!", "Geen tankkaart!", MessageBoxButton.OK, MessageBoxImage.Error); return; }
-            Tankkaart teVerwijderen = (Tankkaart)lstTankkaarten.SelectedItem;
-            MessageBoxResult result = MessageBox.Show($"Wilt u zeker Tankkaart: \nKaartnummer: {teVerwijderen.Kaartnummer}, {teVerwijderen.Geldigheidsdatum.ToShortDateString()}\n verwijderen?", "Tankkaart Verwijderen?", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
-            if (result == MessageBoxResult.No) { return; }
             try {
+                if ((Tankkaart)lstTankkaarten.SelectedItem == null) { MessageBox.Show("U heeft geen tankkaart gekozen!", "Geen tankkaart!", MessageBoxButton.OK, MessageBoxImage.Error); return; }
+                Tankkaart teVerwijderen = (Tankkaart)lstTankkaarten.SelectedItem;
+                MessageBoxResult result = MessageBox.Show($"Wilt u zeker Tankkaart: \nKaartnummer: {teVerwijderen.Kaartnummer} verwijderen?", "Tankkaart Verwijderen?", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+                if (result == MessageBoxResult.No) { return; }
                 _tankkaartManager.VerwijderTankkaart(teVerwijderen);
+                lstTankkaarten.ItemsSource = _tankkaartManager.GeefAlleTankkaarten().Values;
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
-            lstTankkaarten.ItemsSource = _tankkaartManager.GeefAlleTankkaarten().Values;
+            catch (Exception ex) { MessageBox.Show(ex.Message); }       
         }
     }
 }

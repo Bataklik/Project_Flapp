@@ -257,30 +257,84 @@ namespace Flapp_DAL.Repository {
         #endregion
 
         #region VoegVoertuigToe Method
+        //public int VoegVoertuigToe(Voertuig v) {
+        //    //int voertuigId;
+        //    //var brandstoffen = v.geefBrandstoffen();
+        //    string query = "INSERT INTO [dbo].[Voertuig] (merk, model, chassisnummer, nummerplaat, type, kleur, deuren)output INSERTED.voertuigId VALUES (@merk, @model, @chassisnummer, @nummerplaat, @type, @kleur, @deuren)";
+        //    SqlConnection conn = new SqlConnection(_connString);
+        //    SqlCommand cmd = new(query, conn);
+        //    try {
+        //        conn.Open();
+
+        //        cmd.Parameters.AddWithValue("@merk", v.Merk);
+        //        cmd.Parameters.AddWithValue("@model", v.Model);
+        //        cmd.Parameters.AddWithValue("@chassisnummer", v.ChassisNummer);
+        //        cmd.Parameters.AddWithValue("@nummerplaat", v.Nummerplaat);
+        //        cmd.Parameters.AddWithValue("@type", v.VoertuigType);
+        //        cmd.Parameters.AddWithValue("@kleur", v.Kleur);
+        //        cmd.Parameters.AddWithValue("@deuren", v.Aantaldeuren);
+
+        //        //command.ExecuteNonQuery();
+        //        int voertuigId = (int)cmd.ExecuteScalar();
+        //        //int bestuurderId = (int)command.ExecuteScalar();
+        //        return voertuigId;
+        //    }
+        //    catch (Exception ex) { throw new VoertuigException(ex.Message); }
+        //    finally { conn.Close(); }
+        //}
+
         public int VoegVoertuigToe(Voertuig v) {
-            //int voertuigId;
-            //var brandstoffen = v.geefBrandstoffen();
-            string query = "INSERT INTO [dbo].[Voertuig] (merk, model, chassisnummer, nummerplaat, type, kleur, deuren)output INSERTED.voertuigId VALUES (@merk, @model, @chassisnummer, @nummerplaat, @type, @kleur, @deuren)";
-            SqlConnection conn = new SqlConnection(_connString);
-            SqlCommand cmd = new(query, conn);
-            try {
+            int voertuigid;
+            using (SqlConnection conn = new SqlConnection(_connString)) {
                 conn.Open();
 
-                cmd.Parameters.AddWithValue("@merk", v.Merk);
-                cmd.Parameters.AddWithValue("@model", v.Model);
-                cmd.Parameters.AddWithValue("@chassisnummer", v.ChassisNummer);
-                cmd.Parameters.AddWithValue("@nummerplaat", v.Nummerplaat);
-                cmd.Parameters.AddWithValue("@type", v.VoertuigType);
-                cmd.Parameters.AddWithValue("@kleur", v.Kleur);
-                cmd.Parameters.AddWithValue("@deuren", v.Aantaldeuren);
+                SqlCommand cmd = conn.CreateCommand();
+                SqlTransaction trx;
 
-                //command.ExecuteNonQuery();
-                int voertuigId = (int)cmd.ExecuteScalar();
-                //int bestuurderId = (int)command.ExecuteScalar();
-                return voertuigId;
+                trx = conn.BeginTransaction();
+
+                cmd.Connection = conn;
+                cmd.Transaction = trx;
+
+                try {
+                    cmd.CommandText = "INSERT INTO [dbo].[Voertuig] (merk, model, chassisnummer, nummerplaat, type, kleur, deuren)output INSERTED.voertuigId VALUES (@merk, @model, @chassisnummer, @nummerplaat, @type, @kleur, @deuren);";
+
+                    cmd.Parameters.AddWithValue("@merk", v.Merk);
+                    cmd.Parameters.AddWithValue("@model", v.Model);
+                    cmd.Parameters.AddWithValue("@chassisnummer", v.ChassisNummer);
+                    cmd.Parameters.AddWithValue("@nummerplaat", v.Nummerplaat);
+                    cmd.Parameters.AddWithValue("@type", v.VoertuigType);
+                    cmd.Parameters.AddWithValue("@kleur", v.Kleur);
+                    cmd.Parameters.AddWithValue("@deuren", v.Aantaldeuren);
+                    voertuigid = (int)cmd.ExecuteScalar();
+
+                    if (v.Bestuurder != null) {
+                        cmd.CommandText = "UPDATE Bestuurder SET voertuigId=@voertuigId WHERE bestuurderId=@bestuurderId;";
+                        cmd.Parameters.Add(new SqlParameter("@bestuurderId", SqlDbType.Int));
+                        cmd.Parameters.Add(new SqlParameter("@voertuigId", SqlDbType.Int));
+                        cmd.Parameters["@bestuurderId"].Value = v.Bestuurder.Id;
+                        cmd.Parameters["@voertuigId"].Value = voertuigid;
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    v.Brandstof.ForEach(x => {
+                        cmd.CommandText = $"INSERT INTO Brandstof_Voertuig ([brandstofId] ,[voertuigId]) VALUES(@brandstofId{x.Id}, @voertuigId{x.Id + 1});";
+                        cmd.Parameters.Add(new SqlParameter($"@brandstofId{x.Id}", SqlDbType.Int));
+                        cmd.Parameters.Add(new SqlParameter($"@voertuigId{x.Id + 1}", SqlDbType.Int));
+                        cmd.Parameters[$"@brandstofId{x.Id}"].Value = x.Id;
+                        cmd.Parameters[$"@voertuigId{x.Id + 1}"].Value = voertuigid;
+                        cmd.ExecuteNonQuery();
+                    });
+
+                    trx.Commit();
+                    return voertuigid;
+                }
+                catch (Exception ex) {
+                    trx.Rollback();
+                    throw new Exception(ex.Message);
+                }
+                finally { conn.Close(); }
             }
-            catch (Exception ex) { throw new VoertuigException(ex.Message); }
-            finally { conn.Close(); }
         }
         #endregion
 
