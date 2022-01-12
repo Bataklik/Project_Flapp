@@ -291,7 +291,14 @@ namespace Flapp_DAL.Repository {
         {
             SqlConnection conn = new SqlConnection(_connString);
             Dictionary<int, Voertuig> voertuigen = new Dictionary<int, Voertuig>();
-            string query = "SELECT TOP(20) * FROM Voertuig LEFT JOIN Brandstof_Voertuig ON Voertuig.voertuigId = Brandstof_Voertuig.voertuigId LEFT JOIN Brandstof ON Brandstof_Voertuig.brandstofId = Brandstof.brandstofId LEFT JOIN Bestuurder ON Voertuig.voertuigId = Bestuurder.voertuigId LEFT JOIN Rijbewijs_Bestuurder ON Bestuurder.bestuurderId = Rijbewijs_Bestuurder.bestuurderId LEFT JOIN Rijbewijs ON Rijbewijs_Bestuurder.rijbewijsId = Rijbewijs.rijbewijsId  LEFT JOIN Adres ON Bestuurder.adresId = Adres.adresId LEFT JOIN Tankkaart ON Bestuurder.tankkaartId = Tankkaart.tankkaartId";
+            string query = "SELECT TOP(20) * FROM Voertuig " +
+                "LEFT JOIN Brandstof_Voertuig ON Voertuig.voertuigId = Brandstof_Voertuig.voertuigId " +
+                "LEFT JOIN Brandstof ON Brandstof_Voertuig.brandstofId = Brandstof.brandstofId " +
+                "LEFT JOIN Bestuurder ON Voertuig.voertuigId = Bestuurder.voertuigId " +
+                "LEFT JOIN Rijbewijs_Bestuurder ON Bestuurder.bestuurderId = Rijbewijs_Bestuurder.bestuurderId " +
+                "LEFT JOIN Rijbewijs ON Rijbewijs_Bestuurder.rijbewijsId = Rijbewijs.rijbewijsId  " +
+                "LEFT JOIN Adres ON Bestuurder.adresId = Adres.adresId " +
+                "LEFT JOIN Tankkaart ON Bestuurder.tankkaartId = Tankkaart.tankkaartId";
             using (SqlCommand cmd = conn.CreateCommand())
             {
                 cmd.CommandText = query;
