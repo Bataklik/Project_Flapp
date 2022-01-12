@@ -10,7 +10,7 @@ namespace Flapp_BLL.Interfaces {
         bool HeeftBestuurderTankkaart(Bestuurder bestuurder);
 
         Bestuurder GeefBestuurder(Bestuurder bestuurder);
-        Dictionary<int, Bestuurder> GeefBestuurders(string naam = null, string voornaam = null, DateTime? geboorte = null, bool heeftVoertuig = false);
+        Dictionary<int, Bestuurder> GeefBestuurders(string naam = null, string voornaam = null, DateTime? geboorte = null, bool? heeftVoertuig = false);
 
         //Dictionary<int, Bestuurder> GeefAlleBestuurders();
         //Dictionary<int, Bestuurder> GeefBestuurders(string naam, string voornaam);
@@ -24,7 +24,7 @@ namespace Flapp_BLL.Interfaces {
         Dictionary<int, Bestuurder> GeefAlleBestuurdersZonderTankkaarten();
 
         int VoegBestuurderToe(Bestuurder bestuurder);
-        
+
 
         void UpdateBestuurder(Bestuurder bestuurder);
         void VerwijderBestuurder(Bestuurder bestuurder);

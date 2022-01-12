@@ -22,42 +22,6 @@ namespace Flapp_PL.View.Windows {
             bUC.LaadBestuurders(toUpperFirstletter(txtNaam.Text), toUpperFirstletter(txtVoornaam.Text), dpGeboortedatum.SelectedDate, heeftVoertuig);
             main.Show();
             Close();
-
-            //    // Naam Voornaam Date
-            //    else if (!string.IsNullOrWhiteSpace(txtNaam.Text) && !string.IsNullOrWhiteSpace(txtVoornaam.Text) && dpGeboortedatum.SelectedDate != null) {
-            //        main.Show();
-            //        bUC.LaadAlleBestuurdersOpNaamVoornaamDate(toUpperFirstletter(txtNaam.Text), toUpperFirstletter(txtVoornaam.Text), (DateTime)dpGeboortedatum.SelectedDate, heeftVoertuig);
-            //        Close();
-            //        return;
-            //    }
-            //    // Naam Voornaam
-            //    else if (!string.IsNullOrWhiteSpace(txtNaam.Text) && !string.IsNullOrWhiteSpace(txtVoornaam.Text) && dpGeboortedatum.SelectedDate == null) {
-            //        main.Show();
-            //        bUC.LaadAlleBestuurdersOpNaamVoornaam(toUpperFirstletter(txtNaam.Text), toUpperFirstletter(txtVoornaam.Text), heeftVoertuig);
-            //        Close();
-            //        return;
-            //    }
-            //    // Naam
-            //    else if (!string.IsNullOrWhiteSpace(txtNaam.Text) && string.IsNullOrWhiteSpace(txtVoornaam.Text) && dpGeboortedatum.SelectedDate == null) {
-            //        main.Show();
-            //        bUC.LaadAlleBestuurdersOpNaam(toUpperFirstletter(txtNaam.Text), heeftVoertuig);
-            //        Close();
-            //        return;
-            //    }
-            //    // Voornaam
-            //    else if (string.IsNullOrWhiteSpace(txtNaam.Text) && !string.IsNullOrWhiteSpace(txtVoornaam.Text) && dpGeboortedatum.SelectedDate == null) {
-            //        main.Show();
-            //        bUC.LaadAlleBestuurdersOpVoornaam(toUpperFirstletter(txtVoornaam.Text), heeftVoertuig);
-            //        Close();
-            //        return;
-            //    }
-            //    // Date
-            //    else if (string.IsNullOrWhiteSpace(txtNaam.Text) && string.IsNullOrWhiteSpace(txtVoornaam.Text) && dpGeboortedatum.SelectedDate != null) {
-            //        main.Show();
-            //        bUC.LaadAlleBestuurdersOpDatum((DateTime)dpGeboortedatum.SelectedDate, heeftVoertuig);
-            //        Close();
-            //        return;
-            //    }
         }
 
         private void btnAnnuleren_Click(object sender, RoutedEventArgs e) {

@@ -8,11 +8,8 @@ using System;
 using System.Windows;
 
 namespace Flapp_PL.View.Windows.BeheerWindows {
-    /// <summary>
-    /// Interaction logic for Bestuurderbeheer.xaml
-    /// </summary>
 
-    public partial class Bestuurderbeheer : Window {
+  public partial class Bestuurderbeheer : Window {
         private VoertuigToevoegen _voertuigToevoegenWindow;
         private VoertuigUpdaten _voertuigUpdatenWindow;
 
@@ -53,17 +50,8 @@ namespace Flapp_PL.View.Windows.BeheerWindows {
             laadBestuurders();
         }
 
-        public void laadBestuurders() {
-            try {
-                if (_tankkaartToevoegenWindow != null || _tankkaartUpdateWindow != null) { lstBestuurder.ItemsSource = _bestuurderManager.GeefAlleBestuurdersZonderTankkaarten().Values; }
-                if (_voertuigToevoegenWindow != null || _voertuigUpdatenWindow != null) { lstBestuurder.ItemsSource = _bestuurderManager.GeefAlleBestuurdersZonderVoertuig().Values; }
-                if (_zoekTankkaartWindow != null) { lstBestuurder.ItemsSource = _bestuurderManager.GeefAlleBestuurdersZonderTankkaarten().Values; }
-            }
-            catch (Exception ex) { MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
-        }
 
-
-
+        #region Click Methods
         private void miSelecteer_Click(object sender, RoutedEventArgs e) {
             try {
                 if (lstBestuurder.SelectedItem == null) { MessageBox.Show("U heeft geen bestuurder geselecteerd!"); return; }
@@ -92,12 +80,23 @@ namespace Flapp_PL.View.Windows.BeheerWindows {
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
-
         private void btnZoek_Click(object sender, RoutedEventArgs e) {
             try {
-                lstBestuurder.ItemsSource = _bestuurderManager.GeefBestuurders(txtFamilienaam.Text, txtVoornaam.Text);
+                lstBestuurder.ItemsSource = _bestuurderManager.GeefAlleBestuurders(txtFamilienaam.Text, txtVoornaam.Text, null, null).Values;
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
+        #endregion
+
+        #region Helpers
+        public void laadBestuurders() {
+            try {
+                if (_tankkaartToevoegenWindow != null || _tankkaartUpdateWindow != null) { lstBestuurder.ItemsSource = _bestuurderManager.GeefAlleBestuurdersZonderTankkaarten().Values; }
+                if (_voertuigToevoegenWindow != null || _voertuigUpdatenWindow != null) { lstBestuurder.ItemsSource = _bestuurderManager.GeefAlleBestuurdersZonderVoertuig().Values; }
+                if (_zoekTankkaartWindow != null) { lstBestuurder.ItemsSource = _bestuurderManager.GeefAlleBestuurdersZonderTankkaarten().Values; }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
+        }
+        #endregion
     }
 }
