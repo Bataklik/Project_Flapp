@@ -81,7 +81,7 @@
             Grid.Row="1"
             Grid.Column="1"
             Orientation="Horizontal">
-            <GroupBox Padding="5" Header="Voornaam">
+            <GroupBox Margin="5,0" Header="Voornaam">
                 <TextBox
                     x:Name="txtVoornaam"
                     Width="100"

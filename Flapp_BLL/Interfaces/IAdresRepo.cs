@@ -11,9 +11,9 @@ namespace Flapp_BLL.Interfaces {
         void UpdateAdres(Adres adres);
         Adres GeefAdres(int id);
         Adres GeefAdres(Adres adres);
-        ObservableCollection<Adres> GeefAdressen();
+        List<Adres> GeefAdressen();
         Dictionary<int, string> GeefAlleSteden();
-        ObservableCollection<string> GeefStratenStad(int postcode, string stad);
-        ObservableCollection<Adres> ZoekAdressen(string stad, string straat);
+        List<string> GeefStratenStad(int postcode, string stad);
+        List<Adres> ZoekAdressen(string stad, string straat);
     }
 }

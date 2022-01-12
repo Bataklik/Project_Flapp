@@ -44,7 +44,7 @@ namespace Flapp_BLL.Managers {
             catch (Exception ex) { throw new AdresManagerException("AdresManager: VerwijderAdres", ex); }
         }
 
-        public ObservableCollection<Adres> GeefAdressen() {
+        public List<Adres> GeefAdressen() {
             try {
                 return _repo.GeefAdressen();
             }
@@ -59,7 +59,7 @@ namespace Flapp_BLL.Managers {
             catch (Exception ex) { throw new AdresManagerException("AdresManager: UpdateAdres", ex); }
         }
 
-        public ObservableCollection<string> GeefStratenStad(int postcode, string stad) {
+        public List<string> GeefStratenStad(int postcode, string stad) {
             return _repo.GeefStratenStad(postcode, stad);
         }
 
@@ -71,7 +71,7 @@ namespace Flapp_BLL.Managers {
             catch (Exception ex) { throw new AdresManagerException("AdresManager: GeefAdres(id)", ex); }
         }
 
-        public ObservableCollection<Adres> ZoekAdressen(string stad, string straat) {
+        public List<Adres> ZoekAdressen(string stad, string straat) {
             try {
                 return _repo.ZoekAdressen(stad, straat);
             }

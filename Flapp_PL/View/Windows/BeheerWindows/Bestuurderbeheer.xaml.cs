@@ -20,7 +20,7 @@ namespace Flapp_PL.View.Windows.BeheerWindows {
         private TankkaartUpdateWindow _tankkaartUpdateWindow;
         private ZoekTankkaartWindow _zoekTankkaartWindow;
 
-        private BestuurderManager _bestuurderManager;      
+        private BestuurderManager _bestuurderManager;
 
         public Bestuurderbeheer(VoertuigToevoegen voertuigToevoegenWindow) {
             InitializeComponent();
@@ -61,6 +61,8 @@ namespace Flapp_PL.View.Windows.BeheerWindows {
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
+
+
 
         private void miSelecteer_Click(object sender, RoutedEventArgs e) {
             try {
