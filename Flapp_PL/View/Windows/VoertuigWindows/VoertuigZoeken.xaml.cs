@@ -48,7 +48,7 @@ namespace Flapp_PL.View.Windows.VoertuigWindows
                         voertuigen.Add(vo.Value);
                     }
                     vUC.lstVoertuigen.ItemsSource = voertuigen;
-                this.Close();
+                    this.Close();
                 }
                 catch (Exception ex) { MessageBox.Show(ex.Message, Title, MessageBoxButton.OK, MessageBoxImage.Error); }          
            
@@ -57,34 +57,19 @@ namespace Flapp_PL.View.Windows.VoertuigWindows
         {
             Close();
         }
-        void laadMerk()
-        {
-            
-        }
+        
         private void cmbMerk_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (cmbMerk.SelectedIndex != 0)
-            {
-                //cmbModel.IsEnabled = true;
+            if (cmbMerk.SelectedIndex > -1)
+            {                
                 ObservableCollection<string> modellen = new(_voertuigmanager.GeefModellenMerk(cmbMerk.SelectedItem.ToString()));
-                modellen.Insert(0, "");
-                cmbModel.ItemsSource = modellen;
-                cmbModel.SelectedIndex = 0;
-                //merk = cmbMerk.SelectedItem.ToString();
-                //model = null;
-            }
-            else
-            {
-                //cmbModel.IsEnabled = false;
-                //cmbModel.ItemsSource = null;
+                cmbModel.ItemsSource = modellen;          
             }
         }
 
         private void cmbMerk_Loaded(object sender, RoutedEventArgs e)
         {
-            ObservableCollection<string> merken = new(_voertuigmanager.GeefMerken());
-            merken.Insert(0, "");
-            //cmbMerk.SelectedIndex = 0;
+            ObservableCollection<string> merken = new(_voertuigmanager.GeefMerken());            
             cmbMerk.ItemsSource = merken;
         }
     }
