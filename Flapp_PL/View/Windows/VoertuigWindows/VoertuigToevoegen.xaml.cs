@@ -39,9 +39,7 @@ namespace Flapp_PL.View.Windows.VoertuigWindow {
                 _bestuurders = (ObservableCollection<Bestuurder>)Application.Current.Properties["Bestuurder"]; ;
             }
             else { _bestuurders = (ObservableCollection<Bestuurder>)Application.Current.Properties["Bestuurder"]; ; }
-
-            //laadVoertuigtypes();
-            //laadBrandstoftypes();
+                        
             laadMerk();
         }
         public VoertuigToevoegen() {
@@ -61,9 +59,7 @@ namespace Flapp_PL.View.Windows.VoertuigWindow {
                 _bestuurders = (ObservableCollection<Bestuurder>)Application.Current.Properties["Bestuurder"]; ;
             }
             else { _bestuurders = (ObservableCollection<Bestuurder>)Application.Current.Properties["Bestuurder"]; ; }
-
-            //laadVoertuigtypes();
-            //laadBrandstoftypes();
+                        
             laadMerk();
         }
 
@@ -73,7 +69,7 @@ namespace Flapp_PL.View.Windows.VoertuigWindow {
 
         private void btnToevoegen_Click(object sender, RoutedEventArgs e) {
             try {
-                Voertuig voertuig = new Voertuig(toUpperFirstletter(cmbMerk.Text), toUpperFirstletter(cmbModel.Text), txtChassis.Text.ToUpper(), txtNummerplaat.Text.ToUpper(), lstBrandtof.Items.Cast<Brandstof>().ToList(), cmbType.SelectedItem.ToString().ToUpper(), txtKleur.Text.ToUpper(), int.Parse(txtDeuren.Text));
+                Voertuig voertuig = new Voertuig(toUpperFirstletter(cmbMerk.Text), toUpperFirstletter(cmbModel.Text), txtChassis.Text.ToUpper(), txtNummerplaat.Text.ToUpper(), lstBrandtof.Items.Cast<Brandstof>().ToList(), cmbType.SelectedItem.ToString(), toUpperFirstletter(txtKleur.Text), int.Parse(txtDeuren.Text));
 
                 if (string.IsNullOrWhiteSpace(cmbMerk.Text) || string.IsNullOrWhiteSpace(cmbModel.Text) || string.IsNullOrWhiteSpace(txtChassis.Text) || string.IsNullOrWhiteSpace(txtNummerplaat.Text) || lstBestuurder.Items == null || string.IsNullOrWhiteSpace((string)cmbType.SelectedItem) || string.IsNullOrWhiteSpace(txtKleur.Text) || string.IsNullOrWhiteSpace(txtDeuren.Text)) { MessageBox.Show("Niet alle velden zijn ingevuld!"); return; }
 
@@ -101,9 +97,7 @@ namespace Flapp_PL.View.Windows.VoertuigWindow {
             }
         }
         private void laadMerk() {
-            ObservableCollection<string> merken = new(_voertuigManager.GeefMerken());
-            //merken.Insert(0, "");
-            //cmbMerk.SelectedIndex = 0;
+            ObservableCollection<string> merken = new(_voertuigManager.GeefMerken());            
             cmbMerk.ItemsSource = merken;
         }
         private void laadVoertuigtypes() {
@@ -167,7 +161,7 @@ namespace Flapp_PL.View.Windows.VoertuigWindow {
                 
                 if (cmbMerk.SelectedIndex < 0)
                 {
-                    //cmbModel.IsEnabled = false;
+                    
                     cmbModel.ItemsSource = null;
                     cmbModel.IsDropDownOpen = false;
                 }
@@ -175,9 +169,9 @@ namespace Flapp_PL.View.Windows.VoertuigWindow {
                 {
                     //cmbModel.IsEnabled = true;
                     ObservableCollection<string> modellen = new(_voertuigManager.GeefModellenMerk(cmbMerk.SelectedItem.ToString()));
-                    modellen.Insert(0, "");
+                    
                     cmbModel.ItemsSource = modellen;
-                    cmbModel.SelectedIndex = 0;
+                    //cmbModel.SelectedIndex = 0;
                     //merk = cmbMerk.SelectedItem.ToString();
                     //model = null;
                 }   

@@ -26,7 +26,7 @@ namespace Flapp_BLL.Models {
         }
         public void ZetNaam(string naam) {
             if (string.IsNullOrWhiteSpace(naam)) { throw new RijbewijsException("RijbewijsType: ZetNaam: Naam mag niet leeg zijn!"); }
-            //if (naam.Any(char.IsUpper)) { throw new RijbewijsException("RijbewijsType: ZetNaam: Naam moet niet hoofdletter!"); }
+            //if (!naam.Any(char.IsUpper)) { throw new RijbewijsException("RijbewijsType: ZetNaam: Naam moet niet hoofdletter!"); }
             Naam = naam;
         }
         #endregion
