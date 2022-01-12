@@ -347,9 +347,7 @@ namespace Flapp_DAL.Repository {
                 commandvToevoegen.Parameters.Add(new SqlParameter("@nummerplaat", SqlDbType.NVarChar));
                 commandvToevoegen.Parameters.Add(new SqlParameter("@type", SqlDbType.NVarChar));
                 commandvToevoegen.Parameters.Add(new SqlParameter("@kleur", SqlDbType.NVarChar));
-                commandvToevoegen.Parameters.Add(new SqlParameter("@deuren", SqlDbType.Int));
-
-                //commandvToevoegen.CommandText = queryVUpdaten;
+                commandvToevoegen.Parameters.Add(new SqlParameter("@deuren", SqlDbType.Int));                
 
                 commandvToevoegen.Parameters["@voertuigid"].Value = v.VoertuigID;
                 commandvToevoegen.Parameters["@merk"].Value = v.Merk;

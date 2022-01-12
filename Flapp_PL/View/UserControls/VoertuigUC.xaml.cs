@@ -53,12 +53,11 @@ namespace Flapp_PL.View.UserControls
                 }
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
-                lstVoertuigen.ItemsSource = voertuigen;
+            lstVoertuigen.ItemsSource = voertuigen;
         }
 
         private void btnZoek_Click(object sender, RoutedEventArgs e)
         {
-            //new VoertuigZoeken(_main).ShowDialog();
             VoertuigUC vUC = this;
             if (_main.wpUserControl.Children.Count > 1) _main.wpUserControl.Children.RemoveAt(_main.wpUserControl.Children.Count - 1);
             new VoertuigZoeken(_main, vUC).ShowDialog();
@@ -72,9 +71,6 @@ namespace Flapp_PL.View.UserControls
 
         private void itemUpdate_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow main = new MainWindow();
-            Voertuig v = (Voertuig)lstVoertuigen.SelectedItem;
-            //main.wpUserControl.Children.Add(new VoertuigUpdatenUC(v, main));
             new VoertuigUpdaten((Voertuig)lstVoertuigen.SelectedItem).ShowDialog();
         }
 
@@ -88,7 +84,6 @@ namespace Flapp_PL.View.UserControls
             try { _voertuigManager.VerwijderVoertuig((Voertuig)lstVoertuigen.SelectedItem); }
             catch (Exception ex) {MessageBox.Show(ex.Message); }
             finally { laadVoertuigen(); }
-
         }
 
     }
