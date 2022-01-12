@@ -46,6 +46,14 @@ namespace Flapp_BLL.Managers {
             catch (Exception ex) { throw new BestuurderManagerException("VoertuigManager: Geef alle voertuigen:", ex); }
         }
 
+        public Dictionary<int, Voertuig> GeefVoertuigenZonderBestuurder()
+        {
+            try
+            {
+                return _repo.GeefVoertuigenZonderBestuurder();
+            }
+            catch (Exception ex) { throw new BestuurderManagerException("VoertuigManager: Geef alle voertuigen zonder bestuurders:", ex); }
+        }
         public Voertuig GeefVoertuigDoorID(int id) {
             try {
                 return _repo.GeefVoertuigDoorID(id);
@@ -57,6 +65,18 @@ namespace Flapp_BLL.Managers {
                 return _repo.ZoekVoertuig(merk, model, nummerplaat);
             }
             catch (Exception ex) {
+
+                throw new Exception(ex.Message);
+            }
+        }
+        public Dictionary<int, Voertuig> ZoekVoertuigZonderBestuurder(string merk, string model, string nummerplaat)
+        {
+            try
+            {
+                return _repo.ZoekVoertuigZonderBestuurder(merk, model, nummerplaat);
+            }
+            catch (Exception ex)
+            {
 
                 throw new Exception(ex.Message);
             }

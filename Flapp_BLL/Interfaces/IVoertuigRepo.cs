@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 namespace Flapp_BLL.Interfaces {
     public interface IVoertuigRepo {
         Dictionary<int, Voertuig> GeefVoertuigen();
+        Dictionary<int, Voertuig> GeefVoertuigenZonderBestuurder();
         //IReadOnlyList<Voertuig> ZoekVoertuigen(int? vehicleId, string brand, string model, string chassisNumber, string licensePlate, Brandstof fuelType, string vehicleType, string color, int doors, Bestuurder driver);
         Voertuig GeefVoertuigDoorID(int id);
         //Voertuig ZoekVoertuig(int? vehicleId, string brand, string model, string chassisNumber, string licensePlate, Brandstof fuelType, string vehicleType, string color, int doors, Bestuurder driver);
@@ -20,6 +21,7 @@ namespace Flapp_BLL.Interfaces {
         IReadOnlyList<string> GeefModellen(string merk);
         Dictionary<int, Voertuig> ZoekVoertuig(string brand, string model, string licensePlate);
         Dictionary<int, Voertuig> ZoekVoertuigen(string merk, string model, string nummerplaat);
+        Dictionary<int, Voertuig> ZoekVoertuigZonderBestuurder(string merk, string model, string nummerplaat);
         //bool HeeftBestuurder(Bestuurder bestuurder); Moet kunnen kijken of een voertuig een bestuurder heeft
         //IReadOnlyList<Voertuig> GeefAlleVoertuigenZonderBestuurder() Voor een lijst voor voertuigen zonder bestuurders;
     }
