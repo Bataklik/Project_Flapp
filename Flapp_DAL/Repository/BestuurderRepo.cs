@@ -215,6 +215,30 @@ namespace Flapp_DAL.Repository {
                 finally { conn.Close(); }
             }
         }
+
+        public void UpdateBestuurder_voertuigId(int VoertuigID)
+        {
+            SqlConnection conn = new SqlConnection(_connString);
+            string query = "UPDATE [dbo].[Bestuurder] SET [voertuigId] = NULL WHERE voertuigId = @voertuigId;";
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
+                conn.Open();
+                try
+                {
+                    //cmd.Parameters.Add(new SqlParameter("@id", SqlDbType.VarChar));
+                    cmd.Parameters.Add(new SqlParameter("@voertuigId", SqlDbType.Int));
+
+
+                    cmd.CommandText = query;
+                    
+                    cmd.Parameters["@voertuigId"].Value = VoertuigID;
+
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception ex) { throw new Exception(ex.Message); }
+                finally { conn.Close(); }
+            }
+        }
         #endregion
 
         #region VerwijderBestuurder Method

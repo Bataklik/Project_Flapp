@@ -81,17 +81,17 @@
             Grid.Column="1"
             Orientation="Horizontal">
             <GroupBox BorderBrush="Transparent" Header="Merk:">
-                <TextBox
-                    x:Name="txtMerk"
+                <ComboBox
+                    x:Name="cmbMerk"
                     Width="100"
-                    Height="25" />
+                    Height="25" Loaded="cmbMerk_Loaded" SelectionChanged="cmbMerk_SelectionChanged" />
             </GroupBox>
             <GroupBox BorderBrush="Transparent" Header="Model: ">
 
-                <TextBox
-                    x:Name="txtModel"
+                <ComboBox
+                    x:Name="cmbModel"
                     Width="100"
-                    Height="25" />
+                    Height="25" Loaded="cmbModel_Loaded" />
             </GroupBox>
             <GroupBox BorderBrush="Transparent" Header="Nummerplaat:">
                 <TextBox

@@ -9,8 +9,6 @@ namespace Flapp_BLL.Interfaces
         Brandstof GeefBrandstof(int id);
 
         IReadOnlyList<Brandstof> GeefAlleBrandstoffen();
-        void VoegBrandstofToeAanVoertuig(int voertuig, int brandstofid);
-        void VerwijderBrandstofBijVoertuig(int id);
 
         bool BestaatBrandstof(Brandstof brandstof);
         bool BestaatBrandstof(int id);

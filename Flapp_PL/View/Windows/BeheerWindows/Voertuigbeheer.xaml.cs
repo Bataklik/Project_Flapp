@@ -4,6 +4,7 @@ using Flapp_DAL.Repository;
 using Flapp_PL.View.Windows.BestuurderWindows;
 using Flapp_PL.View.Windows.VoertuigWindow;
 using System;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -54,7 +55,7 @@ namespace Flapp_PL.View.Windows.BeheerWindows {
         }
         private void btnZoek_Click(object sender, RoutedEventArgs e) {
             //if (cbMerk.SelectedItem == null || cbModel.SelectedItem == null) { MessageBox.Show("Geen Juiste merk of model aangeduid!"); return; }
-            lstVoertuigen.ItemsSource = _voertuigManager.ZoekVoertuigen(toUpperFirstletter(txtMerk.Text), toUpperFirstletter(txtModel.Text), txtNummerplaat.Text).Values;
+            lstVoertuigen.ItemsSource = _voertuigManager.ZoekVoertuigZonderBestuurder(toUpperFirstletter(cmbMerk.Text), toUpperFirstletter(cmbModel.Text), txtNummerplaat.Text).Values;
         }
         #endregion
 
@@ -66,11 +67,30 @@ namespace Flapp_PL.View.Windows.BeheerWindows {
 
         private void LaadVoertuigen() {
             try {
-                lstVoertuigen.ItemsSource = _voertuigManager.GeefVoertuigen().Values;
+                lstVoertuigen.ItemsSource = _voertuigManager.GeefVoertuigenZonderBestuurder().Values;
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
         #endregion
 
+        private void cmbMerk_Loaded(object sender, RoutedEventArgs e)
+        {
+            ObservableCollection<string> merken = new(_voertuigManager.GeefMerken());
+            cmbMerk.ItemsSource = merken;
+        }
+
+        private void cmbModel_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void cmbMerk_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cmbMerk.SelectedIndex > -1)
+            {
+                ObservableCollection<string> modellen = new(_voertuigManager.GeefModellenMerk(cmbMerk.SelectedItem.ToString()));
+                cmbModel.ItemsSource = modellen;
+            }
+        }
     }
 }

@@ -128,25 +128,6 @@ namespace Flapp_DAL.Repository {
                 finally { conn.Close(); }
             }
         }
-        public void VoegBrandstofToeAanVoertuig(int voertuig, int brandstof) {
-            SqlConnection conn = new SqlConnection(_connString);
-            string query = "USE [Project_Flapp_DB]; INSERT INTO [dbo].[Brandstof_Voertuig] ([brandstofId] ,[voertuigId]) VALUES(@bId,@vId);";
-            using (SqlCommand cmd = conn.CreateCommand()) {
-                conn.Open();
-                try {
-                    cmd.Parameters.Add(new SqlParameter("@bId", SqlDbType.Int));
-                    cmd.Parameters.Add(new SqlParameter("@vId", SqlDbType.Int));
-
-                    cmd.CommandText = query;
-                    cmd.Parameters["@bId"].Value = brandstof;
-                    cmd.Parameters["@vId"].Value = voertuig;
-
-                    cmd.ExecuteNonQuery();
-                }
-                catch (Exception ex) { throw new Exception(ex.Message); }
-                finally { conn.Close(); }
-            }
-        }
         #endregion
 
         #region UpdateBrandstof Method
@@ -191,31 +172,18 @@ namespace Flapp_DAL.Repository {
         #endregion
 
         #region VerwijderBrandstof Methods
-        public void VerwijderBrandstof(int id) {
+        public void VerwijderBrandstof(int id)
+        {
             SqlConnection conn = new SqlConnection(_connString);
             string query = "DELETE FROM [dbo].[Brandstof] WHERE brandstofId = @brandstofId;";
-            using (SqlCommand cmd = conn.CreateCommand()) {
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
                 conn.Open();
-                try {
+                try
+                {
                     cmd.Parameters.Add(new SqlParameter("@brandstofId", SqlDbType.Int));
                     cmd.CommandText = query;
                     cmd.Parameters["@brandstofId"].Value = id;
-
-                    cmd.ExecuteNonQuery();
-                }
-                catch (Exception ex) { throw new Exception(ex.Message); }
-                finally { conn.Close(); }
-            }
-        }
-        public void VerwijderBrandstofBijVoertuig(int id) {
-            SqlConnection conn = new SqlConnection(_connString);
-            string query = "USE [Project_Flapp_DB]; DELETE FROM [dbo].[Brandstof_Voertuig] WHERE voertuigId = @vid;";
-            using (SqlCommand cmd = conn.CreateCommand()) {
-                conn.Open();
-                try {
-                    cmd.Parameters.Add(new SqlParameter("@vid", SqlDbType.Int));
-                    cmd.CommandText = query;
-                    cmd.Parameters["@vid"].Value = id;
 
                     cmd.ExecuteNonQuery();
                 }
