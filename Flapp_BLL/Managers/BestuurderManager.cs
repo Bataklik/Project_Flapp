@@ -27,13 +27,6 @@ namespace Flapp_BLL.Managers {
             }
             catch (Exception ex) { throw new BestuurderManagerException("BestuurderManager: VoegBestuurderToe", ex); }
         }
-        public int VoegBestuurderToeZonderAdres(Bestuurder bestuurder) {
-            if (_repo.BestaatBestuurder(bestuurder)) { throw new BestuurderManagerException("BestuurderManager: VoegBestuurderToe: Bestuurder bestaat al!"); }
-            try {
-                return _repo.VoegBestuurderToeZonderAdres(bestuurder);
-            }
-            catch (Exception ex) { throw new BestuurderManagerException("BestuurderManager: VoegBestuurderToeZonderAdres", ex); }
-        }
 
         public void VerwijderBestuurder(Bestuurder bestuurder) {
             if (!_repo.BestaatBestuurder(bestuurder)) { throw new BestuurderManagerException("BestuurderManager: VerwijderBestuurder: Bestuurder bestaat niet!"); }

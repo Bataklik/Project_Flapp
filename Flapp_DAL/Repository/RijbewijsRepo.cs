@@ -157,28 +157,6 @@ namespace Flapp_DAL.Repository
                 finally { conn.Close(); }
             }
         }
-        public void VoegRijbewijsToeBestuurder(int bestuurder, int rijbewijs)
-        {
-            SqlConnection conn = new SqlConnection(_connString);
-            string query = "USE [Project_Flapp_DB]; INSERT INTO [dbo].[Rijbewijs_Bestuurder] ([rijbewijsId] ,[bestuurderId]) VALUES(@rId,@bId);";
-            using (SqlCommand cmd = conn.CreateCommand())
-            {
-                conn.Open();
-                try
-                {
-                    cmd.Parameters.Add(new SqlParameter("@rId", SqlDbType.Int));
-                    cmd.Parameters.Add(new SqlParameter("@BId", SqlDbType.Int));
-
-                    cmd.CommandText = query;
-                    cmd.Parameters["@rId"].Value = rijbewijs;
-                    cmd.Parameters["@bId"].Value = bestuurder;
-
-                    cmd.ExecuteNonQuery();
-                }
-                catch (Exception ex) { throw new Exception(ex.Message); }
-                finally { conn.Close(); }
-            }
-        }
         #endregion
 
         #region VerwijderRijbewijs Method

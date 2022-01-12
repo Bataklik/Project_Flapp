@@ -38,7 +38,6 @@ namespace Flapp_PL.View.Windows.BestuurderWindows {
                 if (lstTankkaart.Items.Count > 0) { bestuurder.ZetTankkaart((Tankkaart)lstTankkaart.Items[0]); }
 
                 bestuurder.ZetId(_bestuurderManager.VoegBestuurderToe(bestuurder));
-                if (bestuurder.Rijbewijzen.Count > 0) { _rijbewijsManager.VoegRijbewijzenToeBestuurder(bestuurder.Id, bestuurder.Rijbewijzen); }
                 MessageBox.Show("Bestuurder is Toegevoegd!", "Toevoegen gelukt!", MessageBoxButton.OK, MessageBoxImage.Asterisk);
                 _parentWindow.LaadBestuurders();
                 ClearInputs();
