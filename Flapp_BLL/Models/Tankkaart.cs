@@ -19,45 +19,26 @@ namespace Flapp_BLL.Models {
         #endregion
 
         #region Constructors
-        public Tankkaart(string pincode, DateTime geldigheidsdatum) {
-            ZetPincode(pincode);
-            ZetGeldigheidsdatum(geldigheidsdatum);
-        }
-
-        public Tankkaart(int kaartnummer, DateTime geldigheidsdatum) {
+        public Tankkaart(int kaartnummer, DateTime geldigheidsdatum, string pincode, bool geblokkeerd) {
             ZetKaartnummer(kaartnummer);
             ZetGeldigheidsdatum(geldigheidsdatum);
-        }
-
-        public Tankkaart(DateTime geldigheidsdatum, string pincode ,bool isgeblokkeerd) {
-            ZetPincode(pincode);
-            ZetGeldigheidsdatum(geldigheidsdatum);
-            ZetGeblokkeerd(isgeblokkeerd);
-        }
-
-        public Tankkaart(int kaartnummer, DateTime geldigheidsdatum, List<Brandstof> brandstoffen) {
-            ZetKaartnummer(kaartnummer);
-            ZetGeldigheidsdatum(geldigheidsdatum);
-            Brandstoffen = brandstoffen;
-        }
-
-        public Tankkaart(int kaartnummer, DateTime geldigheidsdatum, string pincode, bool geblokkeerd) : this(kaartnummer, geldigheidsdatum) {
-            ZetKaartnummer(kaartnummer);
             ZetPincode(pincode);
             ZetGeblokkeerd(geblokkeerd);
         }
 
-        public Tankkaart(int kaartnummer, DateTime geldigheidsdatum, string pincode, List<Brandstof> brandstoffen, bool geblokkeerd) : this(kaartnummer, geldigheidsdatum) {
+        public Tankkaart(int kaartnummer, DateTime geldigheidsdatum, string pincode, List<Brandstof> brandstoffen, bool geblokkeerd){
             ZetKaartnummer(kaartnummer);
+            ZetGeldigheidsdatum(geldigheidsdatum);
             ZetPincode(pincode);
-            Brandstoffen = brandstoffen;
+            ZetBrandstoffen(brandstoffen);
             ZetGeblokkeerd(geblokkeerd);
         }
 
-        public Tankkaart(int kaartnummer, DateTime geldigheidsdatum, string pincode, List<Brandstof> brandstoffen, Bestuurder bestuurder, bool geblokkeerd) : this(kaartnummer, geldigheidsdatum) {
+        public Tankkaart(int kaartnummer, DateTime geldigheidsdatum, string pincode, List<Brandstof> brandstoffen, Bestuurder bestuurder, bool geblokkeerd) {
             ZetKaartnummer(kaartnummer);
+            ZetGeldigheidsdatum(geldigheidsdatum);
             ZetPincode(pincode);
-            Brandstoffen = brandstoffen;
+            ZetBrandstoffen(brandstoffen);
             ZetBestuurder(bestuurder);
             ZetGeblokkeerd(geblokkeerd);
         }
@@ -66,16 +47,8 @@ namespace Flapp_BLL.Models {
             ZetGeldigheidsdatum(geldigheidsdatum);
             ZetPincode(pincode);
             ZetGeblokkeerd(geblokkeerd);
-            Brandstoffen = brandstoffen;
-            ZetBestuurder(bestuurder);
-        }
-
-        public Tankkaart(int kaartnummer, DateTime geldigheidsdatum, string pincode, bool geblokkeerd, List<Brandstof> brandstoffen) {
-            ZetKaartnummer(kaartnummer);
-            ZetGeldigheidsdatum(geldigheidsdatum);
-            ZetPincode(pincode);
-            ZetGeblokkeerd(geblokkeerd);
             ZetBrandstoffen(brandstoffen);
+            ZetBestuurder(bestuurder);
         }
 
         #endregion
@@ -95,6 +68,7 @@ namespace Flapp_BLL.Models {
 
         public void ZetPincode(string pincode) {
             if (string.IsNullOrWhiteSpace(pincode)) { throw new TankkaartException("Tankkaart: ZetPincode: Tankkaart pincode is null!"); }
+            if (pincode.Length != 4) { throw new TankkaartException("Tankkaart: ZetPincode: Pincode moet 4 cijfers zijn!"); }
             Pincode = pincode;
         }
         public void ZetBestuurder(Bestuurder bestuurder) {
