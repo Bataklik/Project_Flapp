@@ -31,21 +31,21 @@ namespace Flapp_BLL.Managers {
             catch (Exception ex) { throw new TankkaartManagerException("TankkaartManager - GeefTankkaart", ex); }
         }
         public int VoegTankkaartToe(Tankkaart tankkaart) {
-            if (_repo.BestaatTankkaart(tankkaart)) { throw new Exception("TankkaartManager: VoegTankkaartToe: Tankkaart bestaat al!"); }
+            if (_repo.BestaatTankkaart(tankkaart)) { throw new TankkaartManagerException("TankkaartManager: VoegTankkaartToe: Tankkaart bestaat al!"); }
             try {
                 return _repo.VoegTankkaartToe(tankkaart);
             }
             catch (Exception ex) { throw new TankkaartManagerException("TankkaartManager - VoegTankkaartToe", ex); }
         }
         public void VerwijderTankkaart(Tankkaart tankkaart) {
-            if (!_repo.BestaatTankkaart(tankkaart.Kaartnummer)) { throw new Exception("TankkaartManager: VerwijderTankkaart: Tankkaart bestaat niet!"); }
+            if (!_repo.BestaatTankkaart(tankkaart.Kaartnummer)) { throw new TankkaartManagerException("TankkaartManager: VerwijderTankkaart: Tankkaart bestaat niet!"); }
             try {
                 _repo.VerwijderTankkaart(tankkaart);
             }
             catch (Exception ex) { throw new TankkaartManagerException("TankkaartManager - VerwijderTankkaart", ex); }
         }
         public void UpdateTankkaart(Tankkaart tankkaart) {
-            if (!_repo.BestaatTankkaart(tankkaart.Kaartnummer)) { throw new Exception("TankkaartManager: UpdateTankkaart: Tankkaart bestaat niet!"); }
+            if (!_repo.BestaatTankkaart(tankkaart.Kaartnummer)) { throw new TankkaartManagerException("TankkaartManager: UpdateTankkaart: Tankkaart bestaat niet!"); }
             try {
                 _repo.UpdateTankkaart(tankkaart);
             }

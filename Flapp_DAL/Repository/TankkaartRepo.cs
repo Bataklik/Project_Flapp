@@ -246,21 +246,21 @@ namespace Flapp_DAL.Repository {
 
         public Tankkaart GeefTankkaart(int kaartnr) {
             SqlConnection conn = new SqlConnection(_connString);
-            string query = "SELECT * FROM Tankkaart LEFT JOIN Brandstof_Tankkaart ON Tankkaart.tankkaartId = Brandstof_Tankkaart.tankkaartId LEFT JOIN Brandstof ON Brandstof_Tankkaart.brandstofId = Brandstof.brandstofId LEFT JOIN Bestuurder ON Tankkaart.tankkaartId=Bestuurder.tankkaartId LEFT JOIN Adres ON Bestuurder.adresId = Adres.adresId LEFT JOIN Rijbewijs_Bestuurder ON Bestuurder.bestuurderId = Rijbewijs_Bestuurder.bestuurderId LEFT JOIN Rijbewijs ON Rijbewijs_Bestuurder.rijbewijsId = Rijbewijs.rijbewijsId WHERE tankkaartId = @tankkaartId;";
+            string query = "SELECT * FROM Tankkaart LEFT JOIN Brandstof_Tankkaart ON Tankkaart.tankkaartId = Brandstof_Tankkaart.tankkaartId LEFT JOIN Brandstof ON Brandstof_Tankkaart.brandstofId = Brandstof.brandstofId LEFT JOIN Bestuurder ON Tankkaart.tankkaartId=Bestuurder.tankkaartId LEFT JOIN Adres ON Bestuurder.adresId = Adres.adresId LEFT JOIN Rijbewijs_Bestuurder ON Bestuurder.bestuurderId = Rijbewijs_Bestuurder.bestuurderId LEFT JOIN Rijbewijs ON Rijbewijs_Bestuurder.rijbewijsId = Rijbewijs.rijbewijsId WHERE Tankkaart.tankkaartId = @tankkaartId;";
             using (SqlCommand cmd = conn.CreateCommand()) {
-                cmd.CommandText = query;
-                SqlParameter pId = new SqlParameter();
-                pId.ParameterName = "@tankkaartId";
-                pId.DbType = DbType.Int32;
-                pId.Value = kaartnr;
-                cmd.Parameters.Add(pId);
                 conn.Open();
+                cmd.Parameters.Add(new SqlParameter("@tankkaartId", SqlDbType.Int));
 
+                cmd.CommandText = query;
+
+                cmd.Parameters["@tankkaartId"].Value = kaartnr;
                 try {
                     SqlDataReader r = cmd.ExecuteReader();
+                    
+
                     Tankkaart tankkaart = null;
                     while (r.Read()) {
-                        if (tankkaart.Brandstoffen.Contains(new Brandstof((string)r["naam"]))) {
+                        if (!tankkaart.Brandstoffen.Contains(new Brandstof((string)r["naam"]))) {
                             tankkaart.Brandstoffen.Add(new Brandstof((string)r["naam"]));
                         }
                         else {
@@ -413,17 +413,17 @@ namespace Flapp_DAL.Repository {
                 cmd.Transaction = trx;
 
                 try {
-                    cmd.CommandText = "DELETE FROM [dbo].[Brandstof_Tankkaart] WHERE tankkaartid=@id1;";
+                    cmd.CommandText = "DELETE FROM Brandstof_Tankkaart WHERE tankkaartid=@id1;";
                     cmd.Parameters.AddWithValue("@id1", t.Kaartnummer);
                     cmd.ExecuteNonQuery();
 
                     if (t.Bestuurder != null) {
-                        cmd.CommandText = "UPDATE [dbo].[Bestuurder] SET tankkaartId=NULL WHERE bestuurderId=@id3;";
-                        cmd.Parameters.AddWithValue("@id3", t.Bestuurder.Id);
+                        cmd.CommandText = "UPDATE Bestuurder SET tankkaartId=NULL WHERE tankkaartId=@id3;";
+                        cmd.Parameters.AddWithValue("@id3", t.Kaartnummer);
                         cmd.ExecuteNonQuery();
                     }
 
-                    cmd.CommandText = "DELETE FROM [dbo].[Tankkaart] WHERE tankkaartid=@id2;";
+                    cmd.CommandText = "DELETE FROM Tankkaart WHERE tankkaartid=@id2;";
                     cmd.Parameters.AddWithValue("@id2", t.Kaartnummer);
                     cmd.ExecuteNonQuery();
 

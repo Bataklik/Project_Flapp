@@ -57,7 +57,7 @@ namespace Flapp_PL.View.Windows.BeheerWindows {
             try {
                 if (_tankkaartToevoegenWindow != null || _tankkaartUpdateWindow != null) { lstBestuurder.ItemsSource = _bestuurderManager.GeefAlleBestuurdersZonderTankkaarten().Values; }
                 if (_voertuigToevoegenWindow != null || _voertuigUpdatenWindow != null) { lstBestuurder.ItemsSource = _bestuurderManager.GeefAlleBestuurdersZonderVoertuig().Values; }
-                if (_zoekTankkaartWindow != null) { lstBestuurder.ItemsSource = _bestuurderManager.GeefAlleBestuurders().Values; }
+                if (_zoekTankkaartWindow != null) { lstBestuurder.ItemsSource = _bestuurderManager.GeefAlleBestuurdersZonderTankkaarten().Values; }
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
