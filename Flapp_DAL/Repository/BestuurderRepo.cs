@@ -352,8 +352,8 @@ namespace Flapp_DAL.Repository {
             SqlConnection conn = new SqlConnection(_connString);
             Dictionary<int, Bestuurder> bestuurders = new Dictionary<int, Bestuurder>();
             string query;
-            if (heeftVoertuig) { query = "SELECT TOP (20) * FROM Bestuurder LEFT JOIN Rijbewijs_Bestuurder ON Bestuurder.bestuurderId = Rijbewijs_Bestuurder.bestuurderId LEFT JOIN Rijbewijs ON Rijbewijs_Bestuurder.rijbewijsId = Rijbewijs.rijbewijsId LEFT JOIN Adres ON Bestuurder.adresId = Adres.adresId LEFT JOIN Voertuig ON Bestuurder.voertuigId = Voertuig.voertuigId LEfT JOIN Brandstof_Voertuig ON Voertuig.voertuigId=Brandstof_Voertuig.voertuigId LEFT JOIN Brandstof ON Brandstof.brandstofId=Brandstof_Voertuig.brandstofId LEFT JOIN Tankkaart ON Bestuurder.tankkaartId = Tankkaart.tankkaartId WHERE Bestuurder.naam LIKE @naam AND Bestuurder.voornaam LIKE @voornaam AND CONVERT(varchar(10),Bestuurder.geboortedatum,101) LIKE @date AND Bestuurder.voertuigId IS NOT null;"; }
-            else { query = "SELECT TOP (20) * FROM Bestuurder LEFT JOIN Rijbewijs_Bestuurder ON Bestuurder.bestuurderId = Rijbewijs_Bestuurder.bestuurderId LEFT JOIN Rijbewijs ON Rijbewijs_Bestuurder.rijbewijsId = Rijbewijs.rijbewijsId LEFT JOIN Adres ON Bestuurder.adresId = Adres.adresId LEFT JOIN Voertuig ON Bestuurder.voertuigId = Voertuig.voertuigId LEfT JOIN Brandstof_Voertuig ON Voertuig.voertuigId=Brandstof_Voertuig.voertuigId LEFT JOIN Brandstof ON Brandstof.brandstofId=Brandstof_Voertuig.brandstofId LEFT JOIN Tankkaart ON Bestuurder.tankkaartId = Tankkaart.tankkaartId WHERE Bestuurder.naam LIKE @naam AND Bestuurder.voornaam LIKE @voornaam AND CONVERT(varchar(10),Bestuurder.geboortedatum,101) LIKE @date AND Bestuurder.voertuigId IS null;"; }
+            if (heeftVoertuig) { query = "SELECT TOP (20) * FROM Bestuurder LEFT JOIN Rijbewijs_Bestuurder ON Bestuurder.bestuurderId = Rijbewijs_Bestuurder.bestuurderId LEFT JOIN Rijbewijs ON Rijbewijs_Bestuurder.rijbewijsId = Rijbewijs.rijbewijsId LEFT JOIN Adres ON Bestuurder.adresId = Adres.adresId LEFT JOIN Voertuig ON Bestuurder.voertuigId = Voertuig.voertuigId LEFT JOIN Brandstof_Voertuig ON Voertuig.voertuigId=Brandstof_Voertuig.voertuigId LEFT JOIN Brandstof ON Brandstof.brandstofId=Brandstof_Voertuig.brandstofId LEFT JOIN Tankkaart ON Bestuurder.tankkaartId = Tankkaart.tankkaartId WHERE Bestuurder.naam LIKE @naam AND Bestuurder.voornaam LIKE @voornaam AND CONVERT(varchar(10),Bestuurder.geboortedatum,101) LIKE @date AND Bestuurder.voertuigId IS NOT null;"; }
+            else { query = "SELECT TOP (20) * FROM Bestuurder LEFT JOIN Rijbewijs_Bestuurder ON Bestuurder.bestuurderId = Rijbewijs_Bestuurder.bestuurderId LEFT JOIN Rijbewijs ON Rijbewijs_Bestuurder.rijbewijsId = Rijbewijs.rijbewijsId LEFT JOIN Adres ON Bestuurder.adresId = Adres.adresId LEFT JOIN Voertuig ON Bestuurder.voertuigId = Voertuig.voertuigId LEFT JOIN Brandstof_Voertuig ON Voertuig.voertuigId=Brandstof_Voertuig.voertuigId LEFT JOIN Brandstof ON Brandstof.brandstofId=Brandstof_Voertuig.brandstofId LEFT JOIN Tankkaart ON Bestuurder.tankkaartId = Tankkaart.tankkaartId WHERE Bestuurder.naam LIKE @naam AND Bestuurder.voornaam LIKE @voornaam AND CONVERT(varchar(10),Bestuurder.geboortedatum,101) LIKE @date AND Bestuurder.voertuigId IS null;"; }
 
             using (SqlCommand cmd = conn.CreateCommand()) {
                 cmd.Parameters.Add(new SqlParameter("@naam", SqlDbType.VarChar));
@@ -362,7 +362,7 @@ namespace Flapp_DAL.Repository {
                 cmd.CommandText = query;
                 cmd.Parameters["@naam"].Value = !string.IsNullOrWhiteSpace(naam) ? $"{naam}%" : "%";
                 cmd.Parameters["@voornaam"].Value = !string.IsNullOrWhiteSpace(voornaam) ? $"{voornaam}%" : "%";
-                cmd.Parameters["@date"].Value = geboorte != null ? $"{geboorte.Value.ToShortDateString()}%" : "%";
+                cmd.Parameters["@date"].Value = DateTime.TryParse(geboorte.ToString(), out _) ? geboorte.Value.ToString("dd/MM/yyyy") : "%";
                 conn.Open();
                 try {
                     SqlDataReader r = cmd.ExecuteReader();
@@ -391,17 +391,22 @@ namespace Flapp_DAL.Repository {
                             }
                         }
                     }
+                    foreach (SqlParameter p in cmd.Parameters) {
+                        query = query.Replace(p.ParameterName, p.Value.ToString());
+
+                    }
                 }
                 catch (Exception ex) { throw new Exception(ex.Message); }
                 finally { conn.Close(); }
             }
+
             return bestuurders;
         }
 
         public Dictionary<int, Bestuurder> GeefAlleBestuurdersZonderTankkaarten() {
             SqlConnection conn = new SqlConnection(_connString);
             Dictionary<int, Bestuurder> bestuurders = new Dictionary<int, Bestuurder>();
-            string query = "SELECT TOP (20) * FROM Bestuurder LEFT JOIN Rijbewijs_Bestuurder ON Bestuurder.bestuurderId = Rijbewijs_Bestuurder.bestuurderId LEFT JOIN Rijbewijs ON Rijbewijs_Bestuurder.rijbewijsId = Rijbewijs.rijbewijsId LEFT JOIN Adres ON Bestuurder.adresId = Adres.adresId LEFT JOIN Voertuig ON Bestuurder.voertuigId = Voertuig.voertuigId LEfT JOIN Brandstof_Voertuig ON Voertuig.voertuigId=Brandstof_Voertuig.voertuigId LEFT JOIN Brandstof ON Brandstof.brandstofId=Brandstof_Voertuig.brandstofId LEFT JOIN Tankkaart ON Bestuurder.tankkaartId = Tankkaart.tankkaartId WHERE Tankkaart.tankkaartId IS NULL;";
+            string query = "SELECT TOP(20) * FROM Bestuurder LEFT JOIN Rijbewijs_Bestuurder ON Bestuurder.bestuurderId = Rijbewijs_Bestuurder.bestuurderId LEFT JOIN Rijbewijs ON Rijbewijs_Bestuurder.rijbewijsId = Rijbewijs.rijbewijsId LEFT JOIN Adres ON Bestuurder.adresId = Adres.adresId LEFT JOIN Voertuig ON Bestuurder.voertuigId = Voertuig.voertuigId LEfT JOIN Brandstof_Voertuig ON Voertuig.voertuigId = Brandstof_Voertuig.voertuigId LEFT JOIN Brandstof ON Brandstof.brandstofId = Brandstof_Voertuig.brandstofId LEFT JOIN Tankkaart ON Bestuurder.tankkaartId = Tankkaart.tankkaartId WHERE Tankkaart.tankkaartId IS NULL; ";
             using (SqlCommand cmd = conn.CreateCommand()) {
                 cmd.CommandText = query;
                 conn.Open();
