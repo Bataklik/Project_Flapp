@@ -366,17 +366,17 @@ namespace Flapp_DAL.Repository {
                     cmd.ExecuteNonQuery();
 
                     if (t.Bestuurder == null) {
-                        cmd.CommandText = "UPDATE Bestuurder SET tankkaartId=NULL WHERE bestuurderId=@bestuurderId;";
+                        cmd.CommandText = "UPDATE Bestuurder SET tankkaartId=NULL WHERE tankkaartId=@tankkaartId;";
+                        cmd.Parameters["@tankkaartId"].Value = t.Kaartnummer;
+                        cmd.ExecuteNonQuery();
+                    }
+                    else {
+                        cmd.CommandText = "UPDATE Bestuurder SET tankkaartId=@tankkaartId WHERE bestuurderId=@bestuurderId;";
                         cmd.Parameters.Add(new SqlParameter("@bestuurderId", SqlDbType.Int));
+                        cmd.Parameters["@tankkaartId"].Value = t.Kaartnummer;
                         cmd.Parameters["@bestuurderId"].Value = t.Bestuurder.Id;
                         cmd.ExecuteNonQuery();
                     }
-
-                    cmd.CommandText = "UPDATE Bestuurder SET tankkaartId=@tankkaartId WHERE bestuurderId=@bestuurderId;";
-                    cmd.Parameters.Add(new SqlParameter("@bestuurderId", SqlDbType.Int));
-                    cmd.Parameters["@tankkaartId"].Value = t.Kaartnummer;
-                    cmd.Parameters["@bestuurderId"].Value = t.Bestuurder.Id;
-                    cmd.ExecuteNonQuery();
 
                     cmd.CommandText = "DELETE FROM Brandstof_Tankkaart WHERE tankkaartId=@tankkaartId;";
                     cmd.Parameters["@tankkaartId"].Value = t.Kaartnummer;
