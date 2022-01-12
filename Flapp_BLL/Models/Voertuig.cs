@@ -124,7 +124,7 @@ namespace Flapp_BLL.Models
         }
         public void ZetVoertuigType(string voertuigType)
         {
-            if (voertuigType == null) { throw new VoertuigException("Voertuig - Voertuigtype mag niet leeg zijn"); }
+            if (string.IsNullOrWhiteSpace(voertuigType)) { throw new VoertuigException("Voertuig - Voertuigtype mag niet leeg zijn"); }
             VoertuigType = voertuigType;
         }
         public void ZetKleur(string kleur)
