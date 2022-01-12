@@ -48,7 +48,7 @@
 |  1 | Fix nummerplaatchecker               |
 | 2  | fix selectmerk & selectmodel                   |
 | 1  | Edit voertuigtoevoegen   + voertuigZoeken                |
-| 2  | fix selectmerk & selectmodel                   |
-| 6  | Project afwerken, kleine buggfixes                   |
+| 6 | Project afwerken, kleine buggfixes                  |
+|   |                   |
 | 76.5  | TOTAAL               |
 
