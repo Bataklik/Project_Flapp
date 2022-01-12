@@ -160,9 +160,9 @@ namespace Flapp_DAL.Repository {
                 finally { conn.Close(); }
             }
         }
-        public ObservableCollection<Adres> GeefAdressen() {
+        public List<Adres> GeefAdressen() {
             SqlConnection conn = new SqlConnection(_connString);
-            ObservableCollection<Adres> adressen = new ObservableCollection<Adres>();
+            List<Adres> adressen = new();
             string query = "SELECT TOP(20) * FROM Adres ORDER BY stad;";
             using (SqlCommand cmd = conn.CreateCommand()) {
                 cmd.CommandText = query;
@@ -180,9 +180,9 @@ namespace Flapp_DAL.Repository {
                 finally { conn.Close(); }
             }
         }
-        public ObservableCollection<string> GeefStratenStad(int postcode, string stad) {
+        public List<string> GeefStratenStad(int postcode, string stad) {
             SqlConnection conn = new SqlConnection(_connString);
-            ObservableCollection<string> straten = new ObservableCollection<string>();
+            List<string> straten = new();
             string query = "SELECT DISTINCT straat FROM [Project_Flapp_DB].[dbo].[Adres] WHERE postcode = @postcode AND stad = @stad;";
             using (SqlCommand cmd = conn.CreateCommand()) {
                 cmd.Parameters.Add(new SqlParameter("@postcode", SqlDbType.Int));
@@ -207,7 +207,7 @@ namespace Flapp_DAL.Repository {
         #region VerwijderAdres Method
         public void VerwijderAdres(Adres a) {
             SqlConnection conn = new SqlConnection(_connString);
-            string query = "USE [Project_Flapp_DB]; DELETE FROM [dbo].[Adres] WHERE adresid = @adresid;";
+            string query = "DELETE FROM [dbo].[Adres] WHERE adresid = @adresid;";
             using (SqlCommand cmd = conn.CreateCommand()) {
                 conn.Open();
                 try {
@@ -228,7 +228,8 @@ namespace Flapp_DAL.Repository {
         #region UpdateAdres Method
         public void UpdateAdres(Adres a) {
             SqlConnection conn = new SqlConnection(_connString);
-            string query = "USE [Project_Flapp_DB]; UPDATE [dbo].[Adres] WHERE adresid = @adresid AND straat = @straat AND huisnummer = @huisnummer" +
+            string query = "UPDATE [dbo].[Adres] " +
+                "WHERE adresid = @adresid AND straat = @straat AND huisnummer = @huisnummer" +
                 "AND stad = @stad AND postcode = @postcode";
             using (SqlCommand cmd = conn.CreateCommand()) {
                 conn.Open();
@@ -256,9 +257,9 @@ namespace Flapp_DAL.Repository {
         #endregion
 
         #region ZoekAdressen Method
-        public ObservableCollection<Adres> ZoekAdressen(string stad, string straat) {
+        public List<Adres> ZoekAdressen(string stad, string straat) {
             SqlConnection conn = new SqlConnection(_connString);
-            ObservableCollection<Adres> adressen = new ObservableCollection<Adres>();
+            List<Adres> adressen = new();
             string query = "SELECT TOP(20) * FROM [Project_Flapp_DB].[dbo].[Adres] WHERE stad LIKE @stad AND straat LIKE @straat ORDER BY stad;";
             using (SqlCommand cmd = conn.CreateCommand()) {
                 cmd.Parameters.Add(new SqlParameter("@stad", SqlDbType.VarChar));
