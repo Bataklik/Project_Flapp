@@ -266,32 +266,6 @@ namespace Flapp_DAL.Repository {
         #endregion
 
         #region VoegVoertuigToe Method
-        //public int VoegVoertuigToe(Voertuig v) {
-        //    //int voertuigId;
-        //    //var brandstoffen = v.geefBrandstoffen();
-        //    string query = "INSERT INTO [dbo].[Voertuig] (merk, model, chassisnummer, nummerplaat, type, kleur, deuren)output INSERTED.voertuigId VALUES (@merk, @model, @chassisnummer, @nummerplaat, @type, @kleur, @deuren)";
-        //    SqlConnection conn = new SqlConnection(_connString);
-        //    SqlCommand cmd = new(query, conn);
-        //    try {
-        //        conn.Open();
-
-        //        cmd.Parameters.AddWithValue("@merk", v.Merk);
-        //        cmd.Parameters.AddWithValue("@model", v.Model);
-        //        cmd.Parameters.AddWithValue("@chassisnummer", v.ChassisNummer);
-        //        cmd.Parameters.AddWithValue("@nummerplaat", v.Nummerplaat);
-        //        cmd.Parameters.AddWithValue("@type", v.VoertuigType);
-        //        cmd.Parameters.AddWithValue("@kleur", v.Kleur);
-        //        cmd.Parameters.AddWithValue("@deuren", v.Aantaldeuren);
-
-        //        //command.ExecuteNonQuery();
-        //        int voertuigId = (int)cmd.ExecuteScalar();
-        //        //int bestuurderId = (int)command.ExecuteScalar();
-        //        return voertuigId;
-        //    }
-        //    catch (Exception ex) { throw new VoertuigException(ex.Message); }
-        //    finally { conn.Close(); }
-        //}
-
         public int VoegVoertuigToe(Voertuig v) {
             int voertuigid;
             using (SqlConnection conn = new SqlConnection(_connString)) {
