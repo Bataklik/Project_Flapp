@@ -14,7 +14,6 @@ namespace Flapp_BLL.Interfaces
         bool BestaatRijbewijs(Rijbewijs rijbewijs);
 
         void VoegRijbewijsToe(Rijbewijs rijbewijs);
-        void VoegRijbewijsToeBestuurder(int bestuurder, int rijbewijs);
 
         void VerwijderRijbewijs(int id);
         void VerwijderRijbewijs(Rijbewijs rijbewijs);

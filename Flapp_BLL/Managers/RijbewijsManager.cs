@@ -55,14 +55,5 @@ namespace Flapp_BLL.Managers
             }
             catch (Exception ex) { throw new RijbewijsTypeManagerException("RijbewijsTypeManager: VoegRijbewijsToe", ex); }
         }
-
-        public void VoegRijbewijzenToeBestuurder(int id, List<Rijbewijs> rijbewijzen)
-        {
-            try
-            {
-                rijbewijzen.ForEach(r => _repo.VoegRijbewijsToeBestuurder(id, r.Id));
-            }
-            catch (Exception ex) { throw new RijbewijsTypeManagerException("RijbewijsTypeManager: VoegRijbewijzenToeBestuurder", ex); }
-        }
     }
 }

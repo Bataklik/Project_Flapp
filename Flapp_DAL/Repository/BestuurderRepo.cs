@@ -90,55 +90,52 @@ namespace Flapp_DAL.Repository {
 
         #region VoegBestuurderToe Method
         public int VoegBestuurderToe(Bestuurder b) {
-            SqlConnection conn = new SqlConnection(_connString);
-            string query = "USE [Project_Flapp_DB] INSERT INTO [dbo].[Bestuurder] ([naam] ,[voornaam] ,[geboortedatum] ,[rijksregister] ,[adresid] ,[voertuigId],[tankkaartId],[geslacht]) output INSERTED.bestuurderId  VALUES (@naam ,@voornaam ,@geboorte ,@rijksregister ,@adresid ,@voertuigid,@tankkaartid ,@geslacht)";
-            using (SqlCommand cmd = conn.CreateCommand()) {
-                cmd.Parameters.AddWithValue("@naam", b.Naam);
-                cmd.Parameters.AddWithValue("@voornaam", b.Voornaam);
-                cmd.Parameters.AddWithValue("@geboorte", b.Geboortedatum);
-                cmd.Parameters.AddWithValue("@rijksregister", b.Rijksregisternummer);
-                if (b.Adres != null) { cmd.Parameters.AddWithValue("@adresid", b.Adres.Id); }
-                else { cmd.Parameters.AddWithValue("@adresid", DBNull.Value); }
-                if (b.Voertuig != null) { cmd.Parameters.AddWithValue("@voertuigid", b.Voertuig.VoertuigID); }
-                else { cmd.Parameters.AddWithValue("@voertuigid", DBNull.Value); }
-                if (b.Tankkaart != null) { cmd.Parameters.AddWithValue("@tankkaartid", b.Tankkaart.Kaartnummer); }
-                else { cmd.Parameters.AddWithValue("@tankkaartid", DBNull.Value); }
-
-                if (b.Geslacht == Geslacht.M) { cmd.Parameters.AddWithValue("@geslacht", 1); }
-                else { cmd.Parameters.AddWithValue("@geslacht", 0); }
-                try {
-                    conn.Open();
-                    cmd.CommandText = query;
-                    return (int)cmd.ExecuteScalar();
-                }
-                catch (Exception ex) { throw new Exception(ex.Message); }
-                finally { conn.Close(); }
-            }
-        }
-        public int VoegBestuurderToeZonderAdres(Bestuurder b) {
-            SqlConnection conn = new SqlConnection(_connString);
-            string query = "USE [Project_Flapp_DB] INSERT INTO [dbo].[Bestuurder] ([naam] ,[voornaam] ,[geboortedatum] ,[rijksregister] ,[geslacht]) output INSERTED.bestuurderId VALUES (@naam ,@voornaam ,@geboorte ,@rijksregister  ,@geslacht)";
-            using (SqlCommand cmd = conn.CreateCommand()) {
+            int bestuurderId;
+            using (SqlConnection conn = new SqlConnection(_connString)) {
                 conn.Open();
+
+                SqlCommand cmd = conn.CreateCommand();
+                SqlTransaction trx;
+
+                trx = conn.BeginTransaction();
+
+                cmd.Connection = conn;
+                cmd.Transaction = trx;
+
                 try {
-                    cmd.Parameters.Add(new SqlParameter("@naam", SqlDbType.VarChar));
-                    cmd.Parameters.Add(new SqlParameter("@voornaam", SqlDbType.VarChar));
-                    cmd.Parameters.Add(new SqlParameter("@geboorte", SqlDbType.DateTime));
-                    cmd.Parameters.Add(new SqlParameter("@rijksregister", SqlDbType.VarChar));
-                    cmd.Parameters.Add(new SqlParameter("@geslacht", SqlDbType.Bit));
+                    cmd.CommandText = "INSERT INTO Bestuurder ([naam] ,[voornaam] ,[geboortedatum] ,[rijksregister] ,[adresid] ,[voertuigId],[tankkaartId],[geslacht]) output INSERTED.bestuurderId VALUES(@naam , @voornaam , @geboorte , @rijksregister , @adresid , @voertuigid, @tankkaartid , @geslacht); ";
 
-                    cmd.CommandText = query;
+                    cmd.Parameters.AddWithValue("@naam", b.Naam);
+                    cmd.Parameters.AddWithValue("@voornaam", b.Voornaam);
+                    cmd.Parameters.AddWithValue("@geboorte", b.Geboortedatum);
+                    cmd.Parameters.AddWithValue("@rijksregister", b.Rijksregisternummer);
+                    if (b.Adres != null) { cmd.Parameters.AddWithValue("@adresid", b.Adres.Id); }
+                    else { cmd.Parameters.AddWithValue("@adresid", DBNull.Value); }
+                    if (b.Voertuig != null) { cmd.Parameters.AddWithValue("@voertuigid", b.Voertuig.VoertuigID); }
+                    else { cmd.Parameters.AddWithValue("@voertuigid", DBNull.Value); }
+                    if (b.Tankkaart != null) { cmd.Parameters.AddWithValue("@tankkaartid", b.Tankkaart.Kaartnummer); }
+                    else { cmd.Parameters.AddWithValue("@tankkaartid", DBNull.Value); }
 
-                    cmd.Parameters["@naam"].Value = b.Naam;
-                    cmd.Parameters["@voornaam"].Value = b.Voornaam;
-                    cmd.Parameters["@geboorte"].Value = b.Geboortedatum;
-                    cmd.Parameters["@rijksregister"].Value = b.Rijksregisternummer;
-                    if (b.Geslacht == Geslacht.M) { cmd.Parameters["@geslacht"].Value = 1; }
-                    else { cmd.Parameters["@geslacht"].Value = 0; }
-                    int bestuurderId = (int)cmd.ExecuteScalar();
+                    if (b.Geslacht == Geslacht.M) { cmd.Parameters.AddWithValue("@geslacht", 1); }
+                    else { cmd.Parameters.AddWithValue("@geslacht", 0); }
+                    bestuurderId = (int)cmd.ExecuteScalar();
+
+                    b.Rijbewijzen.ForEach(x => {
+                        cmd.CommandText = $"INSERT INTO Rijbewijs_Bestuurder ([rijbewijsId] ,[bestuurderId]) VALUES(@rijbewijsId{x.Id}, @bestuurderId{x.Id + 1});";
+                        cmd.Parameters.Add(new SqlParameter($"@rijbewijsId{x.Id}", SqlDbType.Int));
+                        cmd.Parameters.Add(new SqlParameter($"@bestuurderId{x.Id + 1}", SqlDbType.Int));
+                        cmd.Parameters[$"@rijbewijsId{x.Id}"].Value = x.Id;
+                        cmd.Parameters[$"@bestuurderId{x.Id + 1}"].Value = bestuurderId;
+                        cmd.ExecuteNonQuery();
+                    });
+
+                    trx.Commit();
                     return bestuurderId;
                 }
-                catch (Exception ex) { throw new Exception(ex.Message); }
+                catch (Exception ex) {
+                    trx.Rollback();
+                    throw new Exception(ex.Message);
+                }
                 finally { conn.Close(); }
             }
         }
@@ -146,42 +143,55 @@ namespace Flapp_DAL.Repository {
 
         #region UpdateBestuurder Method
         public void UpdateBestuurder(Bestuurder b) {
-            SqlConnection conn = new SqlConnection(_connString);
-            string query = "UPDATE [dbo].[Bestuurder] SET [naam] = @naam ,[voornaam] = @voornaam ,[geboortedatum] = @geboorte ,[rijksregister] = @rijksregister ,[adresId] = @adres ,[voertuigId] = @voertuig ,[tankkaartId] = @tankkaart ,[geslacht] = @geslacht WHERE bestuurderId = @id;";
-            using (SqlCommand cmd = conn.CreateCommand()) {
+            using (SqlConnection conn = new SqlConnection(_connString)) {
                 conn.Open();
+
+                SqlCommand cmd = conn.CreateCommand();
+                SqlTransaction trx;
+
+                trx = conn.BeginTransaction();
+
+                cmd.Connection = conn;
+                cmd.Transaction = trx;
+
                 try {
-                    cmd.Parameters.Add(new SqlParameter("@id", SqlDbType.VarChar));
-                    cmd.Parameters.Add(new SqlParameter("@naam", SqlDbType.VarChar));
-                    cmd.Parameters.Add(new SqlParameter("@voornaam", SqlDbType.VarChar));
-                    cmd.Parameters.Add(new SqlParameter("@geboorte", SqlDbType.DateTime));
-                    cmd.Parameters.Add(new SqlParameter("@rijksregister", SqlDbType.VarChar));
-                    cmd.Parameters.Add(new SqlParameter("@adres", SqlDbType.Int));
-                    cmd.Parameters.Add(new SqlParameter("@voertuig", SqlDbType.Int));
-                    cmd.Parameters.Add(new SqlParameter("@tankkaart", SqlDbType.Int));
-                    cmd.Parameters.Add(new SqlParameter("@geslacht", SqlDbType.Bit));
+                    cmd.CommandText = "UPDATE Bestuurder SET [naam] = @naam ,[voornaam] = @voornaam ,[geboortedatum] = @geboorte ,[rijksregister] = @rijksregister ,[adresId] = @adresid ,[voertuigId] = @voertuigid ,[tankkaartId] = @tankkaartid ,[geslacht] = @geslacht WHERE bestuurderId = @id;";
 
-                    cmd.CommandText = query;
-                    cmd.Parameters["@id"].Value = b.Id;
-                    cmd.Parameters["@naam"].Value = b.Naam;
-                    cmd.Parameters["@voornaam"].Value = b.Voornaam;
-                    cmd.Parameters["@geboorte"].Value = b.Geboortedatum;
-                    cmd.Parameters["@rijksregister"].Value = b.Rijksregisternummer;
+                    cmd.Parameters.AddWithValue("@id", b.Id);
+                    cmd.Parameters.AddWithValue("@naam", b.Naam);
+                    cmd.Parameters.AddWithValue("@voornaam", b.Voornaam);
+                    cmd.Parameters.AddWithValue("@geboorte", b.Geboortedatum);
+                    cmd.Parameters.AddWithValue("@rijksregister", b.Rijksregisternummer);
+                    if (b.Adres != null) { cmd.Parameters.AddWithValue("@adresid", b.Adres.Id); }
+                    else { cmd.Parameters.AddWithValue("@adresid", DBNull.Value); }
+                    if (b.Voertuig != null) { cmd.Parameters.AddWithValue("@voertuigid", b.Voertuig.VoertuigID); }
+                    else { cmd.Parameters.AddWithValue("@voertuigid", DBNull.Value); }
+                    if (b.Tankkaart != null) { cmd.Parameters.AddWithValue("@tankkaartid", b.Tankkaart.Kaartnummer); }
+                    else { cmd.Parameters.AddWithValue("@tankkaartid", DBNull.Value); }
 
-                    if (b.Adres != null) { cmd.Parameters["@adres"].Value = b.Adres.Id; }
-                    else { cmd.Parameters["@adres"].Value = DBNull.Value; }
-
-                    if (b.Voertuig != null) { cmd.Parameters["@voertuig"].Value = b.Voertuig.VoertuigID; }
-                    else { cmd.Parameters["@voertuig"].Value = DBNull.Value; }
-
-                    if (b.Tankkaart != null) { cmd.Parameters["@tankkaart"].Value = b.Tankkaart.Kaartnummer; }
-                    else { cmd.Parameters["@tankkaart"].Value = DBNull.Value; }
-
-                    if (b.Geslacht == Geslacht.M) { cmd.Parameters["@geslacht"].Value = 1; } else { cmd.Parameters["@geslacht"].Value = 0; }
-
+                    if (b.Geslacht == Geslacht.M) { cmd.Parameters.AddWithValue("@geslacht", 1); }
+                    else { cmd.Parameters.AddWithValue("@geslacht", 0); }
                     cmd.ExecuteNonQuery();
+
+                    cmd.CommandText = "DELETE FROM Rijbewijs_Bestuurder WHERE bestuurderId=@id;";
+                    cmd.Parameters["@id"].Value = b.Id;
+                    cmd.ExecuteNonQuery();
+
+                    b.Rijbewijzen.ForEach(x => {
+                        cmd.CommandText = $"INSERT INTO Rijbewijs_Bestuurder ([rijbewijsId] ,[bestuurderId]) VALUES(@rijbewijsId{x.Id}, @bestuurderId{x.Id + 1});";
+                        cmd.Parameters.Add(new SqlParameter($"@rijbewijsId{x.Id}", SqlDbType.Int));
+                        cmd.Parameters.Add(new SqlParameter($"@bestuurderId{x.Id + 1}", SqlDbType.Int));
+                        cmd.Parameters[$"@rijbewijsId{x.Id}"].Value = x.Id;
+                        cmd.Parameters[$"@bestuurderId{x.Id + 1}"].Value = b.Id;
+                        cmd.ExecuteNonQuery();
+                    });
+
+                    trx.Commit();
                 }
-                catch (Exception ex) { throw new Exception(ex.Message); }
+                catch (Exception ex) {
+                    trx.Rollback();
+                    throw new Exception(ex.Message);
+                }
                 finally { conn.Close(); }
             }
         }
