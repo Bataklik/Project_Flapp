@@ -2,6 +2,7 @@
 using Flapp_BLL.Models;
 using Flapp_DAL.Repository;
 using Flapp_PL.View.UserControls;
+using Flapp_PL.View.Windows.BeheerWindows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,19 +42,25 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
                 _tUC.lstTankkaarten.ItemsSource = tankkaarten;
                 Close();
             }
-            catch (Exception ex) { throw new Exception(ex.Message); }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
         private void btnAnnuleren_Click(object sender, RoutedEventArgs e) {
-            Close();
+            try {
+                Close();
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
         private void btnBestuurderbeheer_Click(object sender, RoutedEventArgs e) {
-
+            new Bestuurderbeheer(this).ShowDialog();
         }
         
         private void VerwijderBestuurder_Click(object sender, RoutedEventArgs e) {
+            try {
 
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
     }
 }

@@ -147,26 +147,6 @@ namespace Flapp_DAL.Repository {
                 finally { conn.Close(); }
             }
         }
-        public void VoegBrandstofToeAanTankkaart(int tankkaartid, int brandstofid) {
-            SqlConnection conn = new SqlConnection(_connString);
-            string query = "INSERT INTO [dbo].[Brandstof_Tankkaart] ([brandstofId] ,[tankkaartId]) VALUES(@brandstofId, @tankkaartId);";
-            using (SqlCommand cmd = conn.CreateCommand()) {
-                conn.Open();
-                try {
-                    cmd.Parameters.Add(new SqlParameter("@brandstofId", SqlDbType.Int));
-                    cmd.Parameters.Add(new SqlParameter("@tankkaartId", SqlDbType.Int));
-
-                    cmd.CommandText = query;
-
-                    cmd.Parameters["@brandstofId"].Value = brandstofid;
-                    cmd.Parameters["@tankkaartId"].Value = tankkaartid;
-
-                    cmd.ExecuteNonQuery();
-                }
-                catch (Exception ex) { throw new Exception(ex.Message); }
-                finally { conn.Close(); }
-            }
-        }
         #endregion
 
         #region UpdateBrandstof Method
@@ -254,24 +234,6 @@ namespace Flapp_DAL.Repository {
                     cmd.CommandText = query;
 
                     cmd.Parameters["@brandstofnaam"].Value = brandstof_naam;
-
-                    cmd.ExecuteNonQuery();
-                }
-                catch (Exception ex) { throw new Exception(ex.Message); }
-                finally { conn.Close(); }
-            }
-        }
-        public void VerwijderBrandstofBijTankkaart(int tankkaartId) {
-            SqlConnection conn = new SqlConnection(_connString);
-            string query = "DELETE FROM Brandstof_Tankkaart WHERE tankkaartId=@tankkaartId;";
-            using (SqlCommand cmd = conn.CreateCommand()) {
-                conn.Open();
-                try {
-                    cmd.Parameters.Add(new SqlParameter("@tankkaartId", SqlDbType.Int));
-
-                    cmd.CommandText = query;
-
-                    cmd.Parameters["@tankkaartId"].Value = tankkaartId;
 
                     cmd.ExecuteNonQuery();
                 }

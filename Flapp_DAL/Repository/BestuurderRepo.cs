@@ -205,26 +205,6 @@ namespace Flapp_DAL.Repository {
                 finally { conn.Close(); }
             }
         }
-        public void VoegTankkaartToeAanBestuurder(Tankkaart t) {
-            SqlConnection conn = new SqlConnection(_connString);
-            string query = "UPDATE [dbo].[Bestuurder] SET tankkaartId=@tankkaartId WHERE bestuurderId=@bestuurderId;";
-            using (SqlCommand cmd = conn.CreateCommand()) {
-                conn.Open();
-                try {
-                    cmd.Parameters.Add(new SqlParameter("@bestuurderId", SqlDbType.Int));
-                    cmd.Parameters.Add(new SqlParameter("@tankkaartId", SqlDbType.Int));
-
-                    cmd.CommandText = query;
-
-                    cmd.Parameters["@bestuurderId"].Value = t.Bestuurder.Id;
-                    cmd.Parameters["@tankkaartId"].Value = t.Kaartnummer;
-
-                    cmd.ExecuteNonQuery();
-                }
-                catch (Exception ex) { throw new Exception(ex.Message); }
-                finally { conn.Close(); }
-            }
-        }
         #endregion
 
         #region VerwijderBestuurder Method
@@ -255,24 +235,6 @@ namespace Flapp_DAL.Repository {
                     trx.Rollback();
                     throw new Exception(ex.Message);
                 }
-                finally { conn.Close(); }
-            }
-        }
-        public void VerwijderTankkaartVanBestuurder(Bestuurder b) {
-            SqlConnection conn = new SqlConnection(_connString);
-            string query = "UPDATE [dbo].[Bestuurder] SET tankkaartId=NULL WHERE bestuurderId=@bestuurderId;";
-            using (SqlCommand cmd = conn.CreateCommand()) {
-                conn.Open();
-                try {
-                    cmd.Parameters.Add(new SqlParameter("@bestuurderId", SqlDbType.Int));
-
-                    cmd.CommandText = query;
-
-                    cmd.Parameters["@bestuurderId"].Value = b.Id;
-
-                    cmd.ExecuteNonQuery();
-                }
-                catch (Exception ex) { throw new Exception(ex.Message); }
                 finally { conn.Close(); }
             }
         }
@@ -420,6 +382,58 @@ namespace Flapp_DAL.Repository {
         //    }
         //    return bestuurders;
         //}
+        public ObservableCollection<Bestuurder> GeefBestuurders(string naam, string voornaam) {
+            ObservableCollection<Bestuurder> bestuurders = new ObservableCollection<Bestuurder>();
+            SqlConnection conn = new SqlConnection(_connString);
+            string query = "SELECT * FROM Bestuurder LEFT JOIN Adres ON Bestuurder.adresId = Adres.adresId  LEFT JOIN Tankkaart ON Bestuurder.tankkaartId = Tankkaart.tankkaartId LEFT JOIN Voertuig ON Bestuurder.voertuigId = Voertuig.voertuigId LEFT JOIN Rijbewijs_Bestuurder ON Bestuurder.bestuurderId = Rijbewijs_Bestuurder.bestuurderId LEFT JOIN Rijbewijs ON Rijbewijs_Bestuurder.rijbewijsId = Rijbewijs.rijbewijsId LEFT JOIN Brandstof_Voertuig ON Voertuig.voertuigId = Brandstof_Voertuig.voertuigId LEFT JOIN Brandstof ON Brandstof_Voertuig.brandstofId = Brandstof.brandstofId WHERE Bestuurder.naam LIKE @naam AND Bestuurder.voornaam LIKE @voornaam";
+            using (SqlCommand cmd = conn.CreateCommand()) {
+                cmd.Parameters.Add(new SqlParameter("@naam", SqlDbType.VarChar));
+                cmd.Parameters.Add(new SqlParameter("@voornaam", SqlDbType.VarChar));
+
+                cmd.CommandText = query;
+
+                cmd.Parameters["@naam"].Value = $"{naam}%";
+                cmd.Parameters["@voornaam"].Value = $"{voornaam}%";
+
+                conn.Open();
+                Bestuurder bestuurder = null;
+                Geslacht bestuurderGeslacht = Geslacht.M;
+                Adres bestuurderAdres = null;
+                Dictionary<int, Rijbewijs> bestuurderRijbewijzen = null;
+                Voertuig bestuurderVoertuig = null;
+                Dictionary<int, Brandstof> bestuurderVoertuigBrandstof = new Dictionary<int, Brandstof>();
+                List<Brandstof> bestuurderTankkaartBrandstof = new List<Brandstof>();
+                Tankkaart bestuurderTankkaart = null;
+                try {
+                    SqlDataReader r = cmd.ExecuteReader();
+                    while (r.Read()) {
+                        if (bestuurder != null) {
+                            if (!r.IsDBNull("rijbewijsId") && !bestuurderRijbewijzen.ContainsKey((int)r["rijbewijsId"])) { bestuurderRijbewijzen.Add((int)r["rijbewijsId"], new Rijbewijs((int)r["rijbewijsId"], (string)r[29])); }
+                            if (!r.IsDBNull("brandstofId") && !bestuurderVoertuigBrandstof.ContainsKey((int)r["brandstofId"])) {
+                                bestuurderVoertuigBrandstof.Add((int)r["brandstofId"], new Brandstof((int)r["brandstofId"], (string)r[33]));
+                                bestuurder.Voertuig.ZetBrandstofTypeLijst(bestuurderVoertuigBrandstof.Values.ToList());
+                            }
+                        }
+                        else {
+                            if (!r.IsDBNull("adresId")) { bestuurderAdres = new((int)r["adresId"], (string)r["straat"], (string)r["huisnummer"], (string)r["stad"], (int)r["postcode"]); }
+                            if (!r.IsDBNull("rijbewijsId")) { bestuurderRijbewijzen = new Dictionary<int, Rijbewijs> { { (int)r["rijbewijsId"], new Rijbewijs((int)r["rijbewijsId"], (string)r[29]) } }; }
+                            if (!r.IsDBNull("voertuigId")) {
+                                bestuurderVoertuigBrandstof.Add((int)r["brandstofId"], new Brandstof((int)r["brandstofId"], (string)r[33]));
+                                bestuurderVoertuig = new Voertuig((int)r["voertuigId"], (string)r["merk"], (string)r["model"], (string)r["chassisnummer"], (string)r["nummerplaat"], bestuurderVoertuigBrandstof.Values.ToList(), (string)r["type"], (string)r["kleur"], (int)r["deuren"]);
+                            }
+                            if (!r.IsDBNull("tankkaartId")) { bestuurderTankkaart = new Tankkaart((int)r["tankkaartId"], (DateTime)r["geldigheidsdatum"], (string)r["pincode"], bestuurderTankkaartBrandstof, (bool)r["geblokkeerd"]); }
+                            bestuurderGeslacht = (bool)r["geslacht"] ? Geslacht.M : Geslacht.V;
+                            bestuurder = new((int)r["bestuurderId"], (string)r["naam"], (string)r["voornaam"], bestuurderGeslacht, bestuurderAdres, Convert.ToString(r["geboortedatum"]), (string)r["rijksregister"], bestuurderRijbewijzen.Values.ToList(), bestuurderVoertuig, bestuurderTankkaart);
+                        }
+                        bestuurders.Add(bestuurder);
+                    }
+                    return bestuurders;
+                }
+                catch (Exception ex) { throw new Exception(ex.Message); }
+                finally { conn.Close(); }
+
+            }
+        }
         public Dictionary<int, Bestuurder> GeefAlleBestuurders() {
             SqlConnection conn = new SqlConnection(_connString);
             Dictionary<int, Bestuurder> bestuurders = new Dictionary<int, Bestuurder>();

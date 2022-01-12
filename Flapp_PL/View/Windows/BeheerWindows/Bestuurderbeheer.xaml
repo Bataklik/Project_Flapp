@@ -80,18 +80,26 @@
         <StackPanel
             Grid.Row="1"
             Grid.Column="1"
-            Margin="5,0"
             Orientation="Horizontal">
-            <TextBox
-                Name="txtZoekNaam"
-                Width="93"
-                Margin="5,0"
-                VerticalAlignment="Center" />
+            <GroupBox Padding="5" Header="Voornaam">
+                <TextBox
+                    x:Name="txtVoornaam"
+                    Width="100"
+                    Height="25"
+                    materialDesign:HintAssist.Hint="Voornaam" />
+            </GroupBox>
+
+            <GroupBox Margin="5,0" Header="Familienaam">
+                <TextBox
+                    x:Name="txtFamilienaam"
+                    Width="100"
+                    Height="25"
+                    materialDesign:HintAssist.Hint="Familienaam" />
+            </GroupBox>
             <Button
                 x:Name="btnZoek"
                 Width="50"
                 Height="20"
-                VerticalAlignment="Center"
                 Click="btnZoek_Click">
                 <StackPanel Orientation="Horizontal">
                     <materialDesign:PackIcon
@@ -134,17 +142,25 @@
 
                     <GridView>
                         <GridViewColumn
-                            Width="80"
+                            Width="50"
                             DisplayMemberBinding="{Binding Id}"
-                            Header="Bestuurder ID" />
+                            Header="Id" />
                         <GridViewColumn
                             Width="120"
                             DisplayMemberBinding="{Binding Naam}"
                             Header="Naam" />
                         <GridViewColumn
-                            Width="80"
+                            Width="120"
                             DisplayMemberBinding="{Binding Voornaam}"
                             Header="Voornaam" />
+                        <GridViewColumn
+                            Width="100"
+                            DisplayMemberBinding="{Binding Voertuig.Merk}"
+                            Header="Merk" />
+                        <GridViewColumn
+                            Width="100"
+                            DisplayMemberBinding="{Binding Voertuig.Model}"
+                            Header="Model" />
                     </GridView>
 
                 </ListView.View>
