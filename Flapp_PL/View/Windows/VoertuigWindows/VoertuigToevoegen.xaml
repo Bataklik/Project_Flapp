@@ -226,7 +226,6 @@
             Grid.Column="1"
             Width="130"
             Margin="10,6,10,5"
-            DropDownClosed="cmbModel_DropDownClosed"
             DropDownOpened="cmbModel_DropDownOpened"
             FontSize="16"
             IsEditable="True"

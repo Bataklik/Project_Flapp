@@ -30,18 +30,6 @@ namespace Flapp_PL.View.Windows.VoertuigWindow {
             _voertuigTypeManager = new VoertuigTypeManager(new VoertuigTypeRepo(Application.Current.Properties["User"].ToString()));
             _brandstofmanager = new BrandstofManager(new BrandstofRepo(Application.Current.Properties["User"].ToString()));
             _bestuurderManager = new BestuurderManager(new BestuurderRepo(Application.Current.Properties["User"].ToString()));
-            //if (Application.Current.Properties["Brandstof"] == null) {
-            //    Application.Current.Properties["Brandstof"] = new ObservableCollection<Brandstof>();
-            //    _brandstoffen = (ObservableCollection<Brandstof>)Application.Current.Properties["Brandstof"]; ;
-            //}
-            //else { _brandstoffen = (ObservableCollection<Brandstof>)Application.Current.Properties["Brandstof"]; ; }
-
-            //if (Application.Current.Properties["Bestuurder"] == null) {
-            //    Application.Current.Properties["Bestuurder"] = new ObservableCollection<Bestuurder>();
-            //    _bestuurders = (ObservableCollection<Bestuurder>)Application.Current.Properties["Bestuurder"]; ;
-            //}
-            //else { _bestuurders = (ObservableCollection<Bestuurder>)Application.Current.Properties["Bestuurder"]; ; }
-                        
             laadMerk();
         }
         public VoertuigToevoegen(VoertuigUC voertuigUc) {
@@ -50,17 +38,6 @@ namespace Flapp_PL.View.Windows.VoertuigWindow {
             _voertuigTypeManager = new VoertuigTypeManager(new VoertuigTypeRepo(Application.Current.Properties["User"].ToString()));
             _brandstofmanager = new BrandstofManager(new BrandstofRepo(Application.Current.Properties["User"].ToString()));
             _bestuurderManager = new BestuurderManager(new BestuurderRepo(Application.Current.Properties["User"].ToString()));
-            //if (Application.Current.Properties["Brandstof"] == null) {
-            //    Application.Current.Properties["Brandstof"] = new ObservableCollection<Brandstof>();
-            //    _brandstoffen = (ObservableCollection<Brandstof>)Application.Current.Properties["Brandstof"]; ;
-            //}
-            //else { _brandstoffen = (ObservableCollection<Brandstof>)Application.Current.Properties["Brandstof"]; ; }
-
-            //if (Application.Current.Properties["Bestuurder"] == null) {
-            //    Application.Current.Properties["Bestuurder"] = new ObservableCollection<Bestuurder>();
-            //    _bestuurders = (ObservableCollection<Bestuurder>)Application.Current.Properties["Bestuurder"]; ;
-            //}
-            //else { _bestuurders = (ObservableCollection<Bestuurder>)Application.Current.Properties["Bestuurder"]; ; }
             parentWindow = voertuigUc;
             laadMerk();
         }
@@ -102,15 +79,23 @@ namespace Flapp_PL.View.Windows.VoertuigWindow {
                 MessageBox.Show("Brandstof is verwijderd van de wagen", Title, MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex) {
-                MessageBox.Show(ex.Message, Title, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(ex.Message);
             }
         }
         private void laadMerk() {
-            ObservableCollection<string> merken = new(_voertuigManager.GeefMerken());            
-            cmbMerk.ItemsSource = merken;
+            try
+            {
+                ObservableCollection<string> merken = new(_voertuigManager.GeefMerken());
+                cmbMerk.ItemsSource = merken;
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }            
         }
         private void cmbMerk_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e) {
-            cmbModel.ItemsSource = null;
+            try
+            {
+                cmbModel.ItemsSource = null;
+            }catch(Exception ex) { MessageBox.Show(ex.Message); }
+            
         }
         private void cmbBrandstoffen_Loaded(object sender, RoutedEventArgs e) {
             try {
@@ -119,14 +104,23 @@ namespace Flapp_PL.View.Windows.VoertuigWindow {
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
         private void btnAddBrandstof_Click(object sender, RoutedEventArgs e) {
-            if ((Brandstof)cmbBrandstoffen.SelectedItem == null) { MessageBox.Show("U heeft geen brandstof aangeduid!"); return; }
-            if (lstBrandtof.Items.Contains((Brandstof)cmbBrandstoffen.SelectedItem)) { MessageBox.Show("Brandstof staat al op de lijst!"); return; }
-            lstBrandtof.Items.Add((Brandstof)cmbBrandstoffen.SelectedItem);
+            try
+            {
+                if ((Brandstof)cmbBrandstoffen.SelectedItem == null) { MessageBox.Show("U heeft geen brandstof aangeduid!"); return; }
+                if (lstBrandtof.Items.Contains((Brandstof)cmbBrandstoffen.SelectedItem)) { MessageBox.Show("Brandstof staat al op de lijst!"); return; }
+                lstBrandtof.Items.Add((Brandstof)cmbBrandstoffen.SelectedItem);
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
         private void btnRemoveBrandstof_Click(object sender, RoutedEventArgs e) {
-            if ((Brandstof)lstBrandtof.SelectedItem == null) { MessageBox.Show("U heeft geen brandstof aangeduid!"); return; }
-            if (!lstBrandtof.Items.Contains((Brandstof)lstBrandtof.SelectedItem)) { MessageBox.Show("Brandstof staat niet op de lijst!"); return; }
-            lstBrandtof.Items.Remove((Brandstof)cmbBrandstoffen.SelectedItem);
+            try
+            {
+                if ((Brandstof)lstBrandtof.SelectedItem == null) { MessageBox.Show("U heeft geen brandstof aangeduid!"); return; }
+                if (!lstBrandtof.Items.Contains((Brandstof)lstBrandtof.SelectedItem)) { MessageBox.Show("Brandstof staat niet op de lijst!"); return; }
+                lstBrandtof.Items.Remove((Brandstof)cmbBrandstoffen.SelectedItem);
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            
         }
         private void txtDeuren_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e) {
             Regex regex = new Regex("[^0-9]+");
@@ -142,72 +136,89 @@ namespace Flapp_PL.View.Windows.VoertuigWindow {
                 }
                 cmbType.ItemsSource = ts;
             }
-            catch (Exception ex) { throw new Exception(ex.Message, ex); }
+            catch (Exception ex) { throw new Exception(ex.Message); }
         }
 
         private void btnPlusDeur_Click(object sender, RoutedEventArgs e) {
-            aantalDeuren = Convert.ToInt32(txtDeuren.Text);
-            switch (aantalDeuren)
+            try
             {
-                case (3):
-                    aantalDeuren = 5;
-                    break;
-                case (5):
-                    aantalDeuren = 7;
-                    break;
-                default:
-                    break;
+                aantalDeuren = Convert.ToInt32(txtDeuren.Text);
+                switch (aantalDeuren)
+                {
+                    case (3):
+                        aantalDeuren = 5;
+                        break;
+                    case (5):
+                        aantalDeuren = 7;
+                        break;
+                    default:
+                        break;
+                }
+                txtDeuren.Text = aantalDeuren.ToString();
             }
-            txtDeuren.Text = aantalDeuren.ToString();
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            
         }
 
         private void btnMindeur_Click(object sender, RoutedEventArgs e) {
-            aantalDeuren = Convert.ToInt32(txtDeuren.Text);
-            switch (aantalDeuren)
+            try
             {
-                case (7):
-                    aantalDeuren = 5;
-                    break;
-                case (5):
-                    aantalDeuren = 3;
-                    break;
-                default:
-                    break;
+                aantalDeuren = Convert.ToInt32(txtDeuren.Text);
+                switch (aantalDeuren)
+                {
+                    case (7):
+                        aantalDeuren = 5;
+                        break;
+                    case (5):
+                        aantalDeuren = 3;
+                        break;
+                    default:
+                        break;
+                }
+                txtDeuren.Text = aantalDeuren.ToString();
             }
-            txtDeuren.Text = aantalDeuren.ToString();
+            catch (Exception ex) { MessageBox.Show(ex.Message); }           
         }
 
         private void btnVoertuigbeheer_Click(object sender, RoutedEventArgs e) {
-            new Bestuurderbeheer(this).ShowDialog();
+            try
+            {
+                new Bestuurderbeheer(this).ShowDialog();
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+
+            
         }       
 
         private void cmbModel_DropDownOpened(object sender, EventArgs e)
         {
-            
-                
+            try
+            {
                 if (cmbMerk.SelectedIndex < 0)
-                {                    
+                {
                     cmbModel.ItemsSource = null;
                     cmbModel.IsDropDownOpen = false;
                 }
                 else
-                {                    
+                {
                     ObservableCollection<string> modellen = new(_voertuigManager.GeefModellenMerk(cmbMerk.SelectedItem.ToString()));
-                    
-                    cmbModel.ItemsSource = modellen;                   
-                }   
-        }
 
-        private void cmbModel_DropDownClosed(object sender, EventArgs e)
-        {
+                    cmbModel.ItemsSource = modellen;
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+
             
         }
-
         private void miDeselecterenBestuurder_Click(object sender, RoutedEventArgs e)
         {
-            if (lstBestuurder.Items.Count < 1) { MessageBox.Show("Er is geen bestuurder geselecteerd!", "Geen Bestuurder!", MessageBoxButton.OK, MessageBoxImage.Information); return; }
-            MessageBoxResult result = MessageBox.Show("Wilt u deze bestuurder verwijderen van het voertuig?", "Niet Selecteren!", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
-            if (result == MessageBoxResult.Yes) { lstBestuurder.Items.Clear(); }
+            try
+            {
+                if (lstBestuurder.Items.Count < 1) { MessageBox.Show("Er is geen bestuurder geselecteerd!", "Geen Bestuurder!", MessageBoxButton.OK, MessageBoxImage.Information); return; }
+                MessageBoxResult result = MessageBox.Show("Wilt u deze bestuurder verwijderen van het voertuig?", "Niet Selecteren!", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+                if (result == MessageBoxResult.Yes) { lstBestuurder.Items.Clear(); }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }            
         }
     }
 }

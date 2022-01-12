@@ -31,7 +31,11 @@ namespace Flapp_PL.View.Windows.BeheerWindows {
 
         #region Click Methods
         private void miVoegToe_Click(object sender, RoutedEventArgs e) {
-            new VoertuigToevoegen(this).ShowDialog();
+            try
+            {
+                new VoertuigToevoegen(this).ShowDialog();
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
         private void miVerwijderen_Click(object sender, RoutedEventArgs e) {
             if (lstVoertuigen.SelectedItem == null) { MessageBox.Show("U heeft geen tankkaart geselecteerd"); }
@@ -39,19 +43,25 @@ namespace Flapp_PL.View.Windows.BeheerWindows {
                 _voertuigManager.VerwijderVoertuig((Voertuig)lstVoertuigen.SelectedItem);
                 LaadVoertuigen();
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
         private void miSelecteer_Click(object sender, RoutedEventArgs e) {
-            if (lstVoertuigen.SelectedItems == null) { MessageBox.Show("U heeft geen voertuig geselecteerd!"); return; }
-            if (_parentWindow == null) {
-                _parentUpdateWindow.lstVoertuig.Items.Clear();
-                _parentUpdateWindow.lstVoertuig.Items.Add((Voertuig)lstVoertuigen.SelectedItem);
+            try
+            {
+                if (lstVoertuigen.SelectedItems == null) { MessageBox.Show("U heeft geen voertuig geselecteerd!"); return; }
+                if (_parentWindow == null)
+                {
+                    _parentUpdateWindow.lstVoertuig.Items.Clear();
+                    _parentUpdateWindow.lstVoertuig.Items.Add((Voertuig)lstVoertuigen.SelectedItem);
+                }
+                else
+                {
+                    _parentWindow.lstVoertuig.Items.Clear();
+                    _parentWindow.lstVoertuig.Items.Add((Voertuig)lstVoertuigen.SelectedItem);
+                }
+                Close();
             }
-            else {
-                _parentWindow.lstVoertuig.Items.Clear();
-                _parentWindow.lstVoertuig.Items.Add((Voertuig)lstVoertuigen.SelectedItem);
-            }
-            Close();
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
         private void btnZoek_Click(object sender, RoutedEventArgs e) {
             //if (cbMerk.SelectedItem == null || cbModel.SelectedItem == null) { MessageBox.Show("Geen Juiste merk of model aangeduid!"); return; }
@@ -75,8 +85,12 @@ namespace Flapp_PL.View.Windows.BeheerWindows {
 
         private void cmbMerk_Loaded(object sender, RoutedEventArgs e)
         {
-            ObservableCollection<string> merken = new(_voertuigManager.GeefMerken());
-            cmbMerk.ItemsSource = merken;
+            try
+            {
+                ObservableCollection<string> merken = new(_voertuigManager.GeefMerken());
+                cmbMerk.ItemsSource = merken;
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
         private void cmbModel_Loaded(object sender, RoutedEventArgs e)
@@ -86,11 +100,15 @@ namespace Flapp_PL.View.Windows.BeheerWindows {
 
         private void cmbMerk_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (cmbMerk.SelectedIndex > -1)
+            try
             {
-                ObservableCollection<string> modellen = new(_voertuigManager.GeefModellenMerk(cmbMerk.SelectedItem.ToString()));
-                cmbModel.ItemsSource = modellen;
+                if (cmbMerk.SelectedIndex > -1)
+                {
+                    ObservableCollection<string> modellen = new(_voertuigManager.GeefModellenMerk(cmbMerk.SelectedItem.ToString()));
+                    cmbModel.ItemsSource = modellen;
+                }
             }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }            
         }
     }
 }

@@ -41,17 +41,16 @@ namespace Flapp_PL.View.Windows.VoertuigWindows
         private void btnZoek_Click(object sender, RoutedEventArgs e)
         {            
             List<Voertuig> voertuigen = new List<Voertuig>();
-                try
+            try
+            {
+                foreach (KeyValuePair<int, Voertuig> vo in _voertuigmanager.ZoekVoertuig(cmbMerk.Text, cmbModel.Text, txtNummerplaat.Text))
                 {
-                    foreach (KeyValuePair<int, Voertuig> vo in _voertuigmanager.ZoekVoertuig(cmbMerk.Text, cmbModel.Text, txtNummerplaat.Text))
-                    {
-                        voertuigen.Add(vo.Value);
-                    }
-                    vUC.lstVoertuigen.ItemsSource = voertuigen;
-                    this.Close();
+                    voertuigen.Add(vo.Value);
                 }
-                catch (Exception ex) { MessageBox.Show(ex.Message, Title, MessageBoxButton.OK, MessageBoxImage.Error); }          
-           
+                vUC.lstVoertuigen.ItemsSource = voertuigen;
+                this.Close();
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }                     
         }
         private void btnAnnuleer_Click(object sender, RoutedEventArgs e)
         {
@@ -60,17 +59,26 @@ namespace Flapp_PL.View.Windows.VoertuigWindows
         
         private void cmbMerk_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (cmbMerk.SelectedIndex > -1)
-            {                
-                ObservableCollection<string> modellen = new(_voertuigmanager.GeefModellenMerk(cmbMerk.SelectedItem.ToString()));
-                cmbModel.ItemsSource = modellen;          
+            try
+            {
+                if (cmbMerk.SelectedIndex > -1)
+                {
+                    ObservableCollection<string> modellen = new(_voertuigmanager.GeefModellenMerk(cmbMerk.SelectedItem.ToString()));
+                    cmbModel.ItemsSource = modellen;
+                }
             }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            
         }
 
         private void cmbMerk_Loaded(object sender, RoutedEventArgs e)
         {
-            ObservableCollection<string> merken = new(_voertuigmanager.GeefMerken());            
-            cmbMerk.ItemsSource = merken;
+            try
+            {
+                ObservableCollection<string> merken = new(_voertuigmanager.GeefMerken());
+                cmbMerk.ItemsSource = merken;
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }            
         }
     }
 }
