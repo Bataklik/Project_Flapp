@@ -216,21 +216,18 @@ namespace Flapp_DAL.Repository {
             }
         }
 
-        public void UpdateBestuurder_voertuigId(int VoertuigID)
-        {
+        public void UpdateBestuurder_voertuigId(int VoertuigID) {
             SqlConnection conn = new SqlConnection(_connString);
             string query = "UPDATE [dbo].[Bestuurder] SET [voertuigId] = NULL WHERE voertuigId = @voertuigId;";
-            using (SqlCommand cmd = conn.CreateCommand())
-            {
+            using (SqlCommand cmd = conn.CreateCommand()) {
                 conn.Open();
-                try
-                {
+                try {
                     //cmd.Parameters.Add(new SqlParameter("@id", SqlDbType.VarChar));
                     cmd.Parameters.Add(new SqlParameter("@voertuigId", SqlDbType.Int));
 
 
                     cmd.CommandText = query;
-                    
+
                     cmd.Parameters["@voertuigId"].Value = VoertuigID;
 
                     cmd.ExecuteNonQuery();
@@ -245,24 +242,20 @@ namespace Flapp_DAL.Repository {
         public void VerwijderBestuurder(Bestuurder b) {
             using (SqlConnection conn = new SqlConnection(_connString)) {
                 conn.Open();
-
                 SqlCommand cmd = conn.CreateCommand();
-                SqlTransaction trx;
-
-                trx = conn.BeginTransaction();
-
+                SqlTransaction trx = conn.BeginTransaction();
                 cmd.Connection = conn;
                 cmd.Transaction = trx;
-
                 try {
+                    // Query 1
                     cmd.CommandText = "DELETE FROM [dbo].[Rijbewijs_Bestuurder] WHERE bestuurderid = @id1;";
                     cmd.Parameters.AddWithValue("@id1", b.Id);
                     cmd.ExecuteNonQuery();
-
+                    // Query 2
                     cmd.CommandText = "DELETE FROM [dbo].[Bestuurder] WHERE bestuurderid = @id2;";
                     cmd.Parameters.AddWithValue("@id2", b.Id);
                     cmd.ExecuteNonQuery();
-
+                    // Commit
                     trx.Commit();
                 }
                 catch (Exception ex) {
