@@ -42,8 +42,13 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
         }
 
         private void txtPincode_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e) {
-            Regex regex = new Regex(@"^[0-9]{4}$");
-            e.Handled = regex.IsMatch(txtPincode.Text);
+            Regex regex = new Regex(@"[0-9]{4}");
+            Regex regex2 = new Regex("[0-9]");
+
+            e.Handled = !regex2.IsMatch(e.Text);
+            if (txtPincode.Text.Length > 3) {
+                e.Handled = regex.IsMatch(txtPincode.Text);
+            }
         }
 
         private void btnBestuurderbeheer_Click(object sender, RoutedEventArgs e) {

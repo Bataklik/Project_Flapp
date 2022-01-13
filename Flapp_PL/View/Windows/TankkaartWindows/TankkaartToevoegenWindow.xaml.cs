@@ -47,8 +47,13 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
         }
 
         private void txtPincode_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e) {
-            Regex regex = new Regex(@"^[0-9]{4}$");
-            e.Handled = regex.IsMatch(txtPincode.Text);
+            Regex regex = new Regex(@"[0-9]{4}");
+            Regex regex2 = new Regex("[0-9]");
+
+            e.Handled = !regex2.IsMatch(e.Text);
+            if (txtPincode.Text.Length > 3) {
+                e.Handled = regex.IsMatch(txtPincode.Text);
+            }
         }
 
         private void btnVoegtoe_Click(object sender, RoutedEventArgs e) {
@@ -56,7 +61,7 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
                 if (dpGeldigheidsdatum.SelectedDate != null && !string.IsNullOrWhiteSpace(txtPincode.Text) && lbBrandstof.Items.Count > 0) {
                     Tankkaart t = null;
                     DateTime geldigheidsdatum = (DateTime)dpGeldigheidsdatum.SelectedDate;
-                    string pincode = txtPincode.Text;
+                    string pincode = txtPincode.Text.Trim();
                     bool geblokkeerd = false;
                     if (cbGeblokkeerd.SelectedIndex == 0) { geblokkeerd = true; }
                     Bestuurder bestuurder = null;

@@ -62,7 +62,7 @@
                             DisplayMemberBinding="{Binding Kaartnummer}"
                             Header="Kaartnummer" />
                         <GridViewColumn
-                            Width="110"
+                            Width="100"
                             DisplayMemberBinding="{Binding Path=Geldigheidsdatum, StringFormat='dd/MM/yyyy'}"
                             Header="Geldigheidsdatum" />
                         <GridViewColumn
@@ -70,7 +70,7 @@
                             DisplayMemberBinding="{Binding Bestuurder.Voornaam}"
                             Header="Bestuurder" />
                         <GridViewColumn
-                            Width="80"
+                            Width="75"
                             DisplayMemberBinding="{Binding Geblokkeerd}"
                             Header="Geblokkeerd" />
                     </GridView>

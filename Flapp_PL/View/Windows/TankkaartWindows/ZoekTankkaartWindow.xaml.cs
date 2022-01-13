@@ -26,21 +26,29 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
 
         private void btnZoek_Click(object sender, RoutedEventArgs e) {
             try {
-                List<Tankkaart> tankkaarten = new List<Tankkaart>();
                 int? kaartnummer = txtKaartnummer.Text == "" ? kaartnummer = null : kaartnummer = int.Parse(txtKaartnummer.Text.Trim());
                 DateTime? geldigheidsdatum = dpGeldigheidsdatum.SelectedDate;
                 Bestuurder bestuurder = lstBestuurder.Items.Count > 0 ? bestuurder = (Bestuurder)lstBestuurder.Items[0] : bestuurder = null;
-                int? bestuurderid = bestuurder != null ? bestuurderid = bestuurder.Id : bestuurderid = null;
-                string naam = bestuurder != null ? naam = bestuurder.Naam : naam = "";
-                string voornaam = bestuurder != null ? voornaam = bestuurder.Voornaam : voornaam = "";
-                DateTime? geboortedatum = bestuurder != null ? geboortedatum = bestuurder.Geboortedatum : geboortedatum = null;
-                string  rijksregister = bestuurder != null ? rijksregister = bestuurder.Rijksregisternummer : rijksregister = "";
-
-                foreach (KeyValuePair<int, Tankkaart> kvp in _tankkaartManager.GeefTankkaarten(kaartnummer, geldigheidsdatum, bestuurderid, naam, voornaam, geboortedatum, rijksregister)) {
-                    tankkaarten.Add(kvp.Value);
+                if (kaartnummer == null && geldigheidsdatum == null && bestuurder == null) {
+                    MessageBox.Show("Gelieve minstens 1 waarde in te geven");
                 }
-                _tUC.lstTankkaarten.ItemsSource = tankkaarten;
-                Close();
+                else {
+                    List<Tankkaart> tankkaarten = new List<Tankkaart>();
+                    kaartnummer = txtKaartnummer.Text == "" ? kaartnummer = null : kaartnummer = int.Parse(txtKaartnummer.Text.Trim());
+                    geldigheidsdatum = dpGeldigheidsdatum.SelectedDate;
+                    bestuurder = lstBestuurder.Items.Count > 0 ? bestuurder = (Bestuurder)lstBestuurder.Items[0] : bestuurder = null;
+                    int? bestuurderid = bestuurder != null ? bestuurderid = bestuurder.Id : bestuurderid = null;
+                    string naam = bestuurder != null ? naam = bestuurder.Naam : naam = "";
+                    string voornaam = bestuurder != null ? voornaam = bestuurder.Voornaam : voornaam = "";
+                    DateTime? geboortedatum = bestuurder != null ? geboortedatum = bestuurder.Geboortedatum : geboortedatum = null;
+                    string rijksregister = bestuurder != null ? rijksregister = bestuurder.Rijksregisternummer : rijksregister = "";
+
+                    foreach (KeyValuePair<int, Tankkaart> kvp in _tankkaartManager.GeefTankkaarten(kaartnummer, geldigheidsdatum, bestuurderid, naam, voornaam, geboortedatum, rijksregister)) {
+                        tankkaarten.Add(kvp.Value);
+                    }
+                    _tUC.lstTankkaarten.ItemsSource = tankkaarten;
+                    Close();
+                }
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }

@@ -66,7 +66,7 @@ namespace Flapp_DAL.Repository {
         public Dictionary<int, Tankkaart> GeefAlleTankkaarten() {
             SqlConnection conn = new SqlConnection(_connString);
             Dictionary<int, Tankkaart> tankkaarten = new Dictionary<int, Tankkaart>();
-            string query = "SELECT * FROM Tankkaart LEFT JOIN Brandstof_Tankkaart ON Tankkaart.tankkaartId = Brandstof_Tankkaart.tankkaartId LEFT JOIN Brandstof ON Brandstof_Tankkaart.brandstofId = Brandstof.brandstofId LEFT JOIN Bestuurder ON Tankkaart.tankkaartId=Bestuurder.tankkaartId LEFT JOIN Adres ON Bestuurder.adresId = Adres.adresId LEFT JOIN Rijbewijs_Bestuurder ON Bestuurder.bestuurderId = Rijbewijs_Bestuurder.bestuurderId LEFT JOIN Rijbewijs ON Rijbewijs_Bestuurder.rijbewijsId = Rijbewijs.rijbewijsId;";
+            string query = "SELECT TOP(20) * FROM Tankkaart LEFT JOIN Brandstof_Tankkaart ON Tankkaart.tankkaartId = Brandstof_Tankkaart.tankkaartId LEFT JOIN Brandstof ON Brandstof_Tankkaart.brandstofId = Brandstof.brandstofId LEFT JOIN Bestuurder ON Tankkaart.tankkaartId=Bestuurder.tankkaartId LEFT JOIN Adres ON Bestuurder.adresId = Adres.adresId LEFT JOIN Rijbewijs_Bestuurder ON Bestuurder.bestuurderId = Rijbewijs_Bestuurder.bestuurderId LEFT JOIN Rijbewijs ON Rijbewijs_Bestuurder.rijbewijsId = Rijbewijs.rijbewijsId;";
             using (SqlCommand cmd = conn.CreateCommand()) {
                 cmd.CommandText = query;
                 conn.Open();
@@ -104,7 +104,7 @@ namespace Flapp_DAL.Repository {
         public Dictionary<int, Tankkaart> GeefTankkaarten(int? kaartnummer, DateTime? datum, int? bestuurderid, string naam, string voornaam, DateTime? geboortedatum, string rijksregister, bool strikt = true) {
             SqlConnection conn = new SqlConnection(_connString);
             Dictionary<int, Tankkaart> tankkaarten = new Dictionary<int, Tankkaart>();
-            string query = "SELECT * FROM Tankkaart LEFT JOIN Brandstof_Tankkaart ON Tankkaart.tankkaartId = Brandstof_Tankkaart.tankkaartId LEFT JOIN Brandstof ON Brandstof_Tankkaart.brandstofId = Brandstof.brandstofId LEFT JOIN Bestuurder ON Tankkaart.tankkaartId=Bestuurder.tankkaartId LEFT JOIN Adres ON Bestuurder.adresId = Adres.adresId LEFT JOIN Rijbewijs_Bestuurder ON Bestuurder.bestuurderId = Rijbewijs_Bestuurder.bestuurderId LEFT JOIN Rijbewijs ON Rijbewijs_Bestuurder.rijbewijsId = Rijbewijs.rijbewijsId WHERE ";
+            string query = "SELECT TOP(20) * FROM Tankkaart LEFT JOIN Brandstof_Tankkaart ON Tankkaart.tankkaartId = Brandstof_Tankkaart.tankkaartId LEFT JOIN Brandstof ON Brandstof_Tankkaart.brandstofId = Brandstof.brandstofId LEFT JOIN Bestuurder ON Tankkaart.tankkaartId=Bestuurder.tankkaartId LEFT JOIN Adres ON Bestuurder.adresId = Adres.adresId LEFT JOIN Rijbewijs_Bestuurder ON Bestuurder.bestuurderId = Rijbewijs_Bestuurder.bestuurderId LEFT JOIN Rijbewijs ON Rijbewijs_Bestuurder.rijbewijsId = Rijbewijs.rijbewijsId WHERE ";
             bool AND = false;
             bool naamNull = true;
             if (!string.IsNullOrWhiteSpace(naam)) {
