@@ -23,7 +23,7 @@ namespace Flapp_DAL.Repository {
             List<string> subquerylist = new List<string>();
             int numberofparams = 0;
             bool merkIsNull = true;
-            if (!String.IsNullOrWhiteSpace(merk)) {
+            if (!string.IsNullOrWhiteSpace(merk)) {
                 merkIsNull = false;
                 if (numberofparams > 0) {
                     subquerylist.Add(" AND ");
@@ -32,7 +32,7 @@ namespace Flapp_DAL.Repository {
                 subquerylist.Add("merk=@merk");
             }
             bool modelisNull = true;
-            if (!String.IsNullOrWhiteSpace(model)) {
+            if (!string.IsNullOrWhiteSpace(model)) {
                 modelisNull = false;
                 if (numberofparams > 0) {
                     subquerylist.Add(" AND ");
@@ -41,7 +41,7 @@ namespace Flapp_DAL.Repository {
                 subquerylist.Add("model=@model");
             }
             bool nummerplaatIssNull = true;
-            if (!String.IsNullOrWhiteSpace(nplaat)) {
+            if (!string.IsNullOrWhiteSpace(nplaat)) {
                 nummerplaatIssNull = false;
                 if (numberofparams > 0) {
                     subquerylist.Add(" AND ");
@@ -51,7 +51,7 @@ namespace Flapp_DAL.Repository {
 
             }
 
-            string query = $"SELECT * FROM Voertuig LEFT JOIN Brandstof_Voertuig ON Voertuig.voertuigId = Brandstof_Voertuig.voertuigId LEFT JOIN Brandstof ON Brandstof_Voertuig.brandstofId = Brandstof.brandstofId WHERE {String.Join("", subquerylist)}";
+            string query = $"SELECT * FROM Voertuig LEFT JOIN Brandstof_Voertuig ON Voertuig.voertuigId = Brandstof_Voertuig.voertuigId LEFT JOIN Brandstof ON Brandstof_Voertuig.brandstofId = Brandstof.brandstofId WHERE {string.Join("", subquerylist)}";
 
             SqlConnection cn = new SqlConnection(_connString);
             using (SqlCommand cmd = cn.CreateCommand()) {
@@ -103,39 +103,32 @@ namespace Flapp_DAL.Repository {
             }
         }
 
-        public Dictionary<int, Voertuig> ZoekVoertuigZonderBestuurder(string merk, string model, string nplaat)
-        {
+        public Dictionary<int, Voertuig> ZoekVoertuigZonderBestuurder(string merk, string model, string nplaat) {
             Dictionary<int, Voertuig> voertuigen = new Dictionary<int, Voertuig>();
             List<string> subquerylist = new List<string>();
             int numberofparams = 0;
             bool merkIsNull = true;
-            if (!String.IsNullOrWhiteSpace(merk))
-            {
+            if (!String.IsNullOrWhiteSpace(merk)) {
                 merkIsNull = false;
-                if (numberofparams > 0)
-                {
+                if (numberofparams > 0) {
                     subquerylist.Add(" AND ");
                 }
                 numberofparams++;
                 subquerylist.Add("merk=@merk");
             }
             bool modelisNull = true;
-            if (!String.IsNullOrWhiteSpace(model))
-            {
+            if (!String.IsNullOrWhiteSpace(model)) {
                 modelisNull = false;
-                if (numberofparams > 0)
-                {
+                if (numberofparams > 0) {
                     subquerylist.Add(" AND ");
                 }
                 numberofparams++;
                 subquerylist.Add("model=@model");
             }
             bool nummerplaatIssNull = true;
-            if (!String.IsNullOrWhiteSpace(nplaat))
-            {
+            if (!String.IsNullOrWhiteSpace(nplaat)) {
                 nummerplaatIssNull = false;
-                if (numberofparams > 0)
-                {
+                if (numberofparams > 0) {
                     subquerylist.Add(" AND ");
                 }
                 numberofparams++;
@@ -150,37 +143,29 @@ namespace Flapp_DAL.Repository {
                 $"{String.Join("", subquerylist)} AND Bestuurder.voertuigId is null";
 
             SqlConnection cn = new SqlConnection(_connString);
-            using (SqlCommand cmd = cn.CreateCommand())
-            {
+            using (SqlCommand cmd = cn.CreateCommand()) {
                 cn.Open();
-                try
-                {
-                    if (!merkIsNull)
-                    {
+                try {
+                    if (!merkIsNull) {
                         cmd.Parameters.Add(new SqlParameter("@merk", SqlDbType.NVarChar));
                         cmd.Parameters["@merk"].Value = merk;
                     }
-                    if (!modelisNull)
-                    {
+                    if (!modelisNull) {
                         cmd.Parameters.Add(new SqlParameter("@model", SqlDbType.NVarChar));
                         cmd.Parameters["@model"].Value = model;
                     }
-                    if (!nummerplaatIssNull)
-                    {
+                    if (!nummerplaatIssNull) {
                         cmd.Parameters.Add(new SqlParameter("@nummerplaat", SqlDbType.NVarChar));
                         cmd.Parameters["@nummerplaat"].Value = nplaat;
                     }
                     cmd.CommandText = query;
                     SqlDataReader reader = cmd.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        if (voertuigen.ContainsKey((int)reader["voertuigId"]))
-                        {
+                    while (reader.Read()) {
+                        if (voertuigen.ContainsKey((int)reader["voertuigId"])) {
                             Voertuig dicVoertuig = voertuigen[(int)reader["voertuigId"]];
                             dicVoertuig.Brandstof.Add(new Brandstof(reader["naam"].ToString()));
                         }
-                        else
-                        {
+                        else {
                             int voertuigId = (int)reader["voertuigId"];
                             string merkr = (string)reader["merk"];
                             string modelr = (string)reader["model"];
@@ -197,13 +182,11 @@ namespace Flapp_DAL.Repository {
                     }
                     return voertuigen;
                 }
-                catch (Exception ex)
-                {
+                catch (Exception ex) {
 
                     throw new Exception(ex.Message);
                 }
-                finally
-                {
+                finally {
                     cn.Close();
                 }
             }
@@ -287,8 +270,7 @@ namespace Flapp_DAL.Repository {
         #endregion
 
         #region GeefVoertuig(en) Method
-        public Dictionary<int, Voertuig> GeefVoertuigen()
-        {
+        public Dictionary<int, Voertuig> GeefVoertuigen() {
             SqlConnection conn = new SqlConnection(_connString);
             Dictionary<int, Voertuig> voertuigen = new Dictionary<int, Voertuig>();
             string query = "SELECT TOP(20) * FROM Voertuig " +
@@ -299,43 +281,35 @@ namespace Flapp_DAL.Repository {
                 "LEFT JOIN Rijbewijs ON Rijbewijs_Bestuurder.rijbewijsId = Rijbewijs.rijbewijsId  " +
                 "LEFT JOIN Adres ON Bestuurder.adresId = Adres.adresId " +
                 "LEFT JOIN Tankkaart ON Bestuurder.tankkaartId = Tankkaart.tankkaartId";
-            using (SqlCommand cmd = conn.CreateCommand())
-            {
+            using (SqlCommand cmd = conn.CreateCommand()) {
                 cmd.CommandText = query;
                 conn.Open();
-                try
-                {
+                try {
                     SqlDataReader r = cmd.ExecuteReader();
-                    while (r.Read())
-                    {
-                        if (voertuigen.ContainsKey((int)r["voertuigId"]))
-                        {
+                    while (r.Read()) {
+                        if (voertuigen.ContainsKey((int)r["voertuigId"])) {
                             Voertuig dicVoertuig = voertuigen[(int)r["voertuigId"]];
                             dicVoertuig.Brandstof.Add(new Brandstof((int)r[10], (string)r[11]));
                         }
-                        else
-                        {
+                        else {
                             //List<Brandstof> brandstof =  geefbrandstoffenVanVoertuig((int)r["voertuigId"]);
                             string voertuigtype = (string)r["type"];
                             List<Brandstof> brandstof = new List<Brandstof> { new Brandstof((int)r[10], (string)r[11]) };
                             Voertuig voertuig = new Voertuig((int)r["voertuigId"], (string)r["merk"], (string)r["model"], (string)r["chassisnummer"], (string)r["nummerplaat"], brandstof, voertuigtype, (string)r["kleur"], (int)r["deuren"]);
 
-                            if (!r.IsDBNull(r.GetOrdinal("bestuurderId")))
-                            {
+                            if (!r.IsDBNull(r.GetOrdinal("bestuurderId"))) {
                                 Bestuurder bestuurder;
                                 Adres adres = null;
                                 if (!r.IsDBNull(r.GetOrdinal("adresId")) && !r.IsDBNull(r.GetOrdinal("straat")) && !r.IsDBNull(r.GetOrdinal("huisnummer")) && !r.IsDBNull(r.GetOrdinal("stad")) && !r.IsDBNull(r.GetOrdinal("postcode"))) { adres = new Adres((int)r["adresId"], (string)r["straat"], (string)r["huisnummer"], (string)r["stad"], (int)r["postcode"]); }
                                 Geslacht geslacht = (bool)r["geslacht"] ? Geslacht.M : Geslacht.V;
                                 List<Rijbewijs> rijbewijzen = new List<Rijbewijs> { new Rijbewijs(r[12].ToString()) };
                                 bestuurder = new Bestuurder((int)r["bestuurderId"], (string)r[14], (string)r["voornaam"], geslacht, adres, Convert.ToDateTime(r["geboortedatum"]).ToString("dd/MM/yyyy"), (string)r["rijksregister"], rijbewijzen, null, null);
-                                if (!r.IsDBNull(r.GetOrdinal("voertuigId")))
-                                {
+                                if (!r.IsDBNull(r.GetOrdinal("voertuigId"))) {
                                     string naam = r[12].ToString();
                                     List<Brandstof> brandstoffen = new List<Brandstof> { new Brandstof(naam) };
                                     bestuurder.ZetVoertuig(voertuig);
                                 }
-                                if (!r.IsDBNull(r.GetOrdinal("tankkaartId")))
-                                {
+                                if (!r.IsDBNull(r.GetOrdinal("tankkaartId"))) {
                                     Tankkaart tankkaart = new Tankkaart((int)r["tankkaartId"], (DateTime)r["geldigheidsdatum"], (string)r["pincode"], (bool)r["geblokkeerd"]);
                                     if (DBNull.Value != r[12]) { tankkaart.Brandstoffen.Add(new Brandstof(r[12].ToString())); ; }
                                     bestuurder.ZetTankkaart(tankkaart);
@@ -354,48 +328,39 @@ namespace Flapp_DAL.Repository {
             return voertuigen;
         }
 
-        public Dictionary<int, Voertuig> GeefVoertuigenZonderBestuurder()
-        {
+        public Dictionary<int, Voertuig> GeefVoertuigenZonderBestuurder() {
             SqlConnection conn = new SqlConnection(_connString);
             Dictionary<int, Voertuig> voertuigen = new Dictionary<int, Voertuig>();
             string query = "SELECT TOP(20) * FROM Voertuig LEFT JOIN Brandstof_Voertuig ON Voertuig.voertuigId = Brandstof_Voertuig.voertuigId LEFT JOIN Brandstof ON Brandstof_Voertuig.brandstofId = Brandstof.brandstofId LEFT JOIN Bestuurder ON Voertuig.voertuigId = Bestuurder.voertuigId LEFT JOIN Rijbewijs_Bestuurder ON Bestuurder.bestuurderId = Rijbewijs_Bestuurder.bestuurderId LEFT JOIN Rijbewijs ON Rijbewijs_Bestuurder.rijbewijsId = Rijbewijs.rijbewijsId  LEFT JOIN Adres ON Bestuurder.adresId = Adres.adresId LEFT JOIN Tankkaart ON Bestuurder.tankkaartId = Tankkaart.tankkaartId WHERE Bestuurder.voertuigId is null";
-            using (SqlCommand cmd = conn.CreateCommand())
-            {
+            using (SqlCommand cmd = conn.CreateCommand()) {
                 cmd.CommandText = query;
                 conn.Open();
-                try
-                {
+                try {
                     SqlDataReader r = cmd.ExecuteReader();
-                    while (r.Read())
-                    {
-                        if (voertuigen.ContainsKey((int)r["voertuigId"]))
-                        {
+                    while (r.Read()) {
+                        if (voertuigen.ContainsKey((int)r["voertuigId"])) {
                             Voertuig dicVoertuig = voertuigen[(int)r["voertuigId"]];
                             dicVoertuig.Brandstof.Add(new Brandstof((int)r[10], (string)r[11]));
                         }
-                        else
-                        {
+                        else {
                             //List<Brandstof> brandstof =  geefbrandstoffenVanVoertuig((int)r["voertuigId"]);
                             string voertuigtype = (string)r["type"];
                             List<Brandstof> brandstof = new List<Brandstof> { new Brandstof((int)r[10], (string)r[11]) };
                             Voertuig voertuig = new Voertuig((int)r["voertuigId"], (string)r["merk"], (string)r["model"], (string)r["chassisnummer"], (string)r["nummerplaat"], brandstof, voertuigtype, (string)r["kleur"], (int)r["deuren"]);
 
-                            if (!r.IsDBNull(r.GetOrdinal("bestuurderId")))
-                            {
+                            if (!r.IsDBNull(r.GetOrdinal("bestuurderId"))) {
                                 Bestuurder bestuurder;
                                 Adres adres = null;
                                 if (!r.IsDBNull(r.GetOrdinal("adresId")) && !r.IsDBNull(r.GetOrdinal("straat")) && !r.IsDBNull(r.GetOrdinal("huisnummer")) && !r.IsDBNull(r.GetOrdinal("stad")) && !r.IsDBNull(r.GetOrdinal("postcode"))) { adres = new Adres((int)r["adresId"], (string)r["straat"], (string)r["huisnummer"], (string)r["stad"], (int)r["postcode"]); }
                                 Geslacht geslacht = (bool)r["geslacht"] ? Geslacht.M : Geslacht.V;
                                 List<Rijbewijs> rijbewijzen = new List<Rijbewijs> { new Rijbewijs(r[12].ToString()) };
                                 bestuurder = new Bestuurder((int)r["bestuurderId"], (string)r[14], (string)r["voornaam"], geslacht, adres, Convert.ToDateTime(r["geboortedatum"]).ToString("dd/MM/yyyy"), (string)r["rijksregister"], rijbewijzen, null, null);
-                                if (!r.IsDBNull(r.GetOrdinal("voertuigId")))
-                                {
+                                if (!r.IsDBNull(r.GetOrdinal("voertuigId"))) {
                                     string naam = r[12].ToString();
                                     List<Brandstof> brandstoffen = new List<Brandstof> { new Brandstof(naam) };
                                     bestuurder.ZetVoertuig(voertuig);
                                 }
-                                if (!r.IsDBNull(r.GetOrdinal("tankkaartId")))
-                                {
+                                if (!r.IsDBNull(r.GetOrdinal("tankkaartId"))) {
                                     Tankkaart tankkaart = new Tankkaart((int)r["tankkaartId"], (DateTime)r["geldigheidsdatum"], (string)r["pincode"], (bool)r["geblokkeerd"]);
                                     if (DBNull.Value != r[12]) { tankkaart.Brandstoffen.Add(new Brandstof(r[12].ToString())); ; }
                                     bestuurder.ZetTankkaart(tankkaart);
@@ -413,7 +378,7 @@ namespace Flapp_DAL.Repository {
             }
             return voertuigen;
         }
-            public Voertuig GeefVoertuigDoorID(int vId) {
+        public Voertuig GeefVoertuigDoorID(int vId) {
             SqlConnection conn = new SqlConnection(_connString);
             string query = "SELECT * FROM Voertuig LEFT JOIN Brandstof_Voertuig ON Voertuig.voertuigId = Brandstof_Voertuig.voertuigId LEFT JOIN Brandstof ON Brandstof_Voertuig.brandstofId = Brandstof.brandstofId WHERE Voertuig.voertuigId = @voertuigId";
             using (SqlCommand cmd = conn.CreateCommand()) {
@@ -519,7 +484,7 @@ namespace Flapp_DAL.Repository {
                 commandvToevoegen.Parameters.Add(new SqlParameter("@nummerplaat", SqlDbType.NVarChar));
                 commandvToevoegen.Parameters.Add(new SqlParameter("@type", SqlDbType.NVarChar));
                 commandvToevoegen.Parameters.Add(new SqlParameter("@kleur", SqlDbType.NVarChar));
-                commandvToevoegen.Parameters.Add(new SqlParameter("@deuren", SqlDbType.Int));                
+                commandvToevoegen.Parameters.Add(new SqlParameter("@deuren", SqlDbType.Int));
 
                 commandvToevoegen.Parameters["@voertuigid"].Value = v.VoertuigID;
                 commandvToevoegen.Parameters["@merk"].Value = v.Merk;
@@ -535,8 +500,7 @@ namespace Flapp_DAL.Repository {
                 commandBVerwijderen.Parameters["@vId"].Value = v.VoertuigID;
                 commandBVerwijderen.ExecuteNonQuery();
 
-                if (v.Bestuurder != null)
-                {
+                if (v.Bestuurder != null) {
                     string qry = "UPDATE Bestuurder SET voertuigId=@voertuigId WHERE bestuurderId=@bestuurderId;";
                     SqlCommand cmd = new(qry, conn);
                     cmd.Transaction = transaction;
@@ -547,8 +511,7 @@ namespace Flapp_DAL.Repository {
                     cmd.ExecuteNonQuery();
                 }
 
-                foreach (var brandstof in brandstoffen)
-                {
+                foreach (var brandstof in brandstoffen) {
                     SqlCommand commandBToevoegen = new(queryBToevoegen, conn);
                     commandBToevoegen.Transaction = transaction;
                     commandBToevoegen.Parameters.Add(new SqlParameter("@bId", SqlDbType.Int));
@@ -556,7 +519,7 @@ namespace Flapp_DAL.Repository {
 
                     commandBToevoegen.Parameters["@bId"].Value = brandstof.Id;
                     commandBToevoegen.Parameters["@vId"].Value = v.VoertuigID;
-                    
+
                     commandBToevoegen.ExecuteNonQuery();
                 }
                 transaction.Commit();
@@ -570,8 +533,7 @@ namespace Flapp_DAL.Repository {
 
         #region VerwijderVoertuig Method
         public void VerwijderVoertuig(Voertuig v) {
-            using (SqlConnection conn = new SqlConnection(_connString))
-            {
+            using (SqlConnection conn = new SqlConnection(_connString)) {
                 conn.Open();
 
                 SqlCommand cmd = conn.CreateCommand();
@@ -582,8 +544,7 @@ namespace Flapp_DAL.Repository {
                 cmd.Connection = conn;
                 cmd.Transaction = trx;
 
-                try
-                {
+                try {
                     cmd.CommandText = "DELETE FROM [dbo].[Brandstof_Voertuig] WHERE voertuigId = @id1;";
                     cmd.Parameters.AddWithValue("@id1", v.VoertuigID);
                     cmd.ExecuteNonQuery();
@@ -597,8 +558,7 @@ namespace Flapp_DAL.Repository {
                     cmd.ExecuteNonQuery();
                     trx.Commit();
                 }
-                catch (Exception ex)
-                {
+                catch (Exception ex) {
                     trx.Rollback();
                     throw new Exception(ex.Message);
                 }

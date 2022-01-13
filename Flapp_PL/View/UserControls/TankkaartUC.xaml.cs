@@ -37,7 +37,7 @@ namespace Flapp_PL.View.UserControls {
                 if (_main.wpUserControl.Children.Count > 1) _main.wpUserControl.Children.RemoveAt(_main.wpUserControl.Children.Count - 1);
                 new ZoekTankkaartWindow(_main, this).ShowDialog();
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }      
+            catch (Exception) { MessageBox.Show("Er is een fout opgetreden tijdens het zoeken!", "Zoeken fout", MessageBoxButton.OK, MessageBoxImage.Hand); ; }
         }
 
         private void btnVoegToe_Click(object sender, RoutedEventArgs e) {
