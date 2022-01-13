@@ -137,18 +137,7 @@ namespace Flapp_PL.View.Windows.VoertuigWindows {
         private void btnPlusDeur_Click(object sender, RoutedEventArgs e) {
             try
             {
-                if (cmbMerk.SelectedIndex == 0)
-                {
-                    cmbModel.ItemsSource = null;
-                }
-                else
-                {
-                    ObservableCollection<string> modellen = new(_voertuigManager.GeefModellenMerk(cmbMerk.SelectedItem.ToString()));
-                    modellen.Insert(0, "");
-                    cmbModel.ItemsSource = modellen;
-                    cmbModel.SelectedIndex = 0;
-                }
-                aantalDeuren = Convert.ToInt32(txtDeuren.Text);
+                 aantalDeuren = Convert.ToInt32(txtDeuren.Text);
                 switch (aantalDeuren)
                 {
                     case (3):
