@@ -18,10 +18,10 @@ namespace Flapp_PL.View.UserControls {
             InitializeComponent();
             _bestuurderManager = new BestuurderManager(new BestuurderRepo(Application.Current.Properties["User"].ToString()));
             _main = main;
-            LaadBestuurders();
+            LaadBestuurders(null, null, null, null);
         }
 
-        public void LaadBestuurders(string naam = null, string voornaam = null, DateTime? geboorte = null, bool heeftVoertuig = false) {
+        public void LaadBestuurders(string naam = null, string voornaam = null, DateTime? geboorte = null, bool? heeftVoertuig = false) {
             try { lstbBestuurders.ItemsSource = _bestuurderManager.GeefAlleBestuurders(naam, voornaam, geboorte, heeftVoertuig).Values.ToList(); }
             catch (Exception) { throw; }
         }
