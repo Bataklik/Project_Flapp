@@ -58,7 +58,10 @@ namespace Flapp_PL.View.Windows.TankkaartWindows {
         
         private void VerwijderBestuurder_Click(object sender, RoutedEventArgs e) {
             try {
-
+                if ((Bestuurder)lstBestuurder.SelectedItem == null) { MessageBox.Show("U heeft geen bestuurder gekozen!", "Geen bestuurder!", MessageBoxButton.OK, MessageBoxImage.Error); return; }
+                if (MessageBox.Show("Bent u zeker?", "Opgelet!", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes) {
+                    lstBestuurder.Items.Remove((Bestuurder)lstBestuurder.SelectedItem);
+                }
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
